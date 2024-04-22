@@ -19,6 +19,7 @@ import org.zerock.b01.dto.*;
 import org.zerock.b01.service.BoardService;
 
 import jakarta.validation.Valid;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -26,15 +27,14 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping({"/","/board"})
+@RequestMapping({"/", "/board"})
 @Log4j2
 @RequiredArgsConstructor
 public class BoardController {
 
+    private final BoardService boardService;
     @Value("${org.zerock.upload.path}")// import 시에 springframework으로 시작하는 Value
     private String uploadPath;
-
-    private final BoardService boardService;
 
 //    @GetMapping("/list")
 //    public void list(PageRequestDTO pageRequestDTO, Model model){
@@ -47,7 +47,7 @@ public class BoardController {
 //
 //    }
 
-//    @GetMapping("/list")
+    //    @GetMapping("/list")
 //    public void list(PageRequestDTO pageRequestDTO, Model model){
 //
 //        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
@@ -59,16 +59,18 @@ public class BoardController {
 //
 //        model.addAttribute("responseDTO", responseDTO);
 //    }
+    @GetMapping({"/", "/index"})
+    public void index() {
+
+    }
 
 
-
-    @GetMapping({"/", "/list"})
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    @GetMapping("/list")
+    public void list(PageRequestDTO pageRequestDTO, Model model) {
 
         //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
 
-        PageResponseDTO<BoardListAllDTO> responseDTO =
-                boardService.listWithAll(pageRequestDTO);
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
 
         log.info(responseDTO);
 
@@ -77,24 +79,24 @@ public class BoardController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/register")
-    public void registerGET(){
+    public void registerGET() {
 
     }
 
     @PostMapping("/register")
-    public String registerPost(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String registerPost(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         log.info("board POST register.......");
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("has errors.......");
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/board/register";
         }
 
         log.info(boardDTO);
 
-        Long bno  = boardService.register(boardDTO);
+        Long bno = boardService.register(boardDTO);
 
         redirectAttributes.addFlashAttribute("result", bno);
 
@@ -116,7 +118,7 @@ public class BoardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping({"/read", "/modify"})
-    public void read(Long bno, PageRequestDTO pageRequestDTO, Model model){
+    public void read(Long bno, PageRequestDTO pageRequestDTO, Model model) {
 
         BoardDTO boardDTO = boardService.readOne(bno);
 
@@ -128,24 +130,21 @@ public class BoardController {
 
     @PreAuthorize("principal.username == #boardDTO.writer")
     @PostMapping("/modify")
-    public String modify( @Valid BoardDTO boardDTO,
-                          BindingResult bindingResult,
-                          PageRequestDTO pageRequestDTO,
-                          RedirectAttributes redirectAttributes){
+    public String modify(@Valid BoardDTO boardDTO, BindingResult bindingResult, PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes) {
 
 
         log.info("board modify post......." + boardDTO);
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("has errors.......");
 
             String link = pageRequestDTO.getLink();
 
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 
             redirectAttributes.addAttribute("bno", boardDTO.getBno());
 
-            return "redirect:/board/modify?"+link;
+            return "redirect:/board/modify?" + link;
         }
 
         boardService.modify(boardDTO);
@@ -176,7 +175,7 @@ public class BoardController {
     @PostMapping("/remove")
     public String remove(BoardDTO boardDTO, RedirectAttributes redirectAttributes) {
 
-        Long bno  = boardDTO.getBno();
+        Long bno = boardDTO.getBno();
         log.info("remove post.. " + bno);
 
         boardService.remove(bno);
@@ -184,7 +183,7 @@ public class BoardController {
         //게시물이 삭제되었다면 첨부 파일 삭제
         log.info(boardDTO.getFileNames());
         List<String> fileNames = boardDTO.getFileNames();
-        if(fileNames != null && fileNames.size() > 0){
+        if (fileNames != null && fileNames.size() > 0) {
             removeFiles(fileNames);
         }
 
@@ -195,9 +194,9 @@ public class BoardController {
     }
 
 
-    public void removeFiles(List<String> files){
+    public void removeFiles(List<String> files) {
 
-        for (String fileName:files) {
+        for (String fileName : files) {
 
             Resource resource = new FileSystemResource(uploadPath + File.separator + fileName);
             String resourceName = resource.getFilename();
