@@ -13,18 +13,19 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, String> {
 
     @EntityGraph(attributePaths = "roleSet")
-    @Query("select m from Member m where m.mid = :mid and m.social = false")
-    Optional<Member> getWithRoles(String mid);
+    @Query("select m from Member m where m.m_id = :m_id and m.m_social = false")
+    Optional<Member> getWithRoles(String m_id);
 
 
     @EntityGraph(attributePaths = "roleSet")
-    Optional<Member> findByEmail(String email);
+    @Query("select m from Member m where m.m_email = :m_email and m.m_social = false")
+    Optional<Member> findByM_email(String m_email);
 
 
     @Modifying
     @Transactional
-    @Query("update Member m set m.mpw =:mpw where m.mid = :mid ")
-    void updatePassword(@Param("mpw") String password, @Param("mid") String mid);
+    @Query("update Member m set m.m_pw =:m_pw where m.m_id = :m_id ")
+    void updatePassword(@Param("m_pw") String password, @Param("m_id") String m_id);
 
 
 

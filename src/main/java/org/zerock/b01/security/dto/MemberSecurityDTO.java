@@ -23,24 +23,24 @@ import java.util.Map;
 @ToString
 public class MemberSecurityDTO extends User implements OAuth2User {
 
-    private String mid;
-    private String mpw;
-    private String email;
-    private boolean del;
-    private boolean social;
+    private String m_id;
+    private String m_pw;
+    private String m_email;
+    private boolean m_del;
+    private boolean m_social;
     private String username;
 
     private Map<String, Object> props; //소셜 로그인 정보
 
-    public MemberSecurityDTO(String username, String password, String email, boolean del, boolean social,
+    public MemberSecurityDTO(String username, String password, String m_email, boolean m_del, boolean m_social,
                              Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
 
-        this.mid = username;
-        this.mpw = password;
-        this.email = email;
-        this.del = del;
-        this.social = social;
+        this.m_id = username;
+        this.m_pw = password;
+        this.m_email = m_email;
+        this.m_del = m_del;
+        this.m_social = m_social;
         this.username = username;
 
     }
@@ -51,11 +51,11 @@ public class MemberSecurityDTO extends User implements OAuth2User {
 
     @Override
     public String getName() {
-        return this.mid;
+        return this.m_id;
     }
 
     public String getUsername() {
-        return this.mid;
+        return this.m_id;
     }
 
 }

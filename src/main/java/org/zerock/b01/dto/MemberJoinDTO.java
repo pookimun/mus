@@ -4,10 +4,11 @@ import lombok.Data;
 @Data
 public class MemberJoinDTO {
 
-    private String mid;
-    private String mpw;
-    private String email;
-    private boolean del;
-    private boolean social;
+    private String m_id;
+    private String m_pw;
+    private String m_email;
+    private boolean m_del;
+    private boolean m_social;
+    private String m_name;
 
 }
