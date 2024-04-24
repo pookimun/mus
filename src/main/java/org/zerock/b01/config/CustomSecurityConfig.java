@@ -55,10 +55,10 @@ public class CustomSecurityConfig {
         // http.formLogin();
         // http.formLogin(Customizer.withDefaults());
         http.formLogin(form -> {
-
-            form.loginPage("/member/login");
-
-
+            form.loginPage("/member/login")
+                    .successHandler((request, response, authentication) -> {
+                        response.sendRedirect("/board/index");
+                    });
         });
 
         http.csrf(httpSecurityCsrfConfigurer ->  httpSecurityCsrfConfigurer.disable() );

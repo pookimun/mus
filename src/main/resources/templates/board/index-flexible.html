@@ -1,0 +1,2563 @@
+<!doctype html>
+<html lang="ko">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
+    <title>Nike</title>
+    <link rel="stylesheet" href="style.css">
+    <style type="text/css"></style>
+
+    <!-- slick css cdn -->
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Jquery cdn   -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- slick js cdn -->
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <style>
+
+        @charset "utf-8";
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: 0px solid silver;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.3rem;
+            color: #111;
+            letter-spacing: -0.02rem;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 46px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 2rem;
+        }
+
+        h3 {
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        a:link {
+            color: #000;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #000;
+        }
+
+        a:hover {
+            color: #000;
+        }
+
+        a:active {
+            color: #000;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        button {
+            width: 120px;
+            height: 40px;
+            color: white;
+            background: #111;
+            border-radius: 20px;
+            border: none;
+            padding: 5px 10px;
+            transition: 0.5s;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16px;
+            line-height: 1.5rem;
+            font-weight: 500;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        video {
+            width: 100%;
+        }
+
+        input {
+            outline: none;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        input:focus {
+            border: 1px solid #eee;
+        }
+
+        /* mobile start */
+        .preheader {
+            display: none;
+        }
+
+        header .pc-header {
+            display: none;
+        }
+
+        header .mobile-header {
+            background: white;
+            padding: 0 5%;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+
+        header .mobile-header a {
+            width: 24px;
+            height: 60px;
+            display: block;
+        }
+
+        header .mobile-header> :nth-child(1) {
+            width: 60px;
+        }
+
+        header .mobile-header> :nth-child(1) img {
+            width: 60px;
+        }
+
+        header .mobile-header a img {
+            width: 24px;
+            height: 60px;
+            display: block;
+        }
+
+        header .mobile-header>:nth-child(2) {
+            display: flex;
+        }
+
+        header .mobile-header> :nth-child(2) a {
+            margin-left: 16px;
+        }
+
+        header .mobile-header> :nth-child(3) {
+            position: absolute;
+            width: 0;
+            height: 100vh;
+            top: 0;
+            right: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            transition: 0.3s;
+        }
+
+        header .mobile-header> :nth-child(3) nav {
+            width: 320px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 30px rgba(255, 255, 255, 0.5);
+            position: absolute;
+            right: 0;
+            padding: 80px 24px 50px 24px;
+            overflow-y: scroll;
+        }
+
+        header .mobile-header> :nth-child(3) nav>span {
+            background: url('https://api.iconify.design/heroicons-solid/x.svg') no-repeat;
+            background-position: center center;
+            background-size: 20px 20px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            transition: 0.4s;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            right: 24px;
+            top: 20px;
+            z-index: 102;
+            text-indent: -9999px;
+        }
+
+        header .mobile-header> :nth-child(3) nav>span:hover {
+            background-color: #ccc;
+        }
+
+        header .mobile-header> :nth-child(3) nav ul li {
+            background: url('https://api.iconify.design/dashicons/arrow-right-alt2.svg') no-repeat;
+            background-position: right center;
+            background-size: 20px 20px;
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0;
+        }
+
+        header .mobile-header> :nth-child(3) nav ul li:nth-child(6) {
+            background: none;
+        }
+
+        header .mobile-header> :nth-child(3) nav ul a {
+            font-size: 24px;
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 24px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(2) {
+            display: block;
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            background: url('https://api.iconify.design/simple-icons/jordan.svg') no-repeat;
+            background-position: left center;
+            background-size: 24px 24px;
+            padding-left: 40px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(3) {
+            padding: 70px 0 20px 0;
+            color: #757575;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(3) a {
+            width: 100%;
+            display: inline;
+            text-decoration: underline;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(4) {
+            display: flex;
+            margin-top: 40px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(4) button:nth-child(2) {
+            margin-left: 10px;
+            background: white;
+            color: #111;
+            border: 1px solid #ccc;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(5) {
+            margin-top: 50px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(5) a {
+            width: 100%;
+            height: auto;
+            line-height: 2rem;
+            margin-bottom: 10px;
+            padding-left: 40px;
+            font-size: 16px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(5) a:nth-child(1) {
+            background: url('https://api.iconify.design/bi/bag.svg?color=black') no-repeat;
+            background-position: left center;
+            background-size: 24px 24px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(5) a:nth-child(2) {
+            background: url('https://api.iconify.design/bi/box.svg') no-repeat;
+            background-position: left center;
+            background-size: 24px 24px;
+        }
+
+        header .mobile-header> :nth-child(3) nav> :nth-child(5) a:nth-child(3) {
+            background: url('https://api.iconify.design/akar-icons/question.svg') no-repeat;
+            background-position: left center;
+            background-size: 24px 24px;
+        }
+
+        #search-window {
+            width: 0;
+            height: 60vh;
+            overflow: hidden;
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            position: fixed;
+            transition: 0.3s;
+            transition-timing-function: ease-in;
+            box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .search_container {
+            padding: 30px 5%;
+        }
+
+        .search_container>div:nth-child(1) {
+            display: flex;
+        }
+
+        .search_container>div:nth-child(1) span {
+            display: block;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background: url('https://api.iconify.design/heroicons-solid/x.svg') no-repeat;
+            background-position: center center;
+            background-size: 20px 20px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            transition: 0.4s;
+        }
+
+        .search_container>div:nth-child(1) span:hover {
+            background-color: #ccc;
+        }
+
+        .search_container>div input {
+            width: 100%;
+            height: 40px;
+            border-radius: 20px;
+            border: none;
+            display: block;
+            background: url('https://api.iconify.design/akar-icons/search.svg?color=black') no-repeat;
+            background-position: left center;
+            background-size: 40px 20px;
+            padding: 0 10px 0 40px;
+            background-color: #f5f5f5;
+            margin-right: 10px;
+        }
+
+        .search_container>div:nth-child(2) {
+            padding: 50px 0;
+        }
+
+        .search_container>div:nth-child(2) p {
+            color: #757575;
+            padding-bottom: 20px;
+        }
+
+        .search_container>div:nth-child(2) ul li {
+            margin-bottom: 10px;
+        }
+
+        .search_container>div:nth-child(2) ul a {
+            font-size: 20px;
+        }
+
+        .play {
+            padding: 60px 5% 0 5%;
+        }
+
+        .play> :nth-child(1) {
+            display: none;
+        }
+
+        .play> :nth-child(2), .play> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .play> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .play> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .play> :nth-child(3)>div button:nth-child(1) {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .spring {
+            padding: 80px 5% 0 5%;
+        }
+
+        .spring h3 {
+            margin-bottom: 16px;
+            font-size: 22px;
+            line-height: 24px;
+            font-weight: 600;
+        }
+
+        .spring> :nth-child(2) {
+            display: none;
+        }
+
+        .spring> :nth-child(3), .spring> :nth-child(3) img {
+            width: 100%;
+            display: block;
+        }
+
+        .spring> :nth-child(4) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .spring> :nth-child(4) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .spring> :nth-child(4)>div button:nth-child(2) {
+            width: 200px;
+            margin-left: 10px;
+        }
+
+        .zoom {
+            padding: 80px 5% 0 5%;
+        }
+
+        .zoom> :nth-child(1) {
+            display: none;
+        }
+
+        .zoom> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .zoom> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .runner {
+            padding: 80px 5% 0 5%;
+        }
+
+        .runner> :nth-child(1) {
+            display: none;
+        }
+
+        .runner> :nth-child(2), .runner> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .runner> :nth-child(3)> :nth-child(1) {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .runner> :nth-child(3) h2 {
+            margin: 6px 0 13px 0;
+        }
+
+        .runner> :nth-child(3)> :nth-child(3) {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .airmax-kid {
+            padding: 80px 5% 0 5%;
+        }
+
+        .airmax-kid> :nth-child(1) {
+            display: none;
+        }
+
+        .airmax-kid> :nth-child(2), .airmax-kid> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .airmax-kid> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .airmax-kid> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .movement {
+            padding: 80px 5% 0 5%;
+        }
+
+        .movement> :nth-child(1) {
+            display: none;
+        }
+
+        .movement> :nth-child(2), .movement> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .movement> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .movement> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .super {
+            padding: 80px 5% 0 5%;
+        }
+
+        .super> :nth-child(1) {
+            display: none;
+        }
+
+        .super> :nth-child(2), .super> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .super> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .super> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            padding: 80px 5% 0 5%;
+        }
+
+        .progress> :nth-child(1) {
+            display: none;
+        }
+
+        .progress> :nth-child(2), .progress> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .progress> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .progress> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .jordan {
+            padding: 80px 5% 0 5%;
+        }
+
+        .jordan> :nth-child(1) {
+            display: none;
+        }
+
+        .jordan> :nth-child(2), .jordan> :nth-child(2) img {
+            width: 100%;
+            display: block;
+        }
+
+        .jordan> :nth-child(3) h2 {
+            margin: 20px 0 13px 0;
+        }
+
+        .jordan> :nth-child(3) p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .trending {
+            padding: 80px 5% 0 5%;
+        }
+
+        .trending h3 {
+            margin-bottom: 16px;
+            font-size: 22px;
+            line-height: 24px;
+            font-weight: 600;
+        }
+
+        .trending>div>div {
+            position: relative;
+        }
+
+        .trending>div>div> :nth-child(1) {
+            display: none;
+        }
+
+        .trending>div>div> :nth-child(2) {
+            display: block;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .trending>div>div> :nth-child(3) {
+            position: absolute;
+            bottom: 50px;
+            left: 40px;
+        }
+
+        .trending>div>div> :nth-child(3) p {
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+            line-height: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .trending>div>div> :nth-child(3) button {
+            width: 120px;
+            height: 40px;
+            color: #111;
+            background: white;
+            border-radius: 20px;
+        }
+
+        .shoes {
+            padding: 80px 5% 0 5%;
+        }
+
+        .shoes h3 {
+            margin-bottom: 16px;
+            font-size: 22px;
+            line-height: 24px;
+            font-weight: 600;
+        }
+
+        .shoes section div a {
+            display: block;
+        }
+
+        .shoes section div img {
+            display: block;
+            width: 100%;
+        }
+
+        .shoes section div a div {
+            padding-top: 18px;
+        }
+
+        .shoes section div a div :nth-child(1) {
+            font-size: 17px;
+            line-height: 2rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow-x: hidden;
+            display: block;
+        }
+
+        .shoes section div a div :nth-child(2) {
+            color: #757575;
+            padding: 6px 0;
+        }
+
+        .shoes section div a div :nth-child(3) {
+            font-size: 16px;
+            color: #757575;
+            display: block;
+        }
+
+        .slider {
+            width: 100%;
+            margin: 100px auto;
+        }
+
+        .slick-slide {
+            margin-right: 10px;
+        }
+
+        .slick-slide img {
+            width: 100%;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: black;
+            display: none;
+        }
+
+        .slick-slide {
+            transition: all ease-in-out .3s;
+            opacity: 1;
+        }
+
+        .slick-active {
+            opacity: 1;
+        }
+
+        .slick-current {
+            opacity: 1;
+        }
+
+        .slick-prev.slick-arrow {
+            display: none !important;
+        }
+
+        .slick-next.slick-arrow {
+            display: none !important;
+        }
+
+        .slick-dots {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding-top: 20px;
+            display: none !important;
+        }
+
+        .slick-dots button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            color: black;
+            font-size: 0;
+            overflow: hidden;
+            padding: 0;
+            margin: 0 10px;
+        }
+
+        .apparel {
+            padding: 80px 5% 180px 5%;
+        }
+
+        .apparel h3 {
+            margin-bottom: 16px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .apparel a {
+            display: block;
+            position: relative;
+        }
+
+        .apparel img {
+            display: block;
+            width: 100%;
+        }
+
+        .apparel p {
+            position: absolute;
+            left: 30px;
+            bottom: 40px;
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .mobilefooter> :nth-child(1) {
+            background: #111;
+            padding: 18px 5%;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+
+        .mobilefooter> :nth-child(1) li {
+            list-style: none;
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        .mobilefooter> :nth-child(1) a {
+            color: white;
+            size: 13px;
+        }
+
+        .mobilefooter> :nth-child(2) {
+            background: #111;
+            padding: 18px 5%;
+            color: #999;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .mobilefooter> :nth-child(2) img {
+            width: 10px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .mobilefooter> :nth-child(2) a {
+            color: #999;
+            line-height: 24px;
+        }
+
+        .mobilefooter> :nth-child(2) span {
+            padding-left: 15px;
+        }
+
+        .mobilefooter> :nth-child(2) :nth-child(3) {
+            padding: 10px;
+        }
+
+        .mobilefooter> :nth-child(2) :nth-child(3) :nth-child(1) {
+            padding-right: 16px;
+        }
+
+        .mobilefooter> :nth-child(3) {
+            background: #1d1d1d;
+            padding: 20px 5%;
+            color: #747474;
+            font-size: 12px;
+        }
+
+        .mobilefooter> :nth-child(3) a {
+            color: white;
+        }
+
+        .mobilefooter> :nth-child(3)> :nth-child(2) {
+            padding: 16px 0;
+        }
+
+        .mobilefooter> :nth-child(3)> :nth-child(3) {
+            padding-bottom: 16px;
+        }
+
+        .mobilefooter> :nth-child(3) :nth-child(3) a {
+            text-decoration: underline;
+        }
+
+        .mobilefooter> :nth-child(3)> :nth-child(4) {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .mobilefooter> :nth-child(3)> :nth-child(4) a {
+            color: #777;
+        }
+
+        .mobilefooter> :nth-child(3)> :nth-child(4) a:nth-child(1)::after {
+            content: "|";
+            color: #777;
+            margin: 0 8px;
+        }
+
+        .pcfooter {
+            display: none;
+        }
+
+        /* laptop start */
+        @media screen and (min-width: 1000px) {
+            .preheader {
+                display: block;
+                width: 100%;
+                background: #f5f5f5;
+            }
+
+            .preheader>div {
+                padding: 0 5%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .preheader>div div {
+                display: flex;
+            }
+
+            .preheader>div div a {
+                width: 24px;
+                height: 36px;
+                display: block;
+                margin-right: 20px;
+            }
+
+            .preheader>div ul li {
+                list-style: none;
+                display: inline-block;
+                line-height: 36px;
+            }
+
+            .preheader>div ul li:not(:nth-child(3))::after {
+                content: "|";
+                font-size: 12px;
+                margin: 0 8px;
+            }
+
+            .preheader>div ul a {
+                font-size: 12px;
+            }
+
+            header {
+                width: 100%;
+                height: 60px;
+                background: white;
+                border-bottom: 1px solid #eee;
+            }
+
+            header .pc-header {
+                display: block;
+            }
+
+            header .pc-header .container {
+                width: 100%;
+                position: relative;
+            }
+
+            header .con-box {
+                padding: 0 5%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            header .con-box> :nth-child(1) {
+                width: 60px;
+                height: 60px;
+                display: block;
+            }
+
+            header .con-box> :nth-child(1) img {
+                width: 100%;
+            }
+
+            header .con-box> :nth-child(2) {
+                display: flex;
+            }
+
+            header .con-box> :nth-child(2) input {
+                width: 140px;
+                height: 40px;
+                border-radius: 20px;
+                border: none;
+                display: block;
+                margin: 10px 20px 10px 0;
+                background: url('https://api.iconify.design/akar-icons/search.svg?color=black') no-repeat;
+                background-position: left center;
+                background-size: 40px 20px;
+                padding: 0 10px 0 40px;
+                background-color: #f5f5f5;
+            }
+
+            header .con-box> :nth-child(2) a {
+                width: 30px;
+                height: 60px;
+                margin-left: 10px;
+            }
+
+            header .con-box> :nth-child(2) a img {
+                width: 100%;
+                height: 60px;
+            }
+
+            header .con-box> :nth-child(2) :nth-child(3) img {
+                width: 24px;
+                height: 60px;
+            }
+
+            header .pc-header nav .navlist {
+                display: flex;
+                justify-content: center;
+                height: 60px;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+
+            header .pc-header nav .navlist>li {
+                line-height: 60px;
+                margin: 0 10px;
+                display: block;
+            }
+
+            header .pc-header nav ul li a {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            header .pc-header .hidden-area {
+                display: none;
+                width: 100%;
+                height: auto;
+                background-color: white;
+                box-shadow: 0px 100px 70px rgba(0, 0, 0, 0.3);
+                text-align: center;
+                transition: 0.3s;
+                position: absolute;
+                left: 0;
+                top: 60px;
+            }
+
+            #newlist>div, #menlist>div, #womenlist>div, #kidslist>div, #salelist>div {
+                padding: 50px 5% 70px 5%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #newlist>div ul, #menlist>div ul, #womenlist>div ul, #kidslist>div ul, #salelist>div ul {
+                text-align: left;
+            }
+
+            #newlist ul li, #menlist ul li, #womenlist ul li, #kidslist ul li, #salelist ul li {
+                margin-bottom: 10px;
+                width: auto;
+                height: auto;
+                font-size: 16px;
+                line-height: 1.5rem;
+            }
+
+            #newlist ul li:nth-child(1), #menlist ul li:nth-child(1), #womenlist ul li:nth-child(1), #kidslist ul li:nth-child(1), #salelist ul li:nth-child(1) {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+
+            #newlist>div ul li a, #menlist>div ul li a, #womenlist>div ul li a, #kidslist>div ul li a, #salelist>div ul li a {
+                display: block;
+                height: auto;
+                color: #919191;
+                font-weight: 400;
+            }
+
+            #salelist>div> :nth-child(1) {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+
+            header .mobile-header {
+                display: none;
+            }
+
+            .play {
+                padding: 0 5%;
+            }
+
+            .play> :nth-child(1) {
+                display: block;
+            }
+
+            .play> :nth-child(1), .play> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .play> :nth-child(2) {
+                display: none;
+            }
+
+            .play> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .play> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .spring {
+                padding: 80px 5% 0 5%;
+            }
+
+            .spring h3 {
+                font-size: 28px;
+            }
+
+            .spring> :nth-child(2), .spring> :nth-child(2) img {
+                display: block;
+                width: 100%;
+            }
+
+            .spring> :nth-child(3) {
+                display: none;
+            }
+
+            .spring> :nth-child(4) {
+                text-align: center;
+            }
+
+            .spring> :nth-child(4) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .zoom {
+                padding: 80px 5% 0 5%;
+            }
+
+            .zoom> :nth-child(1) {
+                display: block;
+            }
+
+            .zoom> :nth-child(2) {
+                display: none;
+            }
+
+            .zoom> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .zoom> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .runner {
+                padding: 80px 5% 0 5%;
+            }
+
+            .runner> :nth-child(1) {
+                display: block;
+            }
+
+            .runner> :nth-child(1), .runner> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .runner> :nth-child(2) {
+                display: none;
+            }
+
+            .runner> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .runner> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .airmax-kid {
+                padding: 80px 5% 0 5%;
+            }
+
+            .airmax-kid> :nth-child(1) {
+                display: block;
+            }
+
+            .airmax-kid> :nth-child(1), .airmax-kid> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .airmax-kid> :nth-child(2) {
+                display: none;
+            }
+
+            .airmax-kid> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .airmax-kid> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .movement {
+                padding: 80px 5% 0 5%;
+            }
+
+            .movement> :nth-child(1) {
+                display: block;
+            }
+
+            .movement> :nth-child(1), .movement> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .movement> :nth-child(2) {
+                display: none;
+            }
+
+            .movement> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .movement> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .super {
+                padding: 80px 5% 0 5%;
+            }
+
+            .super> :nth-child(1) {
+                display: block;
+            }
+
+            .super> :nth-child(1), .super> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .super> :nth-child(2) {
+                display: none;
+            }
+
+            .super> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .super> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .progress {
+                padding: 80px 5% 0 5%;
+            }
+
+            .progress> :nth-child(1) {
+                display: block;
+            }
+
+            .progress> :nth-child(1), .progress> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .progress> :nth-child(2) {
+                display: none;
+            }
+
+            .progress> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .progress> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .jordan {
+                padding: 80px 5% 0 5%;
+            }
+
+            .jordan> :nth-child(1) {
+                display: block;
+            }
+
+            .jordan> :nth-child(1), .jordan> :nth-child(1) img {
+                width: 100%;
+                display: block;
+            }
+
+            .jordan> :nth-child(2) {
+                display: none;
+            }
+
+            .jordan> :nth-child(3) {
+                padding: 0 5%;
+                text-align: center;
+            }
+
+            .jordan> :nth-child(3) h2 {
+                font-size: 43px;
+                line-height: 3.5rem;
+            }
+
+            .mobile-only {
+                display: none;
+            }
+
+            .trending>h3 {
+                font-size: 28px;
+            }
+
+            .trending>div {
+                display: flex;
+            }
+
+            .trending>div>div> :nth-child(1) {
+                display: block;
+                width: 100%;
+            }
+
+            .trending>div>div:nth-child(1) {
+                margin-right: 16px;
+            }
+
+            .trending>div>div> :nth-child(2) {
+                display: none;
+            }
+
+            .trending>div>div> :nth-child(3) {
+                position: absolute;
+                bottom: 30px;
+                left: 40px;
+            }
+
+            .shoes h3 {
+                font-size: 28px;
+            }
+
+            .apparel h3 {
+                font-size: 28px;
+            }
+
+            .apparel a {
+                width: 100%;
+                height: 100%;
+            }
+
+            .apparel a img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .apparel>div> :nth-child(3) {
+                margin: 0;
+            }
+
+            .mobilefooter {
+                display: none;
+            }
+
+            .pcfooter {
+                display: block;
+                background: #111;
+            }
+
+            .pcfooter>div:nth-child(1) {
+                padding: 40px 5%;
+                display: flex;
+                color: white;
+                font-size: 13px;
+            }
+
+            .pcfooter>div:nth-child(1)>div {
+                width: 100%;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(1) a {
+                color: white;
+                display: block;
+                margin-bottom: 8px;
+                line-height: 18px;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(2) ul li, .pcfooter>div:nth-child(1)> :nth-child(3) ul li, .pcfooter>div:nth-child(1)> :nth-child(4) ul li {
+                list-style: none;
+                margin-top: 8px;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(2) ul a, .pcfooter>div:nth-child(1)> :nth-child(3) ul a {
+                color: #999;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(4) ul li {
+                display: inline-block;
+                margin-right: 8px;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(4) ul img {
+                width: 24px;
+                height: 24px;
+                opacity: 0.5;
+                transition: 0.7s;
+            }
+
+            .pcfooter>div:nth-child(1)> :nth-child(4) ul img:hover {
+                opacity: 1;
+            }
+
+            .pcfooter>div:nth-child(2) {
+                padding: 0 5%;
+                color: #999;
+                font-size: 10px;
+            }
+
+            .pcfooter>div:nth-child(2)>div {
+                display: flex;
+                justify-content: space-between;
+                padding: 15px 0;
+                border: 1px solid #444;
+                border-right: none;
+                border-left: none;
+            }
+
+            .pcfooter>div:nth-child(2) a {
+                color: #999;
+            }
+
+            .pcfooter>div:nth-child(2) div :nth-child(1) {
+                padding-right: 15px;
+            }
+
+            .pcfooter>div:nth-child(2) img {
+                width: 10px;
+                height: 18px;
+                vertical-align: middle;
+                margin-right: 8px;
+            }
+
+            .pcfooter>div:nth-child(3) {
+                padding: 16px 5% 25px 5%;
+                color: #999;
+                font-size: 11px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .pcfooter>div:nth-child(3) a {
+                color: white;
+            }
+
+            .pcfooter>div:nth-child(3) p {
+                width: 48%;
+            }
+
+            .pcfooter>div:nth-child(3) p:nth-child(2) {
+                text-align: right;
+            }
+
+            .pcfooter>div:nth-child(3) p:nth-child(2) a {
+                text-decoration: underline;
+            }
+        }
+
+        /* hd optimized */
+        @media screen and (min-width: 1200px) {
+            .preheader>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            header .con-box {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .search_container {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #newlist>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #menlist>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #womenlist>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #kidslist>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #salelist>div {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .spring {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .zoom {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .runner {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .airmax-kid {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .movement {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .super {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .progress {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .jordan {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .trending {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .shoes {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .apparel {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .pcfooter>div:nth-child(1) {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .pcfooter>div:nth-child(2) {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            .pcfooter>div:nth-child(3) {
+                width: 1200px;
+                margin: 0 auto;
+            }
+        }
+
+        /* end */
+
+    </style>
+
+</head>
+
+
+
+<body id="bodyscroll">
+
+<div class="preheader">
+
+    <div>
+        <div>
+            <a href="#">
+                <svg height="36px" width="24px" fill="#111" viewBox="0 0 26 32">
+                    <path
+                            d="M14.4 5.52v-.08q0-.56.36-1t.92-.44 1 .36.48.96-.36 1-.96.4l-.24.08.08.12-.08.44-.16 1.28q.08.08.08.16l-.16.8q-.08.16-.16.24l-.08.32q-.16.64-.28 1.04t-.2.64V12q-.08.4-.12.64t-.28.8q-.16.32 0 1.04l.08.08q0 .24.2.56t.2.56q.08 1.6-.24 2.72l.16.48q.96.48.56 1.04l.4.16q.96.48 1.36.84t.8.76q.32.08.48.24l.24.08q1.68 1.12 3.36 2.72l.32.24v.08l-.08.16.24.16h.08q.24.16.32.16h.08q.08 0 .16-.08l.16-.08q.16-.16.32-.24h.32q.08 0 0 .08l-.32.16-.4.48h.56l.56.08q.24-.08.4-.16l.4-.24q.24-.08.48.16h.08q.08.08-.08.24l-.96.88q-.4.32-.72.4l-1.04.72q-.08.08-.16 0l-.24-.32-.16-.32-.2-.28-.24-.32-.2-.24-.16-.2-.32-.24q-.16 0-.32-.08l-1.04-.8q-.24 0-.56-.24-1.2-1.04-1.6-1.28l-.48-.32-.96-.16q-.48-.08-1.28-.48l-.64-.32q-.64-.32-.88-.32l-.32-.16q-.32-.08-.48-.16l-.16-.16q-.16 0-.32.08l-1.6.8-2 .88q-.8.64-1.52 1.04l-.88.4-1.36.96q-.16.16-.32 0l-.16.16q-.24.08-.32.08l-.32.16v.16h-.16l-.16.24q-.16.32-.32.36t-.2.12-.08.12l-.16.16-.24.16-.36-.04-.48.08-.32.08q-.4.08-.64-.12t-.4-.6q-.16-.24.16-.4l.08-.08q.08-.08.24-.08h.48L1.6 26l.32-.08q0-.16.08-.24.08-.08.24-.08v-.08q-.08-.16-.08-.32-.08-.16-.04-.24t.08-.08h.04l.08.24q.08.4.24.24l.08-.16q.08-.16.24-.16l.16.16.16-.16-.08-.08q0-.08.08-.08l.32-.32q.4-.48.96-.88 1.12-.88 2.4-1.36.4-.4.88-.4.32-.56.96-1.2.56-.4.8-.56.16-.32.4-.32H10l.16-.16q.16-.08.24-.16v-.4q0-.4.08-.64t.4-.24l.32-.32q-.16-.32-.16-.72h-.08q-.16-.24-.16-.48-.24-.4-.32-.64h-.24q-.08.24-.4.32l-.08.16q-.32.56-.56.84t-.88.68q-.4.4-.56.88-.08.24 0 .48l-.08.16h.08q0 .16.08.16h.08q.16.08.16.2t-.24.08-.36-.16-.2-.12l-.24.24q-.16.24-.32.2t-.08-.12l.08-.08q.08-.16 0-.16l-.64.16q-.08.08-.2 0t.04-.16l.4-.16q0-.08-.08-.08-.32.16-.64.08l-.4-.08-.08-.08q0-.08.08-.08.32.08.8-.08l.56-.24.64-.72.08-.16q.32-.64.68-1.16t.76-.84l.08-.32q.16-.32.32-.56t.4-.64l.24-.32q.32-.48.72-.48l.24-.24q.08-.08.08-.24l.16-.16-.08-.08q-.48-.4-.48-.72-.08-.56.36-.96t.88-.36.68.28l.16.16q.08 0 .08.08l.32.16v.24q.16.16.16.24.16-.24.48-.56l.4-1.28q0-.32.16-.64l.16-.24v-.16l.24-.96h.16l.24-.96q.08-.24 0-.56l-.32-.8z">
+                    </path>
+                </svg>
+            </a>
+
+            <a href="#"><svg height="36px" width="24px" fill="#111" viewBox="0 0 39 33">
+                <path d="M10.94 25.626l-4.236-5.501L.201 22.28l3.734-5.756L.11 10.777l6.59 2.031 4.026-5.474.14 6.785 6.64 2.175-6.594 2.446.028 6.886zm.824 7.239l13.952-16.393L11.806.107h11.697l14.871 16.389-14.8 16.369h-11.81z"></path>
+            </svg>
+            </a>
+        </div>
+
+        <ul>
+            <li><a href="#">고객센터</a></li>
+            <li><a href="#">멤버 가입</a></li>
+            <li><a href="#">로그인</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+<header>
+
+    <div class="pc-header">
+
+        <div class="container">
+
+            <div class="con-box">
+                <a href="#"><img src="https://api.iconify.design/simple-icons/nike.svg?color=black'" alt="nike"></a>
+                <div>
+                    <input onclick="openSearch()" type="text" name="search-bar" placeholder="검색" autofocus>
+                    <a href="#"><img src="https://api.iconify.design/ant-design/heart-outlined.svg?color=black" alt="heart"></a>
+                    <a href="#"><img src="https://api.iconify.design/bi/bag.svg?color=black" alt="bag"></a>
+                </div>
+            </div>
+
+            <nav>
+
+                <ul class="navlist">
+
+                    <li><a href="#">New Release</a>
+
+                        <div class="hidden-area">
+
+                            <div id="newlist">
+                                <div>
+                                    <ul>
+                                        <li>New & Featured</li>
+                                        <li><a href="#">신상품전체보기</a></li>
+                                        <li><a href="#">SNKRS</a></li>
+                                        <li><a href="#">에어포스 1</a></li>
+                                        <li><a href="#">ACG</a></li>
+                                        <li><a href="#">NikeLab</a></li>
+                                        <li><a href="#">봄을 위한 스타일링 추천</a></li>
+                                        <li><a href="#">지속 가능 컬렉션</a></li>
+                                        <li><a href="#">스프링 컬렉션</a></li>
+                                        <li><a href="#">품절임박</a></li>
+                                        <li><a href="#">New To Sale</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>New For Men</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="">의류</a></li>
+                                        <li><a href="">용품</a></li>
+                                        <li><a href="">전체보기</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>New For Women</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="">의류</a></li>
+                                        <li><a href="">용품</a></li>
+                                        <li><a href="">전체보기</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>New For Kids</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="">의류</a></li>
+                                        <li><a href="">용품</a></li>
+                                        <li><a href="">전체보기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="">Men</a>
+                        <div class="hidden-area">
+                            <div id="menlist">
+                                <div class="listbox">
+                                    <ul>
+                                        <li>New & Featured</li>
+                                        <li><a href="#">신상품전체보기</a></li>
+                                        <li><a href="#">SNKRS</a></li>
+                                        <li><a href="#">에어포스 1</a></li>
+                                        <li><a href="#">ACG</a></li>
+                                        <li><a href="#">NikeLab</a></li>
+                                        <li><a href="#">봄을 위한 스타일링 추천</a></li>
+                                        <li><a href="#">지속 가능 컬렉션</a></li>
+                                        <li><a href="#">스프링 컬렉션</a></li>
+                                        <li><a href="#">품절임박</a></li>
+                                        <li><a href="#">SALE</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>신발</li>
+                                        <li><a href="#">신발 전체</a></li>
+                                        <li><a href="#">라이프스타일</a></li>
+                                        <li><a href="#">러닝</a></li>
+                                        <li><a href="#">트레이닝 & 짐</a></li>
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">조던</a></li>
+                                        <li><a href="#">축구</a></li>
+                                        <li><a href="#">스케이트 보딩</a></li>
+                                        <li><a href="#">골프</a></li>
+                                        <li><a href="#">테니스</a></li>
+                                        <li><a href="#">샌들 & 슬리퍼</a></li>
+                                    </ul>
+
+                                    <div>
+                                        <ul>
+                                            <li>의류</li>
+                                            <li><a href="#">의류 전체</a></li>
+                                            <li><a href="#">탑 & 티셔츠</a></li>
+                                            <li><a href="#">팬츠 & 타이츠</a></li>
+                                            <li><a href="#">후디 & 크루</a></li>
+                                            <li><a href="#">재킷 & 베스트</a></li>
+                                            <li><a href="#">숏 팬츠</a></li>
+                                            <li><a href="#">나이키 프로</a></li>
+                                            <li><a href="#">양말</a></li>
+                                            <li><a href="#">셋업</a></li>
+                                        </ul>
+
+                                        <ul>
+                                            <li>용품</li>
+                                            <li><a href="#">모자 & 헤드밴드</a></li>
+                                            <li><a href="#">가방</a></li>
+                                            <li><a href="#">애플 워치</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <ul>
+                                        <li>스포츠</li>
+                                        <li><a href="#">러닝</a></li>
+                                        <li><a href="#">트레이닝 & 짐</a></li>
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">축구</a></li>
+                                        <li><a href="#">스테이트 보딩</a></li>
+                                        <li><a href="#">골프</a></li>
+                                        <li><a href="#">테니스</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>브랜드</li>
+                                        <li><a href="#">Nike Sportswear</a></li>
+                                        <li><a href="#">NikeLab</a></li>
+                                        <li><a href="#">Jordan</a></li>
+                                        <li><a href="#">NBA</a></li>
+                                        <li><a href="#">ACG</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="">Women</a>
+                        <div class="hidden-area">
+                            <div id="womenlist">
+                                <div class="listbox">
+                                    <ul>
+                                        <li>New & Featured</li>
+                                        <li><a href="#">신상품전체보기</a></li>
+                                        <li><a href="#">SNKRS</a></li>
+                                        <li><a href="#">에어포스 1</a></li>
+                                        <li><a href="#">ACG</a></li>
+                                        <li><a href="#">NikeLab</a></li>
+                                        <li><a href="#">봄을 위한 스타일링 추천</a></li>
+                                        <li><a href="#">지속 가능 컬렉션</a></li>
+                                        <li><a href="#">스프링 컬렉션</a></li>
+                                        <li><a href="#">품절임박</a></li>
+                                        <li><a href="#">SALE</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>신발</li>
+                                        <li><a href="#">신발 전체</a></li>
+                                        <li><a href="#">라이프스타일</a></li>
+                                        <li><a href="#">러닝</a></li>
+                                        <li><a href="#">트레이닝 & 짐</a></li>
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">조던</a></li>
+                                        <li><a href="#">축구</a></li>
+                                        <li><a href="#">스케이트 보딩</a></li>
+                                        <li><a href="#">골프</a></li>
+                                        <li><a href="#">테니스</a></li>
+                                        <li><a href="#">샌들 & 슬리퍼</a></li>
+                                    </ul>
+                                    <div>
+
+                                        <ul>
+                                            <li>의류</li>
+                                            <li><a href="#">의류 전체</a></li>
+                                            <li><a href="#">탑 & 티셔츠</a></li>
+                                            <li><a href="#">팬츠 & 타이츠</a></li>
+                                            <li><a href="#">후디 & 크루</a></li>
+                                            <li><a href="#">재킷 & 베스트</a></li>
+                                            <li><a href="#">숏 팬츠</a></li>
+                                            <li><a href="#">나이키 프로</a></li>
+                                            <li><a href="#">양말</a></li>
+                                            <li><a href="#">셋업</a></li>
+                                        </ul>
+
+                                        <ul>
+                                            <li>용품</li>
+                                            <li><a href="#">모자 & 헤드밴드</a></li>
+                                            <li><a href="#">가방</a></li>
+                                            <li><a href="#">애플 워치</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <ul>
+                                        <li>스포츠</li>
+                                        <li><a href="#">러닝</a></li>
+                                        <li><a href="#">트레이닝 & 짐</a></li>
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">축구</a></li>
+                                        <li><a href="#">스테이트 보딩</a></li>
+                                        <li><a href="#">골프</a></li>
+                                        <li><a href="#">테니스</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>브랜드</li>
+                                        <li><a href="#">Nike Sportswear</a></li>
+                                        <li><a href="#">NikeLab</a></li>
+                                        <li><a href="#">Jordan</a></li>
+                                        <li><a href="#">NBA</a></li>
+                                        <li><a href="#">ACG</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="">Kids</a>
+                        <div class="hidden-area">
+                            <div id="kidslist">
+                                <div class="listbox">
+                                    <ul>
+                                        <li>New & Featured</li>
+                                        <li><a href="#">신상품</a></li>
+                                        <li><a href="#">스프링 컬렉션</a></li>
+                                        <li><a href="#">다이나모 고</a></li>
+                                        <li><a href="#">와플 트레이너 2</a></li>
+                                        <li><a href="#">신고 벗기 편한 키드 플라이이즈</a></li>
+                                        <li><a href="#">나이키 키즈 클래식</a></li>
+                                        <li><a href="#">조던 키즈</a></li>
+                                        <li><a href="#">아이들을 위한 선물</a></li>
+                                        <li><a href="#">품절임박</a></li>
+                                        <li><a href="#">SALE</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>신발</li>
+                                        <li><a href="#">베이비(160mm 이하)</a></li>
+                                        <li><a href="#">리틀키즈(165-220mm)</a></li>
+                                        <li><a href="#">주니어(225-250mm)</a></li>
+                                        <li><a href="#">라이프스타일</a></li>
+                                        <li><a href="#">러닝</a></li>
+                                        <li><a href="#">축구</a></li>
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">샌들 & 슬리퍼</a></li>
+                                    </ul>
+
+                                    <div>
+                                        <ul>
+                                            <li>의류</li>
+                                            <li><a href="#">베이비(0-4세)</a></li>
+                                            <li><a href="#">리틀키즈(4-7세)</a></li>
+                                            <li><a href="#">주니어(8-13세)</a></li>
+                                            <li><a href="#">팬츠 & 레깅스</a></li>
+                                            <li><a href="#">탑 & 티셔츠 & 브라</a></li>
+                                            <li><a href="#">후디 & 크루</a></li>
+                                            <li><a href="#">아우터 & 재킷</a></li>
+                                            <li><a href="#">스커트 & 드레스</a></li>
+                                            <li><a href="#">트랙수트 & 세트</a></li>
+                                            <li><a href="#">가방 & 모자 & 용품</a></li>
+                                        </ul>
+
+                                        <ul>
+                                            <li>용품</li>
+                                            <li><a href="#">가방</a></li>
+                                            <li><a href="#">모자</a></li>
+                                            <li><a href="#">양말</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <ul>
+                                        <li>스포츠</li>
+                                        <li><a href="#">러닝</a></li>
+
+                                        <li><a href="#">농구</a></li>
+                                        <li><a href="#">축구</a></li>
+
+                                        <li><a href="#">테니스</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="">Sales</a>
+
+                        <div class="hidden-area">
+                            <div id="salelist">
+                                <div class="listbox">
+                                    <a href="#">NEW TO SALE</a>
+                                    <ul>
+                                        <li>Mens Sale</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="#">의류</a></li>
+                                        <li><a href="#">용품</a></li>
+                                        <li><a href="#">전체보기</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>Womens Sale</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="#">의류</a></li>
+                                        <li><a href="#">용품</a></li>
+                                        <li><a href="#">전체보기</a></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li>Kids Sale</li>
+                                        <li><a href="#">신발</a></li>
+                                        <li><a href="#">의류</a></li>
+                                        <li><a href="#">용품</a></li>
+                                        <li><a href="#">전체보기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="mobile-header">
+        <a href="#"><img src="https://api.iconify.design/simple-icons/nike.svg?color=black'" alt="nike"></a>
+        <div>
+            <a href="#"><img src="https://api.iconify.design/bi/bag.svg?color=black" alt="bag"></a>
+            <a href="#" onclick="openSearch()"><img src="https://api.iconify.design/akar-icons/search.svg?color=black" alt="search"></a>
+            <a href="#" id="open" onclick="openNav()"><img src="https://api.iconify.design/lucide/menu.svg?color=black" alt="menu"></a>
+        </div>
+
+        <div id="navi">
+            <nav>
+                <ul>
+                    <li><a href="#">New Release</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Kids</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">SNKRS</a></li>
+                    <li><a href="#">COLLECTIONS</a></li>
+                </ul>
+
+                <a href="#">Jordan</a>
+
+                <p>'나이키 멤버만을 위한 특별한 혜택을 알아보세요' <span><a href="#">자세히보기</a></span></p>
+
+                <div>
+                    <button>멤버 가입</button>
+                    <button>로그인</button>
+                </div>
+
+                <div>
+                    <a href="#">장바구니</a>
+                    <a href="#">주문배송</a>
+                    <a href="#">고객센터</a>
+                </div>
+                <span onclick="closeNav()">close</span>
+            </nav>
+
+        </div>
+
+    </div>
+
+
+    <div id="search-window">
+
+        <div class="search_container">
+
+            <div>
+                <input type="text" name="search-bar" placeholder="검색" autofocus>
+                <span onclick="closeSearch()"></span>
+                <!-- close button -->
+            </div>
+
+            <div>
+                <p>추천 검색어</p>
+                <ul>
+                    <li><a href="#">스프링 자켓</a></li>
+                    <li><a href="#">솔로 스우시</a></li>
+                    <li><a href="#">후디</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</header>
+
+
+<article class="play">
+
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220406_hp_p1_bg.jpg" alt="pc-play"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220406_hp_p1_bg.jpg" alt="mobile-play"></a>
+
+
+    <div>
+        <h2>모두의 운동장</h2>
+        <p>
+            여기 새로운 운동장이 있습니다. <br class="mobile-only">이름은, 모두의 운동장. <br>
+            이곳에서만큼은 완벽할 필요 없어요. <br class="mobile-only">중요한 건 모두가 함께 뛰는 것. <br>
+            함께 할수록 우리의 가능성은 커지니까요.
+        </p>
+        <div>
+            <button type="button" name="button">컬렉션 구매하기</button>
+            <button type="button" name="button">자세히 보기</button>
+        </div>
+    </div>
+
+</article>
+
+
+<article class="spring">
+
+    <h3>봄을 위한 스타일링 추천</h3>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220407_hp_p2_bg-1.jpg" alt="pc-spring"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220407_hp_p2_bg-1.gif" alt="mobile-spring"></a>
+
+    <div>
+        <h2>
+            모두가 즐길 수 있는 <br class="mobile-only">
+            스포츠 스타일링
+        </h2>
+        <p>
+            함께 즐기며 서로의 가능성을 확인할 수 있는 <br class="mobile-only">
+            스포츠 스타일링을 만나보세요.
+        </p>
+        <div>
+            <button type="button" name="button">구매하기</button>
+            <button type="button" name="button">더 많은 스타일링 보기</button>
+        </div>
+    </div>
+
+</article>
+
+
+<article class="zoom">
+
+    <video data-account="72451143001" data-video-id="6302273992001" autoplay="autoplay" muted="muted" -webkit-playsinline="-webkit-playsinline" playsinline="playsinline" loop="loop">
+        <source src="https://nikevideo.nike.com/media/v1/pmp4/static/clear/72451143001/6507119a-d40a-48ac-9c8b-2517f6421ffd/b5cdf2dd-9551-4f75-a706-6b471f12ea5a/main.mp4">
+    </video>
+
+    <video data-account="72451143001" data-video-id="6302273772001" autoplay="autoplay" muted="muted" -webkit-playsinline="-webkit-playsinline" playsinline="playsinline" loop="loop">
+        <source src="https://nikevideo.nike.com/media/v1/pmp4/static/clear/72451143001/4adb8456-4154-4d52-a763-a87351df5769/85739b83-faf3-4ab1-8f2d-2bb652e85977/main.mp4">
+    </video>
+
+    <div>
+        <h2>
+            나이키 줌X 인빈서블 런 <br class="mobile-only">플라이니트 2
+        </h2>
+        <p>
+            마법 같은 편안함으로 아이들의 놀이에 활력을 <br class="mobile-only">더해주는
+            나이키 에어 컬렉션을 만나보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="runner">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220406_hp_p6_bg.jpg" alt="pc-runner"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220406_hp_p6_bg.jpg" alt="mobile-runner"></a>
+
+    <div>
+        <p>나이키 플렉스 러너 2</p>
+        <h2>더 빠르게, 더 신나게</h2>
+        <p>
+            누가 모든 것을 가질 수 없다고 하던가요? <br>
+            러너들을 위한 편안함, 뛰어난 반응성, <br class="mobile-only">견고한 서포트, 놀라운 경량감까지. <br>
+            나이키 줌X인빈서블 런 플라이니트 2와 함께 <br class="mobile-only">완벽한 러닝을 경험해 보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+
+</article>
+
+
+<article class="airmax-kid">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220407_hp_p4_bg.jpg" alt="pc-kid"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220407_hp_p4_bg.jpg" alt="mobile-kid"></a>
+
+    <div>
+        <h2>나이키 에어맥스</h2>
+        <p>
+            마법 같은 편안함으로 아이들의 놀이에 활력을 <br class="mobile-only">더해주는
+            나이키 에어 컬렉션을 만나보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="movement">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220405_yg_p1_bg.jpg" alt="pc-yg"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220405_yg_p1_bg.jpg" alt="mobile-yg"></a>
+
+    <div>
+        <h2>자유로운 움직임</h2>
+        <p>
+            나이키 요가 썸머 플리스 컬렉션과 함께<br class="mobile-only"> 자유롭게 나만의 움직임에 집중해보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="super">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220405_hp_p4_bg.jpg" alt="pc-super"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220405_hp_p4_bg.jpg" alt="mobile-super"></a>
+
+    <div>
+        <h2>나이키 슈퍼렙 고 3</h2>
+        <p>
+            편안한 지지력과 탁월한 반응성으로<br> 모든 움직임을 서포트하는<br class="mobile-only"> 트레이닝화를 만나보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="progress">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220405_hp_p4_bg-1.jpg" alt="pc-pro"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220405_hp_p4_bg-1.jpg" alt="mobile-pro"></a>
+
+    <div>
+        <h2>나이키 프로그레스 팩</h2>
+        <p>
+            그라운드를 제압하는 스피드, 압도적인 컨트롤 <br>
+            그리고 완벽한 경기를 위해 새롭게 탄생한 <br class="mobile-only">나이키 프로그레스 팩을 만나보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="jordan">
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220328_hp_p6_bg.jpg" alt="pc-jo"></a>
+
+    <a href="#"><img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/m220328_hp_p6_bg.jpg" alt="mobile-jo"></a>
+
+    <div>
+        <h2>조던 23 엔지니어드 컬렉션</h2>
+        <p>
+            환경을 생각한 디자인, 감각적인 스타일링.<br>
+            나이키 멤버가 되어 새롭게 돌아온<br>
+            조던 23 엔지니어드 컬렉션을 <br class="mobile-only">가장 먼저 만나보세요.
+        </p>
+        <button type="button" name="button">구매하기</button>
+    </div>
+</article>
+
+
+<article class="trending">
+
+    <h3>Trending Now</h3>
+
+    <div>
+        <div>
+            <img src="https://i.imgur.com/qY7eTMe.jpg" alt="pctreding">
+            <img src="https://i.imgur.com/im30wIs.jpg" alt="motrending">
+            <div>
+                <p>나이키 캠퍼스 팩</p>
+                <button>구매하기</button>
+            </div>
+        </div>
+
+        <div>
+            <img src="https://i.imgur.com/7tSygM1.jpg" alt="pctreding">
+            <img src="https://i.imgur.com/uzCZz0m.jpg" alt="motrending">
+            <div>
+                <p>에어룸 패치워크</p>
+                <button>구매하기</button>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+
+<article class="shoes">
+
+    <h3>Featured Shoes</h3>
+
+    <section class="shoes-slider">
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/uFbbLER.jpg" alt="1">
+                <div>
+                    <p>나이키 에어맥스 97</p>
+                    <p>남성 신발</p>
+                    <span>199,000원</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/5hSW2d5.jpg" alt="2">
+                <div>
+                    <p>나이키 와플 트레이너2</p>
+                    <p>남성 신발</p>
+                    <span>109,000원</span>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/DD4gKrx.jpg" alt="3">
+                <div>
+                    <p>나이키 와플 원</p>
+                    <p>남성 신발</p>
+                    <span>129,000원</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/j9EGdRe.jpg" alt="4">
+                <div>
+                    <p>나이키 에어 줌 알파플라이 넥스트 % 플라이 니트</p>
+                    <p>남성 로드 레이싱화</p>
+                    <span>329,000원</span>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/V7BNsIo.jpg" alt="5">
+                <div>
+                    <p>나이키 디파이 올 데이</p>
+                    <p>남성 트레이닝화</p>
+                    <span>79,000원</span>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/URvfktb.jpg" alt="6">
+                <div>
+                    <p>나이키 줌 프릭 3</p>
+                    <p>성인공용 농구화</p>
+                    <span>149,000원</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/3W85RU3.jpg" alt="7">
+                <div>
+                    <p>나이키 에어맥스 270 G</p>
+                    <p>성인공용 골프화</p>
+                    <span>199,000원</span>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/KRBpqZp.jpg" alt="8">
+                <div>
+                    <p>조던 MA2</p>
+                    <p>남성 신발</p>
+                    <span>149,000원</span>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://i.imgur.com/r0CyFZA.jpg" alt="9">
+                <div>
+                    <p>나이키 머큐리얼 베이퍼 14 아카데미 TF</p>
+                    <p>성인공용 축구화</p>
+                    <span>99,000원</span>
+                </div>
+            </a>
+        </div>
+
+    </section>
+
+</article>
+
+
+<article class="apparel">
+    <h3>Apparel Essentials</h3>
+
+    <div class="apparel-slider">
+
+        <div>
+            <a href="#">
+                <img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220331_hp_p8_bg1.jpg" alt="apparel1">
+                <p>재킷 & 베스트</p>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220331_hp_p8_bg2.jpg" alt="apparel2">
+                <p>후디 & 크루</p>
+            </a>
+        </div>
+
+        <div>
+            <a href="#">
+                <img src="https://static-breeze.nike.co.kr/kr/ko_kr//cmsstatic/structured-content/65250/220331_hp_p8_bg3.jpg" alt="apparel3">
+                <p>숏팬츠</p>
+            </a>
+        </div>
+    </div>
+
+</article>
+
+
+<footer class="mobilefooter">
+
+    <ul>
+        <li><a href="#">주문배송</a></li>
+        <li><a href="#">매장안내</a></li>
+        <li><a href="#">고객센터</a></li>
+    </ul>
+
+    <div>
+        <a href="#"><img src="https://api.iconify.design/fa6-solid/location-pin.svg?color=white" alt="">대한민국</a>
+        <span>ⓒ 2022 Nike, Inc. All Rights Reserved</span>
+        <div>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+        </div>
+    </div>
+
+    <div>
+        <p>(유)나이키코리아 <br>
+            대표 : Kimberlee Lynn Chang Mendes, 킴벌리 린 창 멘데스 <br>
+            서울 강남구 테헤란로 152 강남파이낸스센터 30층 <br>
+            통신판매업신고번호 : 2011-서울강남-03461 <br>
+            등록번호 : 220-88-09068 <br>
+            고객센터 전화 문의 <a href="#">080-022-0182</a> <br>
+            FAX : 02-6744-5880 <br>
+            Email : service@nike.co.kr <br>
+            호스팅서비스사업자 : (유)나이키코리아 <br>
+        </p>
+
+        <p>
+            안전거래를 위해 현금 등으로 결제 시 저희 쇼핑몰에서 가입한 <br>
+            KG 이니시스의 구매안전 서비스 (채무지급보증)를 이용하실 수 있습니다.
+        </p>
+
+        <p>
+            온라인디지털콘텐츠사업발전법에 의한
+            <a href="#">콘텐츠보호안내 자세히보기</a>
+        </p>
+
+        <div>
+            <a href="#">사업자정보확인</a>
+            <a href="#">콘텐츠보호안내 자세히보기</a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<footer class="pcfooter">
+
+    <div>
+
+        <div>
+            <a href="#">매장안내</a>
+            <a href="#">나이키 저널</a>
+            <a href="#">로그인</a>
+            <a href="#">멤버 가입</a>
+        </div>
+
+        <div>
+            <p>고객센터</p>
+            <ul>
+                <li><a href="#">080-022-0182</a></li>
+                <li><a href="#">주문/결제</a></li>
+                <li><a href="#">배송</a></li>
+                <li><a href="#">주문배송조회</a></li>
+                <li><a href="#">멤버쉽 혜택/서비스</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">1:1 채팅 문의</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <p>ABOUT NIKE</p>
+            <ul>
+                <li><a href="#">나이키에 대하여</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <p>SOCIAL</p>
+            <ul>
+                <li><a href="#"><img src="https://api.iconify.design/ant-design/twitter-circle-filled.svg?color=white" alt=""></a></li>
+                <li><a href="#"><img src="https://api.iconify.design/bi/facebook.svg?color=white" alt=""></a></li>
+                <li><a href="#"><img src="https://api.iconify.design/entypo-social/youtube-with-circle.svg?color=white" alt=""></a></li>
+                <li><a href="#"><img src="https://api.iconify.design/entypo-social/instagram-with-circle.svg?color=white" alt=""></a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div>
+        <div>
+            <div>
+                <a href="#">대한민국</a>
+                <span>ⓒ 2022 Nike, Inc. All Rights Reserved</span>
+            </div>
+
+            <div>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p>(유)나이키코리아 <br>
+            대표 : Kimberlee Lynn Chang Mendes, 킴벌리 린 창 멘데스 | 서울 강남구 테헤란로 152 강남파이낸스센터 30층 <br>
+            통신판매업신고번호 : 2011-서울강남-03461 |
+            등록번호 : 220-88-09068 <a href="#">사업자정보확인</a><br>
+            고객센터 전화 문의 <a href="#">080-022-0182</a> <br>
+            FAX : 02-6744-5880 | Email : service@nike.co.kr | 호스팅서비스사업자 : (유)나이키코리아 <br>
+        </p>
+
+        <p>
+            안전거래를 위해 현금 등으로 결제 시 저희 쇼핑몰에서 가입한 <br>
+            KG 이니시스의 구매안전 서비스 (채무지급보증)를 이용하실 수 있습니다.
+            <br>
+            <br>
+            온라인디지털콘텐츠사업발전법에 의한
+            <a href="#">콘텐츠보호안내 자세히보기</a>
+        </p>
+    </div>
+
+</footer>
+
+
+
+
+</body>
+
+<script>
+
+
+    function openNav() {
+        document.getElementById("navi").style.width = "100%";
+        document.getElementById("bodyscroll").style.overflowY = "hidden";
+    }
+
+    function closeNav() {
+        document.getElementById("navi").style.width = "0%";
+        document.getElementById("bodyscroll").style.overflowY = "visible";
+    }
+
+
+    function openSearch() {
+        document.getElementById("search-window").style.width = "100%";
+    }
+
+    function closeSearch() {
+        document.getElementById("search-window").style.width = "0";
+    }
+
+    $(document).ready(function() {
+        $('nav > ul > li').on('mouseover', function() {
+            $(this).children('.hidden-area').stop().slideDown(500);
+        });
+
+        $('nav > ul > li').on('mouseleave', function() {
+            $(this).children('.hidden-area').stop().slideUp(300);
+        });
+    });
+
+
+    $('.shoes-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+            }
+        },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+
+    $('.apparel-slider').slick({
+        dots: true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [{
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+            }
+        },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+</script>
+
+</html>
