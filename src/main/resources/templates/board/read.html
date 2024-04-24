@@ -4,6 +4,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 
+<!--layout:decorate="~{layout/basic.html}"-->
+
+<!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
+
+
+
 <head>
     <title>Board Read</title>
 </head>
@@ -136,7 +142,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script src="/js/reply.js"></script>
+    <script th:src="@{/js/reply.js}"></script>
 
     </div>
 </div><!-- layout fragment end -->

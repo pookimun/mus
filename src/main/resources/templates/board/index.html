@@ -1,23 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
-    <!-- Core theme CSS (includes Bootstrap) 밑에거 하면 깨짐-->
-    <!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
-    <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
-    <!-- Core theme JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/js/scripts.js}"></script>
-
+    <meta charset="UTF-8">
     <style>
+
         /* 폰트 적용 */
         /* 노토산스 폰트 */
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
@@ -693,22 +679,10 @@
     </style>
 </head>
 <body>
+<!-- 제이쿼리 불러오기 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Sidebar 여기서 링크 복붙해 가세요-->
-<!--<div class="border-end bg-white" id="sidebar-wrapper">
-    <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
-    <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">홈</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/board/list">게시판리스트</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/board/register">게시판등록</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/join">회원가입</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/login">로그인</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/logout">로그아웃</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://github.com/lonen8188">github</a>
-    </div>
-</div>-->
-
-<div layout:fragment="header" class="header">
+<div class="header">
     <div class="header-gnb row">
         <div class="header-brand cell">
             <ul class="row">
@@ -1011,17 +985,8 @@
         <div class="search-mask"></div>
     </div>
 </div>
-<!-- End Header/Navigation -->
 
-<!--헤더 영역 여백-->
-<div  style="width: 100%; height: 105px;">
-</div>
-
-<div layout:fragment="content">
-    <p>Page content goes here</p>
-</div>
-
-<footer layout:fragment="footer" class="mobilefooter">
+<footer class="mobilefooter">
 
     <ul>
         <li><a href="#">주문배송</a></li>
@@ -1066,11 +1031,14 @@
         </div>
 
     </div>
+
 </footer>
 
 
 <footer class="pcfooter">
+
     <div>
+
         <div>
             <a href="#">매장안내</a>
             <a href="#">나이키 저널</a>
@@ -1144,10 +1112,14 @@
             <a href="#">콘텐츠보호안내 자세히보기</a>
         </p>
     </div>
+
 </footer>
-<!-- End Footer Section -->
+
 
 </body>
+
+
+
 
 <script>
 
@@ -1165,9 +1137,4 @@
         searchMenuOff();
     });
 </script>
-
-<th:block layout:fragment="script">
-
-</th:block>
-
 </html>
