@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/basic.html}">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
 	<title>MS</title>
-	<!--login_page-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<!--login_page-->
-	<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
-	<link rel="stylesheet" href="style.css">
-	<script src="script.js"></script>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 		@import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
@@ -839,42 +830,11 @@
 	</style>
 </head>
 
-<body>
-
 <a href="#" class="top">
 	<ion-icon name="arrow-up"></ion-icon>
 </a>
 
-<header>
-	<div id="ltbar">
-		<div class="ltbar">
-			<a href="#"><img src="https://www.iloom.com/img/front/footer/footer_logo.png" class="logo"></a>
-			<ul>
-				<li><a href="#">침실</a></li>
-				<li><a href="#">거실</a></li>
-				<li><a href="#">주방</a></li>
-				<li><a href="#">키즈룸</a></li>
-				<li><a href="#">학생방</a></li>
-				<li><a href="#">서재</a></li>
-				<li><a href="#">펫</a></li>
-				<li><a href="#">시리즈</a></li>
-				<li><a href="#">아울렛</a></li>
-			</ul>
-			<section>
-				<ul>
-					<li><a href="javascript:;"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-60d899b276f7df8280ce9777d4aa29e5.png" class="search"></a></li>
-					<li><a href="javascript:;">Login</a>/</li>
-					<li><a href="javascript:;">Join</a></li>
-					<li><a href="javascript:;">Cart</a></li>
-					<li><a href="javascript:;">Support</a></li>
-					<li><a href="javascript:;">정품 인증</a></li>
-				</ul>
-			</section>
-
-		</div>
-	</div>
-</header>
-
+<div layout:fragment="content">
 <article class="id_find">
 	<div class="container">
 		<section>
@@ -915,57 +875,59 @@
 			</div>
 		</div>
 	</div>
+<!--퍼옴-->
+	<form action="/send-one" method="post">
+	<div class="form-group phoneCertifyDiv">
+		<label class="inputTitle">휴대폰 번호</label><br>
+		<div class="phoneNum-formgroup">
+			<input th:if="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" readonly th:value="${memberPhone}">
+			<input th:unless="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" >
+			<!--<a href="#" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</a>-->
+			<button type="submit" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</button>
+
+		</div>
+		<div class="phoneNum-formgroup" id="phoneCertifyDiv">
+			<input type="text" name="memberPhoneCertify" class="phoneNum">
+			<!--<input type="button" id="certifyCheck" class="btn memberPhoneBtn" value="인증하기">-->
+		</div>
+	</div>
+	</form>
+
 </article>
 
+	<script>
+		//휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
+		$('#memberPhoneCheck').click(function(e){
+			e.preventDefault();
 
-<footer>
-	<div class="ft1">
-		<section>
-			<img src="https://www.iloom.com/img/front/gnb/gnb_logo.png" alt="">
-			<ul>
-				<li>서울시 송파구 오금로 311 (오금동45-1) (주)일룸 ·대표이사 강성문</li>
-				<li>개인정보보호 책임자 : 강성문</li>
-				<li>사업자등록번호 : 215-86-93600·통신판매업신고 : 2009-서울송파-0069호·부가통신사업신고필증 : 021129</li>
-				<li>webmaster@iloom.com·Copyright (c) 2018 iloom lnc. All rights reserved</li>
-			</ul>
+			var to = $('input[name="memberPhone"]').val();
+			$.ajax({
+				url : "/send-one",
+				type : "POST",
+				data : "to=" + to,
+				dataType : "json",
+				success : function(data) {
+					const checkNum = data;
+					alert('checkNum:'+ checkNum);
 
-			<ul>
-				<li><a href="#">개인정보처리방침</a></li>
-				<li><a href="#">이용약관</a></li>
-				<li><a href="#">Fiserv 에스크로 가입사실 확인</a></li>
-				<li><a href="#">사업자정보 확인</a></li>
-			</ul>
-		</section>
-		<section>
-			<ul>
-				<li>About</li>
-				<li><a href="#">회사소개</a></li>
-				<li><a href="#">매장안내</a></li>
-				<li><a href="#">인재채용</a></li>
-			</ul>
-			<ul>
-				<li>My page</li>
-				<li><a href="#">주문/배송 조회</a></li>
-			</ul>
-			<ul>
-				<li>Support</li>
-				<li><a href="#">고객센터</a></li>
-				<li><a href="#">대리점 개설안내</a></li>
-			</ul>
-		</section>
-	</div>
+					//인증하기 버튼 클릭 이벤트
+					$('#certifyCheck').click(function(){
+						const userNum = $('input[name="memberPhoneCertify"]').val();
+						if(checkNum == userNum){
+							alert('인증 성공하였습니다.');
+						}else {
+							alert('인증 실패하였습니다. 다시 입력해주세요.');
+						}
+					});
 
-	<div class="ft2">
-		<section>
-			<ul>
-				<li>Visit us.</li>
-				<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_i.png" alt=""></a></li>
-				<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_f.png" alt=""></a></li>
-				<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_b.png" alt=""></a></li>
-			</ul>
-		</section>
-	</div>
-</footer>
+				},
+				error : function() {
+					alert("에러")
+				}
+			});
+		});
+	</script>
+</div>
 
 
 <script src="script.js"></script>
@@ -1017,7 +979,49 @@
 	//헤더끝
 
 </script>
+<!--<script>
+	$('#sendPhoneNumber').click(function(){
+		let phoneNumber = $('#inputPhoneNumber').val();
+		Swal.fire('인증번호 발송 완료!')
 
-</body>
+
+		$.ajax({
+			type: "GET",
+			url: "/member/sendSMS",
+			data: {
+				"phoneNumber" : phoneNumber
+			},
+			success: function(res){
+				$('#checkBtn').click(function(){
+					if($.trim(res) ==$('#inputCertifiedNumber').val()){
+						Swal.fire(
+								'인증성공!',
+								'휴대폰 인증이 정상적으로 완료되었습니다.',
+								'success'
+						)
+
+						$.ajax({
+							type: "GET",
+							url: "/update/phone",
+							data: {
+								"phoneNumber" : $('#inputPhoneNumber').val()
+							}
+						})
+						document.location.href="/home";
+					}else{
+						Swal.fire({
+							icon: 'error',
+							title: '인증오류',
+							text: '인증번호가 올바르지 않습니다!',
+							footer: '<a href="/home">다음에 인증하기</a>'
+						})
+					}
+				})
+
+
+			}
+		})
+	});
+</script>-->
 
 </html>

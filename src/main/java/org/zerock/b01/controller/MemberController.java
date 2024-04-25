@@ -6,9 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.b01.dto.MemberJoinDTO;
 import org.zerock.b01.service.MemberService;
+import org.zerock.b01.service.MemberServiceImpl;
+
+import java.util.Random;
 
 @Controller
 @RequestMapping("/member")
@@ -58,5 +62,14 @@ public class MemberController {
     public void loginGET(String error, String logout) {
         log.info("login get..............");
         log.info("logout: " + logout);
+
+        if(logout != null) {
+            log.info("user logout..........");
+        }
     }
+
+    @GetMapping("/forgot")
+    public void forgotGet() {
+    }
+
 }

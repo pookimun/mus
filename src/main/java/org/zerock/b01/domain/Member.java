@@ -22,10 +22,13 @@ public class Member extends BaseEntity{
     private String m_id;
     private String m_pw;
     private String m_email;
-    private boolean m_del;
-    private boolean m_social;
+    private boolean m_del; //탈퇴 여부
+    private boolean m_social; //소셜 계정 여부
 
-    private String m_name;
+    /*추가*/
+    private String m_name; //이름
+    private String m_route; //가입 경로
+    private String m_optional_terms; //선택 약관 동의
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
