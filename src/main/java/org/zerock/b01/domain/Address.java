@@ -10,7 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString // 나중에 fk 추가 시 exclude 하기
+@ToString(exclude = "member") // 나중에 fk 추가 시 exclude 하기
 public class Address {
     // index 생성해둠!
 
@@ -22,7 +22,7 @@ public class Address {
     private String a_recipient; // 수령인
 
     @Column(length = 100)
-    private String a_nickName; // 배송지 별칭 = 별칭 없을 시 '수령인님 배송지'
+    private String a_nickName; // 배송지 별칭
 
     @Column(length = 30, nullable = false) // not null
     private String a_phone; // 전화번호
@@ -42,7 +42,10 @@ public class Address {
     @Column(length = 500, nullable = false) // not null
     private String a_request; // 배송 시 요청사항, '직접입력' 선택 시 작성값이 저장된다.
 
-    //private Long m_no; 회원번호 : fk 예정
+    // fk 설정(후에 회원정보수정에서 배송지 관리를 추가한다면 .. OneToMany 처리해야할듯
+    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
+    @JoinColumn(nullable = false) // not null
+    private Member member; // 회원
 
 
     // 수령인, 배송지 별칭, 휴대전화, 배송지주소(우편번호, 주소, 상세주소), 기본배송지 여부, 요청사항 변경가능 !!

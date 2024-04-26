@@ -72,4 +72,8 @@ public class MemberController {
     public void forgotGet() {
     }
 
+    @GetMapping("/terms")
+    public void termsGet() {
+    }
+
 }

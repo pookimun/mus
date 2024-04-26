@@ -60,9 +60,11 @@ public class BoardController {
 //        model.addAttribute("responseDTO", responseDTO);
 //    }
 
+    @GetMapping({"/", "/index"})
+    public void index() {
+    }
 
-
-    @GetMapping({"/", "/list"})
+    @GetMapping( "/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
 
         //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
