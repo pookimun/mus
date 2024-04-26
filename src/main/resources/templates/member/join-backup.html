@@ -2,10 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
+<!--layout:decorate="~{layout/basic.html}"-->
+
+<!--없어도 될 듯?-->
+<!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
+
+
+
+<!--<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+<meta content="Untree.co" name="author">
+&lt;!&ndash;<link href="favicon.png" rel="shortcut icon">&ndash;&gt;
+
+&lt;!&ndash; Bootstrap CSS &ndash;&gt;
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link th:href="@{/css/tiny-slider.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+
+&lt;!&ndash; Bootstrap JS &ndash;&gt;
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/tiny-slider.js}"></script>
+
+&lt;!&ndash;워크북 기존 &ndash;&gt;
+<link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+&lt;!&ndash; Core theme JS&ndash;&gt;
+<script th:src="@{/js/scripts.js}"></script>-->
+
+
+
+
+
+
+
 <head>
     <title>무신사 | 회원가입</title>
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
         @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
@@ -21,7 +54,7 @@
             border: 0px solid;
         }
 
-         section {
+         section.join {
             font-size: 0.9rem;
             line-height: 1rem;
             color: #999;
@@ -108,6 +141,60 @@
             border-radius: 50%;
         }
 
+        /***************************start******************************/
+        header {
+            width: 100%;
+            background: #050505;
+        }
+
+        #ltbar {
+            background: #050505;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            display: block;
+            transition: top 0.8s;
+            line-height: 5rem;
+            z-index: 99;
+        }
+
+        .ltbar {
+            min-width: 1200px;
+            padding: 0 50px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logo {
+            margin-bottom: -15px;
+            filter: brightness(100);
+        }
+
+        .ltbar ul {
+            margin-top: 15px;
+        }
+
+        .ltbar ul li {
+            display: inline;
+            color: #d3d3d3;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .ltbar ul li a {
+            padding: 0 10px;
+            color: #d3d3d3;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 2rem;
+            text-transform: uppercase;
+        }
+
+        .ltbar ul li a:hover {
+            color: #a4493d;
+        }
+
         .search {
             width: 25px;
             margin-bottom: 0px;
@@ -118,6 +205,23 @@
         .join {
             width: 100%;
             padding: 7rem 0;
+        }
+
+/*        .container {
+            width: 560px;
+            margin: 0 auto;
+        }
+
+        .container section {
+            padding: 11rem 0 0 0;
+            display: flex;
+            justify-content: space-between;
+        }*/
+
+        .container section h1 {
+            font-size: 6rem;
+            font-weight: 400;
+            color: #000;
         }
 
         .join_info1, .join_info2, .join_info3, .join_info4, .join_info5{
@@ -284,6 +388,104 @@
             background: #000;
             color: #fff;
         }
+
+        footer {
+            clear: both;
+            padding: 5rem 0 0 0;
+            background: #b9aba2;
+        }
+
+        .ft1 {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 0 0 2rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ft1 ul li {
+            margin: 15px auto;
+            color: #444;
+            font-size: 1.3rem;
+        }
+
+        .ft1> :nth-child(1)> :nth-child(3) {
+            margin-top: 20px;
+        }
+
+        .ft1> :nth-child(1)> :nth-child(3) li {
+            display: inline;
+            margin-right: 20px;
+            font-size: 1.5rem;
+        }
+
+        .ft1> :nth-child(1)> :nth-child(3) li a {
+            color: #222;
+            font-weight: 500;
+            text-decoration: underline;
+            font-size: 1.5rem;
+        }
+
+        .ft1> :nth-child(1)> :nth-child(3) li a:hover {
+            font-weight: 600;
+        }
+
+        .ft1> :nth-child(2) {
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ft1> :nth-child(2) ul {
+            margin-left: 40px;
+        }
+
+        .ft1> :nth-child(2) ul li {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .ft1> :nth-child(2) a {
+            color: #555;
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        .ft2 {
+            clear: both;
+            min-width: 1200px;
+            margin: 0 auto;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: #ddd;
+        }
+
+        .ft2 section{
+            width: 1200px;
+            color: #333;
+            padding: 20px 0;
+            margin: 0 auto;
+        }
+
+        .ft2 ul> :nth-child(1) {
+            padding-top: 5px;
+        }
+
+        .ft2 img {
+            width: 25px;
+            filter: brightness(10%);
+        }
+
+        .ft2 ul {
+            width: 200px;
+            margin: 0 auto;
+            margin-left: 41%;
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 </head>
 
@@ -296,13 +498,25 @@
         <section class="join" style="width: 65%; margin: 0 auto;">
             <h1>JOIN.</h1>
 
-        <div class="join_info1 join_info2">
+        <div class="join_info1">
+            <h3>본인인증</h3>
+            <h4>본인인증 후에는 일룸 홈페이지 가입이 가능합니다.</h4>
+            <button type="button" class="btn btn_line" onclick="javascript:idenetityCert()">핸드폰 인증</button>
+        </div>
+
+        <div class="join_info2">
             <h3>필수사항</h3>
             <form class="info2" id="registerForm" action="/member/join" method="post">
 
-                <label for="id"><span>ID (e-mail)<button type="button" class="btn btn_line" onclick="javascript:idenetityCert()">핸드폰 인증</button></span>
-                    <input type="text" name="m_email" class="inp_info2">
-                    <!--<section>
+                <span class="input-group-text">MID</span>
+                <input type="text" name="m_id" class="form-control">
+
+                <label for="name"><span>이름</span>
+                    <input type="text" name="m_name" class="inp_info2">
+                </label>
+                </label>
+                <label for="id"><span>ID (e-mail)</span>
+                    <section>
                         <input type="text" name="m_email" class="inp_info2">
                         <span>@</span>
                         <input type="text" name="user_id" class="inp_info2">
@@ -315,7 +529,7 @@
                             <option value="hotmail.com">hotmail.com</option>
                             <option value="hanmail.net">hanmail.net</option>
                         </select>
-                    </section>-->
+                    </section>
                 </label>
                 <label for="pw"><span>비밀번호</span>
                     <input type="text" name="m_pw" class="inp_info2" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합">
@@ -324,8 +538,14 @@
                     <input type="text" name="user_pw2" class="inp_info2" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합">
                 </label>
 
-                <span class="join_info3">
+                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </form>
+        </div>
+
+        <div class="join_info3">
             <h3>가입경로(선택)</h3>
+            <form class="info3" action="index.html" method="post">
                 <label for="search">
                     <input type="checkbox" name="" value="">
                     <span>검색</span>
@@ -346,7 +566,27 @@
                     <input type="checkbox" name="" value="">
                     <span>기타</span>
                 </label>
-                        <h3>약관 동의</h3>
+            </form>
+        </div>
+
+        <div class="join_info4">
+            <h3>마케팅 수신동의(선택)</h3>
+            <h4>일룸에서 제공하는 정보 등을 받으실 수 있습니다. 단 상품 구매정보는 수신동의 여부 관계없이 발송됩니다.</h4>
+            <form class="info4" action="index.html" method="post">
+                <label for="">
+                    <input type="checkbox" name="" value="">
+                    <span>Sns</span>
+                </label>
+                <label for="">
+                    <input type="checkbox" name="" value="">
+                    <span>이메일</span>
+                </label>
+            </form>
+        </div>
+
+        <div class="join_info5">
+            <h3>약관 동의</h3>
+            <form class="info5" action="index.html" method="post">
                 <label for="" class="info5_1">
                     <input type="checkbox" name="" value="">
                     <span>전체동의</span>
@@ -367,28 +607,8 @@
                     <input type="checkbox" name="" value="">
                     <span>엄마의서재 정보수신 (Sms)</span> <a href="https://www.iloom.com/lifestyle/view.do?lsCode=LSP190400003">'엄마의서재'란?</a>
                 </label>
-
-            <h3>마케팅 수신동의(선택)</h3>
-            <h4>일룸에서 제공하는 정보 등을 받으실 수 있습니다. 단 상품 구매정보는 수신동의 여부 관계없이 발송됩니다.</h4>
-            <form class="info4" action="index.html" method="post">
-                <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>Sns</span>
-                </label>
-                <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>이메일</span>
-                </label>
-        </span>
-                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
             </form>
         </div>
-
-
-
-
-
 
         <div class="join_info6">
             <p>만 14세 이상이며 일룸 온라인 사이트 이용약관 ,

@@ -69,6 +69,14 @@ dependencies {
 
     //문자 전송
     implementation 'net.nurigo:sdk:4.3.0'
+
+    //네이버 메일 전송
+    /*implementation 'org.springframework.boot:spring-boot-starter-mail'*/
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.5'
+    implementation 'org.springframework:spring-context:6.0.7'
+    implementation 'org.springframework:spring-context-support:6.0.7'
+    implementation 'com.sun.mail:jakarta.mail:2.0.1'
 }
 
 tasks.named('test') {

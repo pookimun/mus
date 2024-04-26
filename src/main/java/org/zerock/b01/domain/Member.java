@@ -26,13 +26,13 @@ public class Member extends BaseEntity{
     private boolean m_social; //소셜 계정 여부
 
     /*추가*/
-    private String m_name; //이름
     private String m_route; //가입 경로
     private String m_optional_terms; //선택 약관 동의
-
+    private int m_point; //적립금
+    
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<MemberRole> roleSet = new HashSet<>();
+    private Set<MemberRole> roleSet = new HashSet<>();  // Member 엔티티와 MemberRole 엔티티 사이의 일대다 관계를 표현, HashSet: 중복 X, 빠른 검색 제공하므로 roleSet에는 같은 MemberRole 객체가 중복되지 않고, 빠르게 접근할 수 있습니다.
 
     public void changePassword(String m_pw){
         this.m_pw = m_pw;

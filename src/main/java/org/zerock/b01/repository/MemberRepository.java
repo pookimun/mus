@@ -10,11 +10,12 @@ import org.zerock.b01.domain.Member;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface MemberRepository extends JpaRepository<Member, String> { //JPARepository를 상속 받는 MemberRepository
 
-    @EntityGraph(attributePaths = "roleSet")
+    @EntityGraph(attributePaths = "roleSet") //Member 엔티티를 조회할 때 RoleSet 필드 로딩 (EntityGraph: 엔티티 조회 시 즉시 로딩 or 지연 로딩)
     @Query("select m from Member m where m.m_id = :m_id and m.m_social = false")
-    Optional<Member> getWithRoles(String m_id);
+    //회원 권한 검색
+    Optional<Member> getWithRoles(String m_id); //m_id로 Member 엔티티를 검색하는 동시에 회원 권한(roleSet) 정보도 함께 검색
 
 
     @EntityGraph(attributePaths = "roleSet")
@@ -22,8 +23,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     Optional<Member> findByM_email(String m_email);
 
 
-    @Modifying
-    @Transactional
+    @Modifying //DB 수정
+    @Transactional //성공 => 커밋, 예외 => 롤백
     @Query("update Member m set m.m_pw =:m_pw where m.m_id = :m_id ")
     void updatePassword(@Param("m_pw") String password, @Param("m_id") String m_id);
 

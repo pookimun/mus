@@ -28,16 +28,6 @@ public class MemberController {
 
     }
 
-//    @PostMapping("/join")
-//    public String joinPOST(MemberJoinDTO memberJoinDTO){
-//
-//        log.info("join post...");
-//        log.info(memberJoinDTO);
-//
-//        return "redirect:/board/list";
-//    }
-//
-
     @PostMapping("/join")
     public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
 
