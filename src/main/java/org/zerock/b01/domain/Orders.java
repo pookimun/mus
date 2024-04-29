@@ -71,7 +71,7 @@ public class Orders {
     public void addDetail(OrdersDetailDTO ordersDetailDTO){
         // ordersDetailDTO의 ItemDTO를 Item entity로 변환
         Item item = Item.builder()
-                .i_no(ordersDetailDTO.getItemDTO().getI_no())
+                .ino(ordersDetailDTO.getItemDTO().getIno())
                 .i_name(ordersDetailDTO.getItemDTO().getI_name())
                 .i_price(ordersDetailDTO.getItemDTO().getI_price())
                 .i_title_img(ordersDetailDTO.getItemDTO().getI_title_img())

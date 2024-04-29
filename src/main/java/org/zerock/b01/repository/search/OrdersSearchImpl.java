@@ -87,7 +87,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .map(detail -> OrdersDetailDTO.builder()
                             .od_no(detail.getOd_no())
                             .itemDTO(ItemDTO.builder()
-                                    .i_no(detail.getItem().getI_no())
+                                    .ino(detail.getItem().getIno())
                                     .i_name(detail.getItem().getI_name())
                                     .i_price(detail.getItem().getI_price())
                                     .i_title_img(detail.getItem().getI_title_img())

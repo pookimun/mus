@@ -82,7 +82,7 @@ public interface OrdersService {
                 orders.getOrdersDetailSet().stream().sorted().map(ordersDetail -> OrdersDetailDTO.builder()
                         .od_no(ordersDetail.getOd_no())
                         .itemDTO(ItemDTO.builder()
-                                .i_no(ordersDetail.getItem().getI_no())
+                                .ino(ordersDetail.getItem().getIno())
                                 .i_name(ordersDetail.getItem().getI_name())
                                 .i_price(ordersDetail.getItem().getI_price())
                                 .i_title_img(ordersDetail.getItem().getI_title_img())

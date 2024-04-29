@@ -17,7 +17,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long i_no; //상품  (pk)
+    private Long ino; //상품  (pk)
 
     @Column(nullable = false) // not null
     private String i_name; //상품명
@@ -40,7 +40,10 @@ public class Item {
     @Column(nullable = false) // not null
     private int i_stock; //재고보유여부
 
-
-
-
+    public void  change(String i_name,int i_price,String i_color,String i_size) {
+        this.i_name = i_name;
+        this.i_price = i_price;
+        this.i_color = i_color;
+        this.i_size = i_size;
+    }
 }
