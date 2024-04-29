@@ -34,8 +34,9 @@ public class OrdersListDTO {
     // 주문 처리 상태
     private String o_state;
 
-    // 한 주문 건 당 구매했던 상품들의 정보
+    // 한 주문 건 당 구매했던 상품들의 정보(상세주문내역 번호)
     private List<OrdersDetailDTO> ordersDetailDTOList;
+    //private List<Long> o_ordersDetailNo;
 
 
 

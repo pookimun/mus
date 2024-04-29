@@ -80,7 +80,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .a_request(orders1.getAddress().getA_request())
                     //.memberJoinDTO() 보류
                     .build();
-            dto.setAddressDTO(addressDTO);
+            //dto.setAddressDTO(addressDTO);
 
             // order1.orderDetailSet을 List<OrderDetailDTO> 처리
             List<OrdersDetailDTO> detailDTOS = orders1.getOrdersDetailSet().stream().sorted()
@@ -102,7 +102,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                             .od_price(detail.getOd_price())
                             .build())
                     .collect(Collectors.toList());
-            dto.setOrdersDetailDTOList(detailDTOS);
+            //dto.setOrdersDetailDTOList(detailDTOS);
 
             return dto;
         }).collect(Collectors.toList());

@@ -92,5 +92,9 @@ sourceSets {
     }
 }
 
+bootJar { // jar 파일 뽑기
+    //메인클래스로 실행할 파일
+    mainClass = 'org.zerock.b01.B01Application'
+}
 
 compileJava.dependsOn('clean')

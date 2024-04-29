@@ -17,12 +17,12 @@ public interface OrdersService {
     // 자바스크립트로 username을 가져와 member entity를 찾아 insert처리
     // ${#authentication.principal.username}
 
-    OrdersListDTO readOne(Long o_no);
+    OrdersListDTO readOne(Long ono);
     // 주문 테이블 번호를 매개값으로 한 주문의 정보(배송지, 주문일자, 처리상태, 구매상품들) 가져옴
 
     //void remove(Long bno); 보류
 
-    PageResponseDTO<OrdersListDTO> listWithAll(OrdersPageRequestDTO ordersPageRequestDTO);
+    OrdersPageResponseDTO<OrdersListDTO> listWithAll(OrdersPageRequestDTO ordersPageRequestDTO);
 
 
     default Orders dtoToEntity(OrdersListDTO ordersListDTO){
@@ -43,7 +43,7 @@ public interface OrdersService {
                 .ono(ordersListDTO.getO_no())
                 .o_ordersno(ordersListDTO.getO_ordersno())
                 .member(ordersListDTO.getMember())
-                .address(address) // 위에서 dtoToEntity 처리
+                //.address(address) // 위에서 dtoToEntity 처리
                 .o_date(ordersListDTO.getO_date())
                 .o_state(ordersListDTO.getO_state())
                 //.ordersDetailSet() 밑에서

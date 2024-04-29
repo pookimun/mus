@@ -19,7 +19,7 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     List<Address> list();
 
     //@Query("select a from Address a order by a.a_no desc")
-    List<Address> findByMember(Member member);
+    List<Address> findByMember(String member);
 
 
 }
