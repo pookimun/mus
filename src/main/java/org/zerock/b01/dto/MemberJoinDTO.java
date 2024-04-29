@@ -9,7 +9,7 @@ public class MemberJoinDTO {
     private boolean m_del;
     private boolean m_social;
 
-    private String m_route; //가입 경로
+    private String m_join_path; //가입 경로
     private String m_optional_terms; //선택 약관 동의
     private int m_point = 300000; //가입 적립금 30만원
 }

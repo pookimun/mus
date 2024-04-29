@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>무신사 | 회원가입</title>
 
@@ -10,10 +10,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
         @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
 
-        /*
-        font-family: 'Noto Sans KR', sans-serif;    -산세리프
-        font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';     -스포아
-        */
         * {
             margin: 0;
             padding: 0;
@@ -21,18 +17,14 @@
             border: 0px solid;
         }
 
-         section {
+        section {
             font-size: 0.9rem;
             line-height: 1rem;
-            color: #999;
             letter-spacing: 0.1px;
         }
 
-        h1, h2, h3, h4, h5 {
-            /*font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';*/
-        }
-
         h1 {
+            color: #999;
             font-size: 4rem;
             line-height: 4rem;
             text-transform: uppercase;
@@ -47,6 +39,7 @@
         h3 {
             font-size: 1.4rem;
             line-height: 1.4rem;
+            margin-top: 160px;
         }
 
         h4 {
@@ -54,26 +47,9 @@
             line-height: 1.1rem;
         }
 
-        h5 {
-            font-size: 0.7rem;
-            line-height: 0.7rem;
-        }
-
-        a:link {
-            color: #ddd;
-            text-decoration: none;
-        }
-
-        a:visited {
-            color: #555;
-        }
-
-        a:hover {
-            color: #555;
-        }
-
-        a:active {
-            color: #555;
+        .button-wrap {
+            text-align: center;
+            padding-top: 10rem;
         }
 
         button {
@@ -108,7 +84,7 @@
             border-radius: 50%;
         }
 
-        .search {
+        .path {
             width: 25px;
             margin-bottom: 0px;
             filter: brightness(100) grayscale(0);
@@ -117,14 +93,13 @@
 
         .join {
             width: 100%;
-            padding: 7rem 0;
         }
 
-        .join_info1, .join_info2, .join_info3, .join_info4, .join_info5{
-            padding: 5rem 0;
+        .join_info {
+            padding: 5rem 0 5rem;
         }
 
-        .join_info1 h3, .join_info2 h3, .join_info3 h3, .join_info4 h3, .join_info5 h3{
+        .join_info h3 {
             padding-bottom: 25px;
             margin-bottom: 40px;
             font-size: 1.9rem;
@@ -133,14 +108,14 @@
             border-bottom: 2px solid #222;
         }
 
-        .join_info1 h4 {
+        .join_info h4 {
             margin: 30px 0;
             font-size: 1.5rem;
             line-height: 1.6rem;
             color: #333;
         }
 
-        .join_info1 button{
+        .join_info button {
             width: 200px;
             padding: 10px 0;
             border: 1px solid #000;
@@ -149,18 +124,47 @@
             color: #000;
         }
 
-        .join_info1 button:hover{
+        .join_info button:hover {
             background: #000;
             color: #fff;
         }
 
-        .join_info2 form label, input{
-            display: block;
-            font-size: 1.5rem;
-            color: #000;
+        .join_info {
+            padding: 5rem 0;
         }
 
-        .inp_info2 {
+        .optional > label, .optional > input {
+            font-size: 1.5rem;
+            color: #000;
+            padding-right: 30px;
+            padding-bottom: 20px;
+            display: inline-block;
+        }
+
+        .terms {
+            font-size: 1.2rem;
+            font-weight: 300;
+            text-decoration: underline;
+            padding-left: 20px;
+            color: #aaa;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .required label {
+            width: 100%;
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #000;
+            display: inline-block;
+        }
+
+        .required input {
+            font-size: 1.5rem;
+            color: #000;
             width: 100%;
             height: 60px;
             line-height: 40px;
@@ -176,58 +180,25 @@
             font-weight: 300;
         }
 
-        .info2> :nth-child(3) {display: inline;}
-
-        .info2> :nth-child(3) section{
-            padding: 0;
-            margin: 0;
-            position: relative;
-        }
-
-        .info2> :nth-child(3) section span{
-            padding: 0;
-            margin: 0;
-            position: absolute;
-            bottom: 50%;
-            left: 40%;
-            transform: translate(-50%, -50%);
-        }
-
-        .email_slc{
-            height: 30px;
-            padding: 0;
-            margin: 0;
-            margin-top: 30px;
-            border-bottom: 1px solid #000;
-        }
-
-        .info3 label, .info4 label, .info5 label{
+        .info3 label, .info4 label, .info5 label {
             padding-right: 30px;
             padding-bottom: 20px;
         }
 
-        .info3 label input, .info4 label input, .info5 label input{
-            display: inline;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-
-        .info5{
+        .info5 {
             display: block;
             float: left;
         }
 
-        .info5_1{
+        .info5_1 {
             margin-bottom: 10px;
         }
 
-        .info3 label input:checked, .info4 label input:checked{
+        .info3 label input:checked, .info4 label input:checked {
             background: red;
         }
 
-        .info3 label span, .info4 label span, .info5 label span{
+        .info3 label span, .info4 label span, .info5 label span {
             font-size: 1.6rem;
             font-weight: 400;
             color: #222;
@@ -241,28 +212,12 @@
             color: #333;
         }
 
-        .info5_1 span{
+        .info5_1 span {
             font-size: 1.6rem;
             font-weight: 800;
         }
 
-        .info5 a{
-            font-size: 1.2rem;
-            font-weight: 300;
-            text-decoration: underline;
-            padding-left: 20px;
-            color: #aaa;
-        }
-
-        .join_info6{
-            clear: both;
-            padding: 5rem 0;
-            margin: 0 auto;
-            text-align:center;
-        }
-
-
-        .join p{
+        .join p {
             margin: 5rem 0;
             margin-bottom: 50px;
             font-size: 1.5rem;
@@ -270,7 +225,7 @@
             color: #222;
         }
 
-        .join_info6 a{
+        .submitBtn {
             width: 250px;
             padding: 10px 100px;
             border: 1px solid #000;
@@ -280,28 +235,32 @@
             transition: .5s;
         }
 
-        .join_info6 a:hover{
+        .submitBtn:hover {
             background: #000;
             color: #fff;
         }
     </style>
 </head>
 
-<!--<a href="#" class="top">
+<a class="top" href="#">
     <ion-icon name="arrow-up"></ion-icon>
-</a>-->
+</a>
 
 <div layout:fragment="content">
 
-        <section class="join" style="width: 65%; margin: 0 auto;">
-            <h1>JOIN.</h1>
+    <section class="join" style="width: 65%; margin: 0 auto;">
+        <h1>JOIN.</h1>
 
-        <div class="join_info1 join_info2">
-            <h3>필수사항</h3>
-            <form class="info2" id="registerForm" action="/member/join" method="post">
+        <div class="join_info">
+            <h3 style="margin-top: 80px;">필수사항</h3>
+            <form action="/member/join" id="registerForm" method="post">
 
-                <label for="id"><span>ID (e-mail)<button type="button" class="btn btn_line" onclick="javascript:idenetityCert()">핸드폰 인증</button></span>
-                    <input type="text" name="m_email" class="inp_info2">
+                <span class="required">
+
+                <label for="id"><span>ID (e-mail) <button class="btn btn_line"
+                                                          onclick="javascript:idenetityCert()"
+                                                          type="button">핸드폰 인증</button></span>
+                    <input name="m_id" type="text">
                     <!--<section>
                         <input type="text" name="m_email" class="inp_info2">
                         <span>@</span>
@@ -317,96 +276,78 @@
                         </select>
                     </section>-->
                 </label>
+
                 <label for="pw"><span>비밀번호</span>
-                    <input type="text" name="m_pw" class="inp_info2" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합">
-                </label>
-                <label for="pw"><span>비밀번호 확인</span>
-                    <input type="text" name="user_pw2" class="inp_info2" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합">
+                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
 
-                <span class="join_info3">
-            <h3>가입경로(선택)</h3>
-                <label for="search">
-                    <input type="checkbox" name="" value="">
+                <label for="pw"><span>비밀번호 확인</span>
+                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
+                </label>
+                    </span>
+
+                <span class="optional">
+                <h3>가입경로(선택)</h3>
+                <label for="path">
+                    <input name="m_join_path" type="checkbox" value="search">
                     <span>검색</span>
                 </label>
-                <label for="search">
-                    <input type="checkbox" name="" value="">
+                <label for="path">
+                    <input name="m_join_path" type="checkbox" value="social_media">
                     <span>소셜미디어</span>
                 </label>
-                <label for="search">
-                    <input type="checkbox" name="" value="">
-                    <span>주변추천</span>
+                <label for="path">
+                    <input name="m_join_path" type="checkbox" value="recommendation">
+                    <span>주변 추천</span>
                 </label>
-                <label for="search">
-                    <input type="checkbox" name="" value="">
+                <label for="path">
+                    <input name="m_join_path" type="checkbox" value="offline_store">
                     <span>오프라인 매장</span>
                 </label>
-                <label for="search">
-                    <input type="checkbox" name="" value="">
+                <label for="path">
+                    <input name="m_join_path" type="checkbox" value="other">
                     <span>기타</span>
                 </label>
-                        <h3>약관 동의</h3>
-                <label for="" class="info5_1">
-                    <input type="checkbox" name="" value="">
+
+                    <h3>약관 동의</h3>
+                <label class="info5_1" for="">
+                    <input name="m_optional_terms" type="checkbox" value="">
                     <span>전체동의</span>
                 </label><br>
                 <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>일룸회원 이용약관 (필수)</span> <a href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
+                    <input name="m_optional_terms" type="checkbox" value="">
+                    <span>일룸회원 이용약관 (필수)</span> <a class="terms"
+                                                   href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
                 </label>
                 <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>개인정보 처리방침 (필수)</span> <a href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
+                    <input name="m_optional_terms" type="checkbox" value="">
+                    <span>개인정보 처리방침 (필수)</span> <a class="terms"
+                                                   href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
                 </label>
                 <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>개인정보 수집 및 이용 (필수)</span> <a href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
+                    <input name="m_optional_terms" type="checkbox" value="">
+                    <span>개인정보 수집 및 이용 (필수)</span> <a class="terms" href="https://www.iloom.com/policy/termsOfUse.do">약관보기</a>
                 </label>
                 <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>엄마의서재 정보수신 (Sms)</span> <a href="https://www.iloom.com/lifestyle/view.do?lsCode=LSP190400003">'엄마의서재'란?</a>
+                    <input name="m_optional_terms" type="checkbox" value="">
+                    <span>마케팅 수신동의 (선택)</span> <a class="terms"
+                                                     href="https://www.iloom.com/lifestyle/view.do?lsCode=LSP190400003">'엄마의서재'란?</a>
                 </label>
+    </span>
 
-            <h3>마케팅 수신동의(선택)</h3>
-            <h4>일룸에서 제공하는 정보 등을 받으실 수 있습니다. 단 상품 구매정보는 수신동의 여부 관계없이 발송됩니다.</h4>
-            <form class="info4" action="index.html" method="post">
-                <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>Sns</span>
-                </label>
-                <label for="">
-                    <input type="checkbox" name="" value="">
-                    <span>이메일</span>
-                </label>
-        </span>
-                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <div class="button-wrap">
+                    <button class="btn btn-primary submitBtn" type="submit">회원가입</button>
+                </div>
             </form>
         </div>
-
-
-
-
-
-
-        <div class="join_info6">
-            <p>만 14세 이상이며 일룸 온라인 사이트 이용약관 ,
-                개인정보 수집 및 이용동의 를 확인하였고 동의합니다.
-                고객님께서는 개인정보 수집 및 이용동의를 거부하실 수있으며,
-                동의거부시 회원가입이 제한됩니다.</p>
-            <a href="https://codepen.io/sunnyam/full/qBZpXQJ">동의하고 가입</a>
-        </div>
-
-        </section>
-
+    </section>
 
     <script layout:fragment="script" th:inline="javascript">
         const error = [[${error}]]
 
-        if(error && error === 'm_id'){
+        if (error && error === 'm_id') {
             alert("동일한 MID를 가진 계정이 존재합니다.")
         }
     </script>
 
-    </div>
+</div>
