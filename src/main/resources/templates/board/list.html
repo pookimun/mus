@@ -1,7 +1,9 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
+
+<!--layout:decorate="~{layout/basic.html}"-->
+<!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
 
 <div layout:fragment="content">
 
@@ -111,8 +113,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 
@@ -154,7 +154,5 @@
     if(result){
         modal.show()
     }
-
-
 
 </script>

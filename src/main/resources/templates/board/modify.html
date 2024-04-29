@@ -3,6 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 
+<!--layout:decorate="~{layout/basic.html}"-->
+
+<!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
+
 <head>
     <title>Board Modify</title>
 </head>
@@ -71,16 +75,16 @@
         <div class="col ">
             <div class="container-fluid d-flex uploadResult" style="flex-wrap: wrap;">
                 <th:block th:each="fileName:${dto.fileNames}">
-                <div class="card col-4" th:with = "arr = ${fileName.split('_')}">
-                    <div class="card-header d-flex justify-content-center">
-                        [[${arr[1]}]]
-                        <button class="btn-sm btn-danger"
-                                th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X</button>
-                    </div>
-                    <div class="card-body">
-                        <img th:src="|/view/s_${fileName}|" th:data-src="${fileName}" >
-                    </div>
-                </div><!-- card -->
+                    <div class="card col-4" th:with = "arr = ${fileName.split('_')}">
+                        <div class="card-header d-flex justify-content-center">
+                            [[${arr[1]}]]
+                            <button class="btn-sm btn-danger"
+                                    th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X</button>
+                        </div>
+                        <div class="card-body">
+                            <img th:src="|/view/s_${fileName}|" th:data-src="${fileName}" >
+                        </div>
+                    </div><!-- card -->
                 </th:block>
             </div>
         </div>
@@ -295,4 +299,3 @@
     }
 
 </script>
-

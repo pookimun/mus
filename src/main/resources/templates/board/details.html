@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3.0">
+	<title>MS</title>
+	<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="https://swiperjs.com/package/swiper-bundle.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+		@import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+
+		/*
+        font-family: 'Noto Sans KR', sans-serif;    -산세리프
+        font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';     -스포아
+        */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			border: 0px solid;
+		}
+
+		img {
+			width: 100px;
+		}
+
+		body {
+			font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+			font-size: 0.9rem;
+			line-height: 1rem;
+			color: #999;
+			letter-spacing: 0.1px;
+		}
+
+		h1, h2, h3, h4, h5 {
+			font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+		}
+
+		h1 {
+			font-size: 4rem;
+			line-height: 4rem;
+			text-transform: uppercase;
+		}
+
+		h2 {
+			font-size: 2.4rem;
+			line-height: 2.4rem;
+			text-transform: uppercase;
+		}
+
+		h3 {
+			font-size: 1.4rem;
+			line-height: 1.4rem;
+		}
+
+		h4 {
+			font-size: 1.1rem;
+			line-height: 1.1rem;
+		}
+
+		h5 {
+			font-size: 0.7rem;
+			line-height: 0.7rem;
+		}
+
+		a:link {
+			color: #ddd;
+			text-decoration: none;
+		}
+
+		a:visited {
+			color: #555;
+		}
+
+		a:hover {
+			color: #555;
+		}
+
+		a:active {
+			color: #555;
+		}
+
+		button {
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			padding: 10px 30px;
+			border: 1px solid #ccc;
+			background: white;
+			transition: 0.3s;
+		}
+
+		button:hover {
+			background: crimson;
+			color: white;
+			cursor: pointer;
+		}
+
+		ul li {
+			list-style: none;
+		}
+
+		a.top {
+			position: fixed;
+			right: 40%;
+			bottom: 100px;
+			display: none;
+			font-size: 1.5rem;
+			color: #222;
+			z-index: 99;
+			background: #b9aba2;
+			padding: 10px 10px 10px 10px;
+			border-radius: 50%;
+		}
+
+		/***************************start******************************/
+		header {
+			width: 100%;
+			background: #050505;
+		}
+
+		#ltbar {
+			background: #050505;
+			position: fixed;
+			width: 100%;
+			top: 0;
+			display: block;
+			transition: top 0.8s;
+			line-height: 5rem;
+			z-index: 99;
+		}
+
+		.ltbar {
+			min-width: 1200px;
+			padding: 0 50px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.logo {
+			margin-bottom: -5px;
+			filter: brightness(100);
+		}
+
+		.ltbar ul li {
+			display: inline;
+			color: #d3d3d3;
+			font-size: 1rem;
+			font-weight: 500;
+		}
+
+		.ltbar ul li a {
+			padding: 0 10px;
+			color: #d3d3d3;
+			font-size: 1rem;
+			font-weight: 500;
+			line-height: 2rem;
+			text-transform: uppercase;
+		}
+
+		.ltbar ul li a:hover {
+			color: #a4493d;
+		}
+
+		.search {
+			width: 25px;
+			margin-bottom: -7px;
+			filter: brightness(100) grayscale(0);
+			opacity: .7;
+		}
+
+		main {
+			height: 900px;
+		}
+
+		main section{
+			margin-top: 80px;
+			padding: 50px 0 30px 5%;
+			font-size: .9rem;
+			font-weight: 400;
+			color: #444;
+		}
+
+		main section span{
+			font-weight: 600;
+			color: #333;
+			font-size: 1.2rem;
+		}
+
+		.main_content {
+			min-width: 1200px;
+			height: 100%;
+			margin: 0 auto;
+		}
+
+		.swiper-container {
+			width: 70%; /*마진때문에80%아님*/
+			height: 750px;
+			margin-left: 5%;
+			margin-right: 5%;
+			float: left;
+			position: relative;
+		}
+
+		.icon{
+			position: absolute;
+			top: 5%;
+			right: 11%;
+			z-index: 10;
+		}
+
+		ion-icon {
+			font-size: 25px;
+			color: #000;
+			cursor: pointer;
+			padding: 0 10px;
+		}
+
+		.swiper-slide {
+			text-align: center;
+			font-size: 18px;
+			background: #fff;
+			/* Center slide text vertically */
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+		}
+
+		.swiper-slide h4{
+			width: 100px;
+			height: 50px;
+			background: #f0f0f0;
+			position: absolute;
+			left: 12%;
+			bottom: 0%;
+			font-size: 2rem;
+			font-weight: 400;
+			text-transform: uppercase;
+		}
+
+		@media screen and (max-width: 1360px) {
+			.swiper-slide h4{
+				bottom: 5%;
+			}
+		}
+
+		.swiper-button-next:after, .swiper-button-prev:after {
+			font-size: var(--swiper-navigation-size);
+			text-transform: none!important;
+			letter-spacing: 0;
+			text-transform: none;
+			font-variant: initial;
+			line-height: 1;
+			color: #a4493d;
+		}
+
+		.swiper-pagination {
+			position: absolute;
+			bottom: -10%;
+			text-align: center;
+			transition: .3s opacity;
+			transform: translate3d(0,0,0);
+			z-index: 10;
+		}
+
+
+		:root {
+			--swiper-navigation-size: 44px;  /* 화살표 크기 */
+		}
+		:root {
+			--swiper-theme-color: #a4493d; /* 화살표&불렛 색상 */
+		}
+
+		.swiper-wrapper> :nth-child(1){
+			width: 100%;
+			height: 100%;
+			background: url('https://www.iloom.com/upload/product/20190607/S600_1abf10de-7715-4dac-a9da-8b694fe7ba5f.jpg')no-repeat;
+			background-size: 80%;
+			background-position: center;
+			border-radius:
+		}
+
+		.swiper-wrapper> :nth-child(2){
+			width: 100%;
+			height: 100%;
+			background: url('https://www.iloom.com/upload/productColor/20190607/S600_286ebd76-1d80-44b2-9a78-d7bd69733c80.jpg')no-repeat;
+			background-size: 80%;
+			background-position: center;
+		}
+
+		.swiper-wrapper> :nth-child(3){
+			width: 100%;
+			height: 100%;
+			background: url('https://www.iloom.com/upload/productColor/20190607/S600_ba71dcfc-784e-463c-ae19-00c196cbf83a.jpg')no-repeat;
+			background-size: 80%;
+			background-position: center;
+		}
+
+		.swiper-wrapper> :nth-child(4){
+			width: 100%;
+			height: 100%;
+			background: url('https://www.iloom.com/upload/productColor/20190607/S600_1b05b746-5d77-417e-9714-07615cb81816.jpg')no-repeat;
+			background-size: 80%;
+			background-position: center;
+		}
+
+		.swiper-wrapper> :nth-child(5){
+			width: 100%;
+			height: 100%;
+			background: url('https://www.iloom.com/upload/productColor/20190607/S600_42d0538a-6f34-42f0-a2de-9d708586e3fe.jpg')no-repeat;
+			background-size: 80%;
+			background-position: center;
+		}
+
+		aside{
+			min-width: 45px;
+			background: #fff;
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: 20%;
+			height: 100%;
+			z-index: 9;
+			border-left: 1px solid #aaa;
+		}
+
+		.aside1 {
+			width: 100%;
+			padding: 10rem 10% 0 10%;
+			color: #222;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+		}
+
+		.aside1 h5{
+			font-size: 1rem;
+			font-weight: 500;
+			text-decoration: underline;
+			color: #333;
+		}
+
+		.aside1 h4{
+			font-size: 1.2rem;
+			line-height: 1.2rem;
+			margin: 20px 0 40px 0;
+			font-weight: 700;
+		}
+
+		.aside1 small, .aside2 small{
+			font-size: .7rem;
+		}
+
+		.aside1 section{
+			margin: 50px auto;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.color{
+			width: 20px;
+			height: 20px;
+			background: #eee;
+			display: inline-block;
+			cursor: pointer;
+			border-radius: 50%;
+		}
+
+		.color_wrap> :nth-child(1){
+			background: #883621;
+		}
+
+		.color_wrap> :nth-child(2){
+			background: #824d2d;
+		}
+
+		.color_wrap> :nth-child(3){
+			background: #29313e;
+		}
+
+		.color_wrap> :nth-child(4){
+			background: #d7d0c0;
+		}
+
+		.aside1 section input{
+			width: 80px;
+			height: 20px;
+			padding: 10px;
+			border-bottom: 1px solid;
+		}
+
+		.aside1> :nth-child(5){
+			padding-bottom: 15%;
+			border-bottom: 2px solid #222;
+		}
+
+		.aside2 {
+			width: 100%;
+			padding: 0 10%;
+			color: #222;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.aside2 h4{
+			font-weight: 500;
+		}
+
+		.aside3 {
+			padding: 0 10%;
+			margin: 30px auto;
+			font-size: .8rem;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.aside3 a{
+			width: 150px;
+			height: 40px;
+			padding-top:11px;
+			margin: auto 5px;
+			color: #fff;
+			background: #aeaeae;
+			font-weight: 900;
+			text-align: center;
+			transition: .6s;
+		}
+
+		.aside3 a:hover{
+			background: #000;
+		}
+
+
+		footer{
+			clear: both;
+			padding: 5rem 15% 0 0;
+			background: #b9aba2;
+		}
+
+		.ft1{
+			min-width: 1200px;
+			padding: 0 15% 2rem 5%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.ft1 ul li{
+			margin: 10px auto;
+			color: #444;
+		}
+
+		.ft1> :nth-child(1)> :nth-child(3){
+			margin-top: 20px;
+		}
+
+		.ft1> :nth-child(1)> :nth-child(3) li{
+			display: inline;
+			margin-right: 20px;
+		}
+
+		.ft1> :nth-child(1)> :nth-child(3) li a{
+			color: #222;
+			font-weight: 500;
+			text-decoration: underline;
+		}
+
+		.ft1> :nth-child(1)> :nth-child(3) li a:hover{
+			font-weight: 600;
+		}
+
+
+		.ft1> :nth-child(2){
+			text-transform: uppercase;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.ft1> :nth-child(2) ul{
+			margin-right: 40px;
+		}
+
+		.ft1> :nth-child(2) ul li{
+			font-size: 1rem;
+			font-weight: 600;
+		}
+
+		.ft1> :nth-child(2) a{
+			color: #555;
+			font-size: .8rem;
+			font-weight: 400;
+		}
+
+		.ft2{
+			clear: both;
+			padding: 20px 0;
+			color: #333;
+			font-weight: 600;
+			text-transform: uppercase;
+			background: #ddd;
+		}
+
+		.ft2 ul> :nth-child(1){
+			padding-top: 5px;
+		}
+
+		.ft2 img{
+			width: 25px;
+			filter:  brightness(10%);
+		}
+
+		.ft2 ul{
+			width: 200px;
+			margin: 0 auto;
+			margin-left: 41%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		/*복붙*/
+		.aside {
+			min-width: 45px;
+			background: #fff;
+			width: 30%;
+			height: 100%;
+			z-index: 9;
+		}
+
+		.aside1 {
+			width: 100%;
+			padding: 3rem 10%;
+			color: #222;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+		}
+
+		.aside1 h5 {
+			font-size: 1rem;
+			font-weight: 500;
+			text-decoration: underline;
+			color: #333;
+		}
+
+		.aside1 h4 {
+			font-size: 1.2rem;
+			line-height: 1.2rem;
+			margin: 20px 0 40px 0;
+			font-weight: 700;
+		}
+
+		.aside1 small, .aside2 small {
+			font-size: .7rem;
+		}
+
+		.aside1 section {
+			padding: 10px 0;
+			margin: 50px auto;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.detail {
+			width: 1200px;
+			padding: 7rem 0;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.detail h2 {
+			font-size: 2.5rem;
+			font-weight: 400;
+			color: #444;
+			margin-bottom: 50px;
+		}
+
+		.detail h4 {
+			font-size: 0.8rem;
+			font-weight: 200;
+			color: #c80a1e;
+			margin-top: 50px;
+		}
+
+		.detail li {
+			font-size: 0.8rem;
+			font-weight: 200;
+		}
+
+	</style>
+</head>
+
+<body>
+
+<a href="#" class="top">
+	<ion-icon name="arrow-up"></ion-icon>
+</a>
+
+<header>
+	<div id="ltbar">
+		<div class="ltbar">
+			<a href="#"><img src="https://www.iloom.com/img/front/footer/footer_logo.png" class="logo"></a>
+			<ul>
+				<li><a href="#">침실</a></li>
+				<li><a href="#">거실</a></li>
+				<li><a href="#">주방</a></li>
+				<li><a href="#">키즈룸</a></li>
+				<li><a href="#">학생방</a></li>
+				<li><a href="#">서재</a></li>
+				<li><a href="#">펫</a></li>
+				<li><a href="#">시리즈</a></li>
+				<li><a href="#">아울렛</a></li>
+			</ul>
+			<section>
+				<ul>
+					<li><a href="javascript:;"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-60d899b276f7df8280ce9777d4aa29e5.png" class="search"></a></li>
+					<li><a href="javascript:;">Login</a>/</li>
+					<li><a href="javascript:;">Join</a></li>
+					<li><a href="javascript:;">Cart</a></li>
+					<li><a href="javascript:;">Support</a></li>
+					<li><a href="javascript:;">정품 인증</a></li>
+				</ul>
+			</section>
+
+		</div>
+	</div>
+</header>
+
+
+<main>
+	<section>
+		거실 > 소파 > 리클라이너 > 1인 > <span>볼케</span>
+	</section>
+	<div class="main_content">
+		<!-- Swiper -->
+		<div class="swiper-container">
+			<div class="icon">
+				<ion-icon name="share-social"></ion-icon>
+				<ion-icon name="heart"></ion-icon>
+			</div>
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"></div>
+				<div class="swiper-slide">
+					<h4>L660</h4>
+				</div>
+				<div class="swiper-slide">
+					<h4>L663a</h4>
+				</div>
+				<div class="swiper-slide">
+					<h4>L664a</h4>
+				</div>
+				<div class="swiper-slide">
+					<h4>L665l</h4>
+				</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+
+			<article class="detail">
+				<h2>Color</h2>
+				<div class="dtcolor">
+					<img src="https://www.iloom.com/upload/contents/20191023/S600_f193b56e-eb77-4a4b-a286-779cfb7e2988.jpg" alt="">
+					<img src="https://www.iloom.com/upload/contents/20191023/S600_41c7798f-a133-4249-998c-18b71e4aec1e.jpg" alt="">
+				</div>
+				<h4>*제품 색상은 모니터와 조명에 따라 실제 색상과 차이가 있을 수 있습니다.</h4>
+			</article>
+
+			<article class="ojsize detail">
+				<h2 cl>Size & Material</h2>
+				<section style="width: 600px; text-align: left; margin: 0 auto;">
+					<img src="https://www.iloom.com/upload/contents/20190607/S600_15269067-80b4-4a86-8dfb-4a164f43c09f.jpg" alt="">
+					<div>
+						<ul>
+							Size
+							<li>875 * 910~1670 * 600~1120</li>
+						</ul>
+						<ul>
+							Material
+							<li><span>마감재(접촉면) </span>국내산 천연소가죽(Semi-Aniline) 1.3~1.5㎜</li>
+							<li><span>마감재(비접촉면) </span>인조가죽</li>
+							<li><span>내장재 </span>E0 목재 [A급 각재+합판]+INTES社고탄성 밴드+S자 스프링</li>
+							<li><span>헤드레스트/팔걸이 </span>캐시미어, 25kg 소프트 스폰지</li>
+							<li><span>등쿠션 </span>캐시미어, 스폰지</li>
+							<li><span>좌방석 </span>캐시미어, 30kg+40kg 소프트 스폰지</li>
+							<li><span>다리(발통) </span>매탈 원형베이스</li>
+						</ul>
+						<ul>
+							<li>*제품의 사양은 변경될 수 있습니다</li>
+							<li>*실제 사이즈는 측정하는 방법이나 위치에 따라 2~3cm 내외의 차이가 있을 수 있습니다</li>
+						</ul>
+					</div>
+				</section>
+			</article>
+		</div>
+		<!-- Swiper JS -->
+		<script src="https://swiperjs.com/package/swiper-bundle.min.js"></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.swiper-container', {
+				slidesPerView: 1,
+				spaceBetween: 0,
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true,
+				},
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			});
+		</script>
+	</div>
+</main>
+<aside class="">
+	<div class="aside1">
+		<h5>볼케</h5>
+		<h4>1인 리클라이너 소파 (F가죽,전동)</h4>
+		2,499,000<small>Won</small>
+		<section>
+			<small>Color</small>
+			<span class="color_wrap">
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+        </span>
+		</section>
+		<section>
+			<small>Qty</small>
+			<input type="number" value="1" min="1" max="100">
+		</section>
+	</div>
+
+	<div class="aside2">
+		<h4>Price</h4>
+		<span style="font-weight: 800;">2,499,000<small>Won</small></span>
+	</div>
+	<div class="aside3">
+		<a href="#">Add to cart</a><a href="#">Buy</a>
+	</div>
+</aside>
+
+<footer>
+	<div class="ft1">
+		<section>
+			<img src="https://www.iloom.com/img/front/gnb/gnb_logo.png" alt="">
+			<ul>
+				<li>서울시 송파구 오금로 311 (오금동45-1) (주)일룸 ·대표이사 강성문</li>
+				<li>개인정보보호 책임자 : 강성문</li>
+				<li>사업자등록번호 : 215-86-93600·통신판매업신고 : 2009-서울송파-0069호·부가통신사업신고필증 : 021129</li>
+				<li>webmaster@iloom.com·Copyright (c) 2018 iloom lnc. All rights reserved</li>
+			</ul>
+
+			<ul>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">Fiserv 에스크로 가입사실 확인</a></li>
+				<li><a href="#">사업자정보 확인</a></li>
+			</ul>
+		</section>
+		<section>
+			<ul>
+				<li>About</li>
+				<li><a href="#">회사소개</a></li>
+				<li><a href="#">매장안내</a></li>
+				<li><a href="#">인재채용</a></li>
+			</ul>
+			<ul>
+				<li>My page</li>
+				<li><a href="#">주문/배송 조회</a></li>
+			</ul>
+			<ul>
+				<li>Support</li>
+				<li><a href="#">고객센터</a></li>
+				<li><a href="#">대리점 개설안내</a></li>
+			</ul>
+		</section>
+	</div>
+
+	<div class="ft2">
+		<ul>
+			<li>Visit us.</li>
+			<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_i.png" alt=""></a></li>
+			<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_f.png" alt=""></a></li>
+			<li><a href="#"><img src="https://www.iloom.com/img/front/footer/footer_b.png" alt=""></a></li>
+		</ul>
+	</div>
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+	//top앵커 시작
+	$(document).ready(function() {
+		$(window).scroll(function() {
+			if ($(this).scrollTop() > 200) {
+				$('.top').fadeIn();
+			} else {
+				$('.top').fadeOut();
+			}
+		}); //어느 정도 스크롤하여 밑으로 내려갔을 때 링크가 보이게 합니다.
+
+
+		$('.top').click(function() {
+			$('html, body').animate({
+				scrollTop: 0
+			}, 400);
+			return false;
+		});
+	}); //클릭했을 때 스르륵 올라가도록 애니메이션 효과를 줍니다.
+	//top앵커 끝
+
+	//헤더
+	// 펑션 실행전 y값을 prev 로 셋팅
+	var prevScrollpos = window.pageYOffset;
+	//onscroll 이벤트 사용하여 스크롤시 펑션 실행
+	window.onscroll = function() {
+
+		// current에 y값 넘김
+		var currentScrollpos = window.pageYOffset;
+
+		// prev가 current보다 크면 true, 스크롤을 올리면 true, prev의 초기값은 0
+		if (prevScrollpos > currentScrollpos) {
+			// 네비가 보임
+			document.getElementById("ltbar").style.top = "0";
+			// prev가 current보다 작으면 false, 스크롤을 내리면 false
+		} else {
+			// 네비가 안보임
+			document.getElementById("ltbar").style.top = "-100px";
+		}
+
+		//prev 에 current 값 넘김, 현재의 좌표에서 변수 다시 초기화하고 여기서부터 다시 시작, 스크롤 할때마다 리셋
+		prevScrollpos = currentScrollpos;
+
+	}
+	//헤더끝
+
+	//메인슬라이드
+	var swiper = new Swiper('.swiper-container', {
+		slidesPerView: 1,
+		spaceBetween: 30,
+		loop: true,
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+	});
+	//
+
+</script>
+
+</body>
+
+</html>
