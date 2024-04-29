@@ -10,18 +10,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CustomServletConfig implements WebMvcConfigurer {
 
-    @Override // static폴더 제외 처리
+    @Override // security에서 static폴더 제외 처리
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+        //설정 시 404에러 안 뜸!
         registry.addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("classpath:/static/img/");
         registry.addResourceHandler("/fonts/**")
                 .addResourceLocations("classpath:/static/fonts/");
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/assets/**").
                 addResourceLocations("classpath:/static/assets/");
-
+        registry.addResourceHandler("/images/**").
+                addResourceLocations("classpath:/static/images/");
     }
 
 }

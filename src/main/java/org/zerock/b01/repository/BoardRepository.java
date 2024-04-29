@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch {
 
     @EntityGraph(attributePaths = {"imageSet"})
+    // @EntityGraph에는 attributePaths라는 속성을 이용해서 같이 로딩해야 하는 속성 명시
     @Query("select b from Board b where b.bno =:bno")
     Optional<Board> findByIdWithImages(Long bno);
 

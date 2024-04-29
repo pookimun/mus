@@ -15,11 +15,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(value = {AuditingEntityListener.class })
 public class Item {
 
-
-
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long i_no; //상품  (pk)
@@ -44,6 +39,8 @@ public class Item {
 
     @Column(nullable = false) // not null
     private int i_stock; //재고보유여부
+
+
 
 
 }
