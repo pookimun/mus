@@ -3,257 +3,257 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>무신사 | 회원가입</title>
+  <title>무신사 | 회원가입</title>
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-        @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+    @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            border: 0px solid;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      border: 0px solid;
+    }
 
-        section {
-            font-size: 0.9rem;
-            line-height: 1rem;
-            letter-spacing: 0.1px;
-        }
+    section {
+      font-size: 0.9rem;
+      line-height: 1rem;
+      letter-spacing: 0.1px;
+    }
 
-        h1 {
-            color: #999;
-            font-size: 4rem;
-            line-height: 4rem;
-            text-transform: uppercase;
-        }
+    h1 {
+      color: #999;
+      font-size: 4rem;
+      line-height: 4rem;
+      text-transform: uppercase;
+    }
 
-        h2 {
-            font-size: 2.4rem;
-            line-height: 2.4rem;
-            text-transform: uppercase;
-        }
+    h2 {
+      font-size: 2.4rem;
+      line-height: 2.4rem;
+      text-transform: uppercase;
+    }
 
-        h3 {
-            font-size: 1.4rem;
-            line-height: 1.4rem;
-            margin-top: 160px;
-        }
+    h3 {
+      font-size: 1.4rem;
+      line-height: 1.4rem;
+      margin-top: 160px;
+    }
 
-        h4 {
-            font-size: 1.1rem;
-            line-height: 1.1rem;
-        }
+    h4 {
+      font-size: 1.1rem;
+      line-height: 1.1rem;
+    }
 
-        .button-wrap {
-            text-align: center;
-            padding-top: 10rem;
-        }
+    .button-wrap {
+      text-align: center;
+      padding-top: 10rem;
+    }
 
-        button {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            padding: 10px 30px;
-            border: 1px solid #ccc;
-            background: white;
-            transition: 0.3s;
-        }
+    button {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      padding: 10px 30px;
+      border: 1px solid #ccc;
+      background: white;
+      transition: 0.3s;
+    }
 
-        button:hover {
-            background: crimson;
-            color: white;
-            cursor: pointer;
-        }
+    button:hover {
+      background: crimson;
+      color: white;
+      cursor: pointer;
+    }
 
-        ul li {
-            list-style: none;
-        }
+    ul li {
+      list-style: none;
+    }
 
-        a.top {
-            position: fixed;
-            right: 5%;
-            bottom: 100px;
-            display: none;
-            font-size: 1.5rem;
-            color: #222;
-            z-index: 99;
-            background: #b9aba2;
-            padding: 10px 10px 10px 10px;
-            border-radius: 50%;
-        }
+    a.top {
+      position: fixed;
+      right: 5%;
+      bottom: 100px;
+      display: none;
+      font-size: 1.5rem;
+      color: #222;
+      z-index: 99;
+      background: #b9aba2;
+      padding: 10px 10px 10px 10px;
+      border-radius: 50%;
+    }
 
-        .path {
-            width: 25px;
-            margin-bottom: 0px;
-            filter: brightness(100) grayscale(0);
-            opacity: .7;
-        }
+    .path {
+      width: 25px;
+      margin-bottom: 0px;
+      filter: brightness(100) grayscale(0);
+      opacity: .7;
+    }
 
-        .join {
-            width: 100%;
-        }
+    .join {
+      width: 100%;
+    }
 
-        .join_info {
-            padding: 5rem 0 5rem;
-        }
+    .join_info {
+      padding: 5rem 0 5rem;
+    }
 
-        .join_info h3 {
-            padding-bottom: 25px;
-            margin-bottom: 40px;
-            font-size: 1.9rem;
-            font-weight: 600;
-            color: #222;
-            border-bottom: 2px solid #222;
-        }
+    .join_info h3 {
+      padding-bottom: 25px;
+      margin-bottom: 40px;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #222;
+      border-bottom: 2px solid #222;
+    }
 
-        .join_info h4 {
-            margin: 30px 0;
-            font-size: 1.5rem;
-            line-height: 1.6rem;
-            color: #333;
-        }
+    .join_info h4 {
+      margin: 30px 0;
+      font-size: 1.5rem;
+      line-height: 1.6rem;
+      color: #333;
+    }
 
-        .join_info button {
-            width: 200px;
-            padding: 10px 0;
-            border: 1px solid #000;
-            border-radius: 0;
-            font-size: 1.5rem;
-            color: #000;
-        }
+    .join_info button {
+      width: 200px;
+      padding: 10px 0;
+      border: 1px solid #000;
+      border-radius: 0;
+      font-size: 1.5rem;
+      color: #000;
+    }
 
-        .join_info button:hover {
-            background: #000;
-            color: #fff;
-        }
+    .join_info button:hover {
+      background: #000;
+      color: #fff;
+    }
 
-        .join_info {
-            padding: 5rem 0;
-        }
+    .join_info {
+      padding: 5rem 0;
+    }
 
-        .optional > label, .optional > input {
-            font-size: 1.5rem;
-            color: #000;
-            padding-right: 30px;
-            padding-bottom: 20px;
-            display: inline-block;
-        }
+    .optional > label, .optional > input {
+      font-size: 1.5rem;
+      color: #000;
+      padding-right: 30px;
+      padding-bottom: 20px;
+      display: inline-block;
+    }
 
-        .terms {
-            font-size: 1.2rem;
-            font-weight: 300;
-            text-decoration: underline;
-            padding-left: 20px;
-            color: #aaa;
-        }
+    .terms {
+      font-size: 1.2rem;
+      font-weight: 300;
+      text-decoration: underline;
+      padding-left: 20px;
+      color: #aaa;
+    }
 
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-        }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
 
-        .required label {
-            width: 100%;
-            display: inline-block;
-            font-size: 1.5rem;
-            color: #000;
-            display: inline-block;
-        }
+    .required label {
+      width: 100%;
+      display: inline-block;
+      font-size: 1.5rem;
+      color: #000;
+      display: inline-block;
+    }
 
-        .required input {
-            font-size: 1.5rem;
-            color: #000;
-            width: 100%;
-            height: 60px;
-            line-height: 40px;
-            display: block;
-            letter-spacing: -0.6px;
-            border-bottom: 1px solid #d6d6d6;
-            color: #d6d6d6;
-            margin-bottom: 50px;
-        }
+    .required input {
+      font-size: 1.5rem;
+      color: #000;
+      width: 100%;
+      height: 60px;
+      line-height: 40px;
+      display: block;
+      letter-spacing: -0.6px;
+      border-bottom: 1px solid #d6d6d6;
+      color: #d6d6d6;
+      margin-bottom: 50px;
+    }
 
-        input::placeholder {
-            color: #d6d6d6;
-            font-weight: 300;
-        }
+    input::placeholder {
+      color: #d6d6d6;
+      font-weight: 300;
+    }
 
-        .info3 label, .info4 label, .info5 label {
-            padding-right: 30px;
-            padding-bottom: 20px;
-        }
+    .info3 label, .info4 label, .info5 label {
+      padding-right: 30px;
+      padding-bottom: 20px;
+    }
 
-        .info5 {
-            display: block;
-            float: left;
-        }
+    .info5 {
+      display: block;
+      float: left;
+    }
 
-        .info5_1 {
-            margin-bottom: 10px;
-        }
+    .info5_1 {
+      margin-bottom: 10px;
+    }
 
-        .info3 label input:checked, .info4 label input:checked {
-            background: red;
-        }
+    .info3 label input:checked, .info4 label input:checked {
+      background: red;
+    }
 
-        .info3 label span, .info4 label span, .info5 label span {
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: #222;
-            text-transform: uppercase;
-        }
+    .info3 label span, .info4 label span, .info5 label span {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: #222;
+      text-transform: uppercase;
+    }
 
-        .join_info4 h4 {
-            margin: 30px 0;
-            font-size: 1.2rem;
-            line-height: 1.2rem;
-            color: #333;
-        }
+    .join_info4 h4 {
+      margin: 30px 0;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      color: #333;
+    }
 
-        .info5_1 span {
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
+    .info5_1 span {
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
 
-        .join p {
-            margin: 5rem 0;
-            margin-bottom: 50px;
-            font-size: 1.5rem;
-            line-height: 2rem;
-            color: #222;
-        }
+    .join p {
+      margin: 5rem 0;
+      margin-bottom: 50px;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      color: #222;
+    }
 
-        .submitBtn {
-            width: 250px;
-            padding: 10px 100px;
-            border: 1px solid #000;
-            border-radius: 0;
-            font-size: 1.5rem;
-            color: #000;
-            transition: .5s;
-        }
+    .submitBtn {
+      width: 250px;
+      padding: 10px 100px;
+      border: 1px solid #000;
+      border-radius: 0;
+      font-size: 1.5rem;
+      color: #000;
+      transition: .5s;
+    }
 
-        .submitBtn:hover {
-            background: #000;
-            color: #fff;
-        }
-    </style>
+    .submitBtn:hover {
+      background: #000;
+      color: #fff;
+    }
+  </style>
 </head>
 
 <a class="top" href="#">
-    <ion-icon name="arrow-up"></ion-icon>
+  <ion-icon name="arrow-up"></ion-icon>
 </a>
 
 <div layout:fragment="content">
 
-    <section class="join" style="width: 65%; margin: 0 auto;">
-        <h1>JOIN.</h1>
+  <section class="join" style="width: 65%; margin: 0 auto;">
+    <h1>JOIN.</h1>
 
-        <div class="join_info">
-            <h3 style="margin-top: 80px;">필수사항</h3>
-            <form action="/member/join" id="registerForm" method="post">
+    <div class="join_info">
+      <h3 style="margin-top: 80px;">필수사항</h3>
+      <form action="/member/join" id="registerForm" method="post">
 
                 <span class="required">
 
@@ -261,20 +261,20 @@
                                                           onclick="javascript:idenetityCert()"
                                                           type="button">핸드폰 인증</button></span>
                     <input name="m_id" type="text">
-                    <!--<section>
-                        <input type="text" name="m_email" class="inp_info2">
-                        <span>@</span>
-                        <input type="text" name="user_id" class="inp_info2">
-                        <select class="email_slc" name="">
-                            <option value="direct_input">직접입력</option>
-                            <option value="naver.com">naver.com</option>
-                            <option value="nate.com">nate.com</option>
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="daum.net">daum.net</option>
-                            <option value="hotmail.com">hotmail.com</option>
-                            <option value="hanmail.net">hanmail.net</option>
-                        </select>
-                    </section>-->
+                  <!--<section>
+                      <input type="text" name="m_email" class="inp_info2">
+                      <span>@</span>
+                      <input type="text" name="user_id" class="inp_info2">
+                      <select class="email_slc" name="">
+                          <option value="direct_input">직접입력</option>
+                          <option value="naver.com">naver.com</option>
+                          <option value="nate.com">nate.com</option>
+                          <option value="gmail.com">gmail.com</option>
+                          <option value="daum.net">daum.net</option>
+                          <option value="hotmail.com">hotmail.com</option>
+                          <option value="hanmail.net">hanmail.net</option>
+                      </select>
+                  </section>-->
                 </label>
 
                 <label for="pw"><span>비밀번호</span>
@@ -286,7 +286,7 @@
                 </label>
                     </span>
 
-                <span class="optional">
+        <span class="optional">
                 <h3>가입경로(선택)</h3>
                 <label for="path">
                     <input name="m_join_path" type="checkbox" value="search">
@@ -331,23 +331,23 @@
                 <label for="">
                     <input name="m_optional_terms" type="checkbox" value="">
                     <span>마케팅 수신동의 (선택)</span> <a class="terms"
-                                                     href="https://www.iloom.com/lifestyle/view.do?lsCode=LSP190400003">'엄마의서재'란?</a>
+                                                  href="https://www.iloom.com/lifestyle/view.do?lsCode=LSP190400003">'엄마의서재'란?</a>
                 </label>
     </span>
 
-                <div class="button-wrap">
-                    <button class="btn btn-primary submitBtn" type="submit">회원가입</button>
-                </div>
-            </form>
+        <div class="button-wrap">
+          <button class="btn btn-primary submitBtn" type="submit">회원가입</button>
         </div>
-    </section>
+      </form>
+    </div>
+  </section>
 
-    <script layout:fragment="script" th:inline="javascript">
-        const error = [[${error}]]
+  <script layout:fragment="script" th:inline="javascript">
+    const error = [[${error}]]
 
-        if (error && error === 'm_id') {
-            alert("동일한 MID를 가진 계정이 존재합니다.")
-        }
-    </script>
+    if (error && error === 'm_id') {
+      alert("동일한 MID를 가진 계정이 존재합니다.")
+    }
+  </script>
 
 </div>

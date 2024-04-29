@@ -15,18 +15,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(value = {AuditingEntityListener.class })
 public class Item {
 
-
-
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long i_no; //상품  (pk)
 
+    @Column(nullable = false) // not null
+    private String i_name; //상품명
 
     @Column(length = 100, nullable = false) // not null
-    private String i_price; //상품명
+    private int i_price; //상품 가격
 
     @Column(nullable = false) // not null
     private String i_title_img; //대표이미지
@@ -42,5 +39,8 @@ public class Item {
 
     @Column(nullable = false) // not null
     private int i_stock; //재고보유여부
+
+
+
 
 }

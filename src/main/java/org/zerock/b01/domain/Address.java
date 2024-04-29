@@ -12,7 +12,6 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor
 @ToString(exclude = "member") // 나중에 fk 추가 시 exclude 하기
 public class Address {
-    // index 생성해둠!
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +42,10 @@ public class Address {
     private String a_request; // 배송 시 요청사항, '직접입력' 선택 시 작성값이 저장된다.
 
     // fk 설정(후에 회원정보수정에서 배송지 관리를 추가한다면 .. OneToMany 처리해야할듯
-    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
-    @JoinColumn(nullable = false) // not null
-    private Member member; // 회원
+    //@ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
+    //@JoinColumn(nullable = false) // not null
+    @Column(length = 50, nullable = false) // not null
+    private String member; // 회원
 
 
     // 수령인, 배송지 별칭, 휴대전화, 배송지주소(우편번호, 주소, 상세주소), 기본배송지 여부, 요청사항 변경가능 !!
@@ -61,7 +61,7 @@ public class Address {
     }
 
     public void changeRequest(String a_request){
-        // 요청사항 변경, 주문서에서 이거 하나만 변경할 수 있도록 하기 위해 따로 뺌
+        // 주문서에서 요청사항만 변경할 수 있도록 하기 위해 따로 뺌
         this.a_request = a_request;
     }
 

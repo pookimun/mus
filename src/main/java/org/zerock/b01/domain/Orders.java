@@ -1,0 +1,97 @@
+package org.zerock.b01.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.BatchSize;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.zerock.b01.dto.OrdersDetailDTO;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+@Entity
+@Table(name = "orders")
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(exclude = {"member", "address"}) // 나중에 fk 추가 시 exclude 하기
+@EntityListeners(value = { AuditingEntityListener.class })
+public class Orders {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ono; // 주문테이블 번호
+
+    @Column(length = 50, nullable = false)
+    private String o_ordersno;
+    // 주문번호(YYMMdd)+랜덤문자열 형식의 12글자 길이
+
+    //@ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
+    //@JoinColumn(nullable = false) // not null
+    @Column(length = 50, nullable = false) // not null
+    private String member; // 회원
+
+    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
+    @JoinColumn(nullable = false) // not null
+    private Address address; // 주문 시 선택한 배송지
+
+    @CreatedDate
+    @Column(name = "o_date", updatable = false, nullable = false)  // not null
+    //@JsonFormat(pattern = "yyyy-MM-dd") // LocalDateTime 타입 포멧 지정(작동안됨)
+    private LocalDateTime o_date; // 주문일자
+
+    @Column(length = 50, nullable = false) // not null
+    private String o_state; // 주문 처리 상태
+
+    @OneToMany(mappedBy = "orders",
+            cascade = {CascadeType.ALL}, // 상위엔티티(orders)의 변경이 하위엔티티(order_detail)에 적용
+            fetch = FetchType.LAZY, // 지연로딩
+            orphanRemoval = true) // 상위엔티티(orders)에서 제거된 하위엔티티(order_detail)를 자동으로 삭제할지 여부
+    // @Builder.Default : 해당 필드가 null이 아니고 비어있는 HashSet으로 초기화되도록 보장한다.
+    @Builder.Default
+    @BatchSize(size = 20)
+    private Set<OrdersDetail> ordersDetailSet = new HashSet<>();
+
+    @PrePersist // 엔티티가 데이터베이스에 저장되기 전에 실행
+    public void insertO_ordersno() {
+        System.out.println("insertO_orderno() 실행 ~!~!~!~!~!~!~!~!~!~!");
+        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String randomNumber = String.format("%06d", new Random().nextInt(1000000)); // 여섯자리 랜덤숫자 생성
+        // 오늘 날짜와 랜덤 숫자를 조합하여 o_orderno 설정
+        System.out.println(randomNumber);
+        this.o_ordersno = todayDate + randomNumber; // 12자리
+    }
+
+    public void addDetail(OrdersDetailDTO ordersDetailDTO){
+        // ordersDetailDTO의 ItemDTO를 Item entity로 변환
+        Item item = Item.builder()
+                .i_no(ordersDetailDTO.getItemDTO().getI_no())
+                .i_name(ordersDetailDTO.getItemDTO().getI_name())
+                .i_price(ordersDetailDTO.getItemDTO().getI_price())
+                .i_title_img(ordersDetailDTO.getItemDTO().getI_title_img())
+                .i_info_img(ordersDetailDTO.getItemDTO().getI_info_img())
+                .i_color(ordersDetailDTO.getItemDTO().getI_color())
+                .i_size(ordersDetailDTO.getItemDTO().getI_size())
+                .i_stock(ordersDetailDTO.getItemDTO().getI_stock())
+                .build();
+
+        OrdersDetail ordersDetail = OrdersDetail.builder()
+                .od_no(ordersDetailDTO.getOd_no())
+                .orders(this)
+                .item(item)
+                .od_count(ordersDetailDTO.getOd_count())
+                .od_size(ordersDetailDTO.getOd_size())
+                .od_color(ordersDetailDTO.getOd_color())
+                .od_price(ordersDetailDTO.getOd_price())
+                .build();
+        ordersDetailSet.add(ordersDetail); // Set<OrdersDetail>에 추가
+    }
+
+
+}
