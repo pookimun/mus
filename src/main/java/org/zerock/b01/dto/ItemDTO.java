@@ -1,38 +1,34 @@
 package org.zerock.b01.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ItemDTO {
 
-    // 상품번호
-    private Long i_no;
+    private Long ino; //상품  (pk)
 
-    // 상품명
-    private String i_name;
+    private String i_name; //상품명
 
-    // 가격
-    private int i_price;
+    private int i_price; //상품 가격
 
-    // 대표이미지
-    private String i_title_img;
+    private String i_title_img; //대표이미지
 
-    // 설명이미지
-    private String i_info_img;
 
-    // 색상
-    private String i_color;
+    private String i_info_img; //설명이미지
 
-    // 사이즈
-    private String i_size;
 
-    // 재고 보유 여부
-    private int i_stock;
+    private String i_color; //색상
+
+    private String i_size; //사이즈
+
+    private int i_stock; //재고보유여부
+
 
 }

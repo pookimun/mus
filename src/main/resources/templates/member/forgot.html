@@ -835,65 +835,65 @@
 </a>
 
 <div layout:fragment="content">
-<article class="id_find">
-	<div class="container">
-		<section>
-			<h1>ID/PW 찾기</h1>
-		</section>
+	<article class="id_find">
+		<div class="container">
+			<section>
+				<h1>ID/PW 찾기</h1>
+			</section>
 
-		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#home">아이디 찾기</a></li>
-			<li><a data-toggle="tab" href="#menu1">비밀번호 찾기</a></li>
-		</ul>
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#home">아이디 찾기</a></li>
+				<li><a data-toggle="tab" href="#menu1">비밀번호 찾기</a></li>
+			</ul>
 
-		<div class="tab-content">
-			<div id="home" class="tab-pane fade in active">
-				<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">이름</span> <input type="text" id="user_name" name="user_name" class="inp_comm required" title="user_name" placeholder=" 이름을 입력하세요.">
-				</label>
-				<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
-																											 onkeyup="enterkey(event,'frm1', '');">
-					<input type="submit" name="user_phoneSubmit" value="인증번호 전송" class="user_phoneSubmit">
-				</label>
-				<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증번호</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자 입력" class="inp_comm required" title="user_name">
-				</label>
-				<div>
-					<a href="#" class="bt">확인</a>
+			<div class="tab-content">
+				<div id="home" class="tab-pane fade in active">
+					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">이름</span> <input type="text" id="user_name" name="user_name" class="inp_comm required" title="user_name" placeholder=" 이름을 입력하세요.">
+					</label>
+					<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
+																												 onkeyup="enterkey(event,'frm1', '');">
+						<input type="submit" name="user_phoneSubmit" value="인증번호 전송" class="user_phoneSubmit">
+					</label>
+					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증번호</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자 입력" class="inp_comm required" title="user_name">
+					</label>
+					<div>
+						<a href="#" class="bt">확인</a>
+					</div>
+				</div>
+				<div id="menu1" class="tab-pane fade">
+					<label for="user_email" class="inp inp_text"> <span class="inp_tit eng">ID (e-mail)</span> <input type="text" id="user_name" name="user_name" class="inp_comm required" title="user_name" placeholder=" 아이디를 입력하세요.">
+					</label>
+					<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
+																												 onkeyup="enterkey(event,'frm1', '');">
+						<input type="submit" name="user_phoneSubmit" value="인증번호 전송" class="user_phoneSubmit">
+					</label>
+					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증번호</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자를 입력하세요." class="inp_comm required" title="user_name">
+					</label>
+					<div>
+						<a href="#" class="bt">확인</a>
+					</div>
 				</div>
 			</div>
-			<div id="menu1" class="tab-pane fade">
-				<label for="user_email" class="inp inp_text"> <span class="inp_tit eng">ID (e-mail)</span> <input type="text" id="user_name" name="user_name" class="inp_comm required" title="user_name" placeholder=" 아이디를 입력하세요.">
-				</label>
-				<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
-																											 onkeyup="enterkey(event,'frm1', '');">
-					<input type="submit" name="user_phoneSubmit" value="인증번호 전송" class="user_phoneSubmit">
-				</label>
-				<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증번호</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자를 입력하세요." class="inp_comm required" title="user_name">
-				</label>
-				<div>
-					<a href="#" class="bt">확인</a>
+		</div>
+		<!--퍼옴-->
+		<form action="/send-one" method="post">
+			<div class="form-group phoneCertifyDiv">
+				<label class="inputTitle">휴대폰 번호</label><br>
+				<div class="phoneNum-formgroup">
+					<input th:if="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" readonly th:value="${memberPhone}">
+					<input th:unless="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" >
+					<!--<a href="#" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</a>-->
+					<button type="submit" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</button>
+
+				</div>
+				<div class="phoneNum-formgroup" id="phoneCertifyDiv">
+					<input type="text" name="memberPhoneCertify" class="phoneNum">
+					<!--<input type="button" id="certifyCheck" class="btn memberPhoneBtn" value="인증하기">-->
 				</div>
 			</div>
-		</div>
-	</div>
-<!--퍼옴-->
-	<form action="/send-one" method="post">
-	<div class="form-group phoneCertifyDiv">
-		<label class="inputTitle">휴대폰 번호</label><br>
-		<div class="phoneNum-formgroup">
-			<input th:if="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" readonly th:value="${memberPhone}">
-			<input th:unless="${memberPhone != null}" type="text" name="memberPhone" class="phoneNum" >
-			<!--<a href="#" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</a>-->
-			<button type="submit" id="memberPhoneCheck" class="btn memberPhoneBtn active">인증번호 전송</button>
+		</form>
 
-		</div>
-		<div class="phoneNum-formgroup" id="phoneCertifyDiv">
-			<input type="text" name="memberPhoneCertify" class="phoneNum">
-			<!--<input type="button" id="certifyCheck" class="btn memberPhoneBtn" value="인증하기">-->
-		</div>
-	</div>
-	</form>
-
-</article>
+	</article>
 
 	<script>
 		//휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
