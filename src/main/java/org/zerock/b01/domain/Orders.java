@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -68,8 +69,9 @@ public class Orders {
         this.o_ordersno = todayDate + randomNumber; // 12자리
     }
 
-    public void addDetail(OrdersDetailDTO ordersDetailDTO){
+    public void addDetail(List<OrdersDetailDTO> ordersDetailDTOS){
         // ordersDetailDTO의 ItemDTO를 Item entity로 변환
+        ordersDetailDTOS.forEach(ordersDetailDTO -> {
         Item item = Item.builder()
                 .ino(ordersDetailDTO.getItemDTO().getIno())
                 .i_name(ordersDetailDTO.getItemDTO().getI_name())
@@ -91,6 +93,7 @@ public class Orders {
                 .od_price(ordersDetailDTO.getOd_price())
                 .build();
         ordersDetailSet.add(ordersDetail); // Set<OrdersDetail>에 추가
+        });
     }
 
 

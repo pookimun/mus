@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface OrdersRepository extends JpaRepository<Orders, Long>, OrdersSearch {
     // c, r, d가 가능해야함
 
-    @EntityGraph(attributePaths = {"orderDetailSet"})
+    @EntityGraph(attributePaths = {"ordersDetailSet"})
     // @EntityGraph에는 attributePaths라는 속성을 이용해서 같이 로딩해야 하는 속성 명시
-    @Query("select o from Orders o where o.ono = :o_no")
-    Optional<Orders> findByIdWithOrderDetails(Long o_no);
+    @Query("select o from Orders o where o.ono = :ono")
+    Optional<Orders> findByIdWithOrdersDetails(Long ono);
 
 }

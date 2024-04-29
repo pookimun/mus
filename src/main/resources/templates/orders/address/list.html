@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>배송지 변경</title>
+</head>
+<body>
+    <div>
+        <h2>배송지 변경</h2>
+        <button class="addressRegister" onclick="addressRegister()" type="button">신규 배송지 등록 +</button>
+    </div>
+    <!-- 배송지 리스트가 출력될 부분 -->
+    <div th:each="dto:${addressDTOList}" >
+        <h3 th:text="${dto.a_recipient + '(' + dto.a_nickName + ')'}"></h3>
+    </div>
+</body>
+
+<script>
+    function addressRegister(){
+        window.open('/orders/address/register', '신규 배송지', 'width=500,height=900,left=350,top=' + (screen.height - 600) / 2);
+        // 새 창으로 신규 배송지 추가 창을 띄운다.
+    }
+</script>
+</html>

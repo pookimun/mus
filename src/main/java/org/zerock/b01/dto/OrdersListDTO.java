@@ -17,7 +17,7 @@ public class OrdersListDTO {
     // 주문내역을 출력할 때의 dto
 
     // 주문 테이블 번호 pk
-    private Long o_no;
+    private Long ono;
 
     // 주문번호
     private String o_ordersno;

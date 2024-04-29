@@ -22,7 +22,8 @@ public interface OrdersService {
 
     //void remove(Long bno); 보류
 
-    OrdersPageResponseDTO<OrdersListDTO> listWithAll(OrdersPageRequestDTO ordersPageRequestDTO);
+    OrdersPageResponseDTO<OrdersListDTO> listWithAll(String member, OrdersPageRequestDTO ordersPageRequestDTO);
+    // 페이징정보, 검색어를 가져와 주문내역을 출력
 
 
     default Orders dtoToEntity(OrdersListDTO ordersListDTO){
@@ -30,7 +31,7 @@ public interface OrdersService {
                 .a_no(ordersListDTO.getAddressDTO().getA_no())
                 .a_recipient(ordersListDTO.getAddressDTO().getA_recipient())
                 .a_nickName(ordersListDTO.getAddressDTO().getA_nickName())
-                .a_phone(ordersListDTO.getAddressDTO().getA_nickName())
+                .a_phone(ordersListDTO.getAddressDTO().getA_phone())
                 .a_zipCode(ordersListDTO.getAddressDTO().getA_zipCode())
                 .a_address(ordersListDTO.getAddressDTO().getA_address())
                 .a_detail(ordersListDTO.getAddressDTO().getA_detail())
@@ -40,25 +41,23 @@ public interface OrdersService {
                 .build();
 
         Orders orders = Orders.builder()
-                .ono(ordersListDTO.getO_no())
+                .ono(ordersListDTO.getOno())
                 .o_ordersno(ordersListDTO.getO_ordersno())
                 .member(ordersListDTO.getMember())
-                //.address(address) // 위에서 dtoToEntity 처리
+                .address(address) // 위에서 dtoToEntity 처리
                 .o_date(ordersListDTO.getO_date())
                 .o_state(ordersListDTO.getO_state())
                 //.ordersDetailSet() 밑에서
                 .build();
 
-        ordersListDTO.getOrdersDetailDTOList().forEach(detailDTO -> {
-            orders.addDetail(detailDTO);
-        });
+        orders.addDetail(ordersListDTO.getOrdersDetailDTOList());
         return orders;
     }
 
     default OrdersListDTO entityToDTO(Orders orders) {
 
         OrdersListDTO ordersListDTO = OrdersListDTO.builder()
-                .o_no(orders.getOno())
+                .ono(orders.getOno())
                 .o_ordersno(orders.getO_ordersno())
                 .member(orders.getMember())
                 .addressDTO(AddressDTO.builder()

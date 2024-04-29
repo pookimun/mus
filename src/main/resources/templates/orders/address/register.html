@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신규 배송지</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 주석처리된 컨테이너 스타일 */
+        /* .container { */
+        /*     background-color: #fff; */
+        /*     border-radius: 5px; */
+        /*     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+        /*     padding: 20px; */
+        /*     width: 400px; */
+        /* } */
+
+        h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="button"],
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="button"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>신규 배송지</h2>
+
+    <form id="address">
+        <div>
+            <label for="recipient">수령인</label>
+            <input type="text" id="recipient" name="recipient" required>
+        </div>
+        <div>
+            <label for="addressName">배송지명</label>
+            <input type="text" id="addressName" name="addressName" required>
+        </div>
+        <div>
+            <label for="phoneNumber">전화번호</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+        </div>
+        <div>
+            <label>배송지 주소</label>
+            <div style="display: flex; align-items: center;">
+                <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: calc(100% - 100px);">
+                <input type="button" onclick="sample4_execDaumPostcode()" value="검색" style="width: 100px;">
+            </div>
+            <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+            <input type="text" id="sample4_detailAddress" placeholder="상세주소">
+        </div>
+        <div>
+            <div style="display: flex; align-items: center;">
+               <label for="defaultAddress">기본배송지 설정</label>
+               <input type="checkbox" id="defaultAddress" name="defaultAddress">
+            </div>
+        </div>
+        <button type="button">취소</button>
+        <button type="submit">등록</button>
+    </form>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    roadAddr += ', ' + data.buildingName;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode; // 우편번호
+                if(data.roadAddr !== ''){ // 도로명주소만 들어가는 오류 발생
+                    document.getElementById("sample4_roadAddress").value = roadAddr; // 도로명주소
+                } else {
+                    document.getElementById("sample4_roadAddress").value = data.jibunAddress; // 지번주소
+                }
+            }
+        }).open({
+            // 주소 api 창을 띄우는 위치 조정
+            left: 800,
+            top: (window.screen.height - 600) / 2
+        });
+    }
+</script>
+
+</body>
+</html>

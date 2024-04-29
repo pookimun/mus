@@ -10,5 +10,5 @@ public interface OrdersSearch {
     // 페이징 기능
     // order_detail도 같이 가져온다.
 
-    Page<OrdersListDTO> searchWithAll(String keyword, Pageable pageable);
+    Page<OrdersListDTO> searchWithAll(String member, String keyword, Pageable pageable);
 }

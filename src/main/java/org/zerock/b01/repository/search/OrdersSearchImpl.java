@@ -22,7 +22,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
     } // QuerydslRepositorySupport 생성자 필요
 
     @Override
-    public Page<OrdersListDTO> searchWithAll(String keyword, Pageable pageable) {
+    public Page<OrdersListDTO> searchWithAll(String member, String keyword, Pageable pageable) {
         // 상품명, 브랜드명으로 검색 기능 구현 완료
         // 페이징 구현 완료
         // order_detail도 같이 가져오기 구현완료
@@ -39,11 +39,11 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         ordersJPQLQuery.leftJoin(item).on(item.eq(ordersDetail.item)); //left join
 
         if( keyword != null ){ // 상품명으로 검색
-            BooleanBuilder booleanBuilder = new BooleanBuilder(); // (
+            BooleanBuilder booleanBuilder = new BooleanBuilder(); // ()
             booleanBuilder.or(ordersDetail.item.i_name.contains(keyword));
             ordersJPQLQuery.where(booleanBuilder);
         }
-
+        ordersJPQLQuery.where(orders.member.eq(member));
         ordersJPQLQuery.groupBy(orders);
 
         getQuerydsl().applyPagination(pageable, ordersJPQLQuery); //paging
@@ -55,13 +55,11 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         List<OrdersListDTO> dtoList = ordersList.stream().map(orders1 -> {
             // 조인 처리된 테이블 한 행씩 반복하며(Order entity)
 
-            // order1.member를 MemberJoinDTO 처리(나중에 .. 보고 .. )
-            // MemberJoinDTO memberJoinDTO = MemberJoinDTO........
             // List<OrderListDTO> 타입의 dto 생성
             OrdersListDTO dto = OrdersListDTO.builder()
-                    .o_no(orders1.getOno())
+                    .ono(orders1.getOno())
                     .o_ordersno(orders1.getO_ordersno())
-                    //.memberJoinDTO() 나중에
+                    .member(orders1.getMember())
                     //.addressDTO() 밑에서
                     .o_date(orders1.getO_date())
                     .o_state(orders1.getO_state())
@@ -78,9 +76,9 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .a_detail(orders1.getAddress().getA_detail())
                     .a_basic(orders1.getAddress().getA_basic())
                     .a_request(orders1.getAddress().getA_request())
-                    //.memberJoinDTO() 보류
+                    .member(orders1.getAddress().getMember())
                     .build();
-            //dto.setAddressDTO(addressDTO);
+            dto.setAddressDTO(addressDTO);
 
             // order1.orderDetailSet을 List<OrderDetailDTO> 처리
             List<OrdersDetailDTO> detailDTOS = orders1.getOrdersDetailSet().stream().sorted()
@@ -102,7 +100,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                             .od_price(detail.getOd_price())
                             .build())
                     .collect(Collectors.toList());
-            //dto.setOrdersDetailDTOList(detailDTOS);
+            dto.setOrdersDetailDTOList(detailDTOS);
 
             return dto;
         }).collect(Collectors.toList());

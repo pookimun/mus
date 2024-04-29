@@ -16,10 +16,11 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     // c, r, u, d 가능해야한다.
 
     @Query("select a from Address a order by a.a_no desc")
-    List<Address> list();
+    List<Address> list(); // 안쓸듯
 
     //@Query("select a from Address a order by a.a_no desc")
     List<Address> findByMember(String member);
+    // member를 받아서 주소 리스트를 가져오는 쿼리
 
 
 }
