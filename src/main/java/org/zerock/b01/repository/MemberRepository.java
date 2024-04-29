@@ -20,12 +20,14 @@ public interface MemberRepository extends JpaRepository<Member, String> { //JPAR
 
     @EntityGraph(attributePaths = "roleSet")
     @Query("select m from Member m where m.m_email = :m_email and m.m_social = false")
+    //회원 이메일 검색
     Optional<Member> findByM_email(String m_email);
 
 
     @Modifying //DB 수정
     @Transactional //성공 => 커밋, 예외 => 롤백
     @Query("update Member m set m.m_pw =:m_pw where m.m_id = :m_id ")
+    //비밀번호 (등록)변경
     void updatePassword(@Param("m_pw") String password, @Param("m_id") String m_id);
 
 
