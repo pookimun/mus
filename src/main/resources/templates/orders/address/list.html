@@ -8,19 +8,41 @@
 </head>
 <body>
     <div>
+        <div style="display: flex; align-items: center;">
         <h2>배송지 변경</h2>
-        <button class="addressRegister" onclick="addressRegister()" type="button">신규 배송지 등록 +</button>
+            <button class="registerBtn" onclick="addressRegister()" type="button">신규 배송지 등록 +</button>
+        </div>
     </div>
     <!-- 배송지 리스트가 출력될 부분 -->
-    <div th:each="dto:${addressDTOList}" >
-        <h3 th:text="${dto.a_recipient + '(' + dto.a_nickName + ')'}"></h3>
-    </div>
+    <div th:each="addressDTO:${addressDTOList}" >
+        <input id="addressNo" type="hidden" th:value="${addressDTO.a_no}">
+        <div style="display: flex; align-items: center;">
+            <h4 th:text="${addressDTO.a_recipient + ' (' + addressDTO.a_nickName + ')'}"></h4>
+            <div th:if="${addressDTO.a_basic == 1}">
+                <small>기본배송지</small><br>
+            </div>
+        </div>
+        <small class="a_phone" th:text="${addressDTO.a_phone}"></small><br>
+        <small class="a_address" th:text="${'(' + addressDTO.a_zipCode + ') ' + addressDTO.a_address + ' ' + addressDTO.a_detail}"></small>
+        <div>
+            <button type="button" class="modifyBtn" onclick="addressModify()">수정</button>
+            <button type="button" class="removeBtn" onclick="addressRemove()" th:if="${addressDTO.a_basic == 0}">삭제</button>
+            <button type="button" class="selectBtn" onclick="addressSelect()">선택</button>
+        </div>
+        <hr>
+    </div> <!-- foreach -->
 </body>
 
-<script>
+<script th:inline="javascript">
     function addressRegister(){
-        window.open('/orders/address/register', '신규 배송지', 'width=500,height=900,left=350,top=' + (screen.height - 600) / 2);
-        // 새 창으로 신규 배송지 추가 창을 띄운다.
+        window.open('/orders/address/register', '신규 배송지', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+        // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
+    }
+
+    function addressModify(){ // 컨트롤러에서 파라미터값으로 a_no(배송지 번호)를 받음(get)
+        let addressNo = document.getElementById('addressNo').value;
+        window.open('/orders/address/modify?ano=' + addressNo, '배송지 수정', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+        // 새 창으로 배송지 수정 창을 띄운다.(top - 값이 높아질수록 위로)
     }
 </script>
 </html>

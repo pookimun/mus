@@ -41,6 +41,9 @@ public class Address {
     @Column(length = 500, nullable = false) // not null
     private String a_request; // 배송 시 요청사항, '직접입력' 선택 시 작성값이 저장된다.
 
+    @Column(length = 500)
+    private String a_customRequest; // 직접입력 선택 시 작성란
+
     // fk 설정(후에 회원정보수정에서 배송지 관리를 추가한다면 .. OneToMany 처리해야할듯
     //@ManyToOne(fetch = FetchType.LAZY) // 지연로딩 사용
     //@JoinColumn(nullable = false) // not null

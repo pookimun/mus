@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신규 배송지</title>
+    <title>배송지 수정</title>
     <style>
         body {
             font-family: "Noto Sans KR", sans-serif;
@@ -89,30 +89,30 @@
     <h2>신규 배송지</h2>
 
     <form id="address" action="/orders/address/register" method="post">
-        <input type="hidden" name="member" value="member1"> <!-- 임시 member, 시큐리티 연결 후 코드 추가 예정 ... -->
+        <input type="hidden" name="member" th:value="${dto.member}">
         <div>
             <label for="recipient">수령인</label>
-            <input type="text" id="recipient" name="a_recipient" required>
+            <input type="text" id="recipient" name="a_recipient" th:value="${dto.a_recipient}" required>
         </div>
         <div>
             <label for="addressName">배송지명</label>
-            <input type="text" id="addressName" name="a_nickName" required>
+            <input type="text" id="addressName" name="a_nickName" th:value="${dto.a_nickName}" required>
         </div>
         <div>
             <label for="phoneNumber">전화번호('-' 제외)</label>
-            <input type="text" id="phoneNumber" name="a_phone" required>
+            <input type="text" id="phoneNumber" name="a_phone" th:value="${dto.a_phone}" required>
         </div>
         <div>
             <label>배송지 주소</label>
             <div style="display: flex; align-items: center;">
-                <input type="text" id="sample4_postcode" name="a_zipCode" placeholder="우편번호" style="width: 50%;">
-                <input type="button" onclick="sample4_execDaumPostcode()"  value="검색" style="width: 100px; margin-left: 10px; margin-bottom: 10px;">
+                <input type="text" id="sample4_postcode" name="a_zipCode" placeholder="우편번호" th:value="${dto.a_zipCode}" style="width: 50%;">
+                <input type="button" onclick="sample4_execDaumPostcode()" value="검색" style="width: 100px; margin-left: 10px; margin-bottom: 10px;">
             </div>
-            <input type="text" id="sample4_roadAddress" name="a_address" placeholder="도로명주소">
-            <input type="text" id="sample4_detailAddress" name="a_detail" placeholder="상세주소">
+            <input type="text" id="sample4_roadAddress" name="a_address" th:value="${dto.a_address}" placeholder="도로명주소">
+            <input type="text" id="sample4_detailAddress" name="a_detail" th:value="${dto.a_detail}" placeholder="상세주소">
         </div>
-        <div>
-            <div style="display: flex; align-items: center;">
+        <div> <!-- 기본배송지인 경우에는 기본배송지 여부를 수정할 수 없다. -->
+            <div th:if="${dto.a_basic == 0}" style="display: flex; align-items: center;">
                <label for="defaultAddress" style="margin-bottom: 15px;">기본배송지 설정</label>
                <input type="checkbox" id="defaultAddress" name="a_basic" value="1" style="margin-bottom: 15px;">
             </div>
@@ -121,23 +121,23 @@
             <div style="display: flex; align-items: center;">
                 <label>배송 요청사항</label>
                 <select id="options" name="a_request" style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
-                    <option value="선택안함">배송 시 요청사항을 선택해주세요</option>
-                    <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
-                    <option value="부재 시 택배함에 넣어주세요">부재 시 택배함에 넣어주세요</option>
-                    <option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
-                    <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
-                    <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
-                    <option value="직접 입력">직접 입력</option>
+                    <option value="선택안함" th:selected="${dto.a_request == '선택안함'}">배송 시 요청사항을 선택해주세요</option>
+                    <option value="부재 시 경비실에 맡겨주세요" th:selected="${dto.a_request == '부재 시 경비실에 맡겨주세요'}">부재 시 경비실에 맡겨주세요</option>
+                    <option value="부재 시 택배함에 넣어주세요" th:selected="${dto.a_request == '부재 시 택배함에 넣어주세요'}">부재 시 택배함에 넣어주세요</option>
+                    <option value="부재 시 집 앞에 놔주세요" th:selected="${dto.a_request == '부재 시 집 앞에 놔주세요'}">부재 시 집 앞에 놔주세요</option>
+                    <option value="배송 전 연락 바랍니다" th:selected="${dto.a_request == '배송 전 연락 바랍니다'}">배송 전 연락 바랍니다</option>
+                    <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요" th:selected="${dto.a_request == '파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요'}">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                    <option value="직접 입력" th:selected="${dto.a_request == '직접 입력'}">직접 입력</option>
                 </select>
             </div>
-            <div id="customInput" style="display: none;">
-                <input type="text" id="customRequest" name="a_customRequest" placeholder="직접 입력">
+            <div id="customInput" th:if="${dto.a_request == '직접 입력'}" style="display: none;">
+                <input type="text" id="customRequest" name="a_customRequest" th:value="${dto.a_customRequest}" placeholder="직접 입력">
             </div>
         </div>
         <div>
             <div style="display: flex; align-items: center;">
                 <button type="button" onclick="window.close()" style="margin-right: 10px;">취소</button>
-                <button id="registerBtn" type="submit">등록</button>
+                <button id="modifyBtn" type="submit">수정완료</button>
             </div>
         </div>
     </form>
@@ -170,8 +170,6 @@
             // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
             if ($(this).val() === '직접 입력') {
                 $('#customInput').show();
-                $("#customRequest").attr("required", true);
-                // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
             } else {
                 $('#customInput').hide();
             }

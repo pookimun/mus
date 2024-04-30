@@ -62,7 +62,7 @@ public class AddressServiceImpl implements AddressService{
 
     @Override
     public List<AddressDTO> getList(String member) {
-        List<Address> result = addressRepository.findByMember(member);
+        List<Address> result = addressRepository.memberAddressList(member);
         List<AddressDTO> dtoList = new ArrayList<>();
         if(result != null){
             result.forEach(address -> {

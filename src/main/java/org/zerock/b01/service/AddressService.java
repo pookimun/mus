@@ -26,6 +26,7 @@ public interface AddressService {
                 .a_detail(addressDTO.getA_detail())
                 .a_basic(addressDTO.getA_basic())
                 .a_request(addressDTO.getA_request())
+                .a_customRequest(addressDTO.getA_customRequest())
                 .member(addressDTO.getMember())
                 .build();
         return address;
@@ -42,6 +43,7 @@ public interface AddressService {
                 .a_detail(address.getA_detail())
                 .a_basic(address.getA_basic())
                 .a_request(address.getA_request())
+                .a_customRequest(address.getA_customRequest())
                 .member(address.getMember())
                 .build();
         return addressDTO;
