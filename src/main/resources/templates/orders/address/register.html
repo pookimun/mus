@@ -156,7 +156,6 @@
         }
         alert(errorMsg);
     }
-    debugger;
     // 에러 출력 끝
     const registerResult = [[${a_no}]];
     if(registerResult !== null){
@@ -170,10 +169,14 @@
             // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
             if ($(this).val() === '직접 입력') {
                 $('#customInput').show();
+                $('#customRequest').prop('disabled', false);
+                // 필드 활성화
                 $("#customRequest").attr("required", true);
                 // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
             } else {
                 $('#customInput').hide();
+                $('#customRequest').prop('disabled', true);
+                // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
             }
         });
     });

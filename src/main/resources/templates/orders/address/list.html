@@ -14,8 +14,10 @@
         </div>
     </div>
     <!-- 배송지 리스트가 출력될 부분 -->
-    <div th:each="addressDTO:${addressDTOList}" >
-        <input id="addressNo" type="hidden" th:value="${addressDTO.a_no}">
+    <div class="listDiv" th:each="addressDTO:${addressDTOList}" >
+        <form class="removeForm" action="/orders/address/remove" method="post">
+            <input type="hidden" name="a_no" th:value="${addressDTO.a_no}">
+        </form>
         <div style="display: flex; align-items: center;">
             <h4 th:text="${addressDTO.a_recipient + ' (' + addressDTO.a_nickName + ')'}"></h4>
             <div th:if="${addressDTO.a_basic == 1}">
@@ -25,24 +27,55 @@
         <small class="a_phone" th:text="${addressDTO.a_phone}"></small><br>
         <small class="a_address" th:text="${'(' + addressDTO.a_zipCode + ') ' + addressDTO.a_address + ' ' + addressDTO.a_detail}"></small>
         <div>
-            <button type="button" class="modifyBtn" onclick="addressModify()">수정</button>
-            <button type="button" class="removeBtn" onclick="addressRemove()" th:if="${addressDTO.a_basic == 0}">삭제</button>
+            <button type="button" class="modifyBtn" th:data-ano="${addressDTO.a_no}">수정</button>
+            <button type="button" class="removeBtn" th:data-ano="${addressDTO.a_no}" th:if="${addressDTO.a_basic == 0}">삭제</button>
             <button type="button" class="selectBtn" onclick="addressSelect()">선택</button>
         </div>
         <hr>
     </div> <!-- foreach -->
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:inline="javascript">
     function addressRegister(){
         window.open('/orders/address/register', '신규 배송지', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
         // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
     }
 
-    function addressModify(){ // 컨트롤러에서 파라미터값으로 a_no(배송지 번호)를 받음(get)
-        let addressNo = document.getElementById('addressNo').value;
-        window.open('/orders/address/modify?ano=' + addressNo, '배송지 수정', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+    $(document).ready(function() {
+        // 수정버튼 클릭 !!!
+        $('.modifyBtn').click(function(e) {
+        let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
+        if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
+            return;
+        }
+
+        let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
+        window.open('/orders/address/modify?ano=' + ano, '배송지 수정', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
         // 새 창으로 배송지 수정 창을 띄운다.(top - 값이 높아질수록 위로)
-    }
+        });
+
+        // 삭제버튼 클릭 !!!
+        $('.removeBtn').click(function(e) {
+            let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
+            if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
+                return;
+            }
+
+            let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
+            let removeFormAll = document.querySelectorAll('.removeForm');
+            debugger;
+            removeFormAll.forEach(function(form) {
+                debugger;
+                let removeAno = $(form).find('input').val();
+                if(ano !== removeAno){
+                    return; // 다음 반복으로 이동
+                }
+                $(form).submit(); // 조건이 맞을 때 submit
+            });
+        });
+
+    });
+
 </script>
 </html>

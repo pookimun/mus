@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.b01.domain.Address;
 import org.zerock.b01.domain.Item;
+import org.zerock.b01.domain.Orders;
 import org.zerock.b01.dto.AddressDTO;
 import org.zerock.b01.dto.ItemDTO;
 import org.zerock.b01.dto.PageRequestDTO;
 import org.zerock.b01.dto.PageResponseDTO;
 import org.zerock.b01.repository.AddressRepository;
 import org.zerock.b01.repository.ItemRepository;
+import org.zerock.b01.repository.OrdersRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class AddressServiceImpl implements AddressService{
     private final ModelMapper modelMapper;
 
     private final AddressRepository addressRepository;
+    private final OrdersRepository ordersRepository;
 
     @Override
     public Long register(AddressDTO addressDTO) {
@@ -51,13 +54,20 @@ public class AddressServiceImpl implements AddressService{
         Optional<Address> result = addressRepository.findById(addressDTO.getA_no());
         Address address = result.orElseThrow();
         address.change(addressDTO.getA_recipient(), addressDTO.getA_nickName(), addressDTO.getA_phone(), addressDTO.getA_zipCode(), addressDTO.getA_address(), addressDTO.getA_detail(), addressDTO.getA_basic());
-        address.changeRequest(addressDTO.getA_request());
+        address.changeRequest(addressDTO.getA_request(), addressDTO.getA_customRequest());
         addressRepository.save(address);
     }
 
     @Override
     public void remove(Long a_no) {
+        // Orders가 참조중이여서 삭제가 안된다.
+        // 이를 해결하기 위해 참조중인 Orders들을 모두 가져와 해당 member의 기본배송지로 변경해준다.
+        Optional<Address> result = addressRepository.findById(a_no);
+        Address address = result.orElseThrow();
+        // 해당 address를 참조하는 모든 ordersList
+        List<Orders> ordersList = ordersRepository.addressRemoveSelect(address);
         addressRepository.deleteById(a_no);
+
     }
 
     @Override

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.b01.domain.Address;
-import org.zerock.b01.dto.AddressDTO;
-import org.zerock.b01.dto.BoardListAllDTO;
-import org.zerock.b01.dto.PageRequestDTO;
-import org.zerock.b01.dto.PageResponseDTO;
+import org.zerock.b01.dto.*;
 import org.zerock.b01.service.AddressService;
 import org.zerock.b01.service.BoardService;
 import org.zerock.b01.service.OrdersService;
@@ -79,6 +77,32 @@ public class OrdersController {
         AddressDTO addressDTO = addressService.readOne(ano);
         log.info(addressDTO);
         model.addAttribute("dto", addressDTO);
+    }
+
+    @PostMapping("/address/modify")
+    public String addressModifyPost(@Valid AddressDTO addressDTO,
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes){
+        log.info("배송지 수정값 : " + addressDTO);
+        if(bindingResult.hasErrors()) {
+            log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            return "redirect:/orders/address/modify?ano="+addressDTO.getA_no();
+        }
+        addressService.modify(addressDTO);
+        redirectAttributes.addFlashAttribute("modifyResult", "modified");
+        redirectAttributes.addFlashAttribute("a_no", addressDTO.getA_no());
+        return "redirect:/orders/address/modify?ano="+addressDTO.getA_no();
+    }
+
+    @PostMapping("/address/remove")
+    public String addressRemove(Long a_no, RedirectAttributes redirectAttributes){
+        //Long a_no = addressDTO.getA_no();  AddressDTO addressDTO,
+        log.info("삭제할 배송지번호 : " + a_no);
+        addressService.remove(a_no);
+        redirectAttributes.addFlashAttribute("removeResult", "removed");
+        return "redirect:/orders/address/list";
+        //return null;
     }
 
 

@@ -86,10 +86,11 @@
 <body>
 
 <div class="container">
-    <h2>신규 배송지</h2>
+    <h2>배송지 수정</h2>
 
-    <form id="address" action="/orders/address/register" method="post">
+    <form id="address" action="/orders/address/modify" method="post">
         <input type="hidden" name="member" th:value="${dto.member}">
+        <input type="hidden" name="a_no" th:value="${dto.a_no}">
         <div>
             <label for="recipient">수령인</label>
             <input type="text" id="recipient" name="a_recipient" th:value="${dto.a_recipient}" required>
@@ -130,8 +131,8 @@
                     <option value="직접 입력" th:selected="${dto.a_request == '직접 입력'}">직접 입력</option>
                 </select>
             </div>
-            <div id="customInput" th:if="${dto.a_request == '직접 입력'}" style="display: none;">
-                <input type="text" id="customRequest" name="a_customRequest" th:value="${dto.a_customRequest}" placeholder="직접 입력">
+            <div id="customInput"  style="display: none;"><!--th:if="${dto.a_request == '직접 입력'}"-->
+                <input type="text" id="customRequest" name="a_customRequest" placeholder="직접 입력">
             </div>
         </div>
         <div>
@@ -147,33 +148,52 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script th:inline="javascript">
     // 에러 출력 시작
-    const registerErrors = [[${errors}]];
-    console.log(registerErrors);
+    const modifyErrors = [[${errors}]];
+    console.log(modifyErrors);
     let errorMsg = '';
-    if(registerErrors){
-        for (let i = 0; i < registerErrors.length; i++) {
-            errorMsg += `${registerErrors[i].field}은(는) ${registerErrors[i].code} \n`;
+    if(modifyErrors){
+        for (let i = 0; i < modifyErrors.length; i++) {
+            errorMsg += `${modifyErrors[i].field}은(는) ${modifyErrors[i].code} \n`;
         }
         alert(errorMsg);
     }
-    debugger;
     // 에러 출력 끝
-    const registerResult = [[${a_no}]];
-    if(registerResult !== null){
-        alert("배송지가 등록되었습니다.");
-        window.close(); // 현재 창(신규 배송지 추가) 닫기
+    const modifyResult = [[${modifyResult}]];
+    debugger
+    if(modifyResult === 'modified'){
+        alert("배송지가 수정되었습니다.");
+        window.close(); // 현재 창(배송지 수정) 닫기
         window.opener.location.reload(); // 부모 창(배송지 목록) 리로드
     }
 
     $(document).ready(function() {
-        $('#options').change(function() {
+        // 값이 들어가 있는 상태로 배송지를 수정한다.
+        // '직접 입력'일 시 #customInput 노출
+        const options = $('#options'); // select 태그
+        const selected = options.val();
+        if(selected === '직접 입력'){
+            let customRequest = [[${dto.a_customRequest}]];
+            $('#customInput').show();
+            $("#customRequest").val(customRequest);
+            $("#customRequest").attr("required", true);
+            // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
+        }
+
+        options.change(function() {
+            // 배송 요청사항(select 태그)이 변경될 때마다 실행되는 함수
             // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
             if ($(this).val() === '직접 입력') {
                 $('#customInput').show();
+                $('#customRequest').prop('disabled', false);
+                $("#customRequest").attr("required", true);
+                // 필드 활성화 후 필수 입력 속성 다시 부여
             } else {
                 $('#customInput').hide();
+                $('#customRequest').prop('disabled', true);
+                // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
             }
         });
+
     });
 
     function sample4_execDaumPostcode() { // 카카오 주소 api

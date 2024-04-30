@@ -63,9 +63,10 @@ public class Address {
         this.a_basic = a_basic;
     }
 
-    public void changeRequest(String a_request){
+    public void changeRequest(String a_request, String a_customRequest){
         // 주문서에서 요청사항만 변경할 수 있도록 하기 위해 따로 뺌
         this.a_request = a_request;
+        this.a_customRequest = a_customRequest;
     }
 
 
