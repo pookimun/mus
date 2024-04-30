@@ -29,7 +29,4 @@ public interface MemberRepository extends JpaRepository<Member, String> { //JPAR
     @Query("update Member m set m.m_pw =:m_pw where m.m_id = :m_id ")
     //비밀번호 (등록)변경
     void updatePassword(@Param("m_pw") String password, @Param("m_id") String m_id);
-
-
-
 }
