@@ -48,6 +48,8 @@ public class OrdersController {
         List<AddressDTO> result = addressService.getList(member);
         log.info(result);
         model.addAttribute("addressDTOList", result);
+        int resultCount = addressService.ListCount(member);
+        model.addAttribute("addressCount", resultCount);
     }
 
     @GetMapping("/address/register") // 신규 배송지 추가
@@ -65,7 +67,12 @@ public class OrdersController {
         log.info(addressDTO);
 
         Long a_no = addressService.register(addressDTO);
-        redirectAttributes.addFlashAttribute("a_no", a_no);
+        if(a_no != null){ // save에 성공했다면
+            redirectAttributes.addFlashAttribute("registerResult", "registed");
+        } else {
+            redirectAttributes.addFlashAttribute("registerResult", "faild");
+        }
+
 
         return "redirect:/orders/address/register";
         // register 성공 시 현재 창을 닫고 부모 창을 reload 한다.
@@ -96,13 +103,22 @@ public class OrdersController {
     }
 
     @PostMapping("/address/remove")
-    public String addressRemove(Long a_no, RedirectAttributes redirectAttributes){
-        //Long a_no = addressDTO.getA_no();  AddressDTO addressDTO,
-        log.info("삭제할 배송지번호 : " + a_no);
+    public String addressRemove(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
+        Long a_no = addressDTO.getA_no();
+        log.info("삭제할 배송지번호, 멤버, 배송지별칭 : " + addressDTO);
         addressService.remove(a_no);
         redirectAttributes.addFlashAttribute("removeResult", "removed");
-        return "redirect:/orders/address/list";
-        //return null;
+        return "redirect:/orders/address/list?member=" + addressDTO.getMember();
+    }
+
+    @PostMapping("/address/read")
+    public String addressRead(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
+        log.info(addressDTO);
+        Long a_no = addressDTO.getA_no();
+        AddressDTO readAddressDTO = addressService.readOne(a_no);
+        log.info("읽어온 addressDTO : " + readAddressDTO); // a_use가 0으로 뜸 ...
+        redirectAttributes.addAttribute("addressDTO", readAddressDTO);
+        return null; // 값을 가지고 주문서로 이동 !
     }
 
 

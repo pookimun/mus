@@ -18,9 +18,4 @@ public interface OrdersRepository extends JpaRepository<Orders, Long>, OrdersSea
     @Query("select o from Orders o where o.ono = :ono")
     Optional<Orders> findByIdWithOrdersDetails(Long ono);
 
-    @Query("select o from Orders o where o.address = :address")
-    List<Orders> addressRemoveSelect(Address address);
-    // Address를 삭제하는 작업 시 Address를 Order가 참조중이여서 삭제가 안된다.
-    // 이를 해결하기 위해 삭제 전 해당 Address를 참조하는 Orders의 Address를 기본배송지로 변경해두기 위함이다.
-
 }

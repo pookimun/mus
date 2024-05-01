@@ -46,4 +46,6 @@ public class AddressDTO {
     @NotEmpty
     private String member; // 회원
 
+    private int a_use; // 배송지 사용 여부
+
 }

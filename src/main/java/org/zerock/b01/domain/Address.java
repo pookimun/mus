@@ -50,6 +50,9 @@ public class Address {
     @Column(length = 50, nullable = false) // not null
     private String member; // 회원
 
+    @Column(nullable = false) // not null
+    private int a_use; // 배송지 사용 여부
+
 
     // 수령인, 배송지 별칭, 휴대전화, 배송지주소(우편번호, 주소, 상세주소), 기본배송지 여부, 요청사항 변경가능 !!
     public void change(String a_recipient, String a_nickName, String a_phone, String a_zipCode, String a_address, String a_detail, int a_basic){
@@ -68,6 +71,12 @@ public class Address {
         this.a_request = a_request;
         this.a_customRequest = a_customRequest;
     }
+
+    public void changeUse(int a_use){
+        // 배송지 삭제 시 사용여부를 0으로 설정한다.
+        this.a_use = a_use;
+    }
+
 
 
 

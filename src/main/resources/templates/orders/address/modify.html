@@ -113,9 +113,9 @@
             <input type="text" id="sample4_detailAddress" name="a_detail" th:value="${dto.a_detail}" placeholder="상세주소">
         </div>
         <div> <!-- 기본배송지인 경우에는 기본배송지 여부를 수정할 수 없다. -->
-            <div th:if="${dto.a_basic == 0}" style="display: flex; align-items: center;">
-               <label for="defaultAddress" style="margin-bottom: 15px;">기본배송지 설정</label>
-               <input type="checkbox" id="defaultAddress" name="a_basic" value="1" style="margin-bottom: 15px;">
+            <div id="basicInput" style="display: flex; align-items: center;">
+               <label for="a_basic" style="margin-bottom: 15px;">기본배송지 설정</label>
+               <input type="checkbox" id="a_basic" name="a_basic" value="1" th:checked="${dto.a_basic == 1}" style="margin-bottom: 15px;">
             </div>
         </div>
         <div>
@@ -131,7 +131,7 @@
                     <option value="직접 입력" th:selected="${dto.a_request == '직접 입력'}">직접 입력</option>
                 </select>
             </div>
-            <div id="customInput"  style="display: none;"><!--th:if="${dto.a_request == '직접 입력'}"-->
+            <div id="customInput"  style="display: none;">
                 <input type="text" id="customRequest" name="a_customRequest" placeholder="직접 입력">
             </div>
         </div>
@@ -168,6 +168,18 @@
 
     $(document).ready(function() {
         // 값이 들어가 있는 상태로 배송지를 수정한다.
+        // 기본배송지의 경우 기본배송지 여부를 선택할 수 없다.
+        const a_basic = [[${dto.a_basic}]];
+        if(a_basic === 0){
+            // 기본 배송지가 아닌 경우 체크박스 보이기
+            $('#basicInput').show();
+        } else {
+            // 기본 배송지의 경우 체크박스 숨기기
+            $('#basicInput').hide();
+        }
+        debugger;
+        console.log($('#basicInput').val());
+
         // '직접 입력'일 시 #customInput 노출
         const options = $('#options'); // select 태그
         const selected = options.val();

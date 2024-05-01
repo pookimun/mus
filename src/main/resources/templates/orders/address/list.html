@@ -15,8 +15,10 @@
     </div>
     <!-- 배송지 리스트가 출력될 부분 -->
     <div class="listDiv" th:each="addressDTO:${addressDTOList}" >
-        <form class="removeForm" action="/orders/address/remove" method="post">
-            <input type="hidden" name="a_no" th:value="${addressDTO.a_no}">
+        <form class="formTag" action="/orders/address/remove" method="post">
+            <input type="hidden" id="a_no" name="a_no" th:value="${addressDTO.a_no}">
+            <input type="hidden" id="member" name="member" th:value="${addressDTO.member}">
+            <input type="hidden" id="a_nickName" name="a_nickName" th:value="${addressDTO.a_nickName}">
         </form>
         <div style="display: flex; align-items: center;">
             <h4 th:text="${addressDTO.a_recipient + ' (' + addressDTO.a_nickName + ')'}"></h4>
@@ -29,7 +31,7 @@
         <div>
             <button type="button" class="modifyBtn" th:data-ano="${addressDTO.a_no}">수정</button>
             <button type="button" class="removeBtn" th:data-ano="${addressDTO.a_no}" th:if="${addressDTO.a_basic == 0}">삭제</button>
-            <button type="button" class="selectBtn" onclick="addressSelect()">선택</button>
+            <button type="button" class="selectBtn" th:data-ano="${addressDTO.a_no}">선택</button>
         </div>
         <hr>
     </div> <!-- foreach -->
@@ -37,9 +39,21 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:inline="javascript">
+    const removeResult = [[${removeResult}]];
+    debugger
+    if(removeResult === 'removed'){
+        alert("배송지가 삭제되었습니다.");
+    }
+
     function addressRegister(){
-        window.open('/orders/address/register', '신규 배송지', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
-        // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
+        const addressCount = [[${addressCount}]];
+        if(addressCount < 5) {
+            window.open('/orders/address/register', '신규 배송지', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+            // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
+        } else {
+            alert("id당 5개까지 배송지 저장이 가능합니다.\n삭제 후 등록해주세요.");
+            return;
+        }
     }
 
     $(document).ready(function() {
@@ -63,15 +77,44 @@
             }
 
             let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
-            let removeFormAll = document.querySelectorAll('.removeForm');
+            let removeFormAll = document.querySelectorAll('.formTag');
             debugger;
             removeFormAll.forEach(function(form) {
                 debugger;
-                let removeAno = $(form).find('input').val();
+                let removeAno = $(form).find('#a_no').val();
                 if(ano !== removeAno){
                     return; // 다음 반복으로 이동
                 }
-                $(form).submit(); // 조건이 맞을 때 submit
+                let a_nickName = $(form).find('#a_nickName').val();
+                if (confirm("[" + a_nickName + "] 배송지를 삭제하시겠습니까 ?")) {
+                    $(form).submit(); // 확인 클릭 시 submit
+                } else {
+                    alert("삭제를 취소했습니다.");
+                }
+
+            });
+        });
+
+        // 선택버튼 클릭 !!!
+        $('.selectBtn').click(function(e) {
+            debugger;
+            let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
+            if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
+                return;
+            }
+
+            let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
+            let readFormAll = document.querySelectorAll('.formTag');
+            debugger;
+            readFormAll.forEach(function(form) {
+                debugger;
+                let readAno = $(form).find('#a_no').val();
+                if (ano !== readAno) {
+                    return; // 다음 반복으로 이동
+                }
+                $(form).attr('action', '/orders/address/read');
+                $(form).attr('method', 'post');
+                $(form).submit();
             });
         });
 

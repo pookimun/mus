@@ -37,7 +37,33 @@ public class AddressServiceImpl implements AddressService{
     @Override
     public Long register(AddressDTO addressDTO) {
         Address address = dtoToEntity(addressDTO);
-        Long a_no = addressRepository.save(address).getA_no();
+        address.changeUse(1);
+        // 배송지 작성 시 무조건 a_use 값은 1로 들어가게 함
+
+        Long a_no = null;
+        if(address.getA_basic() == 1){ // 기본배송지로 등록하고 싶다고 하면 실행
+            // 기본배송지가 있는지 없는지 확인 후
+            // 기본배송지가 있으면 : 저장하지않고 null 리턴
+            // 기본배송지가 없으면 : 저장하고 저장된 a_no 값 리턴
+            a_no = defaultAddress(address);
+        } else {
+            a_no = addressRepository.save(address).getA_no();
+        }
+
+        return a_no;
+    }
+
+    @Override
+    // ServiceImpl 내부에서 동작하는 메서드이기 때문에 엔티티를 받는다.
+    public Long defaultAddress(Address address) {
+        // 기본배송지가 있는지 없는지 확인 후
+        // 기본배송지가 있으면 : 저장하지않고 null 리턴
+        // 기본배송지가 없으면 : 저장하고 저장된 a_no 값 리턴
+        Long a_no = null;
+        List<Address> basicAddress = addressRepository.memberAddressBasic(address.getMember());
+        if (basicAddress.size() == 0){ // 기본배송지가 없으면
+            a_no = addressRepository.save(address).getA_no();
+        }
         return a_no;
     }
 
@@ -60,14 +86,10 @@ public class AddressServiceImpl implements AddressService{
 
     @Override
     public void remove(Long a_no) {
-        // Orders가 참조중이여서 삭제가 안된다.
-        // 이를 해결하기 위해 참조중인 Orders들을 모두 가져와 해당 member의 기본배송지로 변경해준다.
         Optional<Address> result = addressRepository.findById(a_no);
         Address address = result.orElseThrow();
-        // 해당 address를 참조하는 모든 ordersList
-        List<Orders> ordersList = ordersRepository.addressRemoveSelect(address);
-        addressRepository.deleteById(a_no);
-
+        address.changeUse(0); // 해당 엔티티의 사용여부를 0으로 만든다.
+        addressRepository.save(address); // update
     }
 
     @Override
@@ -81,4 +103,12 @@ public class AddressServiceImpl implements AddressService{
         }
         return dtoList;
     }
+
+    @Override
+    public int ListCount(String member) {
+        int result = addressRepository.memberAddressListCount(member);
+        return result;
+    }
+
+
 }

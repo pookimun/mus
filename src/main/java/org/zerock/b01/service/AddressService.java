@@ -9,11 +9,18 @@ import java.util.stream.Collectors;
 
 public interface AddressService {
     Long register(AddressDTO addressDTO);
+    Long defaultAddress(Address address);
+    // 기본배송지를 찾고 변경, 유지 작업을 하기 위한 메서드
+    // ServiceImpl 내부에서 동작하는 메서드이기 때문에 엔티티를 받는다.
     AddressDTO readOne(Long a_no);
     void modify(AddressDTO addressDTO);
     void remove(Long a_no);
 
     List<AddressDTO> getList(String member);
+
+    int ListCount(String member); // 배송지 개수 제한(5개)을 위해 배송지 개수를 가져온다.
+
+
 
     default Address dtoToEntity(AddressDTO addressDTO){
         Address address = Address.builder()
@@ -28,6 +35,7 @@ public interface AddressService {
                 .a_request(addressDTO.getA_request())
                 .a_customRequest(addressDTO.getA_customRequest())
                 .member(addressDTO.getMember())
+                .a_use(addressDTO.getA_use())
                 .build();
         return address;
     }
@@ -45,6 +53,7 @@ public interface AddressService {
                 .a_request(address.getA_request())
                 .a_customRequest(address.getA_customRequest())
                 .member(address.getMember())
+                .a_use(address.getA_use())
                 .build();
         return addressDTO;
     }
