@@ -9,9 +9,8 @@ import java.util.stream.Collectors;
 
 public interface AddressService {
     Long register(AddressDTO addressDTO);
-    Long defaultAddress(Address address);
-    // 기본배송지를 찾고 변경, 유지 작업을 하기 위한 메서드
-    // ServiceImpl 내부에서 동작하는 메서드이기 때문에 엔티티를 받는다.
+    Address defaultAddressCheck(String member);
+    // 기본배송지가 존재하는지 확인함(1: 존재한다, 0: 존재하지 않는다.)
     AddressDTO readOne(Long a_no);
     void modify(AddressDTO addressDTO);
     void remove(Long a_no);

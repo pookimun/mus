@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}">
 
@@ -8,7 +9,7 @@
     <title>Amado - Furniture Ecommerce Template | 주문 </title>
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    <!--    <link rel="stylesheet" th:href="@{/css/core-style.css}">-->
 </head>
 
 <div layout:fragment="content">
@@ -17,17 +18,7 @@
     </div>
 
     <form action="/submit_order" method="POST">
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name" required><br><br>
 
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="address">주소:</label>
-        <textarea id="address" name="address" required></textarea><br><br>
-
-        <label for="phone">전화번호:</label>
-        <input type="tel" id="phone" name="phone" required><br><br>
 
         <label for="payment">결제정보:</label>
         <select id="payment" name="payment" required>
@@ -42,18 +33,60 @@
 
 
     <div>
-        <h2>배송정보</h2>
+        <h3>배송정보</h3>
+        <div style="display: flex; align-items: center;">
+            <label>배송 요청사항</label>
+            <select id="options" name="a_request"
+                    style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
+                <option value="선택안함">배송 시 요청사항을 선택해주세요</option>
+                <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+                <option value="부재 시 택배함에 넣어주세요">부재 시 택배함에 넣어주세요</option>
+                <option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
+                <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
+                <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                <option value="직접 입력">직접 입력</option>
+            </select>
+        </div>
+        <div id="customInput" style="display: none;">
+            <input id="customRequest" name="a_customRequest" placeholder="직접 입력" type="text">
+        </div>
     </div>
 
     <div>
-        <h2>상품정보</h2>
+        <h3>상품정보</h3>
     </div>
 
     <div>
-        <h2>최종결제금액</h2>
+        <h3>최종결제금액</h3>
     </div>
 
     <div>
-        <h2>결제정보</h2>
+        <h3>결제정보</h3>
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </div>
+
+<script layout:fragment="script" th:inline="javascript">
+    $(document).ready(function () {
+        $('#options').change(function () {
+            // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
+            if ($(this).val() === '직접 입력') {
+                $('#customInput').show();
+                $('#customRequest').prop('disabled', false);
+                // 필드 활성화
+                $("#customRequest").attr("required", true);
+                // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
+            } else {
+                $('#customInput').hide();
+                $('#customRequest').prop('disabled', true);
+                // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
+            }
+        });
+    });
+
+
+
+</script>

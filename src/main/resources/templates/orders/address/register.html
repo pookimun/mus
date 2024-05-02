@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>신규 배송지</title>
     <style>
         body {
@@ -88,39 +88,42 @@
 <div class="container">
     <h2>신규 배송지</h2>
 
-    <form id="address" action="/orders/address/register" method="post">
-        <input type="hidden" name="member" value="member1"> <!-- 임시 member, 시큐리티 연결 후 코드 추가 예정 ... -->
+    <form action="/orders/address/register" id="address" method="post">
+        <input id="member" name="member" type="hidden" value="member1"> <!-- 임시 member, 시큐리티 연결 후 코드 추가 예정 ... -->
         <div>
             <label for="recipient">수령인</label>
-            <input type="text" id="recipient" name="a_recipient" required>
+            <input id="recipient" name="a_recipient" required type="text">
         </div>
         <div>
             <label for="addressName">배송지명</label>
-            <input type="text" id="addressName" name="a_nickName" required>
+            <input id="addressName" name="a_nickName" required type="text">
         </div>
         <div>
             <label for="phoneNumber">전화번호('-' 제외)</label>
-            <input type="text" id="phoneNumber" name="a_phone" required>
+            <input id="phoneNumber" name="a_phone" required type="text">
         </div>
         <div>
             <label>배송지 주소</label>
             <div style="display: flex; align-items: center;">
-                <input type="text" id="sample4_postcode" name="a_zipCode" placeholder="우편번호" style="width: 50%;">
-                <input type="button" onclick="sample4_execDaumPostcode()"  value="검색" style="width: 100px; margin-left: 10px; margin-bottom: 10px;">
+                <input id="sample4_postcode" name="a_zipCode" placeholder="우편번호" style="width: 50%;" type="text">
+                <input onclick="sample4_execDaumPostcode()"
+                       style="width: 100px; margin-left: 10px; margin-bottom: 10px;" type="button"
+                       value="검색">
             </div>
-            <input type="text" id="sample4_roadAddress" name="a_address" placeholder="도로명주소">
-            <input type="text" id="sample4_detailAddress" name="a_detail" placeholder="상세주소">
+            <input id="sample4_roadAddress" name="a_address" placeholder="도로명주소" type="text">
+            <input id="sample4_detailAddress" name="a_detail" placeholder="상세주소" type="text">
         </div>
         <div>
             <div style="display: flex; align-items: center;">
-               <label for="defaultAddress" style="margin-bottom: 15px;">기본배송지 설정</label>
-               <input type="checkbox" id="defaultAddress" name="a_basic" value="1" style="margin-bottom: 15px;">
+                <label for="defaultAddress" style="margin-bottom: 15px;">기본배송지 설정</label>
+                <input id="defaultAddress" name="a_basic" style="margin-bottom: 15px;" type="checkbox" value="1">
             </div>
         </div>
         <div>
             <div style="display: flex; align-items: center;">
                 <label>배송 요청사항</label>
-                <select id="options" name="a_request" style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
+                <select id="options" name="a_request"
+                        style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
                     <option value="선택안함">배송 시 요청사항을 선택해주세요</option>
                     <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
                     <option value="부재 시 택배함에 넣어주세요">부재 시 택배함에 넣어주세요</option>
@@ -131,12 +134,12 @@
                 </select>
             </div>
             <div id="customInput" style="display: none;">
-                <input type="text" id="customRequest" name="a_customRequest" placeholder="직접 입력">
+                <input id="customRequest" name="a_customRequest" placeholder="직접 입력" type="text">
             </div>
         </div>
         <div>
             <div style="display: flex; align-items: center;">
-                <button type="button" onclick="window.close()" style="margin-right: 10px;">취소</button>
+                <button onclick="window.close()" style="margin-right: 10px;" type="button">취소</button>
                 <button id="registerBtn" type="submit">등록</button>
             </div>
         </div>
@@ -144,13 +147,15 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
+<script th:src="@{/js/address.js}"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!--주소 api-->
 <script th:inline="javascript">
     // 에러 출력 시작
     const registerErrors = [[${errors}]];
     console.log(registerErrors);
     let errorMsg = '';
-    if(registerErrors){
+    if (registerErrors) {
         for (let i = 0; i < registerErrors.length; i++) {
             errorMsg += `${registerErrors[i].field}은(는) ${registerErrors[i].code} \n`;
         }
@@ -158,24 +163,47 @@
     }
     // 에러 출력 끝
     const registerResult = [[${registerResult}]];
-    if(registerResult === 'registed'){
+    if (registerResult === 'registed') {
         alert("배송지가 등록되었습니다.");
-        window.close(); // 현재 창(신규 배송지 추가) 닫기
-        window.opener.location.reload(); // 부모 창(배송지 목록) 리로드
-    } else if (registerResult === 'faild'){
-        let form = document.getElementById("address"); // 폼 태그 가져옴
-        if (confirm("기본배송지는 id당 하나만 가질 수 있습니다. \n등록하실 배송지를 기본 배송지로 설정하시겠습니까?")) {
-            // a_basic = 1
-            // 취소 클릭 시 그냥 이전으로 돌아감
-            //let inputTag =
-            //form.
-        }
         window.close(); // 현재 창(신규 배송지 추가) 닫기
         window.opener.location.reload(); // 부모 창(배송지 목록) 리로드
     }
 
-    $(document).ready(function() {
-        $('#options').change(function() {
+    const registerBtn = document.querySelector('#registerBtn');
+    registerBtn.addEventListener("click", function (e) {
+        e.preventDefault(); // 기존 동작 무시
+        debugger
+        let form = document.querySelector('#address');
+        let defaultAddress = document.querySelector('#defaultAddress'); // 기본배송지 체크 input
+        let member = document.querySelector('#member').value; // 회원
+        if (defaultAddress.checked) { // 체크 되어 있으면
+            defaultAddressCheck(member).then(result => {
+                // 해당 회원의 기본배송지가 존재하는지 확인
+                if (result.defAddress !== null) { // 존재한다면
+                    alert("기본배송지 존재");
+                    if (confirm("기본배송지가 이미 존재합니다. \n작성중인 배송지를 기본 배송지로 설정하시겠습니까?")) {
+                        // 기존의 기본배송지의 a_bacie 값을 0으로 update
+                        defaultAddressfalse(result.defAddress.a_no);
+                        form.submit(); // 작성중인 배송지 저장
+                    } else {
+                        alert("기본배송지 여부 체크박스를 해제합니다.");
+                        defaultAddress.checked = false;
+                    }
+                } else {
+                    form.submit(); // 존재하지 않으면 기본배송지로 저장
+                }
+            }).catch(e => {
+                alert("defaultAddressCheck Exception...");
+            })
+
+        } else {
+            form.submit();
+        }
+
+    }, false)
+
+    $(document).ready(function () {
+        $('#options').change(function () {
             // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
             if ($(this).val() === '직접 입력') {
                 $('#customInput').show();
@@ -193,7 +221,7 @@
 
     function sample4_execDaumPostcode() { // 카카오 주소 api
         new daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
@@ -201,13 +229,13 @@
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
 
                 // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
+                if (data.buildingName !== '' && data.apartment === 'Y') {
                     roadAddr += ', ' + data.buildingName;
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample4_postcode').value = data.zonecode; // 우편번호
-                if(data.roadAddr !== ''){ // 도로명주소만 들어가는 오류 발생
+                if (data.roadAddr !== '') { // 도로명주소만 들어가는 오류 발생
                     document.getElementById("sample4_roadAddress").value = roadAddr; // 도로명주소
                 } else {
                     document.getElementById("sample4_roadAddress").value = data.jibunAddress; // 지번주소

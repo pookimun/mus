@@ -23,7 +23,7 @@ public class AddressDTO {
     private String a_nickName; // 배송지 별칭
 
     @NotEmpty
-    @Pattern(regexp="^\\d{10,11}$")
+    @Pattern(regexp = "^\\d{10,11}$")
     // 전화번호 입력 검증 패턴, 패턴이 맞지 않으면 오류 발생 ex)01012345678(정수 10자리 또는 정수 11자리)
     private String a_phone; // 전화번호
 
@@ -47,5 +47,8 @@ public class AddressDTO {
     private String member; // 회원
 
     private int a_use; // 배송지 사용 여부
+
+    //private int basicYesOrNo;
+    // register.html에서 기본배송지로 배송지를 등록하려고 할 때 여기로 1을 전송(엔티티까지 갈 필요는 없는 필드)
 
 }
