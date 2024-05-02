@@ -4,13 +4,13 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
 
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+    <link rel="icon" th:href="@{/assets/favicon.ico}" type="image/x-icon"/>
     <!-- Core theme CSS (includes Bootstrap) 밑에거 하면 깨짐-->
     <!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
     <!--<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
@@ -32,6 +32,7 @@
             font-style: normal;
             font-display: block;
         }
+
         [class^="ns-"], [class*=" ns-"] {
             font-family: 'nike' !important;
             speak: none;
@@ -43,449 +44,524 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
         .ns-jordan:before {
             content: "\e027";
         }
+
         .ns-logo-converse:before {
             content: "\e901";
         }
+
         .ns-cart:before {
             content: "\e00e";
         }
+
         .ns-pin:before {
             content: "\e033";
         }
+
         .ns-search:before {
             content: "\e03e";
         }
 
         /* 노말라이즈 */
         body, ul, li {
-            padding:0;
-            margin:0;
-            list-style:none;
+            padding: 0;
+            margin: 0;
+            list-style: none;
         }
+
         a {
-            text-decoration:none;
-            color:inherit;
+            text-decoration: none;
+            color: inherit;
         }
+
         /* 노말라이즈 끝 */
 
         /* 라이브러리 */
         .row::after {
-            content:"";
-            display:block;
-            clear:both;
+            content: "";
+            display: block;
+            clear: both;
         }
+
         .cell {
-            float:left;
+            float: left;
         }
+
         .cell-right {
-            float:right;
+            float: right;
         }
+
         .line-height-0 {
-            line-height:0;
+            line-height: 0;
         }
+
         .line-height-0 > * {
-            line-height:normal;
+            line-height: normal;
         }
+
         .con {
-            max-width:90%;
-            margin:0 auto;
-            padding-top:110px;
+            max-width: 90%;
+            margin: 0 auto;
+            padding-top: 110px;
         }
+
         .img-box img, .img-box video {
-            width:100%;
+            width: 100%;
         }
+
         /* 라이브러리 끝 */
 
         /* 커스텀 */
         /* gnb */
         .header {
-            text-align:center;
-            position:fixed;
-            background-color:#ffffff;
-            width:100%;
-            z-index:10;
+            text-align: center;
+            position: fixed;
+            background-color: #ffffff;
+            width: 100%;
+            z-index: 10;
         }
+
         .header > .header-gnb ul > li > a {
-            display:block;
-            font-size:12px;
-            padding:0 20px;
-            line-height:38px;
-            color:#8d8d8d;
+            display: block;
+            font-size: 12px;
+            padding: 0 20px;
+            line-height: 38px;
+            color: #8d8d8d;
         }
+
         .header > .header-gnb > .header-brand > ul > li {
-            border-right:1px solid #e5e5e5;
+            border-right: 1px solid #e5e5e5;
         }
+
         .header > .header-gnb > .header-brand > ul > li > a {
-            min-width:50px;
+            min-width: 50px;
         }
+
         .header > .header-gnb > .header-brand > ul > li > a.jordan {
-            font-size:21px;
+            font-size: 21px;
         }
+
         .header > .header-gnb > .header-brand > ul > li > a.converse {
-            font-size:72px;
-            max-height:38px;
-            position:relative;
-            top:-15px;
+            font-size: 72px;
+            max-height: 38px;
+            position: relative;
+            top: -15px;
         }
+
         .header > .header-gnb > .header-mymenu {
-            margin-right:20px;
+            margin-right: 20px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li a {
-            padding:0 11px;
-            font-size:13px;
-            line-height:38px;
+            padding: 0 11px;
+            font-size: 13px;
+            line-height: 38px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > .join-login {
-            color:#8d8d8d;
-            font-size:12px;
+            color: #8d8d8d;
+            font-size: 12px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > .join-login > a.join {
-            padding-right:0px;
+            padding-right: 0px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > .join-login > a.login {
-            padding-left:0px;
+            padding-left: 0px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > a.cart-ico {
-            font-size:23px;
+            font-size: 23px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > a.pin-ico > i {
-            font-size:18px;
-            position:relative;
-            top:3px;
+            font-size: 18px;
+            position: relative;
+            top: 3px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li > a.pin-ico::after {
-            content:"대한민국";
-            font-size:13px;
-            padding-left:6px;
+            content: "대한민국";
+            font-size: 13px;
+            padding-left: 6px;
         }
+
         .header > .header-gnb > .header-mymenu > ul > li a:hover, .header > .header-gnb > .header-brand > ul > li > a > span:hover {
-            color:#111;
+            color: #111;
         }
+
         .header > .header-gnb > .header-brand > ul > li > a.jordan > span:hover {
-            color:red;
+            color: red;
         }
 
         /* 상단 메뉴바 */
         .top-menu-bar {
-            height:70px;
-            position:relative;
-            border-top:1px solid #e5e5e5;
-            border-bottom:1px solid #e5e5e5;
-            box-sizing:border-box;
+            height: 70px;
+            position: relative;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            box-sizing: border-box;
         }
 
         /* 로고 */
         .top-menu-bar > .logo {
-            position:absolute;
-            top:50%;
-            left:20px;
-            transform:translatey(-50%);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translatey(-50%);
         }
+
         .top-menu-bar > .logo > a > img {
-            width:60px;
+            width: 60px;
         }
 
         /* 메뉴 */
         .top-menu-bar > .menu-1 {
-            display:inline-block;
+            display: inline-block;
         }
+
         .top-menu-bar > .menu-1 > ul > li > a {
-            display:block;
-            font-weight:bold;
-            font-size:0.9rem;
-            padding:0 20px;
-            letter-spacing:-0.8px;
-            position:relative;
-            line-height:70px;
-            color:#111;
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 0 20px;
+            letter-spacing: -0.8px;
+            position: relative;
+            line-height: 70px;
+            color: #111;
         }
+
         .top-menu-bar > .menu-1 > ul > li > a::after {
-            content:"";
-            display:block;
-            background-color:#111;
-            position:absolute;
-            bottom:1px;
-            left:50%;
-            width:0%;
-            height:2px;
-            transform:translatex(-50%);
-            opacity:0;
-            transition:all .2s;
+            content: "";
+            display: block;
+            background-color: #111;
+            position: absolute;
+            bottom: 1px;
+            left: 50%;
+            width: 0%;
+            height: 2px;
+            transform: translatex(-50%);
+            opacity: 0;
+            transition: all .2s;
         }
+
         .top-menu-bar > .menu-1 > ul > li:hover > a::after {
-            width:100%;
-            opacity:1;
+            width: 100%;
+            opacity: 1;
         }
 
         /* 2차 메뉴 */
         .top-menu-bar > .menu-1 .sub-menu-box > .sub-menu-width {
-            max-width:990px;
-            margin:0 auto;
+            max-width: 990px;
+            margin: 0 auto;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-box {
-            position:absolute;
-            top:100%;
-            left:0;
-            width:100%;
-            display:none;
-            text-align:left;
-            border-bottom:1px solid #e5e5e5;
-            padding:45px 0;
-            color:#111111;
-            background-color:white;
-            z-index:-2;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            display: none;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 45px 0;
+            color: #111111;
+            background-color: white;
+            z-index: -2;
         }
+
         .top-menu-bar > .menu-1 > ul > li:hover > .sub-menu-box {
-            display:block;
+            display: block;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul {
-            position:relative;
+            position: relative;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li {
-            padding:0 0 0 30px;
-            width:180px;
+            padding: 0 0 0 30px;
+            width: 180px;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li:nth-child(3), .top-menu-bar > .menu-1 .sub-menu-width > ul > li:nth-child(5) {
-            padding:0;
+            padding: 0;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li:nth-child(3)::before, .top-menu-bar > .menu-1 .sub-menu-width > ul > li:nth-child(3)::after {
-            content:"";
-            padding:0;
-            background-color:#dedfda;
-            width:1px;
-            height:100%;
-            position:absolute;
-            top:0;
-            left:211px;
+            content: "";
+            padding: 0;
+            background-color: #dedfda;
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 211px;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li:nth-child(3)::after {
-            left:596px;
+            left: 596px;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li > a {
-            display:block;
-            font-weight:bold;
-            font-size:16px;
-            width:100%;
+            display: block;
+            font-weight: bold;
+            font-size: 16px;
+            width: 100%;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li:first-child a {
-            font-weight:bold;
-            font-size:16px;
+            font-weight: bold;
+            font-size: 16px;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul > li a:hover {
-            color:#8d8d8d;
+            color: #8d8d8d;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul ul {
-            margin-top:5px;
+            margin-top: 5px;
         }
+
         .top-menu-bar > .menu-1 .sub-menu-width > ul ul > li > a {
-            font-size:14px;
-            display:block;
-            padding:2px 0;
+            font-size: 14px;
+            display: block;
+            padding: 2px 0;
         }
 
         /* 서치박스 */
         .top-menu-bar > .search-box {
-            position:absolute;
-            top:50%;
-            right:20px;
-            transform:translatey(-50%);
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translatey(-50%);
         }
+
         .top-menu-bar > .search-box > .search-con {
-            position:relative;
+            position: relative;
         }
+
         .top-menu-bar > .search-box > .search-con > .icon {
-            position:absolute;
-            top:50%;
-            left:25px;
-            transform:translatey(-50%);
-            cursor:pointer;
-            font-size:20px;
+            position: absolute;
+            top: 50%;
+            left: 25px;
+            transform: translatey(-50%);
+            cursor: pointer;
+            font-size: 20px;
         }
+
         .top-menu-bar > .search-box > .search-con > input {
-            width:224px;
-            height:40px;
-            padding:10px 30px 10px 50px;
-            outline:0;
-            border:1px solid #e5e5e5;
-            border-radius:2px;
+            width: 224px;
+            height: 40px;
+            padding: 10px 30px 10px 50px;
+            outline: 0;
+            border: 1px solid #e5e5e5;
+            border-radius: 2px;
         }
+
         .top-menu-bar > .search-box > .search-con > input:focus {
-            border-color:gray;
+            border-color: gray;
         }
+
         .top-menu-bar > .search-box > .search-con > input::-webkit-input-placeholder {
-            font-size:15px;
+            font-size: 15px;
         }
 
         /* 서치박스 추천 검색 메뉴 */
         .top-menu-bar > .search-box > .search-con > .search-menu {
-            position:absolute;
-            top:41px;
-            left:0;
-            background-color:#ffffff;
-            width:256px;
-            padding-top:15px;
-            padding-bottom:30px;
-            display:none;
+            position: absolute;
+            top: 41px;
+            left: 0;
+            background-color: #ffffff;
+            width: 256px;
+            padding-top: 15px;
+            padding-bottom: 30px;
+            display: none;
         }
+
         .top-menu-bar > .search-box > .search-con > .search-menu.active {
-            display:block;
+            display: block;
         }
+
         .top-menu-bar > .search-box > .search-con > .search-menu > ul > li {
-            text-align:left;
-            font-size:17px;
-            font-weight:bold;
+            text-align: left;
+            font-size: 17px;
+            font-weight: bold;
         }
+
         .top-menu-bar > .search-box > .search-con > .search-menu > ul > li:first-child {
-            display:block;
-            padding:34px 38px 0;
-            border-top:1px solid #e5e5e5;
+            display: block;
+            padding: 34px 38px 0;
+            border-top: 1px solid #e5e5e5;
         }
+
         .top-menu-bar > .search-box > .search-con > .search-menu > ul > li > a {
-            display:block;
-            padding:20px 55px 0 38px;
-            font-size:15px;
-            font-weight:normal;
+            display: block;
+            padding: 20px 55px 0 38px;
+            font-size: 15px;
+            font-weight: normal;
         }
+
         .search-mask {
-            position:fixed;
-            top:110px;
-            left:0;
-            right:0;
-            bottom:0;
-            background-color:rgba(0,0,0,0.5);
-            z-index:-1;
-            visibility:hidden;
-            opacity:0;
-            transition:all .3s;
+            position: fixed;
+            top: 110px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .3s;
         }
+
         .search-mask.active {
-            visibility:visible;
-            opacity:1;
+            visibility: visible;
+            opacity: 1;
         }
 
         /* 콘텐츠 배너 */
         .mid-con {
-            text-align:center;
+            text-align: center;
         }
+
         .mid-con > .head {
-            font-size:43px;
-            font-weight:bold;
-            margin:13px 0;
+            font-size: 43px;
+            font-weight: bold;
+            margin: 13px 0;
         }
+
         .mid-con > .body {
-            font-size:16px;
+            font-size: 16px;
         }
+
         .mid-con > .btn-container > .btn {
-            display:inline-block;
-            position:relative;
+            display: inline-block;
+            position: relative;
         }
+
         .mid-con > .btn-container > .btn a {
-            display:block;
-            background-color:#111111;
-            color:#ffffff;
-            padding:8px 25px;
-            border-radius:20px;
-            box-sizing:border-box;
+            display: block;
+            background-color: #111111;
+            color: #ffffff;
+            padding: 8px 25px;
+            border-radius: 20px;
+            box-sizing: border-box;
         }
+
         .mid-con > .btn-container > .btn:first-child a {
-            width:156px;
-            white-space:nowrap;
+            width: 156px;
+            white-space: nowrap;
         }
+
         .mid-con > .btn-container > .arrow > a > span::after {
-            content:"＞";
-            position:absolute;
-            right:25px;
+            content: "＞";
+            position: absolute;
+            right: 25px;
         }
+
         .mid-con > .btn-container > .btn a:hover {
-            background-color:rgba(0,0,0,0.75);
+            background-color: rgba(0, 0, 0, 0.75);
         }
+
         .mid-con > .btn-container > .btn > .btn-menu {
-            position:absolute;
-            top:100%;
-            left:0;
-            display:none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
         }
+
         .mid-con > .btn-container > .btn:hover > .btn-menu {
-            display:block;
+            display: block;
         }
+
         .mid-con > .btn-container > .btn:hover > a > span::after {
-            content:"∨";
+            content: "∨";
         }
+
         .mid-con > .btn-container > .btn > .btn-menu > a {
-            margin-top:1px;
+            margin-top: 1px;
         }
 
         /* 콘텐츠 배너 윗 간격 */
         .bn-box-2, .bn-box-3, .bn-box-4 {
-            margin-top:100px;
+            margin-top: 100px;
         }
 
         /* 트렌드 배너 */
         .trend-bn {
-            margin-top:100px;
+            margin-top: 100px;
         }
+
         .trend-bn > h3 {
-            padding-left:8px;
+            padding-left: 8px;
         }
+
         .trend-bn > ul {
-            margin:auto -8px;
+            margin: auto -8px;
         }
+
         .trend-bn > ul > li {
-            width:50%;
-            padding:0 8px;
-            box-sizing:border-box;
+            width: 50%;
+            padding: 0 8px;
+            box-sizing: border-box;
         }
 
         /* 어패럴 배너 */
         .apparel-bn {
-            margin-top:100px;
+            margin-top: 100px;
         }
+
         .apparel-bn > h3 {
-            padding-left:8px;
+            padding-left: 8px;
         }
+
         .apparel-bn > ul {
-            margin:auto -8px;
+            margin: auto -8px;
         }
+
         .apparel-bn > ul > li {
-            width:33.3333%;
-            padding:0 8px;
-            box-sizing:border-box;
+            width: 33.3333%;
+            padding: 0 8px;
+            box-sizing: border-box;
         }
+
         .apparel-bn > ul > li > .img-box {
-            position:relative;
+            position: relative;
         }
+
         .apparel-bn > ul > li > .img-box > a > span {
-            position:absolute;
-            top:50px;
-            left:40px;
-            color:#ffffff;
-            font-size:20px;
+            position: absolute;
+            top: 50px;
+            left: 40px;
+            color: #ffffff;
+            font-size: 20px;
         }
 
 
         /*푸터*/
-        .mobilefooter> :nth-child(1) {
+        .mobilefooter > :nth-child(1) {
             background: #111;
             padding: 18px 5%;
             text-align: center;
             border-bottom: 1px solid #444;
         }
 
-        .mobilefooter> :nth-child(1) li {
+        .mobilefooter > :nth-child(1) li {
             list-style: none;
             display: inline-block;
             padding: 0 15px;
         }
 
-        .mobilefooter> :nth-child(1) a {
+        .mobilefooter > :nth-child(1) a {
             color: white;
             size: 13px;
         }
 
-        .mobilefooter> :nth-child(2) {
+        .mobilefooter > :nth-child(2) {
             background: #111;
             padding: 18px 5%;
             color: #999;
@@ -493,63 +569,63 @@
             font-size: 10px;
         }
 
-        .mobilefooter> :nth-child(2) img {
+        .mobilefooter > :nth-child(2) img {
             width: 10px;
             height: 16px;
             vertical-align: middle;
             margin-right: 8px;
         }
 
-        .mobilefooter> :nth-child(2) a {
+        .mobilefooter > :nth-child(2) a {
             color: #999;
             line-height: 24px;
         }
 
-        .mobilefooter> :nth-child(2) span {
+        .mobilefooter > :nth-child(2) span {
             padding-left: 15px;
         }
 
-        .mobilefooter> :nth-child(2) :nth-child(3) {
+        .mobilefooter > :nth-child(2) :nth-child(3) {
             padding: 10px;
         }
 
-        .mobilefooter> :nth-child(2) :nth-child(3) :nth-child(1) {
+        .mobilefooter > :nth-child(2) :nth-child(3) :nth-child(1) {
             padding-right: 16px;
         }
 
-        .mobilefooter> :nth-child(3) {
+        .mobilefooter > :nth-child(3) {
             background: #1d1d1d;
             padding: 20px 5%;
             color: #747474;
             font-size: 12px;
         }
 
-        .mobilefooter> :nth-child(3) a {
+        .mobilefooter > :nth-child(3) a {
             color: white;
         }
 
-        .mobilefooter> :nth-child(3)> :nth-child(2) {
+        .mobilefooter > :nth-child(3) > :nth-child(2) {
             padding: 16px 0;
         }
 
-        .mobilefooter> :nth-child(3)> :nth-child(3) {
+        .mobilefooter > :nth-child(3) > :nth-child(3) {
             padding-bottom: 16px;
         }
 
-        .mobilefooter> :nth-child(3) :nth-child(3) a {
+        .mobilefooter > :nth-child(3) :nth-child(3) a {
             text-decoration: underline;
         }
 
-        .mobilefooter> :nth-child(3)> :nth-child(4) {
+        .mobilefooter > :nth-child(3) > :nth-child(4) {
             text-align: center;
             padding: 20px 0;
         }
 
-        .mobilefooter> :nth-child(3)> :nth-child(4) a {
+        .mobilefooter > :nth-child(3) > :nth-child(4) a {
             color: #777;
         }
 
-        .mobilefooter> :nth-child(3)> :nth-child(4) a:nth-child(1)::after {
+        .mobilefooter > :nth-child(3) > :nth-child(4) a:nth-child(1)::after {
             content: "|";
             color: #777;
             margin: 0 8px;
@@ -572,56 +648,56 @@
                 background: #111;
             }
 
-            .pcfooter>div:nth-child(1) {
+            .pcfooter > div:nth-child(1) {
                 padding: 40px 5%;
                 display: flex;
                 color: white;
                 font-size: 13px;
             }
 
-            .pcfooter>div:nth-child(1)>div {
+            .pcfooter > div:nth-child(1) > div {
                 width: 100%;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(1) a {
+            .pcfooter > div:nth-child(1) > :nth-child(1) a {
                 color: white;
                 display: block;
                 margin-bottom: 8px;
                 line-height: 18px;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(2) ul li, .pcfooter>div:nth-child(1)> :nth-child(3) ul li, .pcfooter>div:nth-child(1)> :nth-child(4) ul li {
+            .pcfooter > div:nth-child(1) > :nth-child(2) ul li, .pcfooter > div:nth-child(1) > :nth-child(3) ul li, .pcfooter > div:nth-child(1) > :nth-child(4) ul li {
                 list-style: none;
                 margin-top: 8px;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(2) ul a, .pcfooter>div:nth-child(1)> :nth-child(3) ul a {
+            .pcfooter > div:nth-child(1) > :nth-child(2) ul a, .pcfooter > div:nth-child(1) > :nth-child(3) ul a {
                 color: #999;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(4) ul li {
+            .pcfooter > div:nth-child(1) > :nth-child(4) ul li {
                 display: inline-block;
                 margin-right: 8px;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(4) ul img {
+            .pcfooter > div:nth-child(1) > :nth-child(4) ul img {
                 width: 24px;
                 height: 24px;
                 opacity: 0.5;
                 transition: 0.7s;
             }
 
-            .pcfooter>div:nth-child(1)> :nth-child(4) ul img:hover {
+            .pcfooter > div:nth-child(1) > :nth-child(4) ul img:hover {
                 opacity: 1;
             }
 
-            .pcfooter>div:nth-child(2) {
+            .pcfooter > div:nth-child(2) {
                 padding: 0 5%;
                 color: #999;
                 font-size: 10px;
             }
 
-            .pcfooter>div:nth-child(2)>div {
+            .pcfooter > div:nth-child(2) > div {
                 display: flex;
                 justify-content: space-between;
                 padding: 15px 0;
@@ -630,22 +706,22 @@
                 border-left: none;
             }
 
-            .pcfooter>div:nth-child(2) a {
+            .pcfooter > div:nth-child(2) a {
                 color: #999;
             }
 
-            .pcfooter>div:nth-child(2) div :nth-child(1) {
+            .pcfooter > div:nth-child(2) div :nth-child(1) {
                 padding-right: 15px;
             }
 
-            .pcfooter>div:nth-child(2) img {
+            .pcfooter > div:nth-child(2) img {
                 width: 10px;
                 height: 18px;
                 vertical-align: middle;
                 margin-right: 8px;
             }
 
-            .pcfooter>div:nth-child(3) {
+            .pcfooter > div:nth-child(3) {
                 padding: 16px 5% 25px 5%;
                 color: #999;
                 font-size: 11px;
@@ -653,39 +729,37 @@
                 justify-content: space-between;
             }
 
-            .pcfooter>div:nth-child(3) a {
+            .pcfooter > div:nth-child(3) a {
                 color: white;
             }
 
-            .pcfooter>div:nth-child(3) p {
+            .pcfooter > div:nth-child(3) p {
                 width: 48%;
             }
 
-            .pcfooter>div:nth-child(3) p:nth-child(2) {
+            .pcfooter > div:nth-child(3) p:nth-child(2) {
                 text-align: right;
             }
 
-            .pcfooter>div:nth-child(3) p:nth-child(2) a {
+            .pcfooter > div:nth-child(3) p:nth-child(2) a {
                 text-decoration: underline;
             }
 
-            .pcfooter>div:nth-child(1) {
+            .pcfooter > div:nth-child(1) {
                 width: 1200px;
                 margin: 0 auto;
             }
 
-            .pcfooter>div:nth-child(2) {
+            .pcfooter > div:nth-child(2) {
                 width: 1200px;
                 margin: 0 auto;
             }
 
-            .pcfooter>div:nth-child(3) {
+            .pcfooter > div:nth-child(3) {
                 width: 1200px;
                 margin: 0 auto;
             }
         }
-
-
 
 
     </style>
@@ -706,33 +780,35 @@
     </div>
 </div>-->
 
-<div layout:fragment="header" class="header">
+<div class="header" layout:fragment="header">
     <div class="header-gnb row">
         <div class="header-brand cell">
             <ul class="row">
                 <li class="cell"><a href="#"><span>Nike</span></a></li>
-                <li class="cell"><a href="#"><span>Nike Membership</span></a></li>
-                <li class="cell"><a href="#" class="jordan"><span class="ns-jordan"></span></a></li>
-                <li class="cell"><a class="list-group-item list-group-item-action list-group-item-light p-3" href="/logout">로그아웃</a></a></li>
+                <li class="cell"><a id="myPageLink" th:href="@{/member/edit}"><span>마이 페이지</span></a></li>
+                <li class="cell"><a class="jordan" href="#"><span class="ns-jordan"></span></a></li>
+                <li class="cell"><a class="list-group-item list-group-item-action list-group-item-light p-3"
+                                    href="/logout">로그아웃</a></a></li>
             </ul>
         </div>
         <div class="header-mymenu cell-right">
             <ul class="row">
                 <li class="cell">
                     <span class="join-login">
-                        <a href="#" class="join">회원가입</a>
+                        <a class="join" href="#">회원가입</a>
                         /
-                        <a href="#" class="login">로그인</a>
+                        <a class="login" href="#">로그인</a>
                     </span>
                 </li>
                 <li class="cell"><a href="#">고객센터</a></li>
-                <li class="cell"><a href="#" class="cart-ico"><i class="ns-cart"></i></a></li>
-                <li class="cell"><a href="#" class="pin-ico"><i class="ns-pin"></i></a></li>
+                <li class="cell"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
+                <li class="cell"><a class="pin-ico" href="#"><i class="ns-pin"></i></a></li>
             </ul>
         </div>
     </div>
     <div class="top-menu-bar line-height-0">
-        <div class="logo"><a href="#"><img src="https://i.ebayimg.com/images/g/mCMAAOSwQ-JalJ-V/s-l300.jpg" alt=""></a></div>
+        <div class="logo"><a href="#"><img alt="" src="https://i.ebayimg.com/images/g/mCMAAOSwQ-JalJ-V/s-l300.jpg"></a>
+        </div>
         <nav class="menu-1">
             <ul class="row">
                 <li class="cell">
@@ -993,7 +1069,7 @@
         </nav>
         <div class="search-box">
             <div class="search-con">
-                <input type="search" placeholder="검색">
+                <input placeholder="검색" type="search">
                 <span class="icon"><i class="ns-search"></i></span>
                 <div class="search-menu">
                     <ul>
@@ -1012,14 +1088,14 @@
 <!-- End Header/Navigation -->
 
 <!--헤더 영역 여백-->
-<div  style="width: 100%; height: 105px;">
+<div style="width: 100%; height: 105px;">
 </div>
 
 <div layout:fragment="content">
     <p>Page content goes here</p>
 </div>
 
-<footer layout:fragment="footer" class="mobilefooter">
+<footer class="mobilefooter" layout:fragment="footer">
 
 
     <ul>
@@ -1029,7 +1105,7 @@
     </ul>
 
     <div>
-        <a href="#"><img src="https://api.iconify.design/fa6-solid/location-pin.svg?color=white" alt="">대한민국</a>
+        <a href="#"><img alt="" src="https://api.iconify.design/fa6-solid/location-pin.svg?color=white">대한민국</a>
         <span>ⓒ 2022 Nike, Inc. All Rights Reserved</span>
         <div>
             <a href="#">이용약관</a>
@@ -1102,10 +1178,14 @@
         <div>
             <p>SOCIAL</p>
             <ul>
-                <li><a href="#"><img src="https://api.iconify.design/ant-design/twitter-circle-filled.svg?color=white" alt=""></a></li>
-                <li><a href="#"><img src="https://api.iconify.design/bi/facebook.svg?color=white" alt=""></a></li>
-                <li><a href="#"><img src="https://api.iconify.design/entypo-social/youtube-with-circle.svg?color=white" alt=""></a></li>
-                <li><a href="#"><img src="https://api.iconify.design/entypo-social/instagram-with-circle.svg?color=white" alt=""></a></li>
+                <li><a href="#"><img alt=""
+                                     src="https://api.iconify.design/ant-design/twitter-circle-filled.svg?color=white"></a></li>
+                <li><a href="#"><img alt="" src="https://api.iconify.design/bi/facebook.svg?color=white"></a></li>
+                <li><a href="#"><img alt=""
+                                     src="https://api.iconify.design/entypo-social/youtube-with-circle.svg?color=white"></a></li>
+                <li><a href="#"><img
+                        alt="" src="https://api.iconify.design/entypo-social/instagram-with-circle.svg?color=white"></a>
+                </li>
             </ul>
         </div>
 
@@ -1147,6 +1227,13 @@
 <!-- End Footer Section -->
 
 </body>
+
+<!--<script th:inline="javascript">
+    var myPageLink = document.getElementById("myPageLink");
+    var myPageUrl = "/member/read?mid="; // 여기에 원하는 URL을 넣으세요
+    const removeResult = [[${dto.mid}]];
+    myPageLink.setAttribute("href", myPageUrl + removeResult);
+</script>-->
 
 <!--<script>
     function searchMenuON(){

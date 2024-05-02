@@ -1,25 +1,27 @@
 package org.zerock.b01.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minidev.json.JSONObject;
-import org.aspectj.bridge.Message;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.zerock.b01.domain.Board;
 import org.zerock.b01.domain.Member;
 import org.zerock.b01.domain.MemberRole;
+import org.zerock.b01.dto.BoardDTO;
 import org.zerock.b01.dto.MemberJoinDTO;
+import org.zerock.b01.dto.MemberDTO;
 import org.zerock.b01.repository.MemberRepository;
 
-import java.util.HashMap;
-import java.util.Random;
+import java.util.Optional;
 
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+@Transactional
+public class MemberServiceImpl implements MemberService {
 
     private final ModelMapper modelMapper;
 
@@ -28,17 +30,17 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void join(MemberJoinDTO memberJoinDTO) throws M_idExistException{
+    public void join(MemberJoinDTO memberJoinDTO) throws midExistException {
 
-        String m_id = memberJoinDTO.getM_id();
+        String mid = memberJoinDTO.getMid();
 
-        boolean exist = memberRepository.existsById(m_id);
+        boolean exist = memberRepository.existsById(mid);
 
         if(exist){
-            throw new M_idExistException();
+            throw new midExistException();
         }
 
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
+        Member member = modelMapper.map(memberJoinDTO, Member.class); //엔티티 관리하는 모델 매퍼
         member.changePassword(passwordEncoder.encode(memberJoinDTO.getM_pw()));
         member.addRole(MemberRole.USER);
 
@@ -47,5 +49,31 @@ public class MemberServiceImpl implements MemberService{
         log.info(member.getRoleSet());
 
         memberRepository.save(member);
+    }
+
+    public MemberDTO readMember(String mid) {
+
+        Optional<Member> result = memberRepository.findByMid(mid);
+
+        Member member = result.orElseThrow();
+
+        MemberDTO memberDTO = entityToDTO(member);
+
+        return memberDTO;
+    }
+
+/*    public void edit(MemberDTO memberDTO) {
+
+        Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
+
+        Member member = result.orElseThrow();
+
+        member.changePassword(memberDTO.getM_pw());
+
+        memberRepository.save(member);
+    }*/
+
+    public void edit(MemberDTO memberDTO) {
+
     }
 }

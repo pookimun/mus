@@ -104,7 +104,6 @@ public class CustomSecurityConfig {
         log.info("------------web configure-------------------");
 
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-
     }
 
     @Bean
