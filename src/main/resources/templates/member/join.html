@@ -270,7 +270,7 @@
 
                 <div class="id_section" style="width: 20%; float: left;">
                     <label><span>ID</span>
-                    <input name="m_id" id="id" type="text">
+                    <input name="mid" id="id" type="text">
                     </label>
                 </div>
 
@@ -323,7 +323,7 @@
                     <span>전체동의</span>
                 </label><br>
 
-                    <!--회원 이용약관 숨기기-->
+                <!--회원 이용약관 숨기기-->
                 <div class="white-popup mfp-hide" id="test-popup-1">
                     <h2>itc 서비스 이용약관</h2>
                     <h3>제1조 (목적)</h3>
@@ -685,7 +685,7 @@
                     <a class="terms open-popup-link" href="#test-popup-1">약관보기</a>
                 </label>
 
-                    <!--정보 수집 이용 약관 숨기기-->
+                <!--정보 수집 이용 약관 숨기기-->
                 <div id="test-popup-2" class="white-popup mfp-hide">
                     <h2>개인정보처리방침</h2>
                     <p>
@@ -720,7 +720,7 @@
                     <a class="terms open-popup-link" href="#test-popup-2">약관보기</a>
                 </label>
 
-                    <!--개인정보 약관 숨기기-->
+                <!--개인정보 약관 숨기기-->
                 <div id="test-popup-3" class="white-popup mfp-hide">
                     <h3>마케팅 정보 수신 동의</h3>
 
@@ -829,7 +829,7 @@
                 console.log("개별 동의 항목 1: " + isAgree1);
                 console.log("개별 동의 항목 2: " + isAgree2);
 
-                if (isAllAgreed == true && isAgree1 == true && isAgree2 == true) {
+                if (isAgree1 == true && isAgree2 == true) {
                     document.getElementById("registerForm").submit();
                 } else {
                     alert("필수 항목에 동의해야 합니다!");
@@ -839,23 +839,23 @@
         }
 
         // 비밀번호 확인 함수
-        /*        function checkPasswordMatch() {
-                    var passwordInput = document.getElementById("pw");
-                    var confirmPasswordInput = document.getElementById("pw_confirm");
+/*        function checkPasswordMatch() {
+            var passwordInput = document.getElementById("pw");
+            var confirmPasswordInput = document.getElementById("pw_confirm");
 
-                    var password = passwordInput.value.trim(); // 비밀번호 입력 필드의 값
-                    var confirmPassword = confirmPasswordInput.value.trim(); // 비밀번호 확인 입력 필드의 값
+            var password = passwordInput.value.trim(); // 비밀번호 입력 필드의 값
+            var confirmPassword = confirmPasswordInput.value.trim(); // 비밀번호 확인 입력 필드의 값
 
-                    // 비밀번호와 비밀번호 확인 값이 일치하는지 확인
-                    if (password === confirmPassword) {
-                        // 일치할 경우
-                        return true; // 폼 제출을 허용하기 위해 true 반환
-                    } else {
-                        // 일치하지 않을 경우
-                        alert("비밀번호가 일치하지 않습니다.");
-                        return false; // 폼 제출을 막기 위해 false 반환
-                    }
-                }*/
+            // 비밀번호와 비밀번호 확인 값이 일치하는지 확인
+            if (password === confirmPassword) {
+                // 일치할 경우
+                return true; // 폼 제출을 허용하기 위해 true 반환
+            } else {
+                // 일치하지 않을 경우
+                alert("비밀번호가 일치하지 않습니다.");
+                return false; // 폼 제출을 막기 위해 false 반환
+            }
+        }*/
     </script>
 
     <script>
@@ -870,7 +870,8 @@
 <script layout:fragment="script" th:inline="javascript">
     const error = [[${error}]]
 
-    if(error && error === 'm_id'){
+    if(error && error === 'mid'){
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
 </script>
+

@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.zerock.b01.constant.ItemSellStatus;
 
 
 @Entity
 @Table(name = "item")
-@Getter
+@Getter @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,6 +41,10 @@ public class Item {
 
     // not null
     private int i_stock; //재고보유여부
+
+    @Enumerated(EnumType.STRING)
+    private ItemSellStatus itemSellStatus; //상품 판매 상태
+
 
     public void change(String i_name, int i_price, String i_color, String i_size) {
         this.i_name = i_name;

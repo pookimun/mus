@@ -1,8 +1,6 @@
 package org.zerock.b01.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,20 +15,27 @@ public class Cart extends BaseEntity{
 
     @Id
     @Column
-    private Long c_no;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cno;
 
     @Column(nullable = false)
     private int c_count;
 
-    @Column(nullable = false)
     private String c_size;
 
-    @Column(nullable = false)
     private String c_color;
 
-    @Column(nullable = false)
     private Date c_date;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="mid")
+    private Member member;
+
+    public static Cart createCart(Member member){
+        Cart cart = new Cart();
+        cart.setMember(member);
+        return cart;
+    }
 
 
 
