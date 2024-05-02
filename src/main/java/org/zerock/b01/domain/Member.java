@@ -19,7 +19,7 @@ import java.util.Set;
 public class Member extends BaseEntity{
 
     @Id
-    private String m_id;
+    private String mid;
     private String m_pw;
     private String m_email;
     private boolean m_del; //탈퇴 여부
@@ -27,7 +27,7 @@ public class Member extends BaseEntity{
 
     /*추가*/
     private String m_join_path; //가입 경로
-    private String m_optional_terms; //선택 약관 동의
+    private boolean m_optional_terms; //선택 약관 동의
     private int m_point; //적립금
     
     @ElementCollection(fetch = FetchType.LAZY)

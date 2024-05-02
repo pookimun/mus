@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Configuration
 @EnableJpaAuditing
 public class RootConfig {
-
     @Bean
     public ModelMapper getMapper() {
         ModelMapper modelMapper = new ModelMapper();
