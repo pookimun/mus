@@ -31,10 +31,10 @@ public class OrdersController {
     private final AddressService addressService;
 
     @GetMapping( "/orders")
-    public void orders(PageRequestDTO pageRequestDTO, Model model){
+    public void orders(String member, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
 
-//        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
-//
+        OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+
 //        PageResponseDTO<BoardListAllDTO> responseDTO =
 //                boardService.listWithAll(pageRequestDTO);
 //
@@ -49,7 +49,7 @@ public class OrdersController {
         log.info(result);
         model.addAttribute("addressDTOList", result);
         int resultCount = addressService.ListCount(member);
-        model.addAttribute("addressCount", resultCount);
+        model.addAttribute("addressCount", resultCount); // 배송지 개수 제한을 위해 추가
     }
 
     @GetMapping("/address/register") // 신규 배송지 추가

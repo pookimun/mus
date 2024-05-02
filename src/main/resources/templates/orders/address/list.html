@@ -7,47 +7,50 @@
     <title>배송지 변경</title>
 </head>
 <body>
-    <div>
-        <div style="display: flex; align-items: center;">
+<div>
+    <div style="display: flex; align-items: center;">
         <h2>배송지 변경</h2>
-            <button class="registerBtn" onclick="addressRegister()" type="button">신규 배송지 등록 +</button>
+        <button class="registerBtn" onclick="addressRegister()" type="button">신규 배송지 등록 +</button>
+    </div>
+</div>
+<!-- 배송지 리스트가 출력될 부분 -->
+<div class="listDiv" th:each="addressDTO:${addressDTOList}">
+    <form action="/orders/address/remove" class="formTag" method="post">
+        <input id="a_no" name="a_no" th:value="${addressDTO.a_no}" type="hidden">
+        <input id="member" name="member" th:value="${addressDTO.member}" type="hidden">
+        <input id="a_nickName" name="a_nickName" th:value="${addressDTO.a_nickName}" type="hidden">
+    </form>
+    <div style="display: flex; align-items: center;">
+        <h4 th:text="${addressDTO.a_recipient + ' (' + addressDTO.a_nickName + ')'}"></h4>
+        <div th:if="${addressDTO.a_basic == 1}">
+            <small>기본배송지</small><br>
         </div>
     </div>
-    <!-- 배송지 리스트가 출력될 부분 -->
-    <div class="listDiv" th:each="addressDTO:${addressDTOList}" >
-        <form class="formTag" action="/orders/address/remove" method="post">
-            <input type="hidden" id="a_no" name="a_no" th:value="${addressDTO.a_no}">
-            <input type="hidden" id="member" name="member" th:value="${addressDTO.member}">
-            <input type="hidden" id="a_nickName" name="a_nickName" th:value="${addressDTO.a_nickName}">
-        </form>
-        <div style="display: flex; align-items: center;">
-            <h4 th:text="${addressDTO.a_recipient + ' (' + addressDTO.a_nickName + ')'}"></h4>
-            <div th:if="${addressDTO.a_basic == 1}">
-                <small>기본배송지</small><br>
-            </div>
-        </div>
-        <small class="a_phone" th:text="${addressDTO.a_phone}"></small><br>
-        <small class="a_address" th:text="${'(' + addressDTO.a_zipCode + ') ' + addressDTO.a_address + ' ' + addressDTO.a_detail}"></small>
-        <div>
-            <button type="button" class="modifyBtn" th:data-ano="${addressDTO.a_no}">수정</button>
-            <button type="button" class="removeBtn" th:data-ano="${addressDTO.a_no}" th:if="${addressDTO.a_basic == 0}">삭제</button>
-            <button type="button" class="selectBtn" th:data-ano="${addressDTO.a_no}">선택</button>
-        </div>
-        <hr>
-    </div> <!-- foreach -->
+    <small class="a_phone" th:text="${addressDTO.a_phone}"></small><br>
+    <small class="a_address"
+           th:text="${'(' + addressDTO.a_zipCode + ') ' + addressDTO.a_address + ' ' + addressDTO.a_detail}"></small>
+    <div>
+        <button class="modifyBtn" th:data-ano="${addressDTO.a_no}" type="button">수정</button>
+        <button class="removeBtn" th:data-ano="${addressDTO.a_no}" th:if="${addressDTO.a_basic == 0}" type="button">삭제
+        </button>
+        <button class="selectBtn" th:data-ano="${addressDTO.a_no}" type="button">선택</button>
+    </div>
+    <hr>
+</div> <!-- foreach -->
 </body>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:inline="javascript">
     const removeResult = [[${removeResult}]];
     debugger
-    if(removeResult === 'removed'){
+    if (removeResult === 'removed') {
         alert("배송지가 삭제되었습니다.");
     }
 
-    function addressRegister(){
+    function addressRegister() {
         const addressCount = [[${addressCount}]];
-        if(addressCount < 5) {
+        if (addressCount < 5) {
             window.open('/orders/address/register', '신규 배송지', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
             // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
         } else {
@@ -56,21 +59,21 @@
         }
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 수정버튼 클릭 !!!
         $('.modifyBtn').click(function(e) {
-        let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
-        if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
-            return;
-        }
+            let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
+            if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
+                return;
+            }
 
-        let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
-        window.open('/orders/address/modify?ano=' + ano, '배송지 수정', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
-        // 새 창으로 배송지 수정 창을 띄운다.(top - 값이 높아질수록 위로)
+            let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
+            window.open('/orders/address/modify?ano=' + ano, '배송지 수정', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+            // 새 창으로 배송지 수정 창을 띄운다.(top - 값이 높아질수록 위로)
         });
 
         // 삭제버튼 클릭 !!!
-        $('.removeBtn').click(function(e) {
+        $('.removeBtn').click(function (e) {
             let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
             if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
                 return;
@@ -79,10 +82,10 @@
             let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
             let removeFormAll = document.querySelectorAll('.formTag');
             debugger;
-            removeFormAll.forEach(function(form) {
+            removeFormAll.forEach(function (form) {
                 debugger;
                 let removeAno = $(form).find('#a_no').val();
-                if(ano !== removeAno){
+                if (ano !== removeAno) {
                     return; // 다음 반복으로 이동
                 }
                 let a_nickName = $(form).find('#a_nickName').val();
@@ -96,7 +99,7 @@
         });
 
         // 선택버튼 클릭 !!!
-        $('.selectBtn').click(function(e) {
+        $('.selectBtn').click(function (e) {
             debugger;
             let target = e.target; // 클릭 이벤트가 일어난 요소를 가져온다.
             if (target.tagName !== 'BUTTON') { // 클릭된 요소가 버튼이 아니면 return
@@ -106,7 +109,7 @@
             let ano = target.getAttribute("data-ano"); // 클릭된 버튼에 data-ano 속성값을 지정해둠
             let readFormAll = document.querySelectorAll('.formTag');
             debugger;
-            readFormAll.forEach(function(form) {
+            readFormAll.forEach(function (form) {
                 debugger;
                 let readAno = $(form).find('#a_no').val();
                 if (ano !== readAno) {
