@@ -39,11 +39,12 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
             log.info("Should Change Password");
 
             log.info("Redirect to Member Modify ");
-            response.sendRedirect("/member/modify");
+            response.sendRedirect("/board/index");
+log.info("머야" + memberSecurityDTO.getM_pw().toString());
 
             return;
         } else {
-
+log.info("된 거야 안 된 거야" + memberSecurityDTO.getM_pw().toString());
             response.sendRedirect("/board/list");
         }
     }

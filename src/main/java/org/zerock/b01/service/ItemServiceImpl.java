@@ -31,6 +31,7 @@ public class ItemServiceImpl implements ItemService{
         Item item = modelMapper.map(itemDTO, Item.class);
         return itemRepository.save(item).getIno();
     }
+    /*asd*/
 
     @Override
     public ItemDTO readOne(Long ino) {

@@ -45,32 +45,32 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         Map<String, Object> paramMap = oAuth2User.getAttributes();
 
-        String m_email = null;
+        String email = null;
 
         switch (clientName){
             case "kakao":
-                m_email = getKakaoEmail(paramMap);
+                email = getKakaoEmail(paramMap);
                 break;
         }
 
         log.info("===============================");
-        log.info(m_email);
+        log.info(email);
         log.info("===============================");
 
-        return generateDTO(m_email, paramMap);
+        return generateDTO(email, paramMap);
     }
 
-    private MemberSecurityDTO generateDTO(String m_email, Map<String, Object> params){
+    private MemberSecurityDTO generateDTO(String email, Map<String, Object> params){
 
-        Optional<Member> result = memberRepository.findByM_email(m_email);
+        Optional<Member> result = memberRepository.findByM_email(email);
 
         //데이터베이스에 해당 이메일을 사용자가 없다면
         if(result.isEmpty()){
             //회원 추가 -- mid는 이메일 주소/ 패스워드는 1111
             Member member = Member.builder()
-                    .m_id(m_email)
+                    .mid(email)
                     .m_pw(passwordEncoder.encode("1111"))
-                    .m_email(m_email)
+                    .m_email(email)
                     .m_social(true)
                     .build();
             member.addRole(MemberRole.USER);
@@ -78,7 +78,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             //MemberSecurityDTO 구성 및 반환
             MemberSecurityDTO memberSecurityDTO =
-                    new MemberSecurityDTO(m_email, "1111", m_email,false, true, Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+                    new MemberSecurityDTO(email, "1111", email,false, true, Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
             memberSecurityDTO.setProps(params);
 
             return memberSecurityDTO;
@@ -86,7 +86,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             Member member = result.get();
             MemberSecurityDTO memberSecurityDTO =
                     new MemberSecurityDTO(
-                            member.getM_id(),
+                            member.getMid(),
                             member.getM_pw(),
                             member.getM_email(),
                             member.isM_del(),
@@ -111,13 +111,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         LinkedHashMap accountMap = (LinkedHashMap) value;
 
-        String m_email = (String)accountMap.get("m_email");
+        String email = (String)accountMap.get("email");
 
-        log.info("m_email..." + m_email);
+        log.info("email..." + email);
 
-        return m_email;
+        return email;
     }
-
-
-
 }

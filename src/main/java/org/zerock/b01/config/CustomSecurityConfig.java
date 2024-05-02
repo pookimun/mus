@@ -39,7 +39,6 @@ public class CustomSecurityConfig {
 //        return new CustomUserDetailsService(passwordEncoder());
 //    }
 
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -105,7 +104,6 @@ public class CustomSecurityConfig {
         log.info("------------web configure-------------------");
 
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-
     }
 
     @Bean
