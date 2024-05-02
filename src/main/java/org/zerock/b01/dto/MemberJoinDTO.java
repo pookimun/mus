@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class MemberJoinDTO {
-    private String m_id;
+    private String mid;
     private String m_pw;
     private String m_email;
     private boolean m_del;

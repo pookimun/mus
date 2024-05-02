@@ -2,12 +2,16 @@ package org.zerock.b01.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.b01.domain.Member;
+import org.zerock.b01.dto.MemberDTO;
 import org.zerock.b01.dto.MemberJoinDTO;
 import org.zerock.b01.service.MemberService;
 import org.zerock.b01.service.MemberServiceImpl;
@@ -23,10 +27,9 @@ public class MemberController {
 
     @GetMapping("/join")
     public void joinGET(){
-
         log.info("join get...");
-
     }
+
     @PostMapping("/join")
     public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
 
@@ -35,9 +38,9 @@ public class MemberController {
 
         try {
             memberService.join(memberJoinDTO);
-        } catch (MemberService.M_idExistException e) {
+        } catch (MemberService.midExistException e) {
 
-            redirectAttributes.addFlashAttribute("error", "m_id");
+            redirectAttributes.addFlashAttribute("error", "mid");
             return "redirect:/member/join";
         }
 
@@ -61,8 +64,20 @@ public class MemberController {
     public void forgotGet() {
     }
 
-    @GetMapping("/terms")
-    public void termsGet() {
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit")
+    public void editGet(String mid, Model model) {
+
+        MemberDTO memberDTO = memberService.readMember(mid);
+
+        log.info(memberDTO);
+
+        model.addAttribute("dto", memberDTO);
+    }
+
+    @PostMapping("/edit")
+    public void editPost() {
+
     }
 
 }

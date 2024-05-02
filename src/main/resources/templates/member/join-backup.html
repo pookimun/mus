@@ -269,7 +269,7 @@
                 <span class="required">
 
                 <label><span>ID</span>
-                    <input name="m_id" type="text" required>
+                    <input name="mid" type="text" required>
                 </label>
 
                 <label><span>@</span>
@@ -863,7 +863,7 @@
 <script layout:fragment="script" th:inline="javascript">
     const error = [[${error}]]
 
-    if(error && error === 'm_id'){
+    if(error && error === 'mid'){
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
 </script>
