@@ -35,6 +35,7 @@ public class ItemServiceImpl implements ItemService{
         Long ino=itemRepository.save(item).getIno();
         return ino;
     }
+    /*asd*/
 
     @Override
     public ItemDTO readOne(Long ino) {
