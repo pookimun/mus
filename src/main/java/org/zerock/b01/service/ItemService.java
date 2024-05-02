@@ -1,9 +1,6 @@
 package org.zerock.b01.service;
 
-import org.zerock.b01.dto.BoardDTO;
-import org.zerock.b01.dto.ItemDTO;
-import org.zerock.b01.dto.PageRequestDTO;
-import org.zerock.b01.dto.PageResponseDTO;
+import org.zerock.b01.dto.*;
 
 public interface ItemService {
     Long register(ItemDTO itemDTO);
@@ -11,5 +8,5 @@ public interface ItemService {
     void modify(ItemDTO itemDTO);
     void remove(Long ino);
 
-    PageResponseDTO<ItemDTO> list(PageRequestDTO pageRequestDTO);
+    ItemPageResponseDTO<ItemDTO> list(ItemPageRequestDTO itemPageRequestDTO);
 }

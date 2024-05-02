@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 상세 정보</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .img-thumbnail {
+            max-width: 150px;
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5 mb-4">상품 상세 정보</h2>
+    <div th:if="${itemDTO != null}">
+        <div class="row">
+            <div class="col">
+                <h4 th:text="${itemDTO.i_name}"></h4>
+                <p>가격: <span th:text="${itemDTO.i_price}"></span></p>
+                <p>색상: <span th:text="${itemDTO.i_color}"></span></p>
+                <p>사이즈: <span th:text="${itemDTO.i_size}"></span></p>
+                <p>재고: <span th:text="${itemDTO.i_stock}"></span></p>
+            </div>
+            <div class="col">
+                <img th:src="@{${itemDTO.i_title_img}}" class="img-thumbnail" alt="대표 이미지">
+                <br><br>
+                <img th:src="@{${itemDTO.i_info_img}}" class="img-thumbnail" alt="설명 이미지">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 자바스크립트 코드 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/upload.js"></script>
+</body>
+</html>
