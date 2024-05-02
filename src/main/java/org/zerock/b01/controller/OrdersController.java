@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,10 +31,13 @@ public class OrdersController {
     private final OrdersService ordersService;
     private final AddressService addressService;
 
+    //@GetMapping( "/orders/{member}") @PathVariable("member")
     @GetMapping( "/orders")
-    public void orders(String member, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
-
+    public void orders(@Param("member") String member, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
+        log.info("orders 실행");
         OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+        log.info(ordersPageRequestDTO);
+
 
 //        PageResponseDTO<BoardListAllDTO> responseDTO =
 //                boardService.listWithAll(pageRequestDTO);
