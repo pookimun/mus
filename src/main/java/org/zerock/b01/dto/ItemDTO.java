@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -29,6 +32,10 @@ public class ItemDTO {
     private String i_size; //사이즈
 
     private int i_stock; //재고보유여부
+
+
+
+
 
 
 }

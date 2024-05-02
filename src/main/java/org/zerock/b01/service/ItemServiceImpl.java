@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.zerock.b01.domain.Item;
-import org.zerock.b01.dto.BoardDTO;
-import org.zerock.b01.dto.ItemDTO;
-import org.zerock.b01.dto.PageRequestDTO;
-import org.zerock.b01.dto.PageResponseDTO;
+import org.zerock.b01.dto.*;
 import org.zerock.b01.repository.ItemRepository;
 
 import java.util.List;
@@ -32,8 +29,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public Long register(ItemDTO itemDTO){
         Item item = modelMapper.map(itemDTO, Item.class);
-        Long ino=itemRepository.save(item).getIno();
-        return ino;
+        return itemRepository.save(item).getIno();
     }
 
     @Override
@@ -67,10 +63,10 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public PageResponseDTO<ItemDTO> list(PageRequestDTO pageRequestDTO) {
-        String[] types = pageRequestDTO.getTypes();
-        String keyword = pageRequestDTO.getKeyword();
-        Pageable pageable = pageRequestDTO.getPageable("ino");
+    public ItemPageResponseDTO<ItemDTO> list(ItemPageRequestDTO itemPageRequestDTO) {
+        String[] types = itemPageRequestDTO.getTypes();
+        String keyword = itemPageRequestDTO.getKeyword();
+        Pageable pageable = itemPageRequestDTO.getPageable("ino");
 
         Page<Item> result = itemRepository.searchAll(types, keyword, pageable);
 
@@ -78,8 +74,8 @@ public class ItemServiceImpl implements ItemService{
                 .map(item -> modelMapper.map(item, ItemDTO.class)).collect(Collectors.toList());
 
 
-        return PageResponseDTO.<ItemDTO>withAll()
-                .pageRequestDTO(pageRequestDTO)
+        return ItemPageResponseDTO.<ItemDTO>withAll()
+                .itemPageRequestDTO(itemPageRequestDTO)
                 .dtoList(dtoList)
                 .total((int) result.getTotalElements())
                 .build();
