@@ -163,10 +163,12 @@
         window.close(); // 현재 창(신규 배송지 추가) 닫기
         window.opener.location.reload(); // 부모 창(배송지 목록) 리로드
     } else if (registerResult === 'faild'){
+        let form = document.getElementById("address"); // 폼 태그 가져옴
         if (confirm("기본배송지는 id당 하나만 가질 수 있습니다. \n등록하실 배송지를 기본 배송지로 설정하시겠습니까?")) {
-
-        } else {
-
+            // a_basic = 1
+            // 취소 클릭 시 그냥 이전으로 돌아감
+            let inputTag =
+            form.
         }
         window.close(); // 현재 창(신규 배송지 추가) 닫기
         window.opener.location.reload(); // 부모 창(배송지 목록) 리로드
