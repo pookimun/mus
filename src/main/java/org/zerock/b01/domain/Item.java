@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EntityListeners(value = {AuditingEntityListener.class })
+@EntityListeners(value = {AuditingEntityListener.class})
 public class Item {
 
     @Id
@@ -27,10 +27,10 @@ public class Item {
     @Column(length = 100, nullable = false) // not null
     private int i_price; //상품 가격
 
-   // not null
+    // not null
     private String i_title_img; //대표이미지
 
-   // not null
+    // not null
     private String i_info_img; //설명이미지
 
 
@@ -41,7 +41,7 @@ public class Item {
     // not null
     private int i_stock; //재고보유여부
 
-    public void  change(String i_name,int i_price,String i_color,String i_size) {
+    public void change(String i_name, int i_price, String i_color, String i_size) {
         this.i_name = i_name;
         this.i_price = i_price;
         this.i_color = i_color;
