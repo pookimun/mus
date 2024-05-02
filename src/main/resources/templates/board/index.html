@@ -32,19 +32,26 @@
 
     <a href="#test-popup" class="open-popup-link">Show inline popup</a>
 
-    <script>
-        $('.open-popup-link').magnificPopup({
-            type:'inline',
-            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-        });
-    </script>
-
-    <script layout:fragment="script" th:inline="javascript">
-        const error = [[${error}]]
-
-        if(error && error === 'mid'){
-            alert("동일한 MID를 가진 계정이 존재합니다.")
-        }
-    </script>
-
 </div>
+
+
+<script layout:fragment="script" th:inline="javascript">
+    $('.open-popup-link').magnificPopup({
+        type:'inline',
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    });
+
+    const auth = [[${#authentication.principal}]]
+
+    const errors = [[${errors}]]
+    console.log(errors)
+
+    let errorMsg = ''
+
+    if(errors){
+        for (let i = 0; i < errors.length; i++) {
+            errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+        }
+        alert(errorMsg)
+    }
+</script>

@@ -27,24 +27,24 @@ public class MemberController {
         log.info("join get...");
 
     }
-//    @PostMapping("/join")
-//    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
-//
-//        log.info("join post...");
-//        log.info(memberJoinDTO);
-//
-//        try {
-//            memberService.join(memberJoinDTO);
-//        } catch (MemberService.M_idExistException e) {
-//
-//            redirectAttributes.addFlashAttribute("error", "m_id");
-//            return "redirect:/member/join";
-//        }
-//
-//        redirectAttributes.addFlashAttribute("result", "success");
-//
-//        return "redirect:/member/login"; //회원 가입 후 로그인
-//    }
+    @PostMapping("/join")
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+
+        log.info("join post...");
+        log.info(memberJoinDTO);
+
+        try {
+            memberService.join(memberJoinDTO);
+        } catch (MemberService.midExistException e) {
+
+            redirectAttributes.addFlashAttribute("error", "m_id");
+            return "redirect:/member/join";
+        }
+
+        redirectAttributes.addFlashAttribute("result", "success");
+
+        return "redirect:/member/login"; //회원 가입 후 로그인
+    }
 
 
     @GetMapping("/login")
@@ -55,6 +55,11 @@ public class MemberController {
         if(logout != null) {
             log.info("user logout..........");
         }
+    }
+
+    @GetMapping("/logout")
+    public String logoutGet() {
+        return "redirect:/board/index";
     }
 
     @GetMapping("/forgot")
