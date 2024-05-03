@@ -51,6 +51,20 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
+/*    public boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder, MemberDTO memberDTO) throws midExistException {
+
+*//*        String mid = memberDTO.getMid();
+
+        boolean exist = memberRepository.findByMid(mid);
+
+        if(exist){
+            throw new midExistException();
+        }
+
+        Member member = modelMapper.map(memberJoinDTO, Member.class); //엔티티 관리하는 모델 매퍼
+        return passwordEncoder.matches(passwordEncoder.encode(memberDTO.getM_pw()));*//*
+    }*/
+
     public MemberDTO readMember(String mid) {
 
         Optional<Member> result = memberRepository.findByMid(mid);
