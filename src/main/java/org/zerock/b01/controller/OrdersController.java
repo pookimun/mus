@@ -31,21 +31,17 @@ public class OrdersController {
     private final OrdersService ordersService;
     private final AddressService addressService;
 
-    //@GetMapping( "/orders/{member}") @PathVariable("member")
-    @GetMapping( "/orders")
+    @GetMapping( "/orders") // 주문서
     public void orders(@Param("member") String member, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
-        log.info("orders 실행");
-        OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
-        log.info(ordersPageRequestDTO);
 
-
-//        PageResponseDTO<BoardListAllDTO> responseDTO =
-//                boardService.listWithAll(pageRequestDTO);
-//
-//        log.info(responseDTO);
-//
-//        model.addAttribute("responseDTO", responseDTO);
     }
+
+//    log.info("orders 실행"); 주문내역 조회에서 사용 !
+//    OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+//        log.info(ordersPageRequestDTO);
+//        log.info(result);
+//
+//        model.addAttribute("resultList", result);
 
     @GetMapping("/address/list") // 배송지 선택
     public void addressList(@Param("member") String member, Model model){

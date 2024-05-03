@@ -56,10 +56,12 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Override
     public OrdersPageResponseDTO<OrdersListDTO> listWithAll(String member, OrdersPageRequestDTO ordersPageRequestDTO) {
+        log.info("listWithAll 실행 ... ");
         String keyword = ordersPageRequestDTO.getKeyword();
         Pageable pageable = ordersPageRequestDTO.getPageable("ono");
 
         Page<OrdersListDTO> result = ordersRepository.searchWithAll(member, keyword, pageable);
+        log.info("searchWithAll result : " + result);
 
         return OrdersPageResponseDTO.<OrdersListDTO>pageResponse()
                 .ordersPageRequestDTO(ordersPageRequestDTO)

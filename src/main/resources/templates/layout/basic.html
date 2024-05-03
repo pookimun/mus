@@ -766,38 +766,26 @@
 </head>
 <body>
 
-<!-- Sidebar 여기서 링크 복붙해 가세요-->
-<!--<div class="border-end bg-white" id="sidebar-wrapper">
-    <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
-    <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">홈</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/board/list">게시판리스트</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/board/register">게시판등록</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/join">회원가입</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/login">로그인</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/logout">로그아웃</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://github.com/lonen8188">github</a>
-    </div>
-</div>-->
-
 <div class="header" layout:fragment="header">
     <div class="header-gnb row">
         <div class="header-brand cell">
             <ul class="row">
                 <li class="cell"><a href="#"><span>Nike</span></a></li>
-                <li class="cell"><a id="myPageLink" th:href="@{/member/edit}"><span>마이 페이지</span></a></li>
+
+                <li class="cell">
+                    <a id="myPageLink" sec:authorize="isAnonymous()" th:href="@{/member/edit}"><span>마이 페이지</span></a>
+                    <a sec:authorize="isAuthenticated()" href="/member/logout"><span>로그아웃</span></a>
+                </li>
                 <li class="cell"><a class="jordan" href="#"><span class="ns-jordan"></span></a></li>
-                <li class="cell"><a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                    href="/logout">로그아웃</a></a></li>
             </ul>
         </div>
         <div class="header-mymenu cell-right">
             <ul class="row">
                 <li class="cell">
-                    <span class="join-login">
-                        <a class="join" href="#">회원가입</a>
+                    <span class="join-login" sec:authorize="isAnonymous()">
+                        <a class="join"  th:href="@{/member/join}">회원가입</a>
                         /
-                        <a class="login" href="#">로그인</a>
+                        <a class="login"  th:href="@{/member/login}">로그인</a>
                     </span>
                 </li>
                 <li class="cell"><a href="#">고객센터</a></li>
@@ -1228,30 +1216,7 @@
 
 </body>
 
-<!--<script th:inline="javascript">
-    var myPageLink = document.getElementById("myPageLink");
-    var myPageUrl = "/member/read?mid="; // 여기에 원하는 URL을 넣으세요
-    const removeResult = [[${dto.mid}]];
-    myPageLink.setAttribute("href", myPageUrl + removeResult);
-</script>-->
-
-<!--<script>
-    function searchMenuON(){
-        $('.search-menu, .search-mask').addClass('active');
-    }
-    function searchMenuOff(){
-        $('.search-menu, .search-mask').removeClass('active');
-    }
-
-    $('.search-box > .search-con > input').click(function(){
-        searchMenuON();
-    });
-    $('.search-mask').click(function(){
-        searchMenuOff();
-    });
-</script>-->
-
-<th:block layout:fragment="script">
+<th:block layout:fragment="script" th:inline="javascript">
 
 </th:block>
 

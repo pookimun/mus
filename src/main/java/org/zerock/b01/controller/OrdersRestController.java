@@ -18,6 +18,7 @@ import org.zerock.b01.service.AddressService;
 import org.zerock.b01.service.ReplyService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,13 +29,13 @@ public class OrdersRestController {
 
     private final AddressService addressService;
 
-    @Operation(summary = "GET 방식으로 기본배송지 여부 조회")
+    @Operation(summary = "멤버의 기본배송지를 가져와 리턴")
     @GetMapping(value = "/addressDefault/{member}")
     public Map<String,Address> defaultAddressCheck(@PathVariable("member") String member) {
         log.info(member);
 
         Map<String, Address> resultMap = new HashMap<>();
-        // 기본배송지 여부를 확인하고 존재하면 1, 존재하지 않으면 0을 리턴
+        // 기본배송지 여부를 확인하고 존재하면 Address를, 존재하지 않으면 null을 리턴
         Address defAddress = addressService.defaultAddressCheck(member);
         resultMap.put("defAddress",defAddress);
         log.info(resultMap);
@@ -52,6 +53,26 @@ public class OrdersRestController {
         return resultMap;
     }
 
+    @Operation(summary = "멤버의 배송지 리스트 리턴")
+    @GetMapping(value = "/addressList/{member}")
+    public Map<String, List<AddressDTO>> AddressList(@PathVariable("member") String member) {
+        log.info(member);
+
+        Map<String, List<AddressDTO>> resultMap = new HashMap<>();
+        // 멤버의 배송지 리스트를 찾아온다.
+        List<AddressDTO> addressDTOS = addressService.getList(member);
+        resultMap.put("addressDTOS", addressDTOS);
+        log.info(resultMap);
+        return resultMap;
+    }
+
+    @Operation(summary = "배송지 번호를 받아 배송지를 리턴")
+    @GetMapping("/address/{ano}")
+    public AddressDTO getAddress( @PathVariable("ano") Long ano ){
+        AddressDTO addressDTO = addressService.readOne(ano);
+        return addressDTO;
+    }
+
 //    @Operation(summary = "Replies of Board")
 //    @GetMapping(value = "/list/{bno}")
 //    public PageResponseDTO<ReplyDTO> getList(@PathVariable("bno") Long bno,
@@ -62,14 +83,7 @@ public class OrdersRestController {
 //        return responseDTO;
 //    }
 //
-//    @Operation(summary = "GET 방식으로 특정 댓글 조회")
-//    @GetMapping("/{rno}")
-//    public ReplyDTO getReplyDTO( @PathVariable("rno") Long rno ){
-//
-//        ReplyDTO replyDTO = replyService.read(rno);
-//
-//        return replyDTO;
-//    }
+
 //
 //    @Operation(summary =  "DELETE 방식으로 특정 댓글 삭제")
 //    @DeleteMapping("/{rno}")
