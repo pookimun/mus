@@ -45,6 +45,7 @@ public class AddressServiceImpl implements AddressService{
 
     @Override
     public Address defaultAddressCheck(String member) {
+        // AddressDTO를 리턴하도록 수정해야함 ........... !!!!!!!!!!!!!!!!!!!
         // 기본배송지가 있는지 없는지 확인 후
         // 기본배송지가 있으면 : 저장하지않고 null 리턴
         // 기본배송지가 없으면 : 저장하고 저장된 a_no 값 리턴
