@@ -773,8 +773,7 @@
                 <li class="cell"><a href="#"><span>Nike</span></a></li>
 
                 <li class="cell">
-                    <a id="myPageLink" sec:authorize="isAnonymous()" th:href="@{/member/edit}"><span>마이 페이지</span></a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}"><span>로그아웃</span></a>
+                    <a id="myPageLink" sec:authorize="isAuthenticated()" th:href="@{/member/edit}"><span>마이 페이지</span></a>
                 </li>
                 <li class="cell"><a class="jordan" href="#"><span class="ns-jordan"></span></a></li>
             </ul>
@@ -787,6 +786,8 @@
                         /
                         <a class="login"  th:href="@{/member/login}">로그인</a>
                     </span>
+                    <!--<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}"><span>로그아웃</span></a>-->
+                    <a sec:authorize="isAuthenticated()" href="/member/logout"><span>로그아웃</span></a>
                 </li>
                 <li class="cell"><a href="#">고객센터</a></li>
                 <li class="cell"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>

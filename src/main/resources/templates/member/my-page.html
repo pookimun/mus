@@ -271,51 +271,32 @@
 
             <span class="required">
 
-            <form action="/member/edit" id="editForm" method="post">
-
-                <div class="id_section" style="width: 20%; float: left;">
-                    <label><span>ID</span>
-                    <input id="id" name="mid" readonly th:value="${dto.mid}" type="text">
-                    </label>
-                </div>
-
-                <div style="width: 30px; float: left;">
-                    <label><input readonly type="text" value="@"><label>
-                </div>
-
-                <div class="id_section" style="width: 30%; float: left;">
-                    <label>
-                    <input id="email" name="m_email" readonly th:value="${dto.m_email}" type="text">
-                    </label>
-                </div>
-
+            <div id="check_pw" style="width: 25%;">
+                <form action="/member/edit" id="editForm" method="post">
                 <label><span>새 비밀번호</span>
-                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
+                    <input id="current_pw" type="text">
+                    <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 입력해주시기 바랍니다</p>
                 </label>
-
-                <label><span>새 비밀번호 확인</span>
-                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
-                </label>
-
-                <label><span>적립금</span>
-                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}">
-                </label>
-
-                </span>
-            </form>
+                </form>
 
             <div class="button-wrap">
-                <button class="agreebtn" onClick="checkAgreements()">수정</button>
+                <button onClick="checkPasswordMatch()">확인</button>
+            </div>
             </div>
 
+            </span>
         </div>
     </section>
 
     <script>
-        function checkAgreements() {
-            //if {
-                document.getElementById("editForm").submit();
-            //}
+        function checkPasswordMatch() {
+            if (password === confirmPassword) {
+                // 비밀번호 일치 시
+                window.location.href = "/member/edit";
+            } else {
+                // 비밀번호 불일치 시
+                alert("비밀번호가 일치하지 않습니다.");
+            }
         }
     </script>
 
