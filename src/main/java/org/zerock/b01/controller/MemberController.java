@@ -92,18 +92,20 @@ public class MemberController {
         model.addAttribute("dto", memberDTO);
     }
 
-//    @PostMapping("/edit")
-//    public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
-//
-//        log.info("edit post...");
-//        log.info(memberDTO);
-//
-//        //memberService.edit(memberDTO);
-//
-//        redirectAttributes.addFlashAttribute("result", "success");
-//
-//        return "redirect:/member/edit"; //회원 가입 후 로그인
-//    }
+/*
+    @PostMapping("/edit")
+    public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+
+        log.info("edit post...");
+        log.info(memberDTO);
+
+        memberService.edit(memberDTO);
+
+        redirectAttributes.addFlashAttribute("result", "success");
+
+        return "redirect:/member/edit"; //회원 가입 후 로그인
+    }
+*/
 
     @GetMapping("/forgot")
     public void forgotGet() {

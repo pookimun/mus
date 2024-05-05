@@ -30,11 +30,11 @@
         </div>
         <div class="addressDiv_DivAddress"> <!--이름 / 연락처-->
             <label for="addressNamePhone">이름 / 연락처</label>
-            <span id="addressNamePhone">성은 | 01012345678</span>
+            <span id="addressNamePhone">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
         </div>
         <div class="addressDiv_DivAddress"> <!--주소-->
             <label for="address">주소</label>
-            <span id="address">(12345)경기도 오산시 ... </span>
+            <span id="address">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
         </div>
         <div class="addressDiv_DivAddress"> <!--배송요청사항-->
             <div style="display: flex; align-items: center;">
@@ -70,7 +70,7 @@
             <tr>
                 <td>
                     <div>
-                        <div>
+                        <div> <!--alt 이미지가 출력되지 않을 때-->
                             <img alt="꼼파뇨 DTP 해피 데이 반팔티 화이트"
                                  src="//image.msscdn.net/images/goods_img/20240312/3943019/3943019_17108267959953_62.jpg">
                         </div>
@@ -455,6 +455,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
         <script th:src="@{/js/address.js}"></script>
+        <script th:src="@{/js/pay.js}"></script>
         <script th:inline="javascript">
             // 페이지 로드 시 첫번째 라디오 버튼의 클릭 이벤트를 발생시키는 함수
             function triggerFirstRadioButtonClick() {
@@ -568,6 +569,16 @@
                         // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
                     }
                 });
+
+                $('#btn_pay').on('click', function() {
+                    let price = $('#btn-pay_amt').text();
+                    kakaoPayReady().then(result => {
+                        debugger
+                        // '_blank' : 새창으로 여는 옵션 선택
+                        window.open(result.next_redirect_pc_url, '_blank');
+                    })
+                })
+
             });
         </script>
     </div>
