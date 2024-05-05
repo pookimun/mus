@@ -36,6 +36,8 @@ public class OrdersController {
 
     }
 
+    // 주문서에는 상품에서 정보가 넘어와서 출력이 되어야 하는데, 아직 어떻게 받을지 모르겠음 !!
+
 //    log.info("orders 실행"); 주문내역 조회에서 사용 !
 //    OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
 //        log.info(ordersPageRequestDTO);
