@@ -257,19 +257,6 @@
             max-width: 1100px;
             margin: 20px auto;
         }
-
-        .update-pw-tab {
-            width: 200px;
-            padding: 10px 0;
-            border: 1px solid #000;
-            border-radius: 0;
-            font-size: 1.5rem;
-        }
-
-        .update-pw-tab:hover {
-            background: #000;
-            color: #fff;
-        }
     </style>
 </head>
 
@@ -284,71 +271,37 @@
 
             <span class="required">
 
-                <div class="id_section" style="width: 20%; float: left;">
-                    <label><span>ID</span>
-                    <input id="id" name="mid" readonly th:value="${dto.mid}" type="text">
-                    </label>
-                </div>
-
-                <div style="width: 30px; float: left;">
-                    <label><input readonly type="text" value="@"><label>
-                </div>
-
-                <div class="id_section" style="width: 30%; float: left;">
-                    <label>
-                    <input id="email" name="m_email" readonly th:value="${dto.m_email}" type="text">
-                    </label>
-                </div>
-
-                <label><span>적립금</span>
-                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}">
-                </label>
-
-                <a class="open-popup-link update-pw-tab" href="#test-popup-1">비밀번호 수정</a>
-
-                <!-- 비밀번호 수정 탭 숨기기-->
-                <div class="white-popup mfp-hide" id="test-popup-1">
-
-                    <form action="/member/edit" id="editForm" method="post">
-
-                    <input name="mid" readonly th:value="${dto.mid}" type="hidden">
+            <div id="check_pw" style="width: 25%;">
+                <form action="/member/edit" id="editForm" method="post">
                 <label><span>새 비밀번호</span>
-                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
+                    <input id="current_pw" type="text">
+                    <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 입력해주시기 바랍니다</p>
                 </label>
-
-                <label><span>새 비밀번호 확인</span>
-                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
-                </label>
-
-                <div class="button-wrap">
-                <button class="agreebtn" onClick="checkAgreements()">수정</button>
-                </div>
-
-                    <script>
-                    function checkAgreements() {
-                        //if {
-                        console.log("야호")
-                        document.getElementById("editForm").submit();
-                        //}
-                    }
-                    </script>
                 </form>
-                </div>
 
-                </span>
+            <div class="button-wrap">
+                <button onClick="checkPasswordMatch()">확인</button>
+            </div>
+            </div>
 
+            </span>
         </div>
     </section>
 
     <script>
-        $('.open-popup-link').magnificPopup({
-            type: 'inline',
-            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-        });
+        function checkPasswordMatch() {
+            if (password === confirmPassword) {
+                // 비밀번호 일치 시
+                window.location.href = "/member/edit";
+            } else {
+                // 비밀번호 불일치 시
+                alert("비밀번호가 일치하지 않습니다.");
+            }
+        }
     </script>
 
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
-
 </script>
+

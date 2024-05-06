@@ -1,5 +1,6 @@
 package org.zerock.b01.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.zerock.b01.domain.Member;
 import org.zerock.b01.dto.MemberJoinDTO;
 import org.zerock.b01.dto.MemberDTO;
@@ -9,9 +10,10 @@ public interface MemberService {
     }
 
     void join(MemberJoinDTO memberJoinDTO)throws midExistException;
+    void edit(MemberDTO memberDTO);
+    /*boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder);*/
 
     MemberDTO readMember(String mid);
-    /*void edit(MemberDTO memSecDTO) throws midExistException;*/
 
     default Member dtoToEntity(MemberDTO memberDTO) {
         Member member = Member.builder()

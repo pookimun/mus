@@ -20,9 +20,7 @@ public class MemberDTO {
     private boolean m_social;
 
     private String m_join_path; //가입 경로
-
     private boolean m_optional_terms; //선택 약관 동의
-
     private int m_point; //적립금
 
     private Map<String, Object> props; //소셜 로그인 정보
