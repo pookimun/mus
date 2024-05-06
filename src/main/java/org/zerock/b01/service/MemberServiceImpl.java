@@ -51,6 +51,20 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
+/*    public boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder, MemberDTO memberDTO) throws midExistException {
+
+        String mid = memberDTO.getMid();
+
+        boolean exist = memberRepository.findByMid(mid);
+
+        if(exist){
+            throw new midExistException();
+        }
+
+        Member member = modelMapper.map(memberJoinDTO, Member.class); //엔티티 관리하는 모델 매퍼
+        return passwordEncoder.matches(passwordEncoder.encode(memberDTO.getM_pw()));*//*
+    }*/
+
     public MemberDTO readMember(String mid) {
 
         Optional<Member> result = memberRepository.findByMid(mid);
@@ -62,18 +76,31 @@ public class MemberServiceImpl implements MemberService {
         return memberDTO;
     }
 
-/*    public void edit(MemberDTO memberDTO) {
-
-        Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
-
-        Member member = result.orElseThrow();
-
-        member.changePassword(memberDTO.getM_pw());
-
-        memberRepository.save(member);
-    }*/
-
     public void edit(MemberDTO memberDTO) {
 
+/*        String mid = MemberDTO.getMid();
+
+        Member member = modelMapper.map(memberDTO, Member.class); //엔티티 관리하는 모델 매퍼
+        member.changePassword(passwordEncoder.encode(memberDTO.getM_pw()));
+
+        log.info("=======================");
+        log.info(member);
+
+        memberRepository.save(member);*/
+
+            Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
+
+            Member member = result.orElseThrow();
+
+            // 변경할 정보를 엔티티에 반영
+            //member.setM_email(memberDTO.getM_email());
+
+            // 비밀번호를 변경하려는 경우에만 변경
+            if (memberDTO.getM_pw() != null && !memberDTO.getM_pw().isEmpty()) {
+                member.changePassword(passwordEncoder.encode(memberDTO.getM_pw()));
+            }
+
+            // 변경된 회원 정보 저장
+            memberRepository.save(member);
     }
 }
