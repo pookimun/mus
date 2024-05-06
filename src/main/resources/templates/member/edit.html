@@ -257,6 +257,19 @@
             max-width: 1100px;
             margin: 20px auto;
         }
+
+        .update-pw-tab {
+            width: 200px;
+            padding: 10px 0;
+            border: 1px solid #000;
+            border-radius: 0;
+            font-size: 1.5rem;
+        }
+
+        .update-pw-tab:hover {
+            background: #000;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -270,8 +283,6 @@
             <h3 style="margin-top: 80px;">회원정보수정</h3>
 
             <span class="required">
-
-            <form action="/member/edit" id="editForm" method="post">
 
                 <div class="id_section" style="width: 20%; float: left;">
                     <label><span>ID</span>
@@ -289,6 +300,18 @@
                     </label>
                 </div>
 
+                <label><span>적립금</span>
+                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}">
+                </label>
+
+                <a class="open-popup-link update-pw-tab" href="#test-popup-1">비밀번호 수정</a>
+
+                <!-- 비밀번호 수정 탭 숨기기-->
+                <div class="white-popup mfp-hide" id="test-popup-1">
+
+                    <form action="/member/edit" id="editForm" method="post">
+
+                    <input name="mid" readonly th:value="${dto.mid}" type="hidden">
                 <label><span>새 비밀번호</span>
                     <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
@@ -297,30 +320,35 @@
                     <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
 
-                <label><span>적립금</span>
-                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}">
-                </label>
+                <div class="button-wrap">
+                <button class="agreebtn" onClick="checkAgreements()">수정</button>
+                </div>
+
+                    <script>
+                    function checkAgreements() {
+                        //if {
+                        console.log("야호")
+                        document.getElementById("editForm").submit();
+                        //}
+                    }
+                    </script>
+                </form>
+                </div>
 
                 </span>
-            </form>
-
-            <div class="button-wrap">
-                <button class="agreebtn" onClick="checkAgreements()">수정</button>
-            </div>
 
         </div>
     </section>
 
     <script>
-        function checkAgreements() {
-            //if {
-                document.getElementById("editForm").submit();
-            //}
-        }
+        $('.open-popup-link').magnificPopup({
+            type: 'inline',
+            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        });
     </script>
 
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
-</script>
 
+</script>
