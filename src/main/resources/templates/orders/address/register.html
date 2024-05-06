@@ -89,7 +89,7 @@
     <h2>신규 배송지</h2>
 
     <form action="/orders/address/register" id="address" method="post">
-        <input id="member" name="member" type="hidden" value="member1"> <!-- 임시 member, 시큐리티 연결 후 코드 추가 예정 ... -->
+        <!--input hidden으로 username-->
         <div>
             <label for="recipient">수령인</label>
             <input id="recipient" name="a_recipient" required type="text">
@@ -175,9 +175,8 @@
         debugger
         let form = document.querySelector('#address');
         let defaultAddress = document.querySelector('#defaultAddress'); // 기본배송지 체크 input
-        let member = document.querySelector('#member').value; // 회원
         if (defaultAddress.checked) { // 체크 되어 있으면
-            defaultAddressCheck(member).then(result => {
+            defaultAddressCheck().then(result => {
                 // 해당 회원의 기본배송지가 존재하는지 확인
                 if (result.defAddress !== null) { // 존재한다면
                     alert("기본배송지 존재");
@@ -203,6 +202,17 @@
     }, false)
 
     $(document).ready(function () {
+        debugger
+        // const member = [[${#authentication.principal.username}]];
+        // console.log(member);
+        // let memberInput = $('<input>', {
+        //     type: 'hidden',
+        //     value: member,
+        //     id: 'member'
+        // });
+        // const form = $('#address');
+        // form.append(memberInput);
+
         $('#options').change(function () {
             // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
             if ($(this).val() === '직접 입력') {

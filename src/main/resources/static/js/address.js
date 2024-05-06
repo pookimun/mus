@@ -1,8 +1,8 @@
-async function defaultAddressCheck(member){
+async function defaultAddressCheck(){
     // 기본배송지 존재 여부 확인
     console.log("defaultAddressCheck 실행 ...")
     debugger
-    const response = await axios.get(`/orders/addressDefault/${member}`)
+    const response = await axios.get(`/orders/addressDefault`)
     console.log(response)
     return response.data // data.defAddress.필드명(Address)
 }
@@ -13,9 +13,9 @@ async function defaultAddressfalse(defAddressno) {
     return response.data // data.defaultAddressfalse(String)
 }
 
-async function addressList(member) {
+async function addressList() {
     // 멤버를 받아 배송지 리스트를 리턴
-    const response = await axios.get(`/orders/addressList/${member}`)
+    const response = await axios.get(`/orders/addressList`)
     return response.data // data.addressDTOS(AddressDTO)
 }
 
