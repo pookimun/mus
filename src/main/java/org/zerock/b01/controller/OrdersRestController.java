@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import org.zerock.b01.dto.ReplyDTO;
 import org.zerock.b01.service.AddressService;
 import org.zerock.b01.service.ReplyService;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +32,11 @@ public class OrdersRestController {
     private final AddressService addressService;
 
     @Operation(summary = "멤버의 기본배송지를 가져와 리턴")
-    @GetMapping(value = "/addressDefault/{member}")
-    public Map<String,Address> defaultAddressCheck(@PathVariable("member") String member) {
-        log.info(member);
+    @PreAuthorize("permitAll()")
+    @GetMapping(value = "/addressDefault")
+    public Map<String,Address> defaultAddressCheck(Principal principal) {
+        String member = principal.getName();
+        log.info("기본배송지 확인" + member);
 
         Map<String, Address> resultMap = new HashMap<>();
         // 기본배송지 여부를 확인하고 존재하면 Address를, 존재하지 않으면 null을 리턴
@@ -54,9 +58,10 @@ public class OrdersRestController {
     }
 
     @Operation(summary = "멤버의 배송지 리스트 리턴")
-    @GetMapping(value = "/addressList/{member}")
-    public Map<String, List<AddressDTO>> AddressList(@PathVariable("member") String member) {
-        log.info(member);
+    @GetMapping(value = "/addressList")
+    public Map<String, List<AddressDTO>> AddressList(Principal principal) {
+        String member = principal.getName();
+        log.info("배송지 리스트 리턴" + member);
 
         Map<String, List<AddressDTO>> resultMap = new HashMap<>();
         // 멤버의 배송지 리스트를 찾아온다.
@@ -73,33 +78,6 @@ public class OrdersRestController {
         return addressDTO;
     }
 
-//    @Operation(summary = "Replies of Board")
-//    @GetMapping(value = "/list/{bno}")
-//    public PageResponseDTO<ReplyDTO> getList(@PathVariable("bno") Long bno,
-//                                             PageRequestDTO pageRequestDTO){
-//
-//        PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOfBoard(bno, pageRequestDTO);
-//
-//        return responseDTO;
-//    }
-//
-
-//
-//    @Operation(summary =  "DELETE 방식으로 특정 댓글 삭제")
-//    @DeleteMapping("/{rno}")
-//    public Map<String,Long> remove( @PathVariable("rno") Long rno ){
-//
-//        replyService.remove(rno);
-//
-//        Map<String, Long> resultMap = new HashMap<>();
-//
-//        resultMap.put("rno", rno);
-//
-//        return resultMap;
-//    }
-//
-//
-//
 
 
 }

@@ -11,7 +11,97 @@
     <!-- Core Style CSS -->
     <!--    <link rel="stylesheet" th:href="@{/css/core-style.css}">-->
     <style>
+        .addressDiv {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
 
+        .addressDiv h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .addressDiv_DivAddress {
+            margin-bottom: 15px;
+        }
+
+        .addressDiv_DivAddress label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .addressDiv_DivAddress_Div {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* 상품 정보 테이블 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        /* 결제 정보 입력 폼 스타일 */
+        #payment_info_area ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        #payment_info_area li {
+            margin-bottom: 10px;
+        }
+
+        #payment_info_area label {
+            margin-right: 10px;
+        }
+
+        #btn_pay {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #btn_pay:hover {
+            background-color: #0056b3;
+        }
+
+        .payment-options {
+            list-style-type: none;
+            display: flex;
+            padding: 0;
+        }
+
+        .payment-option {
+            margin-right: 10px;
+        }
+
+        .payment-option label {
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -84,13 +174,15 @@
                             </span>
                             </div>
                             <div>
-                                <p>색상 : color</p>
-                                <p>사이즈 : size</p>
+                                색상 : <span id="color">color</span>
+                            </div>
+                            <div style="display: inline;">
+                                사이즈 : <span id="size">size</span>
                             </div>
                         </div>
                     </div>
                 </td>
-                <td><strong>1 개</strong></td>
+                <td><strong id="count">1</strong>개</td>
                 <td>358 원</td>
                 <td>
                     <del>50,000 원</del>
@@ -99,93 +191,65 @@
             </tr>
             </tbody>
         </table>
-        <div>
-            <div>
-                <ul>
-                    <li>상품 금액</li>
-                    <li>
-                        <strong>227,000 원</strong>
-                    </li>
-                </ul>
-                <ul>
-                    <li>적립금 선할인</li>
-                    <li>
-                        <input type="checkbox">
-                        <strong>1,743 원</strong>
-                        <strong>적립</strong>
-                        <span>(적립금 선할인 가능 금액은 1,743원입니다.)</span>
-                    </li>
-                </ul>
-                <ul>
-                    <li>적립금 사용</li>
-                    <li>
-                        5,000원 이상 보유 시 사용 가능합니다. (총 보유 적립금 <strong>1,176</strong>원)
-                        <input type="hidden">
-                    </li>
-                </ul>
-                <ul>
-                    <li>배송비</li>
-                    <li>
-                        <strong>배송비 무료</strong>
-                    </li>
-                </ul>
+
+        <div style="display: flex;">
+            <div style="margin-right: 0px;">
+                <table>
+                    <tr>
+                        <td><input type="hidden" class="ino" value="1"></td>
+                        <td>상품 금액</td>
+                        <td><strong>227,000 원</strong></td>
+                    </tr>
+                    <tr>
+                        <td>적립금 선할인</td>
+                        <td>
+                            <input id="pointFirstUse" type="checkbox" value="1743">
+                            <strong>1,743 원</strong>
+                            <strong>적립</strong>
+                            <span>(적립금 선할인 가능 금액은 1,743원입니다.)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>적립금 사용</td>
+                        <td id="pointUse">
+                            5,000원 이상 보유 시 사용 가능합니다. (총 보유 적립금 <strong
+                                th:value="${memberPoint}">[[${memberPoint}]]</strong>원)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>배송비</td>
+                        <td><strong>배송비 무료</strong></td>
+                    </tr>
+                </table>
             </div>
             <div>
-                <ul>
-                    <li>상품 금액</li>
-                    <li><strong>227,000</strong> 원</li>
-                </ul>
-                <ul>
-                    <li>적립금 선할인</li>
-                    <li>
-                        <input type="hidden">
-                        - <strong>0</strong> 원
-                    </li>
-                </ul>
-                <ul>
-                    <li id="have_point_li1">적립금 사용</li>
-                    <li id="have_point_li2">
-                        - <strong>0</strong> 원
-                    </li>
-                </ul>
-                <ul>
-                    <li>배송비</li>
-                    <li>
-                        <span><strong>배송비 무료</strong></span>
-                        <span style="display: none;"><strong>0</strong> 원</span>
-                        <input type="hidden">
-                    </li>
-                </ul>
-                <ul>
-                    <li>할인 합계</li>
-                    <li>
-                        - <strong>71,670</strong> 원
-                        <span>32</span>
-                        <span>%</span>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>· 적립금 사용 시 총 상품 금액의 7% 이내로 제한됩니다. 일부 상품은 적립금 사용이 불가합니다. <a href="/app/cs/faq/005/005000">[적립금 관련
-                        FAQ]</a></li>
-                    <li>. 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>최종 결제 금액</li>
-                    <li>
-                        <strong>153,587</strong> 원
-                    </li>
-                    <li>총 적립금</li>
-                    <li>
-                        <span>0</span> 원
-                    </li>
-                </ul>
+                <table>
+                    <tr>
+                        <td>할인 합계</td>
+                        <td>
+                            - <strong>71,670</strong> 원
+                            <span>32</span>
+                            <span>%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>최종 결제 금액</td>
+                        <td><strong>153,587</strong> 원</td>
+                    </tr>
+                    <tr>
+                        <td>총 적립금</td>
+                        <td><span>0</span> 원</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            · 적립금 사용 시 총 상품 금액의 7% 이내로 제한됩니다. 일부 상품은 적립금 사용이 불가합니다. <a href="/app/cs/faq/005/005000">[적립금
+                            관련 FAQ]</a>
+                            <br>. 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-
 
         <div>
             <h3>결제 정보</h3>
@@ -196,115 +260,43 @@
                         <ul>
                             <li>결제 수단</li>
                             <li>
-                                <ul>
-                                    <li id="payment_choice_msspay">
-                                        <input id="payment_btn0" name="payment_choice" type="radio" value="msspay">
-                                        <label for="payment_btn0">
-                                            <div>
-                                                무신사페이
-                                            </div>
-                                        </label>
-                                        <p id="msspay_tooltip" style="">무신사페이로 빠르게 결제하세요!
-                                            <button id="__msspay-tooltip-close-button" type="button">툴팁 닫기</button>
-                                        </p>
-                                    </li>
-                                    <li id="payment_choice_toss">
-                                        <input id="payment_btn2" name="payment_choice" type="radio" value="toss">
+                                <ul class="payment-options">
+                                    <li class="payment-option" id="payment_choice_toss">
+                                        <input id="payment_btn2" name="paymentMethod" type="radio" value="toss">
                                         <label for="payment_btn2">
-                                            <div>
-                                                토스페이
-                                                <span>EVENT</span>
-                                            </div>
+                                            토스페이
                                         </label>
                                     </li>
-                                    <li id="payment_choice_kakaopay">
-                                        <input id="payment_btn3" name="payment_choice" type="radio" value="kakaopay">
+                                    <li class="payment-option" id="payment_choice_kakaopay">
+                                        <input id="payment_btn3" name="paymentMethod" type="radio" value="kakaopay"
+                                               checked>
                                         <label for="payment_btn3">
-                                            <div>
-                                                카카오페이
-                                                <span>NEW</span>
-                                            </div>
+                                            카카오페이
                                         </label>
                                     </li>
-                                    <li id="payment_choice_payco">
-                                        <input id="payment_btn4" name="payment_choice" type="radio" value="payco">
+                                    <li class="payment-option" id="payment_choice_payco">
+                                        <input id="payment_btn4" name="paymentMethod" type="radio" value="payco">
                                         <label for="payment_btn4">
-                                            <div>
-                                                페이코
-                                            </div>
+                                            페이코
                                         </label>
                                     </li>
-                                    <li id="payment_choice_pg">
-                                        <input id="payment_btn1" name="payment_choice" type="radio" value="pg">
+                                    <li class="payment-option" id="payment_choice_pg">
+                                        <input id="payment_btn1" name="paymentMethod" type="radio" value="pg">
                                         <label for="payment_btn1">
-                                            <div>
-                                                일반결제
-                                            </div>
+                                            일반결제
                                         </label>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-                        <div> <!--style="display: block;"-->
+                        <div style="display: none;"> <!--style="display: block;"-->
                             <ul>
-                                <li>결제 안내</li>
+                                <li>일반 결제</li>
                                 <li>
-                                    <div>
-                                        <input data-pay-kind-name="카드" data-use-yn="Y" id="btn-paykind-CARD"
-                                               name="kyejae"
-                                               onclick="selectPayKind('CARD');" type="radio" value="CARD">
-                                        <label for="btn-paykind-CARD">
-                                            카드
-                                        </label>
-                                        <input data-pay-kind-name="가상계좌" data-use-yn="Y" id="btn-paykind-VTRANSFER"
-                                               name="kyejae"
-                                               onclick="selectPayKind('VTRANSFER');" type="radio"
-                                               value="VTRANSFER">
-                                        <label for="btn-paykind-VTRANSFER">
-                                            가상계좌
-                                        </label>
-                                        <input data-pay-kind-name="Apple Pay" data-use-yn="Y" id="btn-paykind-APPLEPAY"
-                                               name="kyejae"
-                                               onclick="selectPayKind('APPLEPAY');" type="radio"
-                                               value="APPLEPAY">
-                                        <label for="btn-paykind-APPLEPAY">
-                                            Apple Pay
-                                        </label>
-                                        <input data-pay-kind-name="휴대폰" data-use-yn="Y" id="btn-paykind-PHONE"
-                                               name="kyejae"
-                                               onclick="selectPayKind('PHONE');" type="radio"
-                                               value="PHONE">
-                                        <label for="btn-paykind-PHONE">
-                                            휴대폰
-                                        </label>
-                                        <input data-pay-kind-name="삼성페이" data-use-yn="Y" id="btn-paykind-SAMSUNGPAY"
-                                               name="kyejae"
-                                               onclick="selectPayKind('SAMSUNGPAY');" type="radio"
-                                               value="SAMSUNGPAY">
-                                        <label for="btn-paykind-SAMSUNGPAY">
-                                            삼성페이
-                                        </label>
-                                        <input data-pay-kind-name="네이버페이" data-use-yn="Y" id="btn-paykind-NAVERPAY"
-                                               name="kyejae"
-                                               onclick="selectPayKind('NAVERPAY');" type="radio"
-                                               value="NAVERPAY">
-                                        <label for="btn-paykind-NAVERPAY">
-                                            네이버페이
-                                        </label>
-                                        <input data-pay-kind-name="KBPay" data-use-yn="Y" id="btn-paykind-KBPAY"
-                                               name="kyejae"
-                                               onclick="selectPayKind('KBPAY');" type="radio"
-                                               value="KBPAY">
-                                        <label for="btn-paykind-KBPAY">
-                                            KBPay
-                                        </label>
-                                    </div>
-
                                     <div>
                                         <div id="box-payKind-info-CARD">
                                             <div>
-                                                <select id="card_code" name="card_code"
-                                                        onchange="Order.changeCardCode(this);">
+                                                <select id="card_code" name="card_code">
                                                     <option value="">카드 선택</option>
                                                     <option value="CCKM">KB카드</option>
                                                     <option value="CCLG">신한카드</option>
@@ -341,75 +333,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="box-payKind-info-VTRANSFER">
-                                            <div>
-                                                <select name="virtual_bank_code">
-                                                    <option value="">입금은행 선택</option>
-                                                    <option value="BK03">기업은행</option>
-                                                    <option value="BK04">국민은행</option>
-                                                    <option value="BK20">우리은행</option>
-                                                    <option value="BK07">수협은행</option>
-                                                    <option value="BK11">NH농협은행</option>
-                                                    <option value="BK32">부산은행</option>
-                                                    <option value="BK88">신한은행</option>
-                                                    <option value="BK81">하나은행</option>
-                                                    <option value="BK34">광주은행</option>
-                                                    <option value="BK71">우체국</option>
-                                                    <option value="BK31">대구은행</option>
-                                                    <option value="BK39">경남은행</option>
-                                                </select>
-                                                <input disabled="disabled" id="virtual_bank_inpnm"
-                                                       name="virtual_bank_inpnm"
-                                                       readonly="readonly" type="text" value="김성은">
-                                            </div>
-                                            <div>
-                                                <p>
-                                                    가상 계좌 <span>유효 기간</span>
-                                                    <strong>
-                                                        2024년 05월 05일
-                                                        <span id="virtual_bank_deadline">23시 29분</span> 59초
-                                                    </strong>
-                                                </p>
-                                                <ul>
-                                                    <li>
-                                                        가상 계좌 주문 방식은 입금이 최종 완료된 후 주문 확인 및 출고가 진행됩니다.
-                                                    </li>
-                                                    <!--메모장에서 추가하기-->
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div id="box-payKind-info-NAVERPAY">
-                                            <ul>
-                                                <li>
-                                                    네이버페이 카드 간편결제 시 카드사별 무이자, 청구할인은 네이버페이에서 제공하는 혜택만 적용됩니다.(무신사에서 제공하는
-                                                    혜택은 적용 제외)
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div id="box-payKind-info-KBPAY">
-                                            <div>
-                                                <select id="kbpay_quota" name="select-card_quota">
-                                                    <option value="1">일시불</option>
-                                                    <option value="2">2개월 (무이자)</option>
-                                                    <option value="3">3개월 (무이자)</option>
-                                                    <option value="4">4개월</option>
-                                                    <option value="5">5개월</option>
-                                                    <option value="6">6개월</option>
-                                                    <option value="7">7개월</option>
-                                                    <option value="8">8개월</option>
-                                                    <option value="9">9개월</option>
-                                                    <option value="10">10개월</option>
-                                                    <option value="11">11개월</option>
-                                                    <option value="12">12개월</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <input name="implode_refundable_bank_names" type="hidden"
-                               value="농협중앙회|우리은행|신한은행|기업은행|대구은행|부산은행|광주은행|경남은행|국민은행|수협|우체국|하나은행|토스뱅크|케이뱅크|산업은행|SC|시티은행|제주은행|전북은행|새마을금고|신협|카카오뱅크">
                         <ul id="soldOutNonRefundablePayment" style="display: table;">
                             <li>품절 시 환불 안내</li>
                             <li>
@@ -417,7 +344,8 @@
                                 <div>
                                     <ul>
                                         <li>· 입점업체 배송은 낮은 확률로 상품이 품절일 가능성이 있습니다. 이에 품절 시 빠르게 환불 처리해드립니다.</li>
-                                        <!--메모장에서 추가하기-->
+                                        <li>· 현금 환불의 경우, 예금정보가 일치해야 환불 처리가 가능합니다. 은행명, 계좌번호, 예금주명을 정확히 기재 부탁드립니다.</li>
+                                        <li>· 환불 받으신 날짜 기준으로 3~5일(주말 제외) 후 결제대행사에서 직접 고객님의 계좌로 환불 처리됩니다.</li>
                                     </ul>
                                 </div>
                             </li>
@@ -433,7 +361,7 @@
                                     <!-- 비회원만 존재 -->
                                     <!-- // 비회원만 존재 -->
                                     <div>
-                                        <!--메모장에서 추가하기-->>
+                                        <!--메모장에서 추가하기-->
                                     </div>
                                 </div>
                             </li>
@@ -446,7 +374,7 @@
             </div>
             <div>
                 <a id="btn_pay">
-                    <span id="btn-pay_amt" style="font-size:20px;">153,587</span>원 결제하기&nbsp;
+                    <span id="btn-pay_amt" style="font-size:20px;">153587</span>원 결제하기&nbsp;
                 </a>
             </div>
         </div>
@@ -465,17 +393,82 @@
                 }
             }
 
-            function addressModifyBtnClick(member) {
-                window.open('/orders/address/list?member=' + member, '배송지 선택', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+            function addressModifyBtnClick() {
+                window.open('/orders/address/list', '배송지 선택', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
                 // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
             }
 
+            function getResultFromUrl() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const resultParam = urlParams.get('result');
+                // json으로 변경하지 않으면 object:object로 출력됨
+                // url에는 인코딩되어 전달된다.
+                // result 파라미터로 전달된 값이 있으면 디코딩된 데이터 리턴, 없으면 null 리턴
+                return resultParam ? JSON.parse(decodeURIComponent(resultParam)) : null;
+            }
+
+            function getPaymentMethodCheckedRadioButton() {
+                // 라디오 버튼들을 가져옴(결제수단 선택)
+                let radios = document.getElementsByName('paymentMethod');
+
+                // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(결제수단)을 가져온다.
+                // toss, kakaopay, payco, pg
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        // 선택된 라디오 버튼의 값(결제수단)를 리턴
+                        return radios[i].value;
+                    }
+                }
+                return null;
+            }
+
+            function getAddressCheckedRadioButton() {
+                // 라디오 버튼들을 가져옴(배송지 선택)
+                let radios = document.getElementsByName('option');
+
+                // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(ano)을 가져온다.
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        // 선택된 라디오 버튼의 값(ano)를 리턴
+                        return radios[i].value;
+                    }
+                }
+                return null;
+            }
+
             $(document).ready(function () {
-                debugger;
-                const member = 'member1';
+                // point가 5000원 이상일때부터 포인트 사용 가능
+                debugger
+                const point = [[${memberPoint}]];
+                let pointUseTD = $('#pointUse') // td
+                if (point >= 5000) {
+                    pointUseTD.text(`(총 보유 적립금 ${point}원)`);
+                    let pointUseInput = $('<input>', {
+                        type: 'text',
+                        id: 'pointUseInput',
+                        name: 'o_pointUse',
+                        placeholder: '사용할 포인트 입력'
+                    });
+                    // pointUseInput.placeholder = '사용할 포인트를 입력해주세요.';
+                    pointUseTD.append(pointUseInput);
+                }
+                // 포인트 사용 input 태그의 입력을 감지한다.
+                $('#pointUseInput').on('input', function () {
+                    // 숫자만 입력할 수 있도록 한다.(숫자 외 다른 글자 입력 시 지워짐)
+                    let inputValue = $(this).val().replace(/[^0-9]/g, '');
+                    $(this).val(inputValue);
+                    if ($(this).val() > point) {
+                        alert('사용 포인트가 회원님이 보유하신 포인트보다 많습니다.')
+                        $(this).val('')
+                    }
+                });
+
+                // URL에서 result 매개변수 값을 가져오는 함수
+                // list.html에서 파라미터에 result로 배송지 선택값을 보낸다.
+                debugger
                 const addressDiv = document.querySelector('.addressDiv') // 배송정보 div
                 // restController로 회원의 배송지목록을 불러온다.
-                addressList(member).then(result => {
+                addressList().then(result => {
                     debugger
                     let array = Math.min(3, result.addressDTOS.length); //둘중에 작은값 반환(최대 3번)
                     for (let i = 0; i < array; i++) {
@@ -501,8 +494,8 @@
                     let addressUpdateBtn = $('<button>', {
                         type: 'button',
                         text: '배송지 변경',
-                        click: function() {
-                            addressModifyBtnClick(member); // 배송지 목록 창을 띄운다.
+                        click: function () {
+                            addressModifyBtnClick(); // 배송지 목록 창을 띄운다.
                         }
                     });
                     $('#addressDiv_DivAddress_Div').append(addressUpdateBtn);
@@ -516,9 +509,22 @@
                             printAddress(addressDTO);
                         })
                     })
+
+                    // 배송지리스트에서 result 객체 가져와 출력하기
+                    let address = getResultFromUrl();
+                    debugger
+                    console.log(address); // 가져온 결과 출력
+                    if (address !== null) { // 선택된 값이 있으면
+                        let selectedInput = $('#address1'); // 첫번째 배송지의 input 태그
+                        let selectedLabel = $('label[for="address1"]'); // 첫번째 배송지의 label 태그
+                        selectedInput.val(address.a_no);
+                        selectedLabel.text(address.a_nickName);
+                    }
+
                     // 페이지 로드 시 첫 번째 라디오 버튼을 강제로 클릭하여 배송지 정보를 띄울 수 있도록 함
                     // 위의 클릭 이벤트를 설정한 뒤에 클릭해야 실행된다 ..
                     triggerFirstRadioButtonClick();
+
                 }).catch(e => {
                     alert("addressList Exception...");
                 })
@@ -570,14 +576,67 @@
                     }
                 });
 
-                $('#btn_pay').on('click', function() {
-                    let price = $('#btn-pay_amt').text();
-                    kakaoPayReady().then(result => {
+                $('#btn_pay').on('click', function () {
+                    // 카카오페이 선택 후 결제하기 버튼 클릭 시
+                    debugger
+                    let ano = getAddressCheckedRadioButton(); // 배송지 변호
+                    let o_state = '주문접수'
+                    let price = $('#btn-pay_amt').text(); // 총 결제금액
+                    let pointFirstUseCheckBox = $('#pointFirstUse'); // 적립금 선할인 체크박스
+                    let pointFirstUse = 0;
+                    if (pointFirstUseCheckBox.prop('checked')) { // 적립금 선할인을 체크했다면
+                        pointFirstUse = pointFirstUseCheckBox.val(); // 적립금 선할인 값 저장
+                    }
+                    let pointUse = $('#pointUseInput').val(); // 적립금 사용금액
+                    let paymentMethod = getPaymentMethodCheckedRadioButton(); // 결제수단
+                    let inos = []; // 선택한 상품의 번호들
+                    $('.ino').each(function () {
+                        inos.push($(this).val());
+                    });
+                    let counts = []; // 상품 구매 수량들
+                    $('#count').each(function () {
+                        counts.push($(this).text());
+                    });
+                    let sizes = []; // 상품 사이즈들
+                    $('#size').each(function () {
+                        sizes.push($(this).text());
+                    });
+                    let colors = []; // 상품 색상들
+                    $('#color').each(function () {
+                        colors.push($(this).text());
+                    });
+
+                    console.log("ano : " + ano);
+                    console.log("price : " + price);
+                    console.log("pointFirstUse : " + pointFirstUse);
+                    console.log("pointUse : " + pointUse);
+                    console.log("paymentMethod : " + paymentMethod);
+                    console.log("inos : " + inos);
+                    console.log("counts : " + counts);
+                    console.log("sizes: " + sizes);
+                    console.log("colors : " + colors);
+
+                    let ordersObj = {
+                        ano: ano,
+                        o_state: o_state,
+                        totalPrice: price,
+                        pointFirstUse: pointFirstUse,
+                        pointUse: pointUse,
+                        paymentMethod: paymentMethod,
+                        inos: inos,
+                        counts: counts,
+                        sizes: sizes,
+                        colors: colors
+                    }
+                    console.log(ordersObj);
+
+                    kakaoPayReady(ordersObj).then(result => {
                         debugger
-                        // '_blank' : 새창으로 여는 옵션 선택
-                        window.open(result.next_redirect_pc_url, '_blank');
+                        // '_self' : 현재 창에서 오픈
+                        window.open(result.next_redirect_pc_url, '_self');
                     })
                 })
+
 
             });
         </script>

@@ -43,7 +43,6 @@ public class AddressDTO {
 
     private String a_customRequest; // 직접입력 선택 시 작성란
 
-    @NotEmpty
     private String member; // 회원
 
     private int a_use; // 배송지 사용 여부
