@@ -10,7 +10,7 @@ public interface MemberService {
     }
 
     void join(MemberJoinDTO memberJoinDTO)throws midExistException;
-
+    void edit(MemberDTO memberDTO);
     /*boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder);*/
 
     MemberDTO readMember(String mid);

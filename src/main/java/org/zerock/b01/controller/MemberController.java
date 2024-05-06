@@ -55,7 +55,6 @@ public class MemberController {
         return "redirect:/member/login"; //회원 가입 후 로그인
     }
 
-
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
         log.info("login get..............");
@@ -86,25 +85,27 @@ public class MemberController {
         String username = userDetails.getUsername(); // 현재 인증된 사용자의 아이디를 가져옴
         MemberDTO memberDTO = memberService.readMember(username);
 
-        log.info(username);
-        log.info(memberDTO);
+        log.info(">------------" + username);
+        log.info(">>------------" + memberDTO);
 
         model.addAttribute("mid", username);
         model.addAttribute("dto", memberDTO);
     }
 
+/*
     @PostMapping("/edit")
-    public void editPost(String id, Model model) {
+    public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
 
-/*        var checkDiv = document.getElementById("check_pw");
+        log.info("edit post...");
+        log.info(memberDTO);
 
-        var passwordInput = document.getElementById("current_pw");
-            const confirmPasswordInput = [[${dto.m_pw}]]
+        memberService.edit(memberDTO);
 
-        console.log(confirmPasswordInput)
+        redirectAttributes.addFlashAttribute("result", "success");
 
-        var password = passwordInput.value.trim();*/
+        return "redirect:/member/edit"; //회원 가입 후 로그인
     }
+*/
 
     @GetMapping("/forgot")
     public void forgotGet() {
