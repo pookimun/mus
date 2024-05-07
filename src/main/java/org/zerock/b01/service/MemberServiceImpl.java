@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 
     public MemberDTO readMember(String mid) {
 
-        Optional<Member> result = memberRepository.findByMid(mid);
+        Optional<Member> result = Optional.ofNullable(memberRepository.findByMid(mid));
 
         Member member = result.orElseThrow();
 

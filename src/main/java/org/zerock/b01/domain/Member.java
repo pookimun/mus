@@ -1,12 +1,10 @@
 package org.zerock.b01.domain;
 
 
+import jakarta.persistence.*;
 import lombok.*;
+import org.zerock.b01.constant.Role;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,9 +19,13 @@ public class Member extends BaseEntity{
     @Id
     private String mid;
     private String m_pw;
+    @Column(unique = true)
     private String m_email;
     private boolean m_del; //탈퇴 여부
     private boolean m_social; //소셜 계정 여부
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     /*추가*/
     private String m_join_path; //가입 경로
