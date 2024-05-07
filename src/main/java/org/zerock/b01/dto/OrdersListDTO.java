@@ -57,6 +57,8 @@ public class OrdersListDTO {
     // 일반결제 시 할부정보
     private int installment;
 
+    // 결제성공 여부
+    private int paymentSuccess;
 
 
 

@@ -12,53 +12,55 @@
             width: 100%;
             margin-bottom: 20px;
         }
+
         th, td {
             border: 1px solid darkgray;
             padding: 8px;
             text-align: center;
         }
+
+        .searchDiv {
+            display: flex;
+        }
+
+        .searchDiv > div {
+            margin-right: 10px;
+        }
+
+        .searchContainer {
+            margin-left: 85px;
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 
 <div layout:fragment="content">
     <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문내역</h1>
+    <div class="searchContainer">
+        <div class="searchDiv">
+            <div>
+                <button type="button">최근 1년</button>
+                <button type="button">1주일</button>
+                <button type="button">1개월</button>
+                <button type="button">3개월</button>
+            </div>
+            <div>
+                <input type="date" placeholder="-">
+            </div>
+            <div>
+                <input type="date" placeholder="-">
+            </div>
+            <div>
+                <input type="text" placeholder="상품명/브랜드명으로 검색">
+            </div>
+            <button type="button">조회하기</button>
+        </div>
+    </div>
+
     <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-<!--        <div class="order-filter">-->
-<!--            <div class="order-filter-period">-->
-<!--                <div class="order-filter-period__tab">-->
-<!--                    <button type="button" class="order-filter-period__tab__button order-filter-period__tab__button&#45;&#45;active" data-period="1year" onclick="OrderFilter.setPeriod('1year');">최근 1년</button>-->
-<!--                    <button type="button" class="order-filter-period__tab__button" data-period="1week" onclick="OrderFilter.setPeriod('1week');">1주일</button>-->
-<!--                    <button type="button" class="order-filter-period__tab__button" data-period="1month" onclick="OrderFilter.setPeriod('1month');">1개월</button>-->
-<!--                    <button type="button" class="order-filter-period__tab__button" data-period="3month" onclick="OrderFilter.setPeriod('3month');">3개월</button>-->
-<!--                </div>-->
-<!--                <div class="order-filter-period__date">-->
-<!--                    <div class="order-filter-period__input-wrap">-->
-<!--                        <input type="date" class="order-filter-period__input" name="dt_fr_input" value="" placeholder="-" onchange="checkDateFormat(this);">-->
-<!--                        <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-color">-->
-<!--                            <title>Calendar icon</title>-->
-<!--                            <g id="Ic/18/Line/Calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">-->
-<!--                                <path d="M15,15 L3,15 L3,3 L6,3 L6,2 L7,2 L7,3 L11,3 L11,2 L12,2 L12,3 L15,3 L15,15 Z M14,8 L4,8 L4,14 L14,14 L14,8 Z M6,4 L4,4 L4,7 L14,7 L14,4 L12,4 L12,5 L11,5 L11,4 L7,4 L7,5 L6,5 L6,4 Z" id="Combined-Shape" fill="#000000"></path>-->
-<!--                            </g>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-<!--                    <div class="order-filter-period__input-wrap">-->
-<!--                        <input type="date" class="order-filter-period__input" name="dt_to_input" value="" placeholder="-" onchange="checkDateFormat(this);">-->
-<!--                        <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-color">-->
-<!--                            <title>Calendar icon</title>-->
-<!--                            <g id="Ic/18/Line/Calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">-->
-<!--                                <path d="M15,15 L3,15 L3,3 L6,3 L6,2 L7,2 L7,3 L11,3 L11,2 L12,2 L12,3 L15,3 L15,15 Z M14,8 L4,8 L4,14 L14,14 L14,8 Z M6,4 L4,4 L4,7 L14,7 L14,4 L12,4 L12,5 L11,5 L11,4 L7,4 L7,5 L6,5 L6,4 Z" id="Combined-Shape" fill="#000000"></path>-->
-<!--                            </g>-->
-<!--                        </svg>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="order-filter-search">-->
-<!--                <div class="order-filter-search__input-wrap">-->
-<!--                    <input type="text" class="order-filter-search__input" name="keyword" value="" placeholder="상품명/브랜드명으로 검색" onchange="activateSearchButton();">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <button type="button" class="order-filter-confirm" onclick="search();">조회하기</button>-->
-<!--        </div>-->
+
+
         <table style="width: 90%">
             <colgroup>
                 <!--            <col style="width:*">-->
@@ -88,7 +90,7 @@
                         <ul>
 
 
-                            <li ><a href="https://www.musinsa.com/brands/plzproject">플리즈프로젝트</a></li>
+                            <li><a href="https://www.musinsa.com/brands/plzproject">플리즈프로젝트</a></li>
                             <li><a href="/app/goods/3607756/0">PUSSYCAT KNIT HAT, BLACK</a></li>
                             <li>
                                 색상 :
@@ -105,7 +107,7 @@
                 <td>
                     <a href="/order-service/mypage/order_view/?ord_no=202401080051130004&page=1">202401080051130004</a>
                 </td>
-                <td>57,660원<br><span >(1개)</span></td>
+                <td>57,660원<br><span>(1개)</span></td>
                 <td>
                     <div>주문접수</div>
                 </td>
