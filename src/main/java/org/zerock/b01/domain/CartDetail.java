@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter @Setter
 @Table(name = "Cart_detail")
 public class CartDetail extends BaseEntity{
-// 장바구니 담긴 물품용
 
     @Id
     @GeneratedValue

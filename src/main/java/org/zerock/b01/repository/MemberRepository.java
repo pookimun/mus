@@ -2,10 +2,7 @@ package org.zerock.b01.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 import org.zerock.b01.domain.Member;
 
 import java.util.Optional;
@@ -24,7 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, String> { //JPAR
 
     @EntityGraph(attributePaths = "roleSet")
     @Query("select m from Member m where m.mid = :mid")
-    Optional<Member> findByMid(String mid);
+    Member findByMid(String mid);
 
     // @EntityGraph에는 attributePaths라는 속성을 이용해서 같이 로딩해야 하는 속성 명시
 
