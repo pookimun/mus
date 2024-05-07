@@ -25,6 +25,9 @@ public interface OrdersService {
     OrdersPageResponseDTO<OrdersListDTO> listWithAll(String member, OrdersPageRequestDTO ordersPageRequestDTO);
     // 페이징정보, 검색어를 가져와 주문내역을 출력
 
+    // 결제 성공 시 해당 주문을 읽어와서 결제성공 필드를 1로 변경 후 dto로 리턴
+    OrdersListDTO paymentSuccess(Long ono);
+
 
     default Orders dtoToEntity(OrdersListDTO ordersListDTO){
         Address address = Address.builder()
@@ -47,10 +50,17 @@ public interface OrdersService {
                 .address(address) // 위에서 dtoToEntity 처리
                 .o_date(ordersListDTO.getO_date())
                 .o_state(ordersListDTO.getO_state())
+                .totalPrice(ordersListDTO.getTotalPrice())
+                .pointFirstUse(ordersListDTO.getPointFirstUse())
+                .pointUse(ordersListDTO.getPointUse())
+                .paymentMethod(ordersListDTO.getPaymentMethod())
+                .cardCompany(ordersListDTO.getCardCompany())
+                .installment(ordersListDTO.getInstallment())
                 //.ordersDetailSet() 밑에서
                 .build();
-
-        orders.addDetail(ordersListDTO.getOrdersDetailDTOList());
+        if(ordersListDTO.getOrdersDetailDTOList() != null) {
+            orders.addDetail(ordersListDTO.getOrdersDetailDTOList());
+        }
         return orders;
     }
 
@@ -74,20 +84,22 @@ public interface OrdersService {
                         .build()) // entityToDTO 처리
                 .o_date(orders.getO_date())
                 .o_state(orders.getO_state())
+                .totalPrice(orders.getTotalPrice())
+                .pointFirstUse(orders.getPointFirstUse())
+                .paymentMethod(orders.getPaymentMethod())
+                .cardCompany(orders.getCardCompany())
+                .installment(orders.getInstallment())
                 //.ordersDetailDTOList() 밑에서
                 .build();
 
         List<OrdersDetailDTO> ordersDetailDTOS =
                 orders.getOrdersDetailSet().stream().sorted().map(ordersDetail -> OrdersDetailDTO.builder()
                         .od_no(ordersDetail.getOd_no())
+                        .orders(ordersDetail.getOrders().getOno())
                         .itemDTO(ItemDTO.builder()
                                 .ino(ordersDetail.getItem().getIno())
                                 .i_name(ordersDetail.getItem().getI_name())
                                 .i_price(ordersDetail.getItem().getI_price())
-                                .i_title_img(ordersDetail.getItem().getI_title_img())
-                                .i_info_img(ordersDetail.getItem().getI_info_img())
-                                .i_color(ordersDetail.getItem().getI_color())
-                                .i_size(ordersDetail.getItem().getI_size())
                                 .i_stock(ordersDetail.getItem().getI_stock())
                                 .build())
                         .od_count(ordersDetail.getOd_count())

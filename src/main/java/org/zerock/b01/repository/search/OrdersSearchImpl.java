@@ -51,6 +51,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         JPQLQuery<Orders> jpqlQuery = ordersJPQLQuery.select(orders); // select orders
 
         List<Orders> ordersList = jpqlQuery.fetch(); // 쿼리 실행
+        System.out.println(ordersList);
 
         List<OrdersListDTO> dtoList = ordersList.stream().map(orders1 -> {
             // 조인 처리된 테이블 한 행씩 반복하며(Order entity)
@@ -88,10 +89,6 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                                     .ino(detail.getItem().getIno())
                                     .i_name(detail.getItem().getI_name())
                                     .i_price(detail.getItem().getI_price())
-                                    .i_title_img(detail.getItem().getI_title_img())
-                                    .i_info_img(detail.getItem().getI_info_img())
-                                    .i_color(detail.getItem().getI_color())
-                                    .i_size(detail.getItem().getI_size())
                                     .i_stock(detail.getItem().getI_stock())
                                     .build())
                             .od_count(detail.getOd_count())
