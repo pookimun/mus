@@ -270,7 +270,7 @@
 
                 <div class="id_section" style="width: 20%; float: left;">
                     <label><span>ID</span>
-                    <input name="m_id" id="id" type="text">
+                    <input name="mid" id="id" type="text">
                     </label>
                 </div>
 
@@ -829,7 +829,7 @@
                 console.log("개별 동의 항목 1: " + isAgree1);
                 console.log("개별 동의 항목 2: " + isAgree2);
 
-                if (isAllAgreed == true && isAgree1 == true && isAgree2 == true) {
+                if (isAgree1 == true && isAgree2 == true) {
                     document.getElementById("registerForm").submit();
                 } else {
                     alert("필수 항목에 동의해야 합니다!");
@@ -870,7 +870,7 @@
 <script layout:fragment="script" th:inline="javascript">
     const error = [[${error}]]
 
-    if(error && error === 'm_id'){
+    if(error && error === 'mid'){
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
 </script>
