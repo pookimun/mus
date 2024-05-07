@@ -771,20 +771,23 @@
         <div class="header-brand cell">
             <ul class="row">
                 <li class="cell"><a href="#"><span>Nike</span></a></li>
-                <li class="cell"><a id="myPageLink" th:href="@{/member/edit}"><span>마이 페이지</span></a></li>
+
+                <li class="cell">
+                    <a id="myPageLink" sec:authorize="isAuthenticated()" th:href="@{/member/edit}"><span>마이 페이지</span></a>
+                </li>
                 <li class="cell"><a class="jordan" href="#"><span class="ns-jordan"></span></a></li>
-                <li class="cell"><a class="list-group-item list-group-item-action list-group-item-light p-3"
-                                    href="/logout">로그아웃</a></a></li>
             </ul>
         </div>
         <div class="header-mymenu cell-right">
             <ul class="row">
                 <li class="cell">
-                    <span class="join-login">
+                    <span class="join-login" sec:authorize="isAnonymous()">
                         <a class="join" th:href="@{/member/join}">회원가입</a>
                         /
                         <a class="login" th:href="@{/member/login}">로그인</a>
                     </span>
+                    <!--<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}"><span>로그아웃</span></a>-->
+                    <a sec:authorize="isAuthenticated()" href="/member/logout"><span>로그아웃</span></a>
                 </li>
                 <li class="cell"><a href="#">고객센터</a></li>
                 <li class="cell"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
@@ -793,7 +796,7 @@
         </div>
     </div>
     <div class="top-menu-bar line-height-0">
-        <div class="logo"><a href="#"><img alt="" src="https://i.ebayimg.com/images/g/mCMAAOSwQ-JalJ-V/s-l300.jpg"></a>
+        <div class="logo"><a th:href="@{/board/index}"><img alt="" src="https://i.ebayimg.com/images/g/mCMAAOSwQ-JalJ-V/s-l300.jpg"></a>
         </div>
         <nav class="menu-1">
             <ul class="row">
@@ -1214,30 +1217,7 @@
 
 </body>
 
-<!--<script th:inline="javascript">
-    var myPageLink = document.getElementById("myPageLink");
-    var myPageUrl = "/member/read?mid="; // 여기에 원하는 URL을 넣으세요
-    const removeResult = [[${dto.mid}]];
-    myPageLink.setAttribute("href", myPageUrl + removeResult);
-</script>-->
-
-<!--<script>
-    function searchMenuON(){
-        $('.search-menu, .search-mask').addClass('active');
-    }
-    function searchMenuOff(){
-        $('.search-menu, .search-mask').removeClass('active');
-    }
-
-    $('.search-box > .search-con > input').click(function(){
-        searchMenuON();
-    });
-    $('.search-mask').click(function(){
-        searchMenuOff();
-    });
-</script>-->
-
-<th:block layout:fragment="script">
+<th:block layout:fragment="script" th:inline="javascript">
 
 </th:block>
 
