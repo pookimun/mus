@@ -93,10 +93,8 @@
 
 </div><!-- layout fragment end -->
 
-
 <script layout:fragment="script" th:inline="javascript">
   const auth = [[${#authentication.principal}]]
-
 
   const errors = [[${errors}]]
   console.log(errors)

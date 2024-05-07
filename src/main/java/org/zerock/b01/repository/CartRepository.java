@@ -6,4 +6,6 @@ import org.zerock.b01.domain.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
+    Cart findByMember_Mid(String mid);
+
 }
