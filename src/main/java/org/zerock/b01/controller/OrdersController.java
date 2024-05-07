@@ -36,8 +36,11 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping( "/orders") // 주문서
-    public void orders(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
+    public void orders(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO, Model model, Long[] cnos){
         log.info("orders 컨트롤러 실행 ... ");
+        for(Long cno : cnos){
+            // 여기 하는중 !!
+        }
         log.info(principal);
         MemberDTO memberDTO = memberService.readMember(principal.getName());
         log.info(memberDTO.getM_point());
