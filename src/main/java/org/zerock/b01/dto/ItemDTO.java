@@ -33,6 +33,8 @@ public class ItemDTO {
 
     private int i_stock; //재고보유여부
 
+    private List<String> fileNames; //첨부 파일 이름들
+
 
 
 

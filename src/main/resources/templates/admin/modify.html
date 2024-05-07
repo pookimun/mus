@@ -17,30 +17,54 @@
     </div>
 
     <!-- 수정 폼 -->
-    <form action="/admin/modify" method="post">
-        <input type="hidden" name="ino" value="1"> <!-- 여기에 실제 아이템의 ID를 넣어야 함 -->
+    <form id="regForm" action="/admin/modify" method="post">
+        <input type="hidden" name="ino" th:value="${itemDTO.ino}"><!-- 여기에 실제 아이템의 ID를 넣어야 함 -->
         <div class="mb-3">
             <label for="iName" class="form-label">상품명</label>
-            <input type="text" class="form-control" id="iName" name="i_name" value="상품명">
+            <input type="text" class="form-control" id="iName" name="i_name" th:value="${itemDTO.i_name}">
         </div>
         <div class="mb-3">
             <label for="iPrice" class="form-label">상품 가격</label>
-            <input type="number" class="form-control" id="iPrice" name="i_price" value="1000">
+            <input type="number" class="form-control" id="iPrice" name="i_price" th:value="${itemDTO.i_price}">
         </div>
         <div class="mb-3">
             <label for="iColor" class="form-label">색상</label>
-            <input type="text" class="form-control" id="iColor" name="i_color" value="색상">
+            <input type="text" class="form-control" id="iColor" name="i_color" th:value="${itemDTO.i_color}">
         </div>
         <div class="mb-3">
             <label for="iSize" class="form-label">사이즈</label>
-            <input type="text" class="form-control" id="iSize" name="i_size" value="사이즈">
+            <input type="text" class="form-control" id="iSize" name="i_size" th:value="${itemDTO.i_size}">
         </div>
-        <button type="submit" class="btn btn-primary">수정</button>
-       <!--<button type="delete" class="btn btn-primary">삭제</button>-->
+        <button type="submit" class="btn btn-dark">수정</button>
+        <button type="button" class="btn btn-dark listBtn"> 리스트 </button>
+        <button type="button" class="btn btn-dark removeBtn"> 삭제</button>
+        <!--<button type="delete" class="btn btn-primary">삭제</button>-->
     </form>
 </div>
 
 <!-- 부트스트랩 JS 추가 (선택사항) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">-->
+<script>
+    const formObj = document.querySelector('#regForm');
+    document.querySelector(".removeBtn").addEventListener("click", function(e){
+        //e.preventDefault()
+        //e.stopPropagation()
+        //debugger;
+        formObj.action = `/admin/remove`
+        formObj.method ='post'
+        formObj.submit()
+    }, false)
+
+    document.querySelector(".listBtn").addEventListener("click", function(e){
+        // e.preventDefault()
+        // e.stopPropagation()
+        debugger;
+
+        formObj.reset()
+        self.location =`/admin/list?${formObj.querySelector('[name="ino"]').value}`
+
+    }, false)
+
+</script>
 </body>
 </html>

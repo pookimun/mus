@@ -29,11 +29,27 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         log.info("loadUserByUsername: " + username);
 
-        UserDetails userDetails = User.builder().username("user1").password("1111")
-                .authorities("ROLE_USER")
-                .build();
+        Optional<Member> result = memberRepository.getWithRoles(username);
 
-       return userDetails;
+        if(result.isEmpty()) {
 
+            throw new UsernameNotFoundException("username not found");
+        }
+
+        Member member = result.get();
+
+        MemberSecurityDTO memberSecurityDTO = new MemberSecurityDTO(
+                member.getMid(),
+                member.getM_pw(),
+                member.getM_email(),
+                member.isM_del(),
+                false,
+                member.getRoleSet().stream().map(memberRole -> new SimpleGrantedAuthority("ROLE_" + memberRole.name())).collect(Collectors.toList())
+        );
+
+        log.info("memberSecurityDTO---------");
+        log.info(memberSecurityDTO);
+
+        return memberSecurityDTO;
     }
 }
