@@ -3,16 +3,19 @@ package org.zerock.b01.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "item")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString (exclude = "itemImageSet")
 @EntityListeners(value = {AuditingEntityListener.class})
 public class Item {
 
@@ -41,10 +44,41 @@ public class Item {
     // not null
     private int i_stock; //재고보유여부
 
+
+    @OneToMany (mappedBy = "item",
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY,
+            orphanRemoval = true) //itemimage 의 item 변수
+    @Builder.Default
+    @BatchSize(size=20)
+    private Set<ItemImage> itemImageSet = new HashSet<>();
+
+    public void addImage(String uuid, String fileName){
+
+        ItemImage itemImage = ItemImage.builder()
+                .uuid(uuid)
+                .fileName(fileName)
+                .item(this)
+                .ord(itemImageSet.size())
+                .build();
+        itemImageSet.add(itemImage);
+    }
+    public void clearImages() {
+
+        itemImageSet.forEach(ItemImage -> ItemImage.changeItem(null));
+
+        this.itemImageSet.clear();
+    }
+
+
+
+
     public void change(String i_name, int i_price, String i_color, String i_size) {
         this.i_name = i_name;
         this.i_price = i_price;
         this.i_color = i_color;
         this.i_size = i_size;
     }
+
+
 }

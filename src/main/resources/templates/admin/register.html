@@ -1,75 +1,73 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>상품 등록 폼</title>
-  <!-- 부트스트랩 CDN 추가 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .img-thumbnail {
-      max-width: 150px;
-      max-height: 150px;
-    }
-    .form-control {
-      border-radius: 0;
-      border-color: #ccc;
-    }
-    .form-label {
-      font-weight: bold;
-    }
-    .btn-primary {
-      background-color: #333;
-      border-color: #333;
-    }
-    .btn-primary:hover {
-      background-color: #555;
-      border-color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록 폼</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .img-thumbnail {
+            max-width: 150px;
+            max-height: 150px;
+        }
+        .form-control {
+            border-radius: 0;
+            border-color: #ccc;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #333;
+            border-color: #333;
+        }
+        .btn-primary:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-  <h2 class="mt-5 mb-4">상품 등록 폼</h2>
-  <form th:action="@{/admin/register}" method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label for="itemName" class="form-label">상품명</label>
-      <input type="text" class="form-control" id="itemName" name="i_name" required>
-    </div>
-    <div class="mb-3">
-      <label for="itemPrice" class="form-label">상품 가격</label>
-      <div class="input-group">
-        <span class="input-group-text">₩</span>
-        <input type="number" class="form-control" id="itemPrice" name="i_price" required>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label for="itemTitleImage" class="form-label">대표 이미지</label>
-      <input type="text" class="form-control" id="itemTitleImage" name="i_title_img" required>
-    </div>
-    <div class="mb-3">
-      <label for="itemInfoImage" class="form-label">설명 이미지</label>
-      <input type="text" class="form-control" id="itemInfoImage" name="i_info_img" required>
-    </div>
-    <div class="mb-3">
-      <label for="itemColor" class="form-label">색상</label>
-      <input type="text" class="form-control" id="itemColor" name="i_color">
-    </div>
-    <div class="mb-3">
-      <label for="itemSize" class="form-label">사이즈</label>
-      <input type="text" class="form-control" id="itemSize" name="i_size">
-    </div>
-    <div class="mb-3">
-      <label for="itemStock" class="form-label">재고</label>
-      <input type="number" class="form-control" id="itemStock" name="i_stock" required>
-    </div>
-    <div class="mb-3">
-      <label for="fileUpload" class="form-label">이미지 업로드</label>
-      <input type="file" class="form-control" id="fileUpload" name="files" multiple onchange="previewImages(event)">
-    </div>
-    <div id="imagePreview" class="row mb-3"></div>
-    <button type="submit" class="btn btn-primary">등록</button>
-  </form>
+    <h2 class="mt-5 mb-4">상품 등록 폼</h2>
+    <form th:action="@{/admin/register}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="itemName" class="form-label">상품명</label>
+            <input type="text" class="form-control" id="itemName" name="i_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="itemPrice" class="form-label">상품 가격</label>
+            <div class="input-group">
+                <span class="input-group-text">₩</span>
+                <input type="number" class="form-control" id="itemPrice" name="i_price" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="fileUpload" class="form-label">이미지 업로드</label>
+            <input type="file" class="form-control" id="fileUpload" name="files" multiple onchange="previewImages(event)">
+        </div>
+        <!--    <div class="mb-3">-->
+        <!--      <label for="itemInfoImage" class="form-label">설명 이미지</label>-->
+        <!--      <input type="file" class="form-control" id="itemInfoImage" name="i_info_img" required>-->
+        <!--    </div>-->
+        <!--    <div class="mb-3">-->
+        <!--      <label for="itemColor" class="form-label">색상</label>-->
+        <!--      <input type="text" class="form-control" id="itemColor" name="i_color">-->
+        <!--    </div>-->
+        <div class="mb-3">
+            <label for="itemSize" class="form-label">사이즈</label>
+            <input type="text" class="form-control" id="itemSize" name="i_size">
+        </div>
+        <div class="mb-3">
+            <label for="itemStock" class="form-label">재고</label>
+            <input type="number" class="form-control" id="itemStock" name="i_stock" required>
+        </div>
+
+        <div id="imagePreview" class="row mb-3"></div>
+        <button type="submit" class="btn btn-primary">등록</button>
+    </form>
 </div>
 
 <!-- 부트스트랩 자바스크립트 및 기타 라이브러리 CDN 추가 -->
@@ -78,24 +76,24 @@
 <script src="/js/upload.js"></script>
 
 <script>
-  function previewImages(event) {
-    const previewContainer = document.getElementById('imagePreview');
-    previewContainer.innerHTML = '';
-    const files = event.target.files;
+    function previewImages(event) {
+        const previewContainer = document.getElementById('imagePreview');
+        previewContainer.innerHTML = '';
+        const files = event.target.files;
 
-    if (files) {
-      Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const imgElement = document.createElement('img');
-          imgElement.src = reader.result;
-          imgElement.classList.add('img-thumbnail', 'm-1');
-          previewContainer.appendChild(imgElement);
+        if (files) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = reader.result;
+                    imgElement.classList.add('img-thumbnail', 'm-1');
+                    previewContainer.appendChild(imgElement);
+                }
+                reader.readAsDataURL(file);
+            });
         }
-        reader.readAsDataURL(file);
-      });
     }
-  }
 </script>
 </body>
 </html>

@@ -19,13 +19,13 @@ public class ItemListAllDTO {
 
     private String i_name;
 
-    private String i_price;
+    private String i_color; //i_price 에서 변경
 
     private LocalDateTime regDate;
 
     private Long replyCount;
 
 
-    private List<ItemImageDTO> itemImageDTO;
+    private List<ItemImageDTO> itemImages;
 
 }

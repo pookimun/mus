@@ -4,6 +4,7 @@ package org.zerock.b01.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,16 @@ public class ItemController {
     private final ItemService itemService;
     @GetMapping("/list")
     public void list(ItemPageRequestDTO itemPageRequestDTO, Model model){
-        ItemPageResponseDTO<ItemDTO> itemDTO = itemService.list(itemPageRequestDTO);
+
+
+     //   ItemPageResponseDTO<ItemDTO> itemDTO = itemService.list(itemPageRequestDTO);
+
+      ItemPageResponseDTO<ItemListAllDTO> itemDTO =
+                itemService.listWithAll(itemPageRequestDTO);
+
         log.info(itemDTO);
-        model.addAttribute("itemDTO", itemDTO); //값
+
+        model.addAttribute("itemDTO", itemDTO);
 
 
     }
@@ -56,11 +64,11 @@ public class ItemController {
         return "redirect:/admin/list";
     }
     @GetMapping({"/read","modify"})
-    public void read(Long ino, ItemPageRequestDTO itemPageRequestDTO, Model model){
+    public void read(@Param("ino") Long ino, ItemPageRequestDTO itemPageRequestDTO, Model model){
 
         ItemDTO itemDTO = itemService.readOne(ino);
-
         log.info(itemDTO);
+
 
         model.addAttribute("itemDTO", itemDTO);
 
