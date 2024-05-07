@@ -3,9 +3,13 @@ package org.zerock.b01.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.b01.constant.ItemSellStatus;
 import org.zerock.b01.dto.ItemFormDTO;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity

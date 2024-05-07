@@ -35,7 +35,7 @@ public class CartService {
         Item item = itemRepository.findById(cartDetailDTO.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
-        Member member = memberRepository.findByMid(mid); // 현재 로그인한 회원 엔티티 조회하여 member로 저장
+        Member member = memberRepository.findByMidOnly(mid); // 현재 로그인한 회원 엔티티 조회하여 member로 저장
 
         Cart cart = cartRepository.findByMember_Mid(member.getMid()); // 현재 로그인한 회원의 장바구니 엔티티 조회하여 cart에 저장
         if(cart == null) { // cart가 비어있다면 -> 아직 장바구니가 생성되지 않음
@@ -62,7 +62,7 @@ public class CartService {
 
         List<CartDTO> cartDTOList = new ArrayList<>();
 
-        Member member = memberRepository.findByMid(mid);
+        Member member = memberRepository.findByMidOnly(mid);
         Cart cart = cartRepository.findByMember_Mid(member.getMid());
         // 현재 로그인한 회원의 장바구니 엔티티 조회
         if(cart == null) { // 장바구니가 비어있다면
@@ -76,7 +76,7 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public boolean validateCartItem(Long cartItemId, String mid) {
-        Member curMember = memberRepository.findByMid(mid); // 현재 로그인한 회원 조회
+        Member curMember = memberRepository.findByMidOnly(mid); // 현재 로그인한 회원 조회
         CartDetail cartDetail = cartDetailRepository.findById(cartItemId)
                 .orElseThrow(EntityNotFoundException::new);
         Member savedMember = cartDetail.getCart().getMember(); // 장바구니 상품 저장 회원 조회
