@@ -102,282 +102,291 @@
             padding: 10px;
             cursor: pointer;
         }
+
+        #styleDIV {
+            margin: 30px 50px; /* 위아래 여백은 30px, 좌우 여백은 20px */
+        }
     </style>
 </head>
 
 <div layout:fragment="content">
 
     <div>
-        <h1>주문서</h1>
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문서</h1>
     </div>
-    <div class="addressDiv">
-        <h3>배송정보</h3>
-        <div class="addressDiv_DivAddress"> <!--배송지-->
-            <label for="addressDiv_DivAddress_Div">배송지</label>
-            <div id="addressDiv_DivAddress_Div">
-                <!--배송지를 선택하는 라디오버튼+배송지별칭 출력되는 부분-->
+    <div id="styleDIV">
+        <div class="addressDiv">
+            <h3>배송정보</h3>
+            <div class="addressDiv_DivAddress"> <!--배송지-->
+                <label for="addressDiv_DivAddress_Div">배송지</label>
+                <div id="addressDiv_DivAddress_Div">
+                    <!--배송지를 선택하는 라디오버튼+배송지별칭 출력되는 부분-->
+                </div>
+            </div>
+            <div class="addressDiv_DivAddress"> <!--이름 / 연락처-->
+                <label for="addressNamePhone">이름 / 연락처</label>
+                <span id="addressNamePhone">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
+            </div>
+            <div class="addressDiv_DivAddress"> <!--주소-->
+                <label for="address">주소</label>
+                <span id="address">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
+            </div>
+            <div class="addressDiv_DivAddress"> <!--배송요청사항-->
+                <div style="display: flex; align-items: center;">
+                    <label>배송 요청사항</label>
+                    <select id="options" name="a_request"
+                            style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
+                        <option value="선택안함">배송 시 요청사항을 선택해주세요</option>
+                        <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+                        <option value="부재 시 택배함에 넣어주세요">부재 시 택배함에 넣어주세요</option>
+                        <option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
+                        <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
+                        <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
+                        <option value="직접 입력">직접 입력</option>
+                    </select>
+                </div>
+                <div id="customInput" style="display: none;">
+                    <input id="customRequest" name="a_customRequest" placeholder="직접 입력" type="text">
+                </div>
             </div>
         </div>
-        <div class="addressDiv_DivAddress"> <!--이름 / 연락처-->
-            <label for="addressNamePhone">이름 / 연락처</label>
-            <span id="addressNamePhone">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
-        </div>
-        <div class="addressDiv_DivAddress"> <!--주소-->
-            <label for="address">주소</label>
-            <span id="address">[배송지 변경]을 클릭하여 배송지를 등록해주세요.</span>
-        </div>
-        <div class="addressDiv_DivAddress"> <!--배송요청사항-->
-            <div style="display: flex; align-items: center;">
-                <label>배송 요청사항</label>
-                <select id="options" name="a_request"
-                        style="width: calc(100% - 100px); padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; font-size: 16px; color: #333;">
-                    <option value="선택안함">배송 시 요청사항을 선택해주세요</option>
-                    <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
-                    <option value="부재 시 택배함에 넣어주세요">부재 시 택배함에 넣어주세요</option>
-                    <option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
-                    <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
-                    <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해 주세요</option>
-                    <option value="직접 입력">직접 입력</option>
-                </select>
-            </div>
-            <div id="customInput" style="display: none;">
-                <input id="customRequest" name="a_customRequest" placeholder="직접 입력" type="text">
-            </div>
-        </div>
-    </div>
-    <div>
-        <h3>상품정보</h3>
-        <table>
-            <thead>
-            <tr>
-                <th scope="col">상품 정보</th>
-                <th scope="col">수량</th>
-                <th scope="col">적립금</th>
-                <th scope="col">주문금액</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <div>
-                        <div> <!--alt 이미지가 출력되지 않을 때-->
-                            <img alt="꼼파뇨 DTP 해피 데이 반팔티 화이트"
-                                 src="//image.msscdn.net/images/goods_img/20240312/3943019/3943019_17108267959953_62.jpg">
-                            <input type="hidden" class="ino" value="1">
-                        </div>
+        <div>
+            <h3>상품정보</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">상품 정보</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">적립금</th>
+                    <th scope="col">주문금액</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
                         <div>
+                            <div> <!--alt 이미지가 출력되지 않을 때-->
+                                <img alt="꼼파뇨 DTP 해피 데이 반팔티 화이트"
+                                     src="//image.msscdn.net/images/goods_img/20240312/3943019/3943019_17108267959953_62.jpg">
+                                <input class="ino" type="hidden" value="1">
+                            </div>
                             <div>
-                                <strong>
-                                    <span>[꼼파뇨]</span>
-                                </strong>
-                                <span>
+                                <div>
+                                    <strong>
+                                        <span>[꼼파뇨]</span>
+                                    </strong>
+                                    <span>
                                 <a href="/app/goods/3943019/0">DTP 해피 데이 반팔티 화이트</a>
                             </span>
-                            </div>
-                            <div>
-                                색상 : <span id="color">color</span>
-                            </div>
-                            <div style="display: inline;">
-                                사이즈 : <span id="size">size</span>
+                                </div>
+                                <div>
+                                    색상 : <span id="color">color</span>
+                                </div>
+                                <div style="display: inline;">
+                                    사이즈 : <span id="size">size</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td><strong id="count">1</strong>개</td>
-                <td>358 원</td>
-                <td>
-                    <del>50,000 원</del>
-                    <strong>32,500 원</strong>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td><strong id="count">1</strong>개</td>
+                    <td>358 원</td>
+                    <td>
+                        <del>50,000 원</del>
+                        <strong>32,500 원</strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-        <div style="display: flex;">
-            <div style="margin-right: 0px;">
-                <table>
-                    <tr>
-                        <td>상품 금액</td>
-                        <td><strong>227,000 원</strong></td>
-                    </tr>
-                    <tr>
-                        <td>적립금 선할인</td>
-                        <td>
-                            <input id="pointFirstUse" type="checkbox" value="1743">
-                            <strong>1,743 원</strong>
-                            <strong>적립</strong>
-                            <span>(적립금 선할인 가능 금액은 1,743원입니다.)</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>적립금 사용</td>
-                        <td id="pointUse">
-                            5,000원 이상 보유 시 사용 가능합니다. (총 보유 적립금 <strong
-                                th:value="${memberPoint}">[[${memberPoint}]]</strong>원)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td><strong>배송비 무료</strong></td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <td>할인 합계</td>
-                        <td>
-                            - <strong>71,670</strong> 원
-                            <span>32</span>
-                            <span>%</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>최종 결제 금액</td>
-                        <td><strong>153,587</strong> 원</td>
-                    </tr>
-                    <tr>
-                        <td>총 적립금</td>
-                        <td><span>0</span> 원</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            · 적립금 사용 시 총 상품 금액의 7% 이내로 제한됩니다. 일부 상품은 적립금 사용이 불가합니다. <a href="/app/cs/faq/005/005000">[적립금
-                            관련 FAQ]</a>
-                            <br>. 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div>
-            <h3>결제 정보</h3>
-            <div>
+            <div style="display: flex;">
+                <div style="margin-right: 0px;">
+                    <table>
+                        <tr>
+                            <td>상품 금액</td>
+                            <td><strong>227,000 원</strong></td>
+                        </tr>
+                        <tr>
+                            <td>적립금 선할인</td>
+                            <td>
+                                <input id="pointFirstUse" type="checkbox" value="1743">
+                                <strong>1,743 원</strong>
+                                <strong>적립</strong>
+                                <span>(적립금 선할인 가능 금액은 1,743원입니다.)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>적립금 사용</td>
+                            <td id="pointUse">
+                                5,000원 이상 보유 시 사용 가능합니다. (총 보유 적립금 <strong
+                                    th:value="${memberPoint}">[[${memberPoint}]]</strong>원)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td><strong>배송비 무료</strong></td>
+                        </tr>
+                    </table>
+                </div>
                 <div>
-                    <div id="payment_info_area">
-                        <!--결제 정보-->
-                        <ul>
-                            <li>결제 수단</li>
-                            <li>
-                                <ul class="payment-options">
-                                    <li class="payment-option" id="payment_choice_toss">
-                                        <input id="payment_btn2" name="paymentMethod" type="radio" value="toss">
-                                        <label for="payment_btn2">
-                                            토스페이
-                                        </label>
-                                    </li>
-                                    <li class="payment-option" id="payment_choice_kakaopay">
-                                        <input id="payment_btn3" name="paymentMethod" type="radio" value="kakaopay"
-                                               checked>
-                                        <label for="payment_btn3">
-                                            카카오페이
-                                        </label>
-                                    </li>
-                                    <li class="payment-option" id="payment_choice_payco">
-                                        <input id="payment_btn4" name="paymentMethod" type="radio" value="payco">
-                                        <label for="payment_btn4">
-                                            페이코
-                                        </label>
-                                    </li>
-                                    <li class="payment-option" id="payment_choice_pg">
-                                        <input id="payment_btn1" name="paymentMethod" type="radio" value="pg">
-                                        <label for="payment_btn1">
-                                            일반결제
-                                        </label>
+                    <table>
+                        <tr>
+                            <td>할인 합계</td>
+                            <td>
+                                - <strong>71,670</strong> 원
+                                <span>32</span>
+                                <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>최종 결제 금액</td>
+                            <td><strong>153,587</strong> 원</td>
+                        </tr>
+                        <tr>
+                            <td>총 적립금</td>
+                            <td><span>0</span> 원</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                · 적립금 사용 시 총 상품 금액의 7% 이내로 제한됩니다. 일부 상품은 적립금 사용이 불가합니다. <a
+                                    href="/app/cs/faq/005/005000">[적립금
+                                관련 FAQ]</a>
+                                <br>. 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <h3>결제 정보</h3>
+                <div>
+                    <div>
+                        <div id="payment_info_area">
+                            <!--결제 정보-->
+                            <ul>
+                                <li>결제 수단</li>
+                                <li>
+                                    <ul class="payment-options">
+                                        <li class="payment-option" id="payment_choice_toss">
+                                            <input id="payment_btn2" name="paymentMethod" type="radio" value="toss">
+                                            <label for="payment_btn2">
+                                                토스페이
+                                            </label>
+                                        </li>
+                                        <li class="payment-option" id="payment_choice_kakaopay">
+                                            <input checked id="payment_btn3" name="paymentMethod" type="radio"
+                                                   value="kakaopay">
+                                            <label for="payment_btn3">
+                                                카카오페이
+                                            </label>
+                                        </li>
+                                        <li class="payment-option" id="payment_choice_payco">
+                                            <input id="payment_btn4" name="paymentMethod" type="radio" value="payco">
+                                            <label for="payment_btn4">
+                                                페이코
+                                            </label>
+                                        </li>
+                                        <li class="payment-option" id="payment_choice_pg">
+                                            <input id="payment_btn1" name="paymentMethod" type="radio" value="pg">
+                                            <label for="payment_btn1">
+                                                일반결제
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div style="display: none;"> <!--style="display: block;"-->
+                                <ul>
+                                    <li>일반 결제</li>
+                                    <li>
+                                        <div>
+                                            <div id="box-payKind-info-CARD">
+                                                <div>
+                                                    <select id="card_code" name="card_code">
+                                                        <option value="">카드 선택</option>
+                                                        <option value="CCKM">KB카드</option>
+                                                        <option value="CCLG">신한카드</option>
+                                                        <option value="CCDI">현대카드</option>
+                                                        <option value="CCSS">삼성카드</option>
+                                                        <option value="CCNH">농협카드</option>
+                                                        <option value="CC92">카카오뱅크</option>
+                                                        <option value="CCBC">BC카드</option>
+                                                        <option value="CCHN">하나카드</option>
+                                                        <option value="CC33">우리카드</option>
+                                                        <option value="CCLO">롯데카드</option>
+                                                        <option value="CCCT">씨티카드</option>
+                                                        <option value="CC204">새마을금고</option>
+                                                        <option value="CC302">케이뱅크</option>
+                                                        <option value="CCKJ">광주은행</option>
+                                                        <option value="CC207">우체국</option>
+                                                        <option value="CCJB">전북은행</option>
+                                                        <option value="CCSU">수협은행</option>
+                                                        <option value="CC48">신협은행</option>
+                                                    </select>
+                                                    <select id="card_quota" name="select-card_quota">
+                                                        <option value="1">일시불</option>
+                                                        <option value="2">2개월 (무이자)</option>
+                                                        <option value="3">3개월 (무이자)</option>
+                                                        <option value="4">4개월</option>
+                                                        <option value="5">5개월</option>
+                                                        <option value="6">6개월</option>
+                                                        <option value="7">7개월</option>
+                                                        <option value="8">8개월</option>
+                                                        <option value="9">9개월</option>
+                                                        <option value="10">10개월</option>
+                                                        <option value="11">11개월</option>
+                                                        <option value="12">12개월</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
-                            </li>
-                        </ul>
-                        <div style="display: none;"> <!--style="display: block;"-->
+                            </div>
+                            <ul id="soldOutNonRefundablePayment" style="display: table;">
+                                <li>품절 시 환불 안내</li>
+                                <li>
+                                    <span>결제하신 수단으로 취소됩니다.</span>
+                                    <div>
+                                        <ul>
+                                            <li>· 입점업체 배송은 낮은 확률로 상품이 품절일 가능성이 있습니다. 이에 품절 시 빠르게 환불 처리해드립니다.</li>
+                                            <li>· 현금 환불의 경우, 예금정보가 일치해야 환불 처리가 가능합니다. 은행명, 계좌번호, 예금주명을 정확히 기재 부탁드립니다.
+                                            </li>
+                                            <li>· 환불 받으신 날짜 기준으로 3~5일(주말 제외) 후 결제대행사에서 직접 고객님의 계좌로 환불 처리됩니다.</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- 주문자 동의 -->
                             <ul>
-                                <li>일반 결제</li>
+                                <li>주문자 동의</li>
                                 <li>
                                     <div>
-                                        <div id="box-payKind-info-CARD">
-                                            <div>
-                                                <select id="card_code" name="card_code">
-                                                    <option value="">카드 선택</option>
-                                                    <option value="CCKM">KB카드</option>
-                                                    <option value="CCLG">신한카드</option>
-                                                    <option value="CCDI">현대카드</option>
-                                                    <option value="CCSS">삼성카드</option>
-                                                    <option value="CCNH">농협카드</option>
-                                                    <option value="CC92">카카오뱅크</option>
-                                                    <option value="CCBC">BC카드</option>
-                                                    <option value="CCHN">하나카드</option>
-                                                    <option value="CC33">우리카드</option>
-                                                    <option value="CCLO">롯데카드</option>
-                                                    <option value="CCCT">씨티카드</option>
-                                                    <option value="CC204">새마을금고</option>
-                                                    <option value="CC302">케이뱅크</option>
-                                                    <option value="CCKJ">광주은행</option>
-                                                    <option value="CC207">우체국</option>
-                                                    <option value="CCJB">전북은행</option>
-                                                    <option value="CCSU">수협은행</option>
-                                                    <option value="CC48">신협은행</option>
-                                                </select>
-                                                <select id="card_quota" name="select-card_quota">
-                                                    <option value="1">일시불</option>
-                                                    <option value="2">2개월 (무이자)</option>
-                                                    <option value="3">3개월 (무이자)</option>
-                                                    <option value="4">4개월</option>
-                                                    <option value="5">5개월</option>
-                                                    <option value="6">6개월</option>
-                                                    <option value="7">7개월</option>
-                                                    <option value="8">8개월</option>
-                                                    <option value="9">9개월</option>
-                                                    <option value="10">10개월</option>
-                                                    <option value="11">11개월</option>
-                                                    <option value="12">12개월</option>
-                                                </select>
-                                            </div>
+                                        <div>
+                                            주문 내용을 확인했으며 서비스 약관 및 결제에 동의합니다.
+                                        </div>
+                                        <!-- 비회원만 존재 -->
+                                        <!-- // 비회원만 존재 -->
+                                        <div>
+                                            <!--메모장에서 추가하기-->
                                         </div>
                                     </div>
                                 </li>
                             </ul>
+                            <!-- // 주문자 동의 -->
                         </div>
-                        <ul id="soldOutNonRefundablePayment" style="display: table;">
-                            <li>품절 시 환불 안내</li>
-                            <li>
-                                <span>결제하신 수단으로 취소됩니다.</span>
-                                <div>
-                                    <ul>
-                                        <li>· 입점업체 배송은 낮은 확률로 상품이 품절일 가능성이 있습니다. 이에 품절 시 빠르게 환불 처리해드립니다.</li>
-                                        <li>· 현금 환불의 경우, 예금정보가 일치해야 환불 처리가 가능합니다. 은행명, 계좌번호, 예금주명을 정확히 기재 부탁드립니다.</li>
-                                        <li>· 환불 받으신 날짜 기준으로 3~5일(주말 제외) 후 결제대행사에서 직접 고객님의 계좌로 환불 처리됩니다.</li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- 주문자 동의 -->
-                        <ul>
-                            <li>주문자 동의</li>
-                            <li>
-                                <div>
-                                    <div>
-                                        주문 내용을 확인했으며 서비스 약관 및 결제에 동의합니다.
-                                    </div>
-                                    <!-- 비회원만 존재 -->
-                                    <!-- // 비회원만 존재 -->
-                                    <div>
-                                        <!--메모장에서 추가하기-->
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- // 주문자 동의 -->
                     </div>
+                    <!--//결제 정보-->
+                    <!--//신용카드 -->
                 </div>
-                <!--//결제 정보-->
-                <!--//신용카드 -->
-            </div>
-            <div>
-                <a id="btn_pay">
-                    <span id="btn-pay_amt" style="font-size:20px;">153587</span>원 결제하기&nbsp;
-                </a>
+                <div>
+                    <a id="btn_pay">
+                        <span id="btn-pay_amt" style="font-size:20px;">153587</span>원 결제하기&nbsp;
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

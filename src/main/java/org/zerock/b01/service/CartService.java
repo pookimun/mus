@@ -9,8 +9,10 @@ import org.zerock.b01.domain.Cart;
 import org.zerock.b01.domain.CartDetail;
 import org.zerock.b01.domain.Item;
 import org.zerock.b01.domain.Member;
+import org.zerock.b01.dto.CartAllDTO;
 import org.zerock.b01.dto.CartDTO;
 import org.zerock.b01.dto.CartDetailDTO;
+import org.zerock.b01.dto.ItemDTO;
 import org.zerock.b01.repository.CartDetailRepository;
 import org.zerock.b01.repository.CartRepository;
 import org.zerock.b01.repository.ItemRepository;
@@ -18,6 +20,8 @@ import org.zerock.b01.repository.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -100,6 +104,37 @@ public class CartService {
         cartDetailRepository.delete(cartDetail);
     }
 
+    // 성은추가
+    // 장바구니에서 선택한 장바구니번호를 매개값으로 해당 장바구니 DTO를 리턴하는 메서드
+    public CartAllDTO readOne(String cno){
+        Optional<Cart> result = cartRepository.findById(cno);
+        Cart cart = result.orElseThrow();
+        CartDetail cartDetail = cartDetailRepository.findByCart(cart);
+        CartAllDTO cartAllDTO = CartAllDTO.builder()
+                .cno(cart.getCno())
+                .member(cart.getMember().getMid())
+                .c_size(cart.getC_size())
+                .c_color(cart.getC_color())
+                .paymentSuccess(cart.getPaymentSuccess())
+                .cdid(cartDetail.getCdid())
+                .itemDTO(ItemDTO.builder()
+                        .ino(cartDetail.getItem().getIno())
+                        .i_name(cartDetail.getItem().getI_name())
+                        .i_price(cartDetail.getItem().getI_price())
+                        .i_title_img(cartDetail.getItem().getI_title_img())
+                        .i_info_img(cartDetail.getItem().getI_info_img())
+                        .i_color(cartDetail.getItem().getI_color())
+                        .i_size(cartDetail.getItem().getI_size())
+                        .i_stock(cartDetail.getItem().getI_stock())
+                        .fileNames(cartDetail.getItem().getItemImageSet().stream().map(itemImage ->
+                            itemImage.getFileName()).collect(Collectors.toList()))
+                        .itemDetail(cartDetail.getItem().getItemDetail())
+                        .itemSellStatus(cartDetail.getItem().getItemSellStatus())
+                        .build())
+                .count(cartDetail.getCount())
+                .build();
+        return cartAllDTO;
+    }
 
 
 

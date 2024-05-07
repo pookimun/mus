@@ -7,10 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.b01.domain.Address;
-import org.zerock.b01.domain.Board;
-import org.zerock.b01.domain.Orders;
-import org.zerock.b01.domain.OrdersDetail;
+import org.zerock.b01.domain.*;
 import org.zerock.b01.dto.*;
 import org.zerock.b01.repository.*;
 
@@ -31,6 +28,7 @@ public class OrdersServiceImpl implements OrdersService{
     private final OrdersDetailRepository ordersDetailRepository;
     private final ItemRepository itemRepository;
     private final AddressRepository addressRepository;
+    private final CartRepository cartRepository;
 
 
     @Transactional
@@ -66,6 +64,9 @@ public class OrdersServiceImpl implements OrdersService{
         orders.paymentSuccess(); // 결제성공 저장!
         ordersRepository.save(orders); // update
         OrdersListDTO ordersListDTO = entityToDTO(orders);
+        // 장바구니의 결제여부 값을 변경!
+//        Optional<Cart> cart = cartRepository.findById() OrdersDetail에 장바구니 번호 필드를 추가해야할것같음!
+        // 그리고 위에서 받아온 장바구니 번호 Cart의 paymentSuccess 필드 값을 1로 변경해준다 !!
         return ordersListDTO;
     }
 

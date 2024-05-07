@@ -63,7 +63,7 @@ public class KakaoPayController {
                     .od_count(ordersDTO.getCounts()[i])
                     .od_size(ordersDTO.getSizes()[i])
                     .od_color(ordersDTO.getColors()[i])
-                    .od_price(itemService.readOne(inos[i]).getI_price())
+                    .od_price(itemService.readOne(inos[i]).getI_price()) // 구매당시 가격저장
                     .build();
             log.info("ordersDetailDTO : " + ordersDetailDTO);
             ordersDetailDTOList.add(ordersDetailDTO);
@@ -88,6 +88,24 @@ public class KakaoPayController {
         redirectView.setUrl("/orders/success"); // 리다이렉션할 URL 지정
         return redirectView;
     }
+
+    @GetMapping("/cancel")
+    public RedirectView cancle(){
+        log.info("결제 취소 컨트롤러 실행 ... ");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/orders/cancel"); // 리다이렉션할 URL 지정
+        return redirectView;
+    }
+
+    @GetMapping("/fail")
+    public RedirectView fail(){
+        log.info("결제 실패 컨트롤러 실행 ... ");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/orders/fail"); // 리다이렉션할 URL 지정
+        return redirectView;
+    }
+
+
 
 
 }
