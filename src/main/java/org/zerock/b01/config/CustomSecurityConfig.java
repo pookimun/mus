@@ -18,7 +18,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.zerock.b01.security.CustomUserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.zerock.b01.security.handler.Custom403Handler;
 import org.zerock.b01.security.handler.CustomSocialLoginSuccessHandler;
 
@@ -46,7 +46,7 @@ public class CustomSecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         log.info("----------------Security Config----------------------");
 
@@ -57,18 +57,22 @@ public class CustomSecurityConfig {
             form.loginPage("/member/login")
                     .successHandler((request, response, authentication) -> {
                         response.sendRedirect("/board/index");
-                    });
+                    })
+                    .failureUrl("/member/login/error"); // 로그인 실패 시 이동할 URL;
         });
 
-        http.csrf(httpSecurityCsrfConfigurer ->  httpSecurityCsrfConfigurer.disable() );
-        http.logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/logout"));
+        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
+
+        http.logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutSuccessUrl("/member/login")
+                .invalidateHttpSession(true));
 
         http.rememberMe(httpSecurityRememberMeConfigurer -> {
 
             httpSecurityRememberMeConfigurer.key("12345678")
                     .tokenRepository(persistentTokenRepository())
                     .userDetailsService(userDetailsService)
-                    .tokenValiditySeconds(60*60*24*30);
+                    .tokenValiditySeconds(60 * 60 * 24 * 30);
 
         });
 
@@ -77,7 +81,7 @@ public class CustomSecurityConfig {
             httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(accessDeniedHandler());
         });
 
-        http.oauth2Login( httpSecurityOAuth2LoginConfigurer -> {
+        http.oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
             httpSecurityOAuth2LoginConfigurer.loginPage("/member/login");
             httpSecurityOAuth2LoginConfigurer.successHandler(authenticationSuccessHandler());
         });

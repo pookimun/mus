@@ -76,10 +76,6 @@ public class Orders {
                 .ino(ordersDetailDTO.getItemDTO().getIno())
                 .i_name(ordersDetailDTO.getItemDTO().getI_name())
                 .i_price(ordersDetailDTO.getItemDTO().getI_price())
-                .i_title_img(ordersDetailDTO.getItemDTO().getI_title_img())
-                .i_info_img(ordersDetailDTO.getItemDTO().getI_info_img())
-                .i_color(ordersDetailDTO.getItemDTO().getI_color())
-                .i_size(ordersDetailDTO.getItemDTO().getI_size())
                 .i_stock(ordersDetailDTO.getItemDTO().getI_stock())
                 .build();
 
