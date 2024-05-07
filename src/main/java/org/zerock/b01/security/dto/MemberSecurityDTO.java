@@ -42,7 +42,6 @@ public class MemberSecurityDTO extends User implements OAuth2User {
         this.m_del = m_del;
         this.m_social = m_social;
         this.username = username;
-
     }
 
     public Map<String, Object> getAttributes() {

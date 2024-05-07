@@ -51,6 +51,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         JPQLQuery<Orders> jpqlQuery = ordersJPQLQuery.select(orders); // select orders
 
         List<Orders> ordersList = jpqlQuery.fetch(); // 쿼리 실행
+        System.out.println(ordersList);
 
         List<OrdersListDTO> dtoList = ordersList.stream().map(orders1 -> {
             // 조인 처리된 테이블 한 행씩 반복하며(Order entity)
