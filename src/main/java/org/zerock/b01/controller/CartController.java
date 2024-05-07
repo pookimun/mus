@@ -52,10 +52,10 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/cart") // http://localhost/cart
+    @GetMapping(value = "/cart")
     public String orderHist(Principal principal, Model model) {
         List<CartDTO> cartDetailList = cartService.getCartList(principal.getName());
-        model.addAttribute("cartItems", cartDetailList);
+        model.addAttribute("cartitems", cartDetailList);
         return "cart/cartList";
     }
 
