@@ -1,3 +1,4 @@
+
 <html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
@@ -683,6 +684,7 @@
                 <button class="app-content-headerButton"  onclick="addressRegister()" type="button">Add Product</button>
 
             </div>
+
             <div class="row mt-3">
                 <form action="/admin/list" method="get" class="col">
                     <input type="hidden" name="size" th:value="${itemPageRequestDTO.size}">
@@ -746,7 +748,7 @@
                         </div>
                         <div class="product-cell sales"><span class="cell-label">Sales:</span>11</div>
                         <div class="product-cell stock"><span class="cell-label">Stock:</span>36</div>
-                        <div class="product-cell price"><span class="cell-label">Price:</span>[[${dto.i_price}]]</div>
+                        <div class="product-cell price"><span class="cell-label">Price:</span>[[${dto.i_color}]]</div>
                     </div>
                 </th:block>
 

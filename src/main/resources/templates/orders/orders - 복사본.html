@@ -1,0 +1,1234 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+<!-- Google Tag Manager -->
+<script>
+var selfCertEnabled = "" || "Y";
+var THIS_PAGE_GF = 'A'; // 전역필터 상태값 caching page reload 필요 체크용
+var ORDER_GROUP_STORE_PATH = "/order-service";
+var ORDER_GROUP_ORDER_PATH = "/orders";
+var dataLayer = window.dataLayer || [];
+window.addEventListener("DOMContentLoaded", function() {
+    
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TXDSFSF');
+}, false);
+</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="https://image.msscdn.net/favicon_152.ico" />
+<meta name="description" content="무신사 스토어는 국내 최대의 서브컬쳐, 디자이너, 하우스 브랜드 온라인 셀렉트숍입니다. 무신사 스토어에 브랜드의 입점을 원하시는 분들 또는 제휴를 원하시는 분들은 상담요청 부탁드립니다." />
+
+
+<!-- 페이스북 오픈 그래프 메타태그  -->
+<meta id="fbAddId" property="fb:app_id" content="648837775133366" />
+<meta id="fbOgType" property="og:type" content="website" />
+<meta id="fbOgTitle" property="og:title" content="무신사 입점 문의 | 무신사" />
+<meta id="fbOgImage" property="og:image" content="https://image.msscdn.net/mfile_s01/fb/share_musinsa.png" />
+<meta id="fbOgDescription" property="og:description" content="무신사 스토어는 국내 최대의 서브컬쳐, 디자이너, 하우스 브랜드 온라인 셀렉트숍입니다. 무신사 스토어에 브랜드의 입점을 원하시는 분들 또는 제휴를 원하시는 분들은 상담요청 부탁드립니다." />
+<meta id="fbOgUrl" property="og:url" content="https://www.musinsa.com/app/company/partner?_gf=A">
+<!--// 페이스북 오픈 그래프 메타태그 -->
+
+<title>무신사 입점 문의 | 무신사</title>
+<link rel="stylesheet" type="text/css" href="//static.msscdn.net/ui/build/pc/css/common.css?202109290900">
+
+<link type="text/css" rel="stylesheet" href="//static.msscdn.net/ui/build/pc/css/member.css" />
+
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/magazine_common.css?202202150915" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/store_common.css?202112011113" />
+    <link rel="stylesheet" href="//static.msscdn.net/platform/css/common.css">
+
+<link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/layout.min.css?202307171515"/>
+<link rel="stylesheet" href="//image.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?202307171515"/>
+<link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/guide.min.css?202309180825"/>
+<link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/style.min.css?202310251131"/>    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/sub.css?202402151520" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/media_query.css?202010301640" />
+    <!--<link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/font.css?20170221" />-->
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/new.css?202112010912" />
+
+<!-- Swiper -->
+<link rel="stylesheet" type="text/css" href="//static.msscdn.net/swiper/swiper.min.css" />
+<script src="//static.msscdn.net/swiper/swiper.min.js?20200316"></script>
+<!-- Polyfill -->
+
+<script>
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        (function (w, d, s) {
+            var f = d.getElementsByTagName(s)[0];
+            var j = d.createElement(s);
+            j.async=true;
+            j.src= '//static.msscdn.net/skin/musinsa/js/polyfill.min.js?features=Array.from,Promise,fetch&flags=always';
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script');
+    }
+</script>
+
+<!-- 스토어, 매거진 공통 스크립트 -->
+<script type="text/javascript" src="//static.msscdn.net/mfile_outsrc/js/vendor/jquery-1.11.1.min.js?20160201"></script>
+<script type="text/javascript" src="//static.msscdn.net/mfile_outsrc/js/common/base.js?20160201"></script>
+<script type="text/javascript" src="//static.msscdn.net/mfile_outsrc/js/common/common.js?202105041500"></script>
+<script type="text/javascript" src="//static.msscdn.net/mfile_outsrc/js/vendor/jquery.easing.js?20160201"></script>
+<!--// 스토어, 매거진 공통 스크립트 -->
+
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/mini_cart.js?202401310956"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/common.js?202402021441"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/jquery.cycle.all.js?20160202"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/m_js/jquery-ui.min.js?20160202"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/jslib.js?20200601"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/jquery.bxslider.js?20180503"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/clipboard.min.js?20170406"></script>
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/ui.js?202203221100"></script>
+<script src="//static.msscdn.net/static/common/1.2.0/chunk-vendors.js"></script>
+
+<script src="//static.msscdn.net/skin/js/app/app.js?7459fa64bdd89c831e97"></script>
+
+    <!--jqModal-->
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/jqModal.css?20160119" />
+    <script src="//static.msscdn.net/skin/musinsa/js/jqModal.min.js?20160511" type="text/javascript"></script>
+    <!--//jqModal-->
+
+
+<script type="text/javascript">
+    let tabIndex = 0;
+    $(document).ready(function () {
+        $(".non_entering_the_store").css("display", "none");
+        $(".member-input__error-text").css("display", "none");
+        bindingEvent();
+    });
+
+    function bindingEvent() {
+        $(".tab-segment--contact-us > button").on("click", function () {
+            // 탭 이동시 값 초기화
+            if (tabIndex !== $(this).index()) {
+                $("form").find("input, select, textarea").val('');
+
+                var allElements = $("form").find("input.validate, select.validate, textarea.validate");
+                for (var i = 0 ; i < allElements.length; i++) {
+                    if (allElements.eq(i).attr("id") === "non_entering_the_store_content") {
+                        allElements.eq(i).removeClass("member-textarea--error");
+                        allElements.eq(i).next("p").hide();
+                    } else {
+                        allElements.eq(i).closest("div").removeClass("member-input__wrap--error");
+                    }
+                    allElements.eq(i).closest("div").next("p").hide();
+                }
+            }
+
+            // 버튼 Active 변경
+            $(this).closest("div").children("button").removeClass("tab-segment-list__button--active");
+            $(this).addClass("tab-segment-list__button--active");
+
+            tabIndex = $(this).index();
+
+            // Panel 내용 변경
+            $("ul.tab-segment-panel__list").hide();
+            $("#tab_segment_panel_list_" + $(this).index()).show();
+
+            // 입점문의 전용 영역 처리
+            if ($(this).index() === 0) {
+                $(".entering_the_store").show();
+                $(".non_entering_the_store").hide();
+                $("div.non_entering_the_store").find("input, textarea").attr("disabled", true);
+                $("div.entering_the_store").find("input, textarea").attr("disabled", false);
+
+            } else {
+                $(".entering_the_store").hide();
+                $(".non_entering_the_store").show();
+                $("div.entering_the_store").find("input, textarea").attr("disabled", true);
+                $("div.non_entering_the_store").find("input, textarea").attr("disabled", false);
+            }
+        });
+
+        // 입점문의영역 사업자등록번호
+        $("#BusinessRegistrationNumber").on("keyup", function (event) {
+            $("#effective_chk").val("N");
+
+            var currentText = $(this).val();
+            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode == 8)) {
+                if (currentText.replaceAll(" ", "").length <= 10) {
+                    var replaceValue = currentText.replaceAll(" ", "");
+                    setBusinessNumber(this, replaceValue);
+                } else {
+                    var replaceValue = currentText.replaceAll(" ", "").substring(0, 10);
+                    if (replaceValue.length === 10) {
+                        setBusinessNumber(this, replaceValue);
+                    } else {
+                        $(this).val(replaceValue);
+                    }
+                }
+            } else {
+                var replaceValue = $(this).val().replace(/[^0-9]/g, "");
+                setBusinessNumber(this, replaceValue);
+
+            }
+        });
+
+        $("input[name='parallelIncome']").on("click", function () {
+            if ($(this).attr("id") === "parallelIncome2") {
+                $(this).closest("div").next().addClass("contact-us--store-entry-inquiry__toggle--active");
+            } else {
+                $(this).closest("div").next().removeClass("contact-us--store-entry-inquiry__toggle--active");
+            }
+        });
+
+        // 입점업체영역 브랜드카테고리
+        $("select[name='category']").on("change", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-select__wrap--error");
+            } else {
+                $(this).closest("div").removeClass("member-select__wrap--error");
+            }
+        });
+
+        // 입점문의영역
+        $("#entering_brand, #officialWebsite, #entering_companyName, #skuNumber, #goodsListUrl").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").show();
+            } else {
+                $(this).closest("div").removeClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").hide();
+            }
+        });
+
+        // 입점문의영역
+        $("#brand, #companyName").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").show();
+            } else {
+                $(this).closest("div").removeClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").hide();
+            }
+        });
+
+        // 공통영역
+        $("#presonInCharge, #phoneNumber, #email").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").show();
+            } else {
+                $(this).closest("div").removeClass("member-input__wrap--error");
+                $(this).closest("div").nextAll("p.member-input__error-text").hide();
+            }
+        });
+
+        $("#mobileNumber").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-input__wrap--error");
+                $(this).closest("div").nextAll().hide();
+
+                // 버튼 disabled
+                $(this).next().attr("disabled", true);
+            } else {
+                $(this).closest("div").removeClass("member-input__wrap--error");
+                $(this).closest("div").next().hide();
+
+                // 버튼 unDisabled
+                $(this).next().attr("disabled", false);
+            }
+        });
+
+        $("#entering_company_address2, #company_address2").on("keyup", function () {
+            let elementPrefix = "";
+            if ($(this).attr("id") === "entering_company_address2") {
+                elementPrefix = "entering_";
+            }
+
+            if ($("#" + elementPrefix + "company_address2").val() === "") {
+                $("#" + elementPrefix + "company_address2").closest("div").addClass("member-input__wrap--error");
+            } else {
+                $("#" + elementPrefix + "company_address2").closest("div").removeClass("member-input__wrap--error");
+            }
+        });
+
+        // 상세주소
+        $("#company_address2, #entering_company_address2").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).closest("div").addClass("member-input__wrap--error");
+            } else {
+                $(this).closest("div").removeClass("member-input__wrap--error");
+            }
+        });
+
+        $("#authenticationNumber").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).next().attr("disabled", true);
+
+            } else {
+                $(this).next().attr("disabled", false);
+            }
+        });
+
+        // 이메일 유효성 검사
+        $("#email").on("focusout", function () {
+            if ($(this).val() !== "") {
+                var regExp = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+                if (!regExp.test($(this).val())) {
+                    $(this).closest("div").addClass("member-input__wrap--error");
+                    $(this).closest("div").nextAll("p.member-input__error-text").show();
+                }
+            }
+        });
+
+        // 문의내용
+        $("#non_entering_the_store_content").on("keyup", function () {
+            if ($(this).val() === "") {
+                $(this).addClass("member-textarea--error");
+                $(this).nextAll("p.member-textarea__error-text").show();
+            } else {
+                $(this).removeClass("member-textarea--error");
+                $(this).nextAll("p.member-textarea__error-text").hide();
+            }
+        });
+    }
+
+    function setBusinessNumber(targetObject, value) {
+        if (value === "") {
+            $(targetObject).closest("div").addClass("member-input__wrap--error");
+            $(targetObject).closest("div").next().removeClass();
+            $(targetObject).closest("div").next().addClass("member-input__error-text");
+            $(targetObject).closest("div").next().text("사업자 등록번호를 인증해주세요.");
+            $(targetObject).closest("div").next().show();
+
+            // 버튼 disabled
+            $(targetObject).nextAll("button").attr("disabled", true);
+        } else {
+            $(targetObject).closest("div").removeClass("member-input__wrap--error");
+            $(targetObject).closest("div").next().hide();
+
+            // 버튼 unDisabled
+            $(targetObject).nextAll("button").attr("disabled", false);
+        }
+
+        let replaceBusinessNumber = "";
+        let firstNumber = value.substring(0, 3);
+        let middleNumber = value.substring(3, 5);
+        let lastNumber = value.substring(5);
+
+        replaceBusinessNumber = firstNumber + " " + middleNumber + " " + lastNumber;
+        $(targetObject).val(trim(replaceBusinessNumber));
+    }
+
+    function businessRegistrationNumberConfirm() {
+        let businessNumber = $("#BusinessRegistrationNumber").val().replaceAll(" ", "");
+
+        if (businessNumber === "") {
+            alert("사업자 등록번호를 입력해주세요.");
+        }
+
+        // 넘어온 값의 정수만 추츨하여 문자열의 배열로 만들고 10자리 숫자인지 확인합니다.
+        if (((businessNumber + '').match(/\d{1}/g)).length != 10) {
+            $("#effective_fail").show();
+            $("#effective_success").hide();
+        }
+
+        // 합 / 체크키
+        var sum = 0, key = [1, 3, 7, 1, 3, 7, 1, 3, 5];
+
+        // 0 ~ 8 까지 9개의 숫자를 체크키와 곱하여 합에더합니다.
+        for (var i = 0; i < 9; i++) {
+            sum += (key[i] * Number(businessNumber[i]));
+        }
+
+        // 각 8번배열의 값을 곱한 후 10으로 나누고 내림하여 기존 합에 더합니다.
+        // 다시 10의 나머지를 구한후 그 값을 10에서 빼면 이것이 검증번호 이며 기존 검증번호와 비교하면됩니다.
+        var chkSum = 0;
+        chkSum = Math.floor(key[8] * Number(businessNumber[8]) / 10);
+
+        // 체크섬 합계에 더해줌
+        sum += chkSum;
+        var reminder = (10 - (sum % 10)) % 10;
+
+        if (reminder == Number(businessNumber[9])) {
+            $("#BusinessRegistrationNumber").closest("div").removeClass("member-input__wrap--error");
+            $("#BusinessRegistrationNumber").closest("div").next().addClass("member-input__helper-text--blue");
+            $("#BusinessRegistrationNumber").closest("div").next().text("인증이 완료되었습니다.");
+            $("#BusinessRegistrationNumber").closest("div").next().show();
+            $("#BusinessRegistrationNumber").nextAll("button").attr("disabled", true)
+            $("#effective_chk").val("Y");
+        } else {
+            $("#BusinessRegistrationNumber").closest("div").addClass("member-input__wrap--error");
+            $("#BusinessRegistrationNumber").closest("div").next().removeClass();
+            $("#BusinessRegistrationNumber").closest("div").next().addClass("member-input__error-text");
+            $("#BusinessRegistrationNumber").closest("div").next().text("유효하지 않는 사업자 등록번호입니다.");
+            $("#BusinessRegistrationNumber").closest("div").next().show();
+            $("#effective_chk").val("N");
+        }
+    }
+
+    function mobileNumberAuth() {
+        var mobile = $("#mobileNumber");
+        var mobileValue = mobile.val();
+        var replaceMobileValue = mobileValue.replace(/[^0-9]/g, "");
+        var replaceMobileValueLength = replaceMobileValue.length;
+
+        if (mobileValue === '') {
+            alert('휴대폰 번호를 입력해 주십시오.');
+        } else if (replaceMobileValueLength < 10 || replaceMobileValueLength > 11) {
+            alert("휴대폰 번호를 정확히 입력해 주십시오.");
+        } else {
+            if (replaceMobileValueLength === 10) {
+                var tel1 = replaceMobileValue.substr(0, 3);
+                var tel2 = replaceMobileValue.substr(3, 3);
+                var tel3 = replaceMobileValue.substr(6, 4);
+                mobileValue = tel1 + "-" + tel2 + "-" + tel3;
+
+            }
+
+            if (replaceMobileValueLength === 11) {
+                var tel1 = replaceMobileValue.substr(0, 3);
+                var tel2 = replaceMobileValue.substr(3, 4);
+                var tel3 = replaceMobileValue.substr(7, 4);
+                mobileValue = tel1 + "-" + tel2 + "-" + tel3;
+            }
+
+            if (confirm("해당번호로 인증 메시지를 발송하시겠습니까?")) {
+                $.ajax({
+                    url: '/app/company/send_sms',
+                    type: 'post',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        mobile: mobileValue
+                    },
+                    success: function (responseData) {
+                        alert(responseData.msg);
+                        $("#authenticationNumber").val("");
+                        $("#authenticationNumberArea").show();
+                        $("#mobileNumberAuthBtn").attr("disabled", true);
+                    },
+                    error: function (request, status, error) {
+                        alert('네트워크 오류가 발생했습니다.');
+                    }
+                });
+            }
+        }
+    }
+
+    function mobileNumberAuthConfirm() {
+        var certKey = $("#authenticationNumber").val();
+        var mobileNumber = $("#mobileNumber").val();
+
+        if (certKey == '') {
+            alert('인증번호를 입력해 주세요');
+        } else {
+            if (confirm("해당 인증번호로 인증합니다.")) {
+
+                $.ajax({
+                    url: '/app/company/send_check',
+                    type: 'post',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        mobile: mobileNumber,
+                        cert_key: certKey
+                    },
+                    success: function (responseData) {
+                        if (responseData.cd > 0) {
+                            alert(responseData.msg);
+                            $("#mobileNumberAuthBtn").attr("disabled", true);
+                            $("#mobileNumberAuthConfirmBtn").attr("disabled", true);
+
+                            $('.mobile-auth-area').hide();
+
+                            $("#is_cert").val(responseData.cd);
+                        } else {
+                            alert(responseData.msg);
+                            $("#authenticationNumber").val("");
+                            $("#mobileNumberAuthConfirmBtn").attr("disabled", true);
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert('네트워크 오류가 발생했습니다.');
+                    }
+                });
+            }
+        }
+    }
+
+    function toggleToolTip(obj) {
+        if ($(obj).next().hasClass("member-label__tooltip--bottom--active")) {
+            $(obj).next().addClass("member-label__tooltip--bottom--hide");
+            setTimeout(function () {
+                $(obj).next().removeClass("member-label__tooltip--bottom--active");
+                $(obj).next().removeClass("member-label__tooltip--bottom--hide");
+            }, 300)
+
+        } else {
+            $(obj).next().addClass("member-label__tooltip--bottom--active");
+        }
+    }
+
+    function toggleAgreement() {
+        $("#agreementArea").toggle("contact-us__agreement__toggle--active");
+    }
+
+    function setElementValidateErrorForm() {
+      var allElements = $("form").find("input.validate, select.validate, textarea.validate");
+      for (var i = 0 ; i < allElements.length; i++) {
+          if (allElements.eq(i).val() === "") {
+              if (allElements.eq(i).attr("id") === "non_entering_the_store_content") {
+                  allElements.eq(i).addClass("member-textarea--error");
+                  allElements.eq(i).next("p").show();
+              } else {
+                  allElements.eq(i).closest("div").addClass("member-input__wrap--error");
+              }
+              allElements.eq(i).closest("div").next("p").show();
+
+          } else {
+              if (allElements.eq(i).attr("id") === "email") {
+                  var regExp = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+                  if (!regExp.test(allElements.eq(i).val())) {
+                      allElements.eq(i).closest("div").addClass("member-input__wrap--error");
+                      allElements.eq(i).closest("div").nextAll("p.member-input__error-text").show();
+                  }
+              }
+          }
+      }
+    }
+
+    var isSubmitting = false;
+    function submitForm() {
+
+        let typeButtons = $("button[name='typeTab']");
+
+        let type = 0;
+        for (let i = 0; i < typeButtons.length; i++) {
+            if (typeButtons.eq(i).hasClass("tab-segment-list__button--active")) {
+                type = typeButtons.eq(i).val();
+                break;
+            }
+        }
+
+        $("form[name='f1'] input[name='type']").val(type);
+
+        setElementValidateErrorForm();
+
+        // 회사명
+        if (type == "2") {
+            if ($(".entering_the_store").find("input[name='companyName']").val() === "") {
+                alert("회사명을 입력해주세요.");
+                $(".entering_the_store").find("input[name='companyName']").focus();
+                return false;
+            }
+        } else {
+            if ($(".non_entering_the_store").find("input[name='companyName']").val() === "") {
+                alert("회사명을 입력해주세요.");
+                $(".non_entering_the_store").find("input[name='companyName']").focus();
+                return false;
+            }
+        }
+
+        // 브랜드명
+        if (type == "2") {
+            if ($(".entering_the_store").find("input[name='brand']").val() === "") {
+                alert("브랜드명을 입력해주세요");
+                return false;
+            }
+        } else {
+            if ($(".non_entering_the_store").find("input[name='brand']").val() === "") {
+                alert("브랜드명을 입력해주세요.");
+                return false;
+            }
+        }
+
+
+        // 담당자명
+        if ($("input[name='name']").val() === "") {
+            alert("담당자명을 입력해주세요");
+            return false;
+        }
+
+        // 이메일
+        if ($("input[name='email']").val() === "") {
+            alert("이메일을 입력해주세요");
+            return false;
+        }
+
+        // 전화번호
+        if ($("input[name='phone']").val() === "") {
+            alert("전화번호를 입력해주세요");
+            return false;
+        }
+
+        // 전화번호
+        if ($("input[name='mobile']").val() === "") {
+            alert("휴대전화번호를 입력해주세요");
+            return false;
+        }
+
+        if (type == "2") {
+            // 브랜드 대표 카테고리
+            if ($("select[name='category']").val() === "") {
+                alert("브랜드 대표 카테고리를 선택해주세요.");
+                return false;
+            }
+
+            // 사업자 등록번호
+            if ($("input[name='BusinessRegistrationNumber']").val() === "") {
+                alert("사업자 등록번호를 입력해주세요.");
+                return false;
+            }
+
+            // 공식사이트
+            if ($("input[name='officialWebsite']").val() === "") {
+                alert("공식 홈페이지 주소를 입렵해주세요.");
+                return false;
+            }
+
+            // 병행수입상품 포함 여부
+            if ($("input[name='parallelIncome']:checked").val() == "Y") {
+                if ($("input[name='goodsListUrl']").val() === "") {
+                    alert("상품리스트 공유 URL을 입력해주세요.");
+                    return false;
+                }
+            }
+
+            // 판매 SKU 수량
+            if ($("input[name='skuNumber']").val() === "") {
+                alert("판매 SKU 수량을 입력해주세요.")
+                return false;
+            }
+        }
+
+        // 사업장 주소
+        if (type == "2") {
+            if (
+                $(".entering_the_store").find("input[name='company_zip_code']").val() === "" ||
+                $(".entering_the_store").find("input[name='company_address']").val() === "" ||
+                $(".entering_the_store").find("input[name='company_address2']").val() === ""
+            ) {
+                alert("사업장 주소를 입력해주세요.");
+                return false;
+            }
+        } else {
+            if (
+                $(".non_entering_the_store").find("input[name='company_zip_code']").val() === "" ||
+                $(".non_entering_the_store").find("input[name='company_address']").val() === "" ||
+                $(".non_entering_the_store").find("input[name='company_address2']").val() === ""
+            ) {
+                alert("사업장 주소를 입력해주세요.");
+                return false;
+            }
+        }
+
+
+        if (!$("input[name='agreement2']").is(":checked")) {
+            alert("개인정보 수집에 동의 해주세요.");
+            return false;
+        }
+
+        // 문의내용 유효성체크
+        let contactDetailValue = $("#non_entering_the_store_content").val();
+        if (type != "2" && (contactDetailValue === "")) {
+            alert("문의내용을 입력해주세요.");
+            return false;
+        }
+
+        // 사업자등록번호 유효성체크
+        let effectiveCheckValue = $("input[name='effective_chk']").val();
+        if (type == "2" && (effectiveCheckValue === "" || effectiveCheckValue === "N")) {
+            alert("사업자 등록번호 유효성 체크를 확인해주세요.");
+            return false;
+        }
+
+        // 휴대폰 인증 유효성체크
+        if ($("input[name='is_cert']").val() === "") {
+            alert("휴대폰 인증을 해주세요.");
+            return false;
+        }
+
+        if (type == "2") {
+            $("div.non_entering_the_store").find("input, textarea").attr("disabled", true);
+            $("div.entering_the_store").find("input, textarea").attr("disabled", false);
+        } else {
+            $("div.entering_the_store").find("input, textarea").attr("disabled", true);
+            $("div.non_entering_the_store").find("input, textarea").attr("disabled", false);
+        }
+
+        let confirmMessage = "제출 하시겠습니까?";
+        if (type == "2") {
+            confirmMessage = "입점문의를 제출하시겠습니까?";
+        }
+
+        isSubmitting = true;
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: "POST",
+                url: "/app/company/application_save",
+                data: $("form").serialize(),
+                success: function (msg) {
+                    if (msg === "1") {
+                        if (type === 2) {
+                            alert("입력하신 내용으로 입점 문의 완료되었습니다.");
+                        } else {
+                            alert("문의하신 내용으로 제출 되었습니다.");
+                        }
+                        document.location.reload();
+                    } else if (msg === "-1") {
+                        alert('휴대전화 인증을 받으세요.');
+                    } else {
+                        alert('제출시 문제가 발생했습니다.\n다시 등록하여 주십시오.');
+                        document.location.reload();
+                    }
+                },
+                complete: function () {
+                    isSubmitting = false;
+                }
+            });
+        }
+    }
+</script>
+
+</head>
+<body>
+<!-- 상단 콘텐츠 영역 -->
+
+
+
+<script>
+	var mss = {
+		ui: {
+			loggedIn: false,
+			top: {
+				extendBannerList: { // 상단 배너 리스트
+					code: '',
+					type: '',
+					subject: '',
+					contents: '',
+					extendContents: '',
+					extendUrl: ''
+				},
+				campaignList: [ // 캠페인 리스트
+					
+										
+				],
+			},
+			left: {
+				category: {
+					dCatCd: '', // 선택된 카테고리 코드
+				},
+			},
+		}
+	};
+</script>
+
+
+<div class="top-column column" style="display:none">
+	<div id="short_top_special" class="header header-small store_header clearfix">
+		<div class="main-wrapper wrapper">
+			<h1 class="title"><a href="javascript:void(0)" onclick="showShortTopSpecial(); return false;">MUSINSA STORE 메뉴 열기</a></h1>
+		</div>
+	</div>
+</div>
+
+<div id="default_top" >
+	<div id="topCommonPc"></div>
+</div>
+
+<script src="//static.msscdn.net/static/common/1.2.0/pc.js"></script><!--// 상단 콘텐츠 영역 -->
+
+<div class="wrap">
+    <div id="leftCommonPc"></div>
+
+<script src="//static.msscdn.net/static/common/1.2.0/lnb.js"></script>
+      <div class="right_area contact-us contact-us--store-entry-inquiry">
+      <form id="form" name="f1" method="post">
+        <input type="hidden" name="type"/>
+        <div class="right_contents">
+          <h2 class="title-page">입점·제휴·대량구매</h2>
+        </div>
+        <div class="contact-us__tab-wrap">
+          <div role="tablist" aria-label="문의 내용에 따른 안내 사항" class="tab-segment-list tab-segment--contact-us">
+                                                                      <button type="button"
+                          name="typeTab"
+                          value="2"
+                          class="tab-segment-list__button tab-segment-list__button--active"
+                          role="tab"
+                          aria-selected="true"
+                          tabindex="0">입점 문의
+
+                  </button>
+                                                          <button type="button"
+                          name="typeTab"
+                          value="3"
+                          class="tab-segment-list__button "
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1">이미지/저작권 문의
+
+                  </button>
+                                                          <button type="button"
+                          name="typeTab"
+                          value="4"
+                          class="tab-segment-list__button "
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1">협찬 문의
+
+                  </button>
+                                                          <button type="button"
+                          name="typeTab"
+                          value="5"
+                          class="tab-segment-list__button "
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1">공동/대량구매 문의
+
+                  </button>
+                                                          <button type="button"
+                          name="typeTab"
+                          value="6"
+                          class="tab-segment-list__button "
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1">광고/제휴 문의
+
+                  </button>
+                                                          <button type="button"
+                          name="typeTab"
+                          value="7"
+                          class="tab-segment-list__button "
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1">제조/생산 문의
+
+                  </button>
+                                    </div>
+          <!-- 입점문의 -->
+          <div class="tab-segment-panel">
+            <p class="tab-segment-panel__title">문의 전 꼭 확인해주세요!</p>
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_0">
+              <li class="tab-segment-panel__list__normal">무신사 스토어는 자체 제작한 정품을 판매하고 취급하는 브랜드만 입점 가능합니다.(디자인 도용/공유, 라벨갈이 입점 불가)</li>
+              <li class="tab-segment-panel__list__normal">위탁 판매 방식으로 입점 가능하며, 배송/CS/상품등록 등 판매 및 사후관리가 불가능한 업체의 입점은 불가합니다.</li>
+              <li class="tab-segment-panel__list__normal">고객센터와 별도 메일을 통한 문의 및 접수는 불가하며, 기재하신 담당자 연락처 또는 이메일로 입점 심사 결과를 안내해 드립니다.</li>
+            </ul>
+            <!-- // 입점문의 -->
+            <!-- 이미지/저작권 -->
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_1" style="display:none">
+              <li class="tab-segment-panel__list__normal">무신사 스토어에서 사용 중인 이미지들은 브랜드 공식 이미지 외에 자체 촬영하여 운영되고 있습니다. 자체 촬영본은 외부에서 사용하실 수 없습니다.</li>
+              <li class="tab-segment-panel__list__normal">무신사 스토어에서 타사의 이미지를 사용하고 있다면 아래 항목을 입력하여 제출해 주세요.</li>
+            </ul>
+            <!-- // 이미지/저작권 -->
+            <!-- 협찬 -->
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_2" style="display:none">
+              <li class="tab-segment-panel__list__normal">방송, 매거진, 웹진 등 무신사 스토어의 제품을 사용하고 싶으신 경우. 해당 제품의 URL과 아래 항목을 입력하여 제출해 주세요.</li>
+              <li class="tab-segment-panel__list__normal">무신사 스토어의 일부 제품들은 협찬 및 대여가 어려울 수 있습니다.</li>
+            </ul>
+            <!-- //협찬 -->
+            <!-- 공동/대량구매 -->
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_3" style="display:none">
+              <li class="tab-segment-panel__list__normal">무신사 스토어 제품 공동구매 및 대량구매 문의는 아래 항목을 입력하여 제출해 주세요.</li>
+            </ul>
+            <!-- // 공동/대량구매 -->
+            <!-- 광고/제휴 -->
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_4" style="display:none">
+              <li class="tab-segment-panel__list__normal">무신사 스토어와의 사업 제휴에 대한 문의는 아래 항목을 입력하여 제출해 주세요.</li>
+              <li class="tab-segment-panel__list__normal">브랜드 미공개 광고문의는 답변드리지 않습니다.</li>
+            </ul>
+            <!-- // 광고/제휴 -->
+            <ul class="tab-segment-panel__list" id="tab_segment_panel_list_5" style="display:none">
+              <li class="tab-segment-panel__list__normal">무신사 스토어와 제조 및 생산에 대한 문의는 아래 항목을 입력하여 제출해 주세요.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 입점문의 전용 -->
+        <div class="contact-us__wrap contact-us__wrap--form entering_the_store">
+          <div class="member-form__table">
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="brandCategory" class="member-label">브랜드 대표 카테고리 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <!-- member-select__wrap--error -->
+                <div class="member-select__wrap">
+                  <select class="member-select validate" id="brandCategory" name="category" required="">
+                    <option value="" selected="selected">카테고리 선택</option>
+                    <option value="스트릿캐주얼">스트릿캐주얼</option>
+                    <option value="영/베이직캐주얼">영/베이직캐주얼</option>
+                    <option value="모던/포멀">모던/포멀</option>
+                    <option value="스포츠/아웃도어">스포츠/아웃도어</option>
+                    <option value="라이프/잡화">라이프/잡화</option>
+                    <option value="여성">여성</option>
+                    <option value="뷰티">뷰티</option>
+                    <option value="골프">골프</option>
+                    <option value="키즈">키즈</option>
+                  </select>
+                  <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="member-select__svg--dropdown">
+                    <path d="M6 6.5L12 0.5H0L6 6.5Z" fill="#919191" class="svg-color"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="entering_brand" class="member-label">브랜드명 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <!-- member-input__wrap--error -->
+                <div class="member-input__wrap">
+                  <input type="text" id="entering_brand" name="brand" placeholder="브랜드명" class="member-input validate">
+                </div>
+                <p class="member-input__error-text">필수 입력 항목입니다.</p>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="officialWebsite" class="member-label">공식 홈페이지 주소 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap">
+                  <input type="text" id="officialWebsite" name="officialWebsite" placeholder="공식 홈페이지 URL" class="member-input validate">
+                </div>
+                <p class="member-input__error-text">필수 입력 항목입니다.</p>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="salesChannel" class="member-label">자사몰 제외 대표 판매 채널</label>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap">
+                  <input type="text" id="salesChannel" name="salesChannel" placeholder="대표 판매 채널 URL" class="member-input">
+                </div>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="references" class="member-label">참고 자료 첨부</label>
+                <div class="member-label__tooltip">
+                  <button type="button" data-tooltip="member-label__tooltip--bottom" onclick="toggleToolTip(this); return false;">
+                    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" class="member-label__tooltip__icon">
+                      <title>툴팁 보기</title>
+                      <path d="M9 11.3V10.6972C9 10.0344 9.6142 9.51777 10.0761 9.04256C10.3385 8.7727 10.5 8.40449 10.5 7.99859C10.5 7.17094 9.82843 6.5 9 6.5C8.55988 6.5 8.16404 6.68937 7.88965 6.991C7.64755 7.25713 7.5 7.61065 7.5 7.99859M9 11.9V13.1" stroke="#919191"></path>
+                      <circle cx="9.00002" cy="9.50002" r="6.6" stroke="#919191"></circle>
+                    </svg>
+                  </button>
+                  <div class="member-label__tooltip--bottom">룩북 콘텐츠, 브랜드 소개서, 자체 디자인을
+                    <br>증명할 수 있는 작업지시서, 추후 발매 계획,
+                    <br>상품 소개 및 관련 내용을 입력해 주세요.
+                    <br>입력 시 빠른 입점 심사에 도움이 됩니다.
+                  </div>
+                </div>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap">
+                  <input type="text" id="references" name="references" placeholder="참고 자료 첨부 URL" class="member-input">
+                </div>
+                <p class="member-form__notification member-form__notification--textarea">파일 제출 시 구글 또는 네이버 공유 드라이브에 파일 첨부 후 드라이브 공유 URL을 입력해주세요.</p>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="content" class="member-label">회사, 상품 소개 및 관련 내용</label>
+              </div>
+              <div class="member-form__table__cell">
+                <textarea id="content" name="content" class="member-textarea" placeholder="내용입력"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- // 입점문의 전용 -->
+
+        <!-- 입점문의 입력폼 2 -->
+        <div class="contact-us__wrap contact-us__wrap--form entering_the_store">
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="entering_companyName" class="member-label">회사명 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="text" id="entering_companyName" name="companyName" placeholder="회사명" class="member-input validate">
+              </div>
+              <p class="member-input__error-text">필수 입력 항목입니다.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="BusinessRegistrationNumber" class="member-label">사업자 등록번호 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="text" id="BusinessRegistrationNumber" name="BusinessRegistrationNumber" placeholder="-없이 10자리 입력" class="member-input validate">
+                <input type="hidden" name="effective_chk" id="effective_chk">
+                <button type="button" class="member-input__button-text" disabled="disabled" onclick="businessRegistrationNumberConfirm(); return false;">인증요청</button>
+              </div>
+              <p class="member-input__error-text">사업자 등록번호를 인증해주세요.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="entering_company_address" class="member-label">사업장 주소 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap member-input__wrap--readonly-exception member-input__wrap--readonly">
+                <input type="number" id="entering_company_zip_code" name="company_zip_code" placeholder="우편번호" class="member-input validate" readonly="readonly" data-name="data-zipcode">
+                <button type="button" class="member-input__button-text"
+                        onClick="window.open('/order-service/delivery/find_kakao_zip_post','','width=504,height=688,resizable,scrollbars=yes,alwaysReised=yes');">
+                  주소 찾기
+                </button>
+              </div>
+              <div class="member-input__wrap member-input__wrap--readonly-exception member-input__wrap--readonly">
+                <input type="text" id="entering_company_address" name="company_address" title="주소 입력" placeholder="주소" class="member-input validate" readonly="readonly" data-name="data-addr1">
+              </div>
+              <div class="member-input__wrap">
+                <input type="text" id="entering_company_address2" name="company_address2" title="상세 주소 입력" placeholder="상세주소" class="member-input validate" data-name="data-addr2">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //입점문의 입력폼 2 -->
+
+        <!-- 입점문의 외 -->
+        <div class="contact-us__wrap contact-us__wrap--form non_entering_the_store" style="display:none">
+          <div class="member-form__table">
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="brand" class="member-label">브랜드명 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap">
+                  <input type="text" id="brand" name="brand" placeholder="브랜드명" class="member-input validate">
+                </div>
+                <p class="member-input__error-text">필수 입력 항목입니다.</p>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="companyName" class="member-label">회사명 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap">
+                  <input type="text" id="companyName" name="companyName" placeholder="회사명" class="member-input validate">
+                </div>
+                <p class="member-input__error-text">필수 입력 항목입니다.</p>
+              </div>
+            </div>
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="company_address" class="member-label">사업장 주소 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <div class="member-input__wrap member-input__wrap--readonly-exception member-input__wrap--readonly">
+                  <input type="number" id="company_zip_code" name="company_zip_code" placeholder="우편번호" class="member-input validate" readonly="readonly" data-name="data-zipcode">
+                  <button type="button" class="member-input__button-text"
+                          onClick="window.open('/order-service/delivery/find_kakao_zip_post','','width=504,height=688,resizable,scrollbars=yes,alwaysReised=yes');">
+                    주소 찾기
+                  </button>
+                </div>
+                <div class="member-input__wrap member-input__wrap--readonly-exception member-input__wrap--readonly">
+                  <input type="text" id="company_address" name="company_address" title="주소 입력" placeholder="주소" class="member-input validate" readonly="readonly" data-name="data-addr1">
+                </div>
+                <div class="member-input__wrap">
+                  <input type="text" id="company_address2" name="company_address2" title="상세 주소 입력" placeholder="상세주소" class="member-input validate" data-name="data-addr2">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //입점문의 외 -->
+
+        <!-- 입점문의 전용 3-->
+        <div class="contact-us__wrap contact-us__wrap--form entering_the_store">
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="skuNumber" class="member-label">판매 SKU 수량 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="number" id="skuNumber" name="skuNumber" placeholder="판매중인 상품의 SKU 수량을 입력해주세요" class="member-input validate">
+              </div>
+              <p class="member-input__error-text">필수 입력 항목입니다.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <p class="member-form__title">병행수입상품 포함 여부 <span class="member-form__title__essential">필수 입력</span>
+              </p>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-radio member-radio--button contact-us--store-entry-inquiry__toggle-button-wrap">
+                <input type="radio" name="parallelIncome" id="parallelIncome1" class="blind member-radio__radio" checked="checked" value="N">
+                <label for="parallelIncome1" class="member-radio__label">미포함</label>
+                <input type="radio" name="parallelIncome" id="parallelIncome2" class="blind member-radio__radio" value="Y">
+                <label for="parallelIncome2" class="member-radio__label">포함</label>
+              </div>
+              <!-- [D] 포함 선택 시: contact-us--store-entry-inquiry__toggle--active 추가 -->
+              <div class="contact-us--store-entry-inquiry__toggle">
+                <div class="member-input__wrap">
+                  <input type="text" id="goodsListUrl" name="goodsListUrl" title="상품리스트 공유 URL 입력" placeholder="상품리스트 공유 URL" class="member-input validate">
+                </div>
+                <p class="member-input__error-text">필수 입력 항목입니다.</p>
+                <p class="member-form__notification">병행수입상품 포함 시 판매 중인 상품 리스트 확인이 필요합니다.
+                  <br>구글 또는 네이버 드라이브에 병행수입 상품을 확인할 수 있는 상품 리스트 파일을 첨부 후 드라이브 공유 URL을 입력해 주세요.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <p class="member-form__title">도매 상품 보유 여부 <span class="member-form__title__essential">필수 입력</span>
+              </p>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-radio member-radio--button">
+                <input type="radio" name="wholesaleGoods" id="wholesaleGoods1" class="blind member-radio__radio" checked="checked" value="N">
+                <label for="wholesaleGoods1" class="member-radio__label">미보유</label>
+                <input type="radio" name="wholesaleGoods" id="wholesaleGoods2" class="blind member-radio__radio" value="Y">
+                <label for="wholesaleGoods2" class="member-radio__label">보유</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //입점문의 전용 3-->
+
+        <!-- 공통 입력폼 1 -->
+        <div class="contact-us__wrap contact-us__wrap--form">
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="presonInCharge" class="member-label">담당자명 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="text" id="presonInCharge" name="name" placeholder="담당자명" class="member-input validate">
+              </div>
+              <p class="member-input__error-text">필수 입력 항목입니다.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="phoneNumber" class="member-label">전화번호 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="number" id="phoneNumber" name="phoneNumber" placeholder="-없이 입력" class="member-input validate">
+              </div>
+              <p class="member-input__error-text">필수 입력 항목입니다.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="mobileNumber" class="member-label">휴대전화 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="number" id="mobileNumber" name="mobileNumber" placeholder="-없이 입력" class="member-input validate">
+                <button type="button" class="member-input__button-text" id="mobileNumberAuthBtn" disabled="disabled" onclick="mobileNumberAuth();"> 인증 요청</button>
+              </div>
+              <div class="member-input__wrap" id="authenticationNumberArea" style="display:none">
+                <input type="hidden" name="is_cert" id="is_cert">
+                <input type="number" id="authenticationNumber" name="authenticationNumber" title="인증번호 입력" placeholder="인증번호 입력" class="member-input validate">
+                <button type="button" class="member-input__button-text member-input__button-text--black" id="mobileNumberAuthConfirmBtn" onclick="mobileNumberAuthConfirm(); return false;" disabled="disabled">확인</button>
+              </div>
+              <p class="member-input__error-text" style="display:none">인증번호가 일치하지 않습니다.</p>
+            </div>
+          </div>
+          <div class="member-form__table__row">
+            <div class="member-form__table__title">
+              <label for="email" class="member-label">이메일 <span class="member-label__essential">필수 입력</span>
+              </label>
+            </div>
+            <div class="member-form__table__cell">
+              <div class="member-input__wrap">
+                <input type="email" id="email" name="email" placeholder="example@xxx.com" class="member-input validate">
+              </div>
+              <p class="member-input__error-text">이메일 주소를 형식에 맞게 입력해 주세요. ex) example@xxx.com</p>
+            </div>
+          </div>
+        </div>
+        <!-- 공통 입력폼 1 -->
+
+        <!-- 문의내용 영역 -->
+        <div class="contact-us__wrap contact-us__wrap--form non_entering_the_store">
+          <div class="member-form__table">
+            <div class="member-form__table__row">
+              <div class="member-form__table__title">
+                <label for="non_entering_the_store_content" class="member-label">문의내용 <span class="member-label__essential">필수 입력</span>
+                </label>
+              </div>
+              <div class="member-form__table__cell">
+                <textarea id="non_entering_the_store_content" name="content" class="member-textarea validate" placeholder="내용입력"></textarea>
+                <p class="member-textarea__error-text">필수 입력 항목입니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //문의내용 영역 -->
+
+        <!-- 유의사항 -->
+        <div class="contact-us__wrap">
+          <ul class="contact-us__wrap__precautions-list">
+            <li class="contact-us__wrap__precautions-list__normal">모든 등록 건은 담당자가 확인하여 이메일이나 전화로 회신드리오니, 중복 등록에 유의하여 주시기 바랍니다.</li>
+            <li class="contact-us__wrap__precautions-list__normal">용량이 큰 자료는 파일첨부나 이메일 수신이 불가합니다. 포털사이트/웹하드 공유 시스템을 이용하시기 바랍니다.</li>
+            <li class="contact-us__wrap__precautions-list__normal">파일명이 한글/영문/숫자를 제외한 특수문자 및 공백, 다른 나라 언어가 있을 경우 첨부되지 않으니 주의하시기 바랍니다.</li>
+            <li class="contact-us__wrap__precautions-list__normal">브랜드 정보를 상세하게 입력하셔야 빠른 처리가 가능하며, 단순 입점 방식에 대한 문의는 답변드리지 않습니다.</li>
+          </ul>
+        </div><!-- //유의사항 -->
+        <!-- 동의/제출 -->
+        <div class="contact-us__wrap">
+          <div class="member-checkbox contact-us__checkbox entering_the_store">
+            <input type="checkbox" id="agreement1" name="agreement1" class="blind">
+            <label for="agreement1" class="login-checkbox__label contact-us__checkbox__label">디자인 도용(공유) / 라벨갈이 브랜드에 해당하지 않으며, 입점 이후 발생 시 법적 조치에 동의합니다.</label>
+          </div>
+          <div class="contact-us__agreement-wrap--space">
+            <div class="member-checkbox">
+              <input type="checkbox" id="agreement2" name="agreement2" class="blind">
+              <label for="agreement2" class="login-checkbox__label">개인정보 수집 동의 (필수)</label>
+            </div>
+            <button type="button" class="contact-us__agreement__clause-button" onclick="toggleAgreement(); return false;">약관보기</button>
+          </div><!-- [D] 약관보기 토글 시 : contact-us__agreement__toggle--active 추가/삭제 -->
+          <div class="contact-us__agreement__toggle" id="agreementArea">
+  					<strong><개인정보 수집 및 이용에 대한 동의 내용></strong>
+					  <p>(주)무신사에서 입점 상담 신청을 위하여 아래와 같이 개인정보를 수집 및 이용합니다. 자세히 읽은 후 동의하여 주시기 바랍니다.</p>
+					  <br/>
+
+            <ul>
+              <li>- <strong>수집항목</strong>: 신청 업체 담당자의 정보 (성명, 전화번호, 휴대폰번호, 이메일 주소)</li>
+              <li>- <strong>이용목적</strong>: 입점 신청 업체의 상담을 위한 수집, 입점, 상담 관련 민원 사무 처리.</li>
+              <li>- <strong style="text-decoration: solid underline">보유기간: 입점상담 이후, 승인된 업체의 경우 목적 달성 후 파기 (입점보류 업체의 경우 5일 보관 후 안전하게 파기)</strong></li>
+            </ul>
+
+            <br />
+            <p>※ 수집한 개인정보는 입점을 위한 상담 외 다른 목적으로는 이용되지 않습니다.</p>
+            <p>※ 개인정보 수집 이용 동의를 거부할 권리가 있습니다. 다만, 동의를 하지 않을 경우 입점관련 상담이 불가능합니다.</p>
+
+            <br />
+          </div>
+          <div class="member-button">
+            <button type="button" class="member-button__button member-button__button--160 member-button__button--contained-black" onclick="submitForm(); return false;">제출하기</button>
+          </div>
+        </div><!-- //동의/제출 -->
+      </form>
+      <div id="footerCommonPc"></div>
+<meta name="google-site-verification" content="NqB0BDAEWJTvAPCCxzrckJYnS7-xJILFU40FvSmh5S8" />
+<script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/jquery.url.packed.js" async="true"></script>
+
+<script src="//static.msscdn.net/platform/js/common.js"></script>
+    </div>
+</div>
+</body>
+</html>
+
+<div><span class="css-1ngmd9p eowe0682">판매 관련 파일 첨부</span></div></header><div class="css-1cg4gp6 eowe0681"><div direction="HORIZONTAL" class="css-f01xj1 eowe0680"><div direction="VERTICAL" class="css-273rru exxci1a3"><div class="css-jep5cb exxci1a0"><div data-testid="goods.referenceDoc" type="file" teamsegment="commerce-operations/partner" class="css-1a515p6 e1tnqwfn4"><div><div><label class="e1tnqwfn3 css-1pyv772"><span class="css-1989ovb">파일 선택</span><input data-testid="goods.referenceDoc-upload-button" type="file" class="css-ebd3ti"></label><span class="css-1v78gsn e1tnqwfn0">선택된 파일이 없습니다.</span><div class="css-3gkrs9 e1aers141"><span>※ 참고할 수 있는 파일을 10MB 용량 이하의 이미지, ZIP, PDF 등의 파일 형태로 첨부해주세요.<br>첨부파일 관련 URL 주소가 있다면 상품 소개 입력창에 남겨주세요.</span></div></div>
