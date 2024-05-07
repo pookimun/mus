@@ -5,19 +5,20 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.b01.constant.ItemSellStatus;
+import org.zerock.b01.dto.ItemFormDTO;
 
 
 @Entity
 @Table(name = "item")
 @Getter @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-@EntityListeners(value = {AuditingEntityListener.class})
-public class Item {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item extends BaseEntity{
 
     @Id
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ino; //상품  (pk)
 
@@ -28,28 +29,22 @@ public class Item {
     @Column(length = 100, nullable = false) // not null
     private int i_price; //상품 가격
 
-    // not null
-    private String i_title_img; //대표이미지
-
-    // not null
-    private String i_info_img; //설명이미지
-
-
-    private String i_color; //색상
-
-    private String i_size; //사이즈
-
-    // not null
+    @Column(nullable = false)
     private int i_stock; //재고보유여부
+
+    @Lob // Large Object -> CLOB, BLOB 타입으로 매핑 가능
+    @Column(nullable = false)
+    private String itemDetail; // 상품 상세 설명
 
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
 
-    public void change(String i_name, int i_price, String i_color, String i_size) {
-        this.i_name = i_name;
-        this.i_price = i_price;
-        this.i_color = i_color;
-        this.i_size = i_size;
+    public void change(ItemFormDTO itemFormDTO) {
+        this.i_name = itemFormDTO.getI_name();
+        this.i_price = itemFormDTO.getI_price();
+        this.i_stock = itemFormDTO.getI_price();
+        this.itemDetail = itemFormDTO.getItemDetail();
+        this.itemSellStatus = itemFormDTO.getItemSellStatus();
     }
 }

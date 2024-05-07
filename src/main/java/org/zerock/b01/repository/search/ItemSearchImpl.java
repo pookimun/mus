@@ -47,10 +47,7 @@ public class ItemSearchImpl extends QuerydslRepositorySupport implements ItemSea
                         booleanBuilder.or(item.i_name.contains(keyword));
                         break;
                     case "c":
-                        booleanBuilder.or(item.i_color.contains(keyword));
-                        break;
-                    case "s":
-                        booleanBuilder.or(item.i_size.contains(keyword));
+                        booleanBuilder.or(item.itemDetail.contains(keyword));
                         break;
                 }
             }//end for
