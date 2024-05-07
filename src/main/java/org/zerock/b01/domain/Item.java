@@ -3,19 +3,18 @@ package org.zerock.b01.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.zerock.b01.constant.ItemSellStatus;
+import org.zerock.b01.dto.ItemFormDTO;
 
 
 @Entity
+@Table(name = "item")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString (exclude = "itemImageSet")
+@ToString
 @EntityListeners(value = {AuditingEntityListener.class})
 public class Item {
 
@@ -68,9 +67,15 @@ public class Item {
         itemImageSet.forEach(ItemImage -> ItemImage.changeItem(null));
 
         this.itemImageSet.clear();
+
     }
 
+    @Lob // Large Object -> CLOB, BLOB 타입으로 매핑 가능
+    @Column(nullable = false)
+    private String itemDetail; // 상품 상세 설명
 
+    @Enumerated(EnumType.STRING)
+    private ItemSellStatus itemSellStatus; //상품 판매 상태
 
 
     public void change(String i_name, int i_price, String i_color, String i_size) {
@@ -79,6 +84,4 @@ public class Item {
         this.i_color = i_color;
         this.i_size = i_size;
     }
-
-
 }

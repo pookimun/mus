@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,8 +18,10 @@ import org.zerock.b01.domain.Address;
 import org.zerock.b01.dto.*;
 import org.zerock.b01.service.AddressService;
 import org.zerock.b01.service.BoardService;
+import org.zerock.b01.service.MemberService;
 import org.zerock.b01.service.OrdersService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -29,36 +32,56 @@ public class OrdersController {
 
     private final OrdersService ordersService;
     private final AddressService addressService;
+    private final MemberService memberService;
 
-    @GetMapping( "/orders")
-    public void orders(PageRequestDTO pageRequestDTO, Model model){
-
-//        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
-//
-//        PageResponseDTO<BoardListAllDTO> responseDTO =
-//                boardService.listWithAll(pageRequestDTO);
-//
-//        log.info(responseDTO);
-//
-//        model.addAttribute("responseDTO", responseDTO);
+    @PreAuthorize("permitAll()")
+    @GetMapping( "/orders") // 주문서
+    public void orders(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO, Model model){ // , Long[] cnos
+        log.info("orders 컨트롤러 실행 ... ");
+//        for(Long cno : cnos){
+//            // 여기 하는중 !!
+//        }
+        log.info(principal);
+        MemberDTO memberDTO = memberService.readMember(principal.getName());
+        log.info(memberDTO.getM_point());
+        model.addAttribute("memberPoint", memberDTO.getM_point());
     }
 
+    // 주문서에는 상품에서 정보가 넘어와서 출력이 되어야 하는데, 아직 어떻게 받을지 모르겠음 !!
+
+//    log.info("orders 실행"); 주문내역 조회에서 사용 !
+//    OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+//        log.info(ordersPageRequestDTO);
+//        log.info(result);
+//
+//        model.addAttribute("resultList", result);
+
+    @PreAuthorize("permitAll()")
     @GetMapping("/address/list") // 배송지 선택
-    public void addressList(@Param("member") String member, Model model){
+    public void addressList(Principal principal, Model model){
+        log.info("addressList 컨트롤러 실행");
+        String member = principal.getName();
+        log.info(member);
         List<AddressDTO> result = addressService.getList(member);
         log.info(result);
         model.addAttribute("addressDTOList", result);
         int resultCount = addressService.ListCount(member);
-        model.addAttribute("addressCount", resultCount);
+        model.addAttribute("addressCount", resultCount); // 배송지 개수 제한을 위해 추가
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/address/register") // 신규 배송지 추가
     public void addressRegister(){
 
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping("/address/register")
-    public String addressRegisterPost(@Valid AddressDTO addressDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String addressRegisterPost(Principal principal, @Valid AddressDTO addressDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        String member = principal.getName();
+        log.info("주소 등록 " + member);
+        addressDTO.setMember(member);
+
         if(bindingResult.hasErrors()) {
             log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
@@ -78,6 +101,7 @@ public class OrdersController {
         // register 성공 시 현재 창을 닫고 부모 창을 reload 한다.
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/address/modify")
     public void addressModify(@Param("ano") Long ano, Model model){ // 배송지 수정
         log.info("ano : " + ano);
@@ -86,6 +110,7 @@ public class OrdersController {
         model.addAttribute("dto", addressDTO);
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping("/address/modify")
     public String addressModifyPost(@Valid AddressDTO addressDTO,
                                     BindingResult bindingResult,
@@ -102,6 +127,7 @@ public class OrdersController {
         return "redirect:/orders/address/modify?ano="+addressDTO.getA_no();
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping("/address/remove")
     public String addressRemove(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
         Long a_no = addressDTO.getA_no();
@@ -111,6 +137,7 @@ public class OrdersController {
         return "redirect:/orders/address/list?member=" + addressDTO.getMember();
     }
 
+    @PreAuthorize("permitAll()")
     @PostMapping("/address/read")
     public String addressRead(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
         log.info(addressDTO);
@@ -121,5 +148,10 @@ public class OrdersController {
         return null; // 값을 가지고 주문서로 이동 !
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/success")
+    public void ordersSuccess(){
+
+    }
 
 }

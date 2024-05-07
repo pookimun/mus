@@ -27,7 +27,7 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     // member를 받아 사용중인 배송지 리스트의 개수를 반환한다.
 
     @Query("select a from Address a where a.member = :member and a.a_basic = 1")
-    List<Address> memberAddressBasic(String member);
+    Optional<Address> memberAddressBasic(String member);
     // member를 받아 기본배송지로 저장된 Address를 가져온다.
 
 }

@@ -39,32 +39,23 @@ public class AddressServiceImpl implements AddressService{
         Address address = dtoToEntity(addressDTO);
         address.changeUse(1);
         // 배송지 작성 시 무조건 a_use 값은 1로 들어가게 함
-
-        Long a_no = null;
-        if(address.getA_basic() == 1){ // 기본배송지로 등록하고 싶다고 하면 실행
-            // 기본배송지가 있는지 없는지 확인 후
-            // 기본배송지가 있으면 : 저장하지않고 null 리턴
-            // 기본배송지가 없으면 : 저장하고 저장된 a_no 값 리턴
-            a_no = defaultAddress(address);
-        } else {
-            a_no = addressRepository.save(address).getA_no();
-        }
-
+        Long a_no = addressRepository.save(address).getA_no();
         return a_no;
     }
 
     @Override
-    // ServiceImpl 내부에서 동작하는 메서드이기 때문에 엔티티를 받는다.
-    public Long defaultAddress(Address address) {
+    public Address defaultAddressCheck(String member) {
+        // AddressDTO를 리턴하도록 수정해야함 ........... !!!!!!!!!!!!!!!!!!!
         // 기본배송지가 있는지 없는지 확인 후
         // 기본배송지가 있으면 : 저장하지않고 null 리턴
         // 기본배송지가 없으면 : 저장하고 저장된 a_no 값 리턴
-        Long a_no = null;
-        List<Address> basicAddress = addressRepository.memberAddressBasic(address.getMember());
-        if (basicAddress.size() == 0){ // 기본배송지가 없으면
-            a_no = addressRepository.save(address).getA_no();
+
+        Address defAddress = null;
+        Optional<Address> result = addressRepository.memberAddressBasic(member);
+        if (!result.isEmpty()){ // 기본배송지가 있으면
+            defAddress = result.orElseThrow();
         }
-        return a_no;
+        return defAddress;
     }
 
     @Override

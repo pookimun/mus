@@ -90,7 +90,6 @@ public class ItemServiceImpl implements ItemService{
 
         Item item = result.orElseThrow();
 
-        item.change(itemDTO.getI_name(),itemDTO.getI_price(),itemDTO.getI_color(),itemDTO.getI_size());
 
         //첨부파일의 처리
         item.clearImages();

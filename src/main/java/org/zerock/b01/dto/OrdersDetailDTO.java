@@ -15,6 +15,9 @@ public class OrdersDetailDTO {
     // 주문 상세 번호
     private Long od_no;
 
+    // 주문 테이블 번호
+    private Long orders;
+
     // 선택한 상품
     private ItemDTO itemDTO;
 

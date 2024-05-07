@@ -59,6 +59,29 @@ public class Orders {
     @BatchSize(size = 20)
     private Set<OrdersDetail> ordersDetailSet = new HashSet<>();
 
+    // 총 결제금액
+    @Column(nullable = false)
+    private int totalPrice;
+
+    // 적립금 선할인 금액
+    private int pointFirstUse;
+
+    // 적립금 사용금액
+    private int pointUse;
+
+    // 결제수단
+    @Column(nullable = false)
+    private String paymentMethod;
+
+    // 일반결제 시 카드사
+    private String cardCompany;
+
+    // 일반결제 시 할부정보
+    private int installment;
+
+    // 결제성공 여부
+    private int paymentSuccess;
+
     @PrePersist // 엔티티가 데이터베이스에 저장되기 전에 실행
     public void insertO_ordersno() {
         System.out.println("insertO_orderno() 실행 ~!~!~!~!~!~!~!~!~!~!");
@@ -76,10 +99,6 @@ public class Orders {
                 .ino(ordersDetailDTO.getItemDTO().getIno())
                 .i_name(ordersDetailDTO.getItemDTO().getI_name())
                 .i_price(ordersDetailDTO.getItemDTO().getI_price())
-                .i_title_img(ordersDetailDTO.getItemDTO().getI_title_img())
-                .i_info_img(ordersDetailDTO.getItemDTO().getI_info_img())
-                .i_color(ordersDetailDTO.getItemDTO().getI_color())
-                .i_size(ordersDetailDTO.getItemDTO().getI_size())
                 .i_stock(ordersDetailDTO.getItemDTO().getI_stock())
                 .build();
 
@@ -94,6 +113,10 @@ public class Orders {
                 .build();
         ordersDetailSet.add(ordersDetail); // Set<OrdersDetail>에 추가
         });
+    }
+
+    public void paymentSuccess(){
+        this.paymentSuccess = 1;
     }
 
 
