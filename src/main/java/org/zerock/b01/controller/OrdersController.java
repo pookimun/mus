@@ -39,12 +39,17 @@ public class OrdersController {
     public void orders(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO, Model model){ // , Long[] cnos
         log.info("orders 컨트롤러 실행 ... ");
 //        for(Long cno : cnos){
-//            // 여기 하는중 !!
+//            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 List<CartAllDTO>로 저장하고 orders 페이지에서 출력한당
 //        }
         log.info(principal);
         MemberDTO memberDTO = memberService.readMember(principal.getName());
         log.info(memberDTO.getM_point());
         model.addAttribute("memberPoint", memberDTO.getM_point());
+    }
+
+    @GetMapping("/list")
+    public void ordersList(){
+
     }
 
     // 주문서에는 상품에서 정보가 넘어와서 출력이 되어야 하는데, 아직 어떻게 받을지 모르겠음 !!
@@ -153,5 +158,19 @@ public class OrdersController {
     public void ordersSuccess(){
 
     }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/cancel")
+    public void ordersCancel(){
+        log.info("ordersCancel");
+    }
+
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/fail")
+    public void ordersFail(){
+        log.info("ordersFail");
+    }
+
 
 }
