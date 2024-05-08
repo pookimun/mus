@@ -39,6 +39,19 @@ public class OrdersServiceImpl implements OrdersService{
         // 부모 엔티티인 Orders 먼저 save 후에
         log.info(orders);
         Orders savedOrders = ordersRepository.save(orders);
+        log.info(savedOrders);
+        // 저장 후 주문번호가 겹치는게 있는지 검증
+        // 주문번호가 같은 객체 찾아온다.(위에서 저장을 한 번 했기 때문에 2이상일 때 겹침을 뜻함)
+        int clash = ordersRepository.ordersnoSelect(savedOrders.getO_ordersno());
+        log.info("겹침여부 : " + clash);
+        while(clash > 1){ // 주문번호가 겹친다면
+            savedOrders.newO_ordersno(); // 새로운 주문번호 받기
+            log.info(savedOrders);
+            savedOrders = ordersRepository.save(savedOrders); // update
+            log.info(savedOrders);
+            clash = ordersRepository.ordersnoSelect(savedOrders.getO_ordersno());
+            log.info("수정 후 겹침여부 : " + clash);
+        }
         for(OrdersDetail ordersDetail : savedOrders.getOrdersDetailSet()){
             ordersDetail.changeOrders(savedOrders);
         }

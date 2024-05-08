@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>주문내역 조회(상세)</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        th, td {
+            border: 1px solid darkgray;
+            padding: 8px;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <div>
+        <div style="margin-left: 5%">
+            <h1 style="margin-bottom: 5%">주문 상세 내역</h1>
+            <div>
+                <span>주문번호&nbsp;<strong>[[${dto.o_ordersno}]]</strong></span>&nbsp;&nbsp;
+                <span>주문일자&nbsp;<strong th:text="${#temporals.format(dto.o_date, 'yyyy/MM/dd HH:mm:ss')}"></strong></span>
+            </div>
+        </div>
+        <div style="margin-bottom: 5%">
+            <th:block th:each="details:${dto.ordersDetailDTOList}">
+                <h2 style="margin-left: 5%">상품 정보</h2>
+                <table>
+                    <colgroup>
+                        <col style="width:40%">
+                        <col style="width:20%">
+                        <col style="width:10%">
+                        <col style="width:20%">
+                        <col style="width:10%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>상품정보</th>
+                        <th>주문금액(수량)</th>
+                        <th>적립금 선할인</th>
+                        <th>배송비</th>
+                        <th>주문 상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td> <!--상품정보-->
+                            <div>
+
+                                <a href="/app/goods/2414779/0">
+                                    <img alt="pearl t-shirt(white)"
+                                         src="//image.msscdn.net/images/goods_img/20220314/2414779/2414779_17057648656692_100.jpg">
+                                </a>
+                                <ul>
+                                    <li><a href="/app/goods/2414779/0"><strong>[[${details.itemDTO.i_name}]]</strong></a></li>
+                                    <li>
+                                        색상 : [[${details.od_color}]]
+                                    </li>
+                                    <li>
+                                        사이즈 : [[${details.od_size}]]
+                                    </li>
+                                </ul>
+                            </div>
+                        </td> <!--상품정보-->
+                        <td> <!--주문금액(수량)-->
+                            [[${details.od_price * details.od_count}]]원
+                            <span>([[${details.od_count}]]개)</span>
+                        </td> <!--주문금액(수량)-->
+                        <td> <!--적립금 선할인-->
+                            -365원(구현중)
+                        </td> <!--적립금 선할인-->
+                        <td> <!--배송비-->
+                            무료배송
+                        </td> <!--배송비-->
+                        <td> <!--주문상태-->
+                            [[${dto.o_state}]]
+                        </td> <!--주문상태-->
+                    </tr>
+                    </tbody>
+                </table>
+            </th:block>
+        </div>
+        <div>
+            <div style="margin-bottom: 5%">
+                <h2 style="margin-left: 5%">배송지 정보</h2>
+                <table>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:90%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>이름</th>
+                        <td>[[${dto.addressDTO.a_recipient}]]</td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>[[${dto.addressDTO.a_phone}]]</td>
+                    </tr>
+                    <tr>
+                        <th>배송지 주소</th>
+                        <td>([[${dto.addressDTO.a_zipCode}]]) &nbsp; [[${dto.addressDTO.a_address + "  " + dto.addressDTO.a_detail}]]</td>
+                    </tr>
+                    <tr>
+                        <th>배송 메시지</th>
+                        <td>
+                            [[${dto.addressDTO.a_request}]]
+                            <span th:if="${dto.addressDTO.a_request == '직접 입력'}">: &nbsp;[[${dto.addressDTO.a_customRequest}]]</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-bottom: 5%">
+                <h2 style="margin-left: 5%">최종 결제 정보</h2>
+                <table>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:90%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>상품 합계</th>
+                        <td><span>[[${dto.totalPrice + dto.pointFirstUse + dto.pointUse}]]</span>원</td> <!--[[${totalAmount}]]-->
+                    </tr>
+                    <tr>
+                        <th>배송비 합계</th>
+                        <td><p>배송비 무료</p></td>
+                    </tr>
+                    <tr>
+                        <th><strong>할인 합계<br>(내역보기 click)</strong></th>
+                        <td>
+                            <p>
+                                <strong>-<span>[[${dto.pointFirstUse + dto.pointUse}]]</span>원</strong>
+                            </p>
+                            <div style="display: none"> <!--할인합계내역-->
+                                <div>
+                                    <p>적립금 선할인</p>
+                                    <p>-803원(구현중)</p>
+                                </div>
+                                <div>
+                                    <p>적립금 사용</p>
+                                    <p>-[[${dto.pointUse}]]</p>
+                                </div>
+                            </div> <!--할인합계내역-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><strong>최종 결제 금액</strong></th>
+                        <td><strong>[[${dto.totalPrice}]]원</strong></td>
+                    </tr>
+                    <tr>
+                        <th>결제 수단</th>
+                        <td><p>[[${dto.paymentMethod}]]</p></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+
+</script>
+</div>
