@@ -71,16 +71,12 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-    //문자 전송
-    implementation 'net.nurigo:sdk:4.3.0'
+    //spring email
+    implementation 'javax.mail:mail:1.4.7'
+    implementation 'org.springframework:spring-context-support:5.3.9'
 
-    //네이버 메일 전송
-    /*implementation 'org.springframework.boot:spring-boot-starter-mail'*/
-
-    implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.5'
-    implementation 'org.springframework:spring-context:6.0.7'
-    implementation 'org.springframework:spring-context-support:6.0.7'
-    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {

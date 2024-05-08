@@ -264,25 +264,25 @@
 
             <h3 style="margin-top: 80px;">필수사항</h3>
 
-            <form id="registerForm" method="post">
+            <form action="/member/join" id="registerForm" method="post">
 
                 <span class="required">
 
                 <div class="id_section" style="width: 20%; float: left;">
-                    <div className="input-box-body">
                     <label><span>ID</span>
-                    <input name="mid" id="id" type="text" className="input-box-input">
+                    <input name="mid" id="id" type="text">
                     </label>
-                    <div className="buttonClass" onclick="onButtonClick()">중복 확인</div>
-                    </div>
-                    <div className="input-box-message">사용 가능한 아이디 입니다.</div>
                 </div>
 
                 <div style="width: 30px; float: left;">
                     <label><input type="text" value="@" readonly><label>
                 </div>
 
+                <div class="id_section" style="width: 30%; float: left;">
+                    <label>
                     <input name="m_email" id="email" type="text">
+                    </label>
+                </div>
                     <!--<button class="btn authentication_btn" type="button">메일 인증</button>-->
 
                 <label><span>비밀번호</span>
@@ -766,8 +766,6 @@
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <script>
         function goToFirstNotAgreed() {
             var individualAgreeCheckboxes = document.querySelectorAll("input[class='terms']:not(#allAgree)");
@@ -837,18 +835,6 @@
                     alert("필수 항목에 동의해야 합니다!");
                     goToFirstNotAgreed();
                 }
-
-                debugger
-                    var to = $('input[name="m_email"]').val();
-                let email = {"email":to};
-                kakaoPayReady(email);
-                async function kakaoPayReady(email){
-                    console.log("kakaoPayReady 실행 ...")
-                    debugger
-                    const response = await axios.post(`/member/join`, email)
-                    console.log(response)
-                    return response.data
-                }
             }
         }
 
@@ -873,6 +859,36 @@
     </script>
 
     <script>
+        $('#memberPhoneCheck').click(function(e){
+            e.preventDefault();
+
+            var to = $('input[name="memberPhone"]').val();
+            $.ajax({
+                url : "/send-one",
+                type : "POST",
+                data : "to=" + to,
+                dataType : "json",
+                success : function(data) {
+                    const checkNum = data;
+                    alert('checkNum:'+ checkNum);
+
+                    //인증하기 버튼 클릭 이벤트
+                    $('#certifyCheck').click(function(){
+                        const userNum = $('input[name="memberPhoneCertify"]').val();
+                        if(checkNum == userNum){
+                            alert('인증 성공하였습니다.');
+                        }else {
+                            alert('인증 실패하였습니다. 다시 입력해주세요.');
+                        }
+                    });
+
+                },
+                error : function() {
+                    alert("에러")
+                }
+            });
+        });
+
         $('.open-popup-link').magnificPopup({
             type:'inline',
             midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
@@ -887,7 +903,4 @@
     if(error && error === 'mid'){
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
-
-    const buttonClass = value === '' ? 'input-box-button-dsable' : 'input-box-button';
-    const messageClass = isErrorMessage ? 'input-box-message-error' : 'input-box-message';
 </script>

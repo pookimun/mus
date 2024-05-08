@@ -850,11 +850,11 @@
 				<div id="home" class="tab-pane fade in active">
 					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">이름</span> <input type="text" id="user_name" name="user_name" class="inp_comm required" title="user_name" placeholder=" 이름을 입력하세요.">
 					</label>
-					<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
+					<label for="user_phone" class="inp inp_text"> <span class="inp_tit eng">가입하신 이메일 주소</span> <input type="tel" id="user_phone" name="user_phone" placeholder=" '-'를 제외하여 입력하세요." class="inp_comm required" title="user_phone"
 																												 onkeyup="enterkey(event,'frm1', '');">
 						<input type="submit" name="user_phoneSubmit" value="인증번호 전송" class="user_phoneSubmit">
 					</label>
-					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증번호</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자 입력" class="inp_comm required" title="user_name">
+					<label for="user_name" class="inp inp_text"> <span class="inp_tit eng">인증</span> <input type="text" id="user_name" name="user_name" placeholder=" 인증번호 6자리 숫자 입력" class="inp_comm required" title="user_name">
 					</label>
 					<div>
 						<a href="#" class="bt">확인</a>
@@ -876,7 +876,7 @@
 			</div>
 		</div>
 		<!--퍼옴-->
-		<form action="/members/send-one" method="post">
+		<form action="/send-one" method="post">
 			<div class="form-group phoneCertifyDiv">
 				<label class="inputTitle">휴대폰 번호</label><br>
 				<div class="phoneNum-formgroup">
@@ -888,7 +888,7 @@
 				</div>
 				<div class="phoneNum-formgroup" id="phoneCertifyDiv">
 					<input type="text" name="memberPhoneCertify" class="phoneNum">
-					<input type="button" id="certifyCheck" class="btn memberPhoneBtn" value="인증하기">
+					<!--<input type="button" id="certifyCheck" class="btn memberPhoneBtn" value="인증하기">-->
 				</div>
 			</div>
 		</form>
