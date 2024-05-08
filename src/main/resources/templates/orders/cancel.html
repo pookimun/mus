@@ -15,16 +15,16 @@
     <h2>사용자의 요청에 의해 결제가 취소되었습니다.</h2>
     <div>
         <button>장바구니이동</button> <!--장바구니로 이동하기-->
-        <button>주문내역조회</button> <!--주문내역 조회 페이지 연결예정-->
+        <button id="ordersListViewBtn">주문내역조회</button> <!--주문내역 조회 페이지 연결예정-->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script th:inline="javascript">
         $(document).ready(function () {
             debugger
-            const member = [[${#authentication.principal.username}]];
-            let msgTag = $('#member');
-            msgTag.text(member + "님, 주문해주셔서 감사합니다.");
+            $("#ordersListViewBtn").on("click", function () {
+                window.location.href = "/orders/list";
+            })
         });
     </script>
 </div>

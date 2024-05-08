@@ -70,7 +70,7 @@ public class KakaoPayController {
         }
         log.info("ordersDetailDTOList : " + ordersDetailDTOList);
         ordersListDTO.setOrdersDetailDTOList(ordersDetailDTOList);
-        Long ono = ordersService.register(ordersListDTO);
+        Long ono = ordersService.register(ordersListDTO); // 저장
         return kakaoPayService.kakaoPayReady(ono);
     }
 

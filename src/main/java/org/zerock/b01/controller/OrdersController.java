@@ -55,10 +55,20 @@ public class OrdersController {
         OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
         log.info(ordersPageRequestDTO);
         log.info(result);
-        model.addAttribute("resultList", result);
+        model.addAttribute("responseDTO", result);
     }
 
     // 주문서에는 상품에서 정보가 넘어와서 출력이 되어야 하는데, 아직 어떻게 받을지 모르겠음 !!
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/detail")
+    public void ordersDetail(@Param("ono") Long ono, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
+        // 주문번호 클릭 시 보이는 상세 조회 페이지
+        log.info("상세조회 컨트롤러 실행 ... ono : " + ono);
+        OrdersListDTO ordersListDTO = ordersService.readOne(ono);
+        log.info(ordersListDTO);
+        model.addAttribute("dto", ordersListDTO);
+    }
 
 
     @PreAuthorize("permitAll()")
@@ -73,6 +83,8 @@ public class OrdersController {
         int resultCount = addressService.ListCount(member);
         model.addAttribute("addressCount", resultCount); // 배송지 개수 제한을 위해 추가
     }
+
+
 
     @PreAuthorize("permitAll()")
     @GetMapping("/address/register") // 신규 배송지 추가
