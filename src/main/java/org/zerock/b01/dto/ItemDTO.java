@@ -36,7 +36,6 @@ public class ItemDTO {
 
     private List<String> fileNames; //첨부 파일 이름들
 
-    private String itemDetail;  // 상품 상세정보
 
     private ItemSellStatus itemSellStatus;
 
