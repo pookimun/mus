@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -27,10 +26,11 @@
                 <p>재고: <span th:text="${itemDTO.i_stock}"></span></p>
             </div>
             <div class="col">
-                <img th:src="@{${itemDTO.i_title_img}}" class="img-thumbnail" alt="대표 이미지">
-                <br><br>
-                <img th:src="@{${itemDTO.i_info_img}}" class="img-thumbnail" alt="설명 이미지">
-            </div>
+                <div class="card" th:if="${itemDTO.fileNames != null && itemDTO.fileNames.size() > 0}">
+                    <img class="card-img-top"
+                         th:each="filename: ${itemDTO.fileNames}"
+                         th:src="|/view/${filename}|">
+                </div>
         </div>
     </div>
 </div>
