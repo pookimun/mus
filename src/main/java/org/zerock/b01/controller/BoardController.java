@@ -77,7 +77,7 @@ public class BoardController {
         model.addAttribute("responseDTO", responseDTO);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("has('USER')")
     @GetMapping("/register")
     public void registerGET(){
 

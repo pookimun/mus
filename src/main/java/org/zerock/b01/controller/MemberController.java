@@ -2,6 +2,7 @@ package org.zerock.b01.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,21 +30,20 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-
     @GetMapping("/join")
     public void joinGET(){
 
         log.info("join get...");
 
     }
-    @PostMapping("/join")
-    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+/*    @PostMapping("/join")
+    public String joinPOST(MemberJoinDTO memberJoinDTO, HttpSession session, RedirectAttributes redirectAttributes) {
 
         log.info("join post...");
         log.info(memberJoinDTO);
 
         try {
-            memberService.join(memberJoinDTO);
+            memberService.join(memberJoinDTO, session);
         } catch (MemberService.midExistException e) {
 
             redirectAttributes.addFlashAttribute("error", "mid");
@@ -53,7 +53,7 @@ public class MemberController {
         redirectAttributes.addFlashAttribute("result", "success");
 
         return "redirect:/member/login"; //회원 가입 후 로그인
-    }
+    }*/
 
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
@@ -108,6 +108,13 @@ public class MemberController {
 */
 
     @GetMapping("/forgot")
-    public void forgotGet() {
+    public String forgotGet(HttpSession session) {
+        String token = (String) session.getAttribute("signupToken");
+        return token;
     }
+
+/*    @PostMapping("/forgot")
+    public void forgotPost() {
+
+    }*/
 }
