@@ -1,207 +1,154 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
-    <title>Board Register</title>
+    <title>상품 등록 폼</title>
+    <style>
+        /*.img-thumbnail {*/
+        /*  max-width: 150px;*/
+        /*  max-height: 150px;*/
+        /*}*/
+        /*.form-control {*/
+        /*  border-radius: 0;*/
+        /*  border-color: #ccc;*/
+        /*}*/
+        /*.form-label {*/
+        /*  font-weight: bold;*/
+        /*}*/
+        /*.btn-primary {*/
+        /*  background-color: #333;*/
+        /*  border-color: #333;*/
+        /*}*/
+        /*.btn-primary:hover {*/
+        /*  background-color: #555;*/
+        /*  border-color: #555;*/
+        /*}*/
+    </style>
 </head>
 
 <div layout:fragment="content">
-    <div class="row mt-3">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Board Register
-                </div>
-                <div class="card-body">
-                    <form action="/admin/register" method="post">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Title</span>
-                            <input type="text" name="i_name" class="form-control" placeholder="i_name">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Content</span>
-                            <textarea class="form-control col-sm-5" rows="5" name="i_color"></textarea>
-                        </div>
-
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Images</span>
-                            <div class="float-end uploadHidden">
-                                <button type="button" class="btn btn-primary uploadFileBtn">ADD Files</button>
-                            </div>
-                        </div>
-
-                        <div class="my-4">
-                            <div class="float-end">
-                                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
-                            </div>
-                        </div>
-
-
-                    </form>
-                </div><!--end card body-->
-
-            </div><!--end card-->
-        </div><!-- end col-->
-    </div><!-- end row-->
-
-    <!—- 첨부 파일 섬네일을 보여줄 부분 -->
-    <div class="row mt-3">
-        <div class="col ">
-            <div class="container-fluid d-flex uploadResult" style="flex-wrap: wrap;">
+    <div>
+        <h2>상품 등록 폼</h2>
+        <form id="formTAG" action="/admin/register" method="post">
+            <div>
+                <label for="itemName">상품명</label>
+                <input id="itemName" name="i_name" type="text" required>
             </div>
-        </div>
+            <div>
+                <label for="itemPrice">상품 가격</label>
+                <div>
+                    <span>₩</span>
+                    <input id="itemPrice" type="number" name="i_price" required>
+                </div>
+            </div>
+            <div id="uploadFileNamesDIV"> <!--업로드를 위한 파일 이름을 담기 위한 DIV 생성-->
+                <div>
+                    <label for="itemTitleImage">대표 이미지</label>
+                    <input type="file" id="itemTitleImage" name="files"
+                           onchange="previewImage(event, 'titlePreview')" required>
+                    <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
+                    이 함수에는 두 개의 인수가 전달됩니다.
+                    첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
+                     또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
+
+                    <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
+                </div>
+                <div>
+                    <label for="itemInfoImage">설명 이미지</label>
+                    <input type="file" id="itemInfoImage" name="files"
+                           onchange="previewImage(event, 'infoPreview')" required multiple>
+                    <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
+                </div>
+
+            </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
+            <div>
+                <label for="itemColor">색상</label>
+                <input id="itemColor" name="i_color" type="text">
+            </div>
+            <div>
+                <label for="itemSize">사이즈</label>
+                <input id="itemSize" name="i_size" type="text">
+            </div>
+            <div>
+                <label for="itemStock">재고</label>
+                <input id="itemStock" name="i_stock" type="number" required>
+            </div>
+            <div id="imagePreview"></div>
+            <button class="submitBtn" type="submit">등록</button>
+        </form>
     </div>
 
-    <!—- 첨부파일 추가를 위한 모달창 -->
-    <div class="modal uploadModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Upload File</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <input type="file" name="files" class="form-control" multiple >
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary uploadBtn">Upload</button>
-                    <button type="button" class="btn btn-outline-dark closeUploadBtn" >Close</button>
-                </div>
-            </div>
-        </div>
-    </div><!-- register modal -->
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--웹 애플리케이션에서 서버로 데이터를 보내거나 서버에서 데이터를 가져올 때 사용됩니다.-->
+    <script src="/js/upload.js"></script> <!--업로드를 위한 속성-->
+    <script th:src="@{/js/reply.js}"></script>
+    <script>
+        function previewImage(event, previewId) { <!--previewImage-->
+            debugger
+            const previewContainer = document.getElementById(previewId);
+            previewContainer.innerHTML = ''; <!--previewContainer의 내용을 담을 객체 생성-->
+            const files = event.target.files;
+            <!--변수의 값은 이벤트 객체(event)의 target 속성에서 files 속성을 가져온 것입니다.-->
 
-    <script src="/js/upload.js"></script>
+            const formObj = new FormData();
 
-</div><!-- layout fragment end -->
-
-
-<script layout:fragment="script" th:inline="javascript">
-
-
-
-
-    const errors = [[${errors}]]
-    console.log(errors)
-
-    let errorMsg = ''
-
-    if(errors){
-        for (let i = 0; i < errors.length; i++) {
-            errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
-        }
-        alert(errorMsg)
-    }
-
-    //업로드 모달
-    const uploadModal = new bootstrap.Modal(document.querySelector(".uploadModal"))
-
-    document.querySelector(".uploadFileBtn").addEventListener("click", function(e){
-
-        e.stopPropagation()
-        e.preventDefault()
-        uploadModal.show()
-
-    }, false)
-
-
-    document.querySelector(".uploadBtn").addEventListener("click", function(e){
-
-        const formObj = new FormData();
-
-        const fileInput = document.querySelector("input[name='files']")
-
-        console.log(fileInput.files)
-
-        const files = fileInput.files
-
-        for (let i = 0; i < files.length; i++) {
-            formObj.append("files", files[i]);
-        }
-
-
-        uploadToServer(formObj).then(result => {
-            console.log(result)
-            //console.log(result)
-            for (const uploadResult of result) {
-                showUploadFile(uploadResult)
+            for (let i = 0; i < files.length; i++) {
+                formObj.append("files", files[i]);
             }
-            uploadModal.hide()
-        }).catch(e => {
-            uploadModal.hide()
-        })
 
-    },false)
-
-    const uploadResult = document.querySelector(".uploadResult")
-
-    function showUploadFile({uuid, fileName, link}){
-
-        const str =`<div class="card col-4">
-            <div class="card-header d-flex justify-content-center">
-                ${fileName}
-                <button class="btn-sm btn-danger" onclick="javascript:removeFile('${uuid}', '${fileName}', this)" >X</button>
-            </div>
-            <div class="card-body">
-                 <img src="/view/${link}" data-src="${uuid+"_"+fileName}" >
-            </div>
-        </div><!-- card -->`
-
-        uploadResult.innerHTML += str
-    }
+            uploadToServer(formObj).then(result => {
+                console.log(result)
+                //      {
+                //     "uuid": "11ddcb6c-4fff-45d5-a495-04513459164c",
+                //         "fileName": "스크린샷 2024-04-22 104724.png",
+                //         "img": true,
+                //         "link": "s_11ddcb6c-4fff-45d5-a495-04513459164c_스크린샷 2024-04-22 104724.png"
+                // }
+                if (result != null) {
+                    for (let i = 0; i < result.length; i++) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = "/view/" + result[i].link;
+                        imgElement.setAttribute('data-a', result[i].uuid + "_" + result[i].fileName);
+                        // http://localhost:8008/admin/097bb816-d592-43d2-bdab-d82417b2f07d_%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-04-23%20165539.png
+                        previewContainer.appendChild(imgElement);
+                    }
+                }
+            }).catch(e => {
+                console.log("에러")
+            })
 
 
-    function removeFile(uuid,fileName, obj){
-
-        console.log(uuid)
-        console.log(fileName)
-
-        console.log(obj)
-
-        const targetDiv = obj.closest(".card")
-
-        removeFileToServer(uuid, fileName).then(data => {
-            targetDiv.remove()
-        })
-    }
-
-    document.querySelector(".submitBtn").addEventListener("click", function(e){
-
-        e.preventDefault()
-        e.stopPropagation()
-
-        const target = document.querySelector(".uploadHidden")
-
-        const uploadFiles = uploadResult.querySelectorAll("img")
-
-        let str = ''
-
-        for (let i = 0; i < uploadFiles.length ; i++) {
-            const uploadFile = uploadFiles[i]
-            const imgLink = uploadFile.getAttribute("data-src")
-
-            str += `<input type='hidden' name='fileNames' value="${imgLink}">`
         }
 
-        target.innerHTML = str;
+        const titlePreview = document.querySelector("#titlePreview")
+        // const : script 부터 /script 여기까지 사용할 수 있는 변수 타입
+        // let : { 부터 } 까지 사용할 수 있는 변수 타입
+        const infoPreview = document.querySelector("#infoPreview")
+        const uploadFileNamesDIV = document.querySelector("#uploadFileNamesDIV")
+        const formTAG = document.querySelector("#formTAG")
 
-        const formObj = document.querySelector("form");
+        document.querySelector(".submitBtn").addEventListener("click", function (e) {
+            debugger
+            e.preventDefault()
 
-        formObj.submit();
-        formObj.reset();
+            let uploadFiles = []; // 배열로 초기화
+            uploadFiles.push(titlePreview.querySelector("img")); // 이미지 요소를 배열에 추가
+            const infoImgs = infoPreview.querySelectorAll("img"); // 여러 이미지 요소 가져오기
+            infoImgs.forEach(img => uploadFiles.push(img)); // 이미지 요소를 배열에 추가
+            let str = ''
 
-    }, false)
-
-
-
-
-</script>
+            for (let i = 0; i < uploadFiles.length; i++) {
+                const uploadFile = uploadFiles[i]
+                const imgLink = uploadFile.getAttribute("data-a")
+                console.log("img 태그의 src 속성 ....... : " + imgLink)
+                str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+            } // str = str + `<input type='hidden' name='fileNames' value="${imgLink}">`
+            uploadFileNamesDIV.innerHTML += str;
+            formTAG.submit();
+        });
+    </script>
+</div>
