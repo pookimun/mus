@@ -31,11 +31,17 @@ public class CartDetail extends BaseEntity{
     private int paymentSuccess; // 결제여부
     // orders로 넘어가서 결제에 성공한 장바구니 항목은 1로 수정한다. // 성은추가
 
-    public static CartDetail createCartDetail(Cart cart, Item item, int count) {
+    public static CartDetail createCartDetail(Cart cart, Item item, int count, String size, String color) {
         CartDetail CartDetail = new CartDetail();
         CartDetail.setCart(cart);
         CartDetail.setItem(item);
         CartDetail.setCount(count);
+        // 성은추가
+        CartDetail.setSize(size);
+        CartDetail.setColor(color);
+        // paymentSuccess는 장바구니에 담을 때 무조건 0이 들어가게하기 때문에 따로 넣지 않음(알아서 0으로 들어감)
+        // 결제완료 시 paymentSuccess 값을 1로 변경하기
+        // 장바구니의 목록은 paymentSuccess 값이 0인것만 보여주기
         return CartDetail;
     }
 

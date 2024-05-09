@@ -19,6 +19,7 @@ public interface ItemService {
     ItemPageResponseDTO<ItemListAllDTO> listWithAll(ItemPageRequestDTO itemPageRequestDTO);
 
 
+    // 성은 : item 테이블의 itemDetail 필드는 뺀건지 ! 뺀게 아니라면 아래 두 메서드에 추가해야함
     default Item dtoToEntity(ItemDTO itemDTO){
 
         Item item = Item.builder()

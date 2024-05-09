@@ -55,7 +55,7 @@ public class CartService {
             savedCartItem.addCount(cartDetailDTO.getCount()); // 장바구니 담을 수량만큼 add해줌
             return savedCartItem.getCdid();
         } else {
-            CartDetail cartDetail = CartDetail.createCartDetail(cart, item, cartDetailDTO.getCount());
+            CartDetail cartDetail = CartDetail.createCartDetail(cart, item, cartDetailDTO.getCount(), cartDetailDTO.getSize(), cartDetailDTO.getColor());
             // CartItem 엔티티 생성
             cartDetailRepository.save(cartDetail);
             return cartDetail.getCdid();
@@ -107,7 +107,17 @@ public class CartService {
 
     // 성은추가
     // 장바구니에서 선택한 장바구니번호를 매개값으로 해당 장바구니 DTO를 리턴하는 메서드
+    // 장바구니(Cart) 하나에 장바구니 상품별 정보(CartDetail) 여러개 = 1:N관계(일대다관계)
+    // 회원(member) 한 명당 하나의 장바구니(Cart)를 가진다.
+    // 선택상품구매 기능의 경우 ...........
+    // 컨트롤러에서 장바구니(Cart)의 번호를 받는것이 아닌 장바구니 상품별 정보(CartDetail)의 번호를 받아야한다.
+    // member entity를 이용해 CartAllDTO를 가져오고,
+    // List로 선언된 필드들의 index값이 같은 값들이 하나의 상품이니까,
+    // 넘겨받은 장바구니 상품별 정보(CartDetail)의 번호로 List<Long> cdids의 인덱스 번호를 찾고,
+    // sizes, colors, paymentSuccesss, itemDTOS, counts이 필드들의 [윗줄에서 찾은 인덱스번호] 번째 값을 가져와 프론트에서 출력한다..
     public CartAllDTO readOne(String cno) {
+        // 여기에선 cno가 아닌 member로 장바구니와 장바구니 상품별 정보를 가져와 CartAllDTO로 리턴하게 수정하기
+        System.out.println("service에서 받은 cno : " + cno);
         Optional<Cart> result = cartRepository.findById(cno);
         Cart cart = result.orElseThrow();
         List<CartDetail> cartDetails = cartDetailRepository.findByCart(cart);
@@ -128,6 +138,7 @@ public class CartService {
 
             cdids.add(cartDetail.getCdid());
 
+            // itemDetail(상세설명) 항목 값 존재하는데도 null로 출력됨 문제해결하기
             ItemDTO itemDTO = itemService.readOne(cartDetail.getItem().getIno());
             itemDTOS.add(itemDTO);
 
