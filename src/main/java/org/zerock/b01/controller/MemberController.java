@@ -2,7 +2,6 @@ package org.zerock.b01.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,30 +29,28 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
     @GetMapping("/join")
     public void joinGET(){
 
         log.info("join get...");
 
     }
-/*    @PostMapping("/join")
-    public String joinPOST(MemberJoinDTO memberJoinDTO, HttpSession session, RedirectAttributes redirectAttributes) {
+    @PostMapping("/join")
+    public void joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
 
         log.info("join post...");
         log.info(memberJoinDTO);
 
         try {
-            memberService.join(memberJoinDTO, session);
+            memberService.join(memberJoinDTO);
         } catch (MemberService.midExistException e) {
 
             redirectAttributes.addFlashAttribute("error", "mid");
-            return "redirect:/member/join";
         }
 
-        redirectAttributes.addFlashAttribute("result", "success");
-
-        return "redirect:/member/login"; //회원 가입 후 로그인
-    }*/
+        redirectAttributes.addFlashAttribute("result", "회원 가입이 완료되었습니다. 가입 포인트 5만원이 지급되었습니다.");
+    }
 
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
@@ -92,7 +89,6 @@ public class MemberController {
         model.addAttribute("dto", memberDTO);
     }
 
-/*
     @PostMapping("/edit")
     public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
 
@@ -103,18 +99,9 @@ public class MemberController {
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/member/edit"; //회원 가입 후 로그인
+        return "redirect:/member/edit";
     }
-*/
-
     @GetMapping("/forgot")
-    public String forgotGet(HttpSession session) {
-        String token = (String) session.getAttribute("signupToken");
-        return token;
+    public void forgotGet() {
     }
-
-/*    @PostMapping("/forgot")
-    public void forgotPost() {
-
-    }*/
 }
