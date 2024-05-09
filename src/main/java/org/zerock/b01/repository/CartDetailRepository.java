@@ -13,7 +13,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
 
     CartDetail findByCart_CnoAndItem_Ino(Long cno, Long itemId);
 
-    @Query("select new org.zerock.b01.dto.CartDTO(ci.cdid, i.i_name, i.i_price, ci.count, im.imgUrl) " +
+    @Query("select new org.zerock.b01.dto.CartDTO(ci.cdid, i.i_name, i.i_price, im.imgUrl) " +
             "from CartDetail ci, ItemImg im " +
             "join ci.item i " +
             "where ci.cart.cno = :cartId " +

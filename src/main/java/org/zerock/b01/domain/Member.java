@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.zerock.b01.constant.Role;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +33,7 @@ public class Member extends BaseEntity{
     private String m_join_path; //가입 경로
     private boolean m_optional_terms; //선택 약관 동의
     private int m_point; //적립금
+
     
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default

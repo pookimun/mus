@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -20,18 +24,21 @@ public class Cart extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cno;           // 장바구니 번호
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="mid")
-    private Member member;      // 멤버랑 엮음 fk
+    private Member member;      // 멤버랑 엮음 fk // user
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate createDate; // 날짜
 
 
-    private int c_count;        // 장바구니에 담은 수
+    @PrePersist
+    public void createDate(){
+        this.createDate = LocalDate.now();
+    }
 
-    private String c_size;      // 물품 사이즈
 
-    private String c_color;     // 색상
-
-    public static Cart createCart(Member member) {      // cart 객체 생성용
+    public static Cart createCart(Member member) {
         Cart cart = new Cart();
         cart.setMember(member);
         return cart;

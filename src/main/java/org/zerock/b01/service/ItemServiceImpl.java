@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.b01.domain.Item;
+import org.zerock.b01.domain.ItemImg;
 import org.zerock.b01.dto.*;
 import org.zerock.b01.repository.ItemRepository;
 
@@ -81,5 +83,7 @@ public class ItemServiceImpl implements ItemService{
                 .build();
 
     }
+
+
 
 }

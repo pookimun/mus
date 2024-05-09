@@ -23,11 +23,6 @@ public interface MemberRepository extends JpaRepository<Member, String> { //JPAR
     @Query("select m from Member m where m.mid = :mid")
     Member findByMid(String mid);
 
-    // @EntityGraph에는 attributePaths라는 속성을 이용해서 같이 로딩해야 하는 속성 명시
 
-    /*@Modifying //DB 수정
-    @Transactional //성공 => 커밋, 예외 => 롤백
-    @Query("update Member m set m.m_pw = :m_pw where m.mid = :mid ")
-    //비밀번호 (등록)변경
-    void updatePassword(@Param("m_pw") String newPassword, @Param("mid") String mid);*/
+
 }
