@@ -29,7 +29,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-
     @GetMapping("/join")
     public void joinGET(){
 
@@ -37,7 +36,7 @@ public class MemberController {
 
     }
     @PostMapping("/join")
-    public void joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
 
         log.info("join post...");
         log.info(memberJoinDTO);
@@ -47,11 +46,13 @@ public class MemberController {
         } catch (MemberService.midExistException e) {
 
             redirectAttributes.addFlashAttribute("error", "mid");
+            return "redirect:/member/join";
         }
 
-        redirectAttributes.addFlashAttribute("result", "회원 가입이 완료되었습니다. 가입 포인트 5만원이 지급되었습니다.");
-    }
+        redirectAttributes.addFlashAttribute("result", "success");
 
+        return "redirect:/member/login"; //회원 가입 후 로그인
+    }
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
         log.info("login get..............");
@@ -62,13 +63,11 @@ public class MemberController {
             log.info("user logout..........");
         }
     }
-
     @GetMapping(value = "/login/error")
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/login";
     }
-
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response,
@@ -101,6 +100,7 @@ public class MemberController {
 
         return "redirect:/member/edit";
     }
+
     @GetMapping("/forgot")
     public void forgotGet() {
     }

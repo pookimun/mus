@@ -80,17 +80,17 @@
         /* 노말라이즈 끝 */
 
         /* 라이브러리 */
-        .row::after {
+        .line::after {
             content: "";
             display: block;
             clear: both;
         }
 
-        .cell {
+        .unit {
             float: left;
         }
 
-        .cell-right {
+        .unit-right {
             float: right;
         }
 
@@ -124,7 +124,11 @@
             z-index: 10;
         }
 
-        .header > .header-gnb ul > li > a {
+        .header > .header-top {
+            height: 38px;
+        }
+
+        .header > .header-top ul > li > a {
             display: block;
             font-size: 12px;
             padding: 0 20px;
@@ -132,69 +136,58 @@
             color: #8d8d8d;
         }
 
-        .header > .header-gnb > .header-brand > ul > li {
+        .header > .header-top > .header-brand > ul > li {
             border-right: 1px solid #e5e5e5;
         }
 
-        .header > .header-gnb > .header-brand > ul > li > a {
+        .header > .header-top > .header-brand > ul > li > a {
             min-width: 50px;
         }
 
-        .header > .header-gnb > .header-brand > ul > li > a.jordan {
-            font-size: 21px;
-        }
-
-        .header > .header-gnb > .header-brand > ul > li > a.converse {
-            font-size: 72px;
-            max-height: 38px;
-            position: relative;
-            top: -15px;
-        }
-
-        .header > .header-gnb > .header-mymenu {
+        .header > .header-top > .header-mymenu {
             margin-right: 20px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li a {
+        .header > .header-top > .header-mymenu > ul > li a {
             padding: 0 11px;
             font-size: 13px;
             line-height: 38px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > .join-login {
+        .header > .header-top > .header-mymenu > ul > li > .join-login {
             color: #8d8d8d;
             font-size: 12px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > .join-login > a.join {
+        .header > .header-top > .header-mymenu > ul > li > .join-login > a.join {
             padding-right: 0px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > .join-login > a.login {
+        .header > .header-top > .header-mymenu > ul > li > .join-login > a.login {
             padding-left: 0px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > a.cart-ico {
+        .header > .header-top > .header-mymenu > ul > li > a.cart-ico {
             font-size: 23px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > a.pin-ico > i {
+        .header > .header-top > .header-mymenu > ul > li > a.pin-ico > i {
             font-size: 18px;
             position: relative;
             top: 3px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li > a.pin-ico::after {
+        .header > .header-top > .header-mymenu > ul > li > a.pin-ico::after {
             content: "대한민국";
             font-size: 13px;
             padding-left: 6px;
         }
 
-        .header > .header-gnb > .header-mymenu > ul > li a:hover, .header > .header-gnb > .header-brand > ul > li > a > span:hover {
+        .header > .header-top > .header-mymenu > ul > li a:hover, .header > .header-top > .header-brand > ul > li > a > span:hover {
             color: #111;
         }
 
-        .header > .header-gnb > .header-brand > ul > li > a.jordan > span:hover {
+        .header > .header-top > .header-brand > ul > li > a.jordan > span:hover {
             color: red;
         }
 
@@ -227,7 +220,7 @@
         .top-menu-bar > .menu-1 > ul > li > a {
             display: block;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 14.4px;
             padding: 0 20px;
             letter-spacing: -0.8px;
             position: relative;
@@ -457,7 +450,7 @@
             white-space: nowrap;
         }
 
-        .mid-con > .btn-container > .arrow > a > span::after {
+        .mid-con > .btn-container > .arline > a > span::after {
             content: "＞";
             position: absolute;
             right: 25px;
@@ -760,37 +753,35 @@
                 margin: 0 auto;
             }
         }
-
-
     </style>
 </head>
 <body>
 
 <div class="header" layout:fragment="header">
-    <div class="header-gnb row">
-        <div class="header-brand cell">
-            <ul class="row">
-                <li class="cell"><a href="#"><span>Nike</span></a></li>
+    <div class="header-top line">
+        <div class="header-brand unit">
+            <ul class="line">
+                <li class="unit"><a href="#"><span>Nike</span></a></li>
 
-                <li class="cell">
-                    <a id="myPageLink" sec:authorize="isAuthenticated()" th:href="@{/member/edit}"><span>마이 페이지</span></a>
+                <li class="unit">
+                    <a id="myPageLink" sec:authorize="isAuthenticated()"
+                       th:href="@{/member/edit}"><span>마이 페이지</span></a>
                 </li>
-                <li class="cell"><a class="jordan" href="#"><span class="ns-jordan"></span></a></li>
             </ul>
         </div>
-        <div class="header-mymenu cell-right">
-            <ul class="row">
-                <li class="cell">
+        <div class="header-mymenu unit-right">
+            <ul class="line">
+                <li class="unit">
                     <span class="join-login" sec:authorize="isAnonymous()">
                         <a class="join" th:href="@{/member/join}">회원가입</a>
                         /
                         <a class="login" th:href="@{/member/login}">로그인</a>
                     </span>
-                    <a sec:authorize="isAuthenticated()" href="/member/logout"><span>로그아웃</span></a>
+                    <a href="/member/logout" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
                 </li>
-                <li class="cell"><a href="#">고객센터</a></li>
-                <li class="cell"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
-                <li class="cell"><a class="pin-ico" href="#"><i class="ns-pin"></i></a></li>
+                <li class="unit"><a href="#">고객센터</a></li>
+                <li class="unit"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
+                <li class="unit"><a class="pin-ico" href="#"><i class="ns-pin"></i></a></li>
             </ul>
         </div>
     </div>
@@ -798,13 +789,13 @@
         <div class="logo"><a th:href="@{/board/index}"><img th:src="@{/img/core-img/logo.png}"></a>
         </div>
         <nav class="menu-1">
-            <ul class="row">
-                <li class="cell">
+            <ul class="line">
+                <li class="unit">
                     <a href="#">NEW RELEASES</a>
                     <div class="sub-menu-box">
                         <div class="sub-menu-width">
-                            <ul class="row">
-                                <li class="cell">
+                            <ul class="line">
+                                <li class="unit">
                                     <a href="#">신상품 전체보기</a>
                                     <ul>
                                         <li><a href="#">SNKRS</a></li>
@@ -815,7 +806,7 @@
                                         <li><a href="#">NEW TO SALE</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">NEW FOR MEN</a>
                                     <ul>
                                         <li><a href="#">신발</a></li>
@@ -824,7 +815,7 @@
                                         <li><a href="#">전체보기</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">NEW FOR WOMEN</a>
                                     <ul>
                                         <li><a href="#">신발</a></li>
@@ -833,7 +824,7 @@
                                         <li><a href="#">전체보기</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">NEW FOR KIDS</a>
                                     <ul>
                                         <li><a href="#">신발</a></li>
@@ -846,12 +837,12 @@
                         </div>
                     </div>
                 </li>
-                <li class="cell">
+                <li class="unit">
                     <a href="#">MEN</a>
                     <div class="sub-menu-box">
                         <div class="sub-menu-width">
-                            <ul class="row">
-                                <li class="cell">
+                            <ul class="line">
+                                <li class="unit">
                                     <a href="#">GIFT BY PRICE</a>
                                     <ul>
                                         <li><a href="#">신상품</a></li>
@@ -865,7 +856,7 @@
                                         <li><a href="#">SALE</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">신발</a>
                                     <ul>
                                         <li><a href="#">신발 전체</a></li>
@@ -881,7 +872,7 @@
                                         <li><a href="#">샌들 & 슬리퍼</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">의류</a>
                                     <ul>
                                         <li><a href="#">의류 전체</a></li>
@@ -896,7 +887,7 @@
                                         <li><a href="#">모자 & 용품</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">스포츠</a>
                                     <ul>
                                         <li><a href="#">러닝</a></li>
@@ -908,7 +899,7 @@
                                         <li><a href="#">테니스</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">브랜드</a>
                                     <ul>
                                         <li><a href="#">Nike Sportwear</a></li>
@@ -923,12 +914,12 @@
                         </div>
                     </div>
                 </li>
-                <li class="cell">
+                <li class="unit">
                     <a href="#">WOMEN</a>
                     <div class="sub-menu-box">
                         <div class="sub-menu-width">
-                            <ul class="row">
-                                <li class="cell">
+                            <ul class="line">
+                                <li class="unit">
                                     <a href="#">GIFT BY PRICE</a>
                                     <ul>
                                         <li><a href="#">신상품</a></li>
@@ -943,7 +934,7 @@
                                         <li><a href="#">SALE</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">신발</a>
                                     <ul>
                                         <li><a href="#">신발 전체</a></li>
@@ -957,7 +948,7 @@
                                         <li><a href="#">샌들 & 슬리퍼</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">의류</a>
                                     <ul>
                                         <li><a href="#">의류 전체</a></li>
@@ -973,7 +964,7 @@
                                         <li><a href="#">모자 & 용품</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">스포츠</a>
                                     <ul>
                                         <li><a href="#">러닝</a></li>
@@ -984,7 +975,7 @@
                                         <li><a href="#">요가</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">브랜드</a>
                                     <ul>
                                         <li><a href="#">Nike Sportwear</a></li>
@@ -996,12 +987,12 @@
                         </div>
                     </div>
                 </li>
-                <li class="cell">
+                <li class="unit">
                     <a href="#">KIDS</a>
                     <div class="sub-menu-box">
                         <div class="sub-menu-width">
-                            <ul class="row">
-                                <li class="cell">
+                            <ul class="line">
+                                <li class="unit">
                                     <a href="#">GIFT BY PRICE</a>
                                     <ul>
                                         <li><a href="#">신상품</a></li>
@@ -1014,7 +1005,7 @@
                                         <li><a href="#">SALE</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">신발</a>
                                     <ul>
                                         <li><a href="#">베이비(160mm 이하)</a></li>
@@ -1026,7 +1017,7 @@
                                         <li><a href="#">농구</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">의류</a>
                                     <ul>
                                         <li><a href="#">베이비 (0-4세)</a></li>
@@ -1040,7 +1031,7 @@
                                         <li><a href="#">가방 & 모자 & 용품</a></li>
                                     </ul>
                                 </li>
-                                <li class="cell">
+                                <li class="unit">
                                     <a href="#">스포츠</a>
                                     <ul>
                                         <li><a href="#">러닝</a></li>
@@ -1052,7 +1043,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="cell"><a href="#">GIFT</a></li>
+                <li class="unit"><a href="#">GIFT</a></li>
             </ul>
         </nav>
         <div class="search-box">
@@ -1167,10 +1158,12 @@
             <p>SOCIAL</p>
             <ul>
                 <li><a href="#"><img alt=""
-                                     src="https://api.iconify.design/ant-design/twitter-circle-filled.svg?color=white"></a></li>
+                                     src="https://api.iconify.design/ant-design/twitter-circle-filled.svg?color=white"></a>
+                </li>
                 <li><a href="#"><img alt="" src="https://api.iconify.design/bi/facebook.svg?color=white"></a></li>
                 <li><a href="#"><img alt=""
-                                     src="https://api.iconify.design/entypo-social/youtube-with-circle.svg?color=white"></a></li>
+                                     src="https://api.iconify.design/entypo-social/youtube-with-circle.svg?color=white"></a>
+                </li>
                 <li><a href="#"><img
                         alt="" src="https://api.iconify.design/entypo-social/instagram-with-circle.svg?color=white"></a>
                 </li>

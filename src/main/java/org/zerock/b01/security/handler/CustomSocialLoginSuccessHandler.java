@@ -41,6 +41,7 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
             log.info("Redirect to Member Modify ");
             response.sendRedirect("/board/index");
 
+
             return;
         } else {
             response.sendRedirect("/board/list");
