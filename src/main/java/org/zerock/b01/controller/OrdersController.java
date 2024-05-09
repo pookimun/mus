@@ -39,8 +39,13 @@ public class OrdersController {
     public void orders(Principal principal, Model model, @Param("cno") Long cno) { // , Long[] cnos
         log.info("orders 컨트롤러 실행 ... ");
 //        for(Long cno : cnos){
-//            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 List<CartAllDTO>로 저장하고 orders 페이지에서 출력한당
+//            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 CartAllDTO로 저장하고 orders 페이지에서 출력한당
 //        }
+        // 매개값으로 받은 cdid 값들을 저장 model에 저장 후
+        // readOne 메서드에서 리턴받은 CartAllDTO를 model에 저장한다.
+        // 프론트에서 -> cdid값들(반복)과 CartAllDTO의 cdids(반복)하며 같은 값의 인덱스 번호를 가져와서
+        // CartAllDTO의 나머지 List 형식의 필드들도 위의 인덱스 번호에 해당하는 값들을 출력한다 ..
+        // 스크립트로 해야하나 .. 아니면 그냥 타임리프로 해야하나 .. 고민
         log.info(principal);
         MemberDTO memberDTO = memberService.readMember(principal.getName());
         log.info(memberDTO.getM_point());
