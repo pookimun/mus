@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.b01.dto.EmailCheckDTO;
 import org.zerock.b01.dto.EmailRequestDTO;
@@ -14,14 +15,11 @@ import org.zerock.b01.service.MailSendService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/member/forgot")
 public class MailController {
     private final MailSendService mailService;
 
     @PostMapping("/mailSend")
-/*    public String mailSend(@RequestBody @Valid EmailRequestDTO emailDTO) {
-        System.out.println("이메일 인증 이메일 :" + emailDTO.getM_email());
-        return mailService.joinEmail(emailDTO.getM_email());
-    }*/
     public ResponseEntity<String> mailSend(@RequestBody @Validated EmailRequestDTO emailDTO) {
         try {
             mailService.joinEmail(emailDTO.getM_email());

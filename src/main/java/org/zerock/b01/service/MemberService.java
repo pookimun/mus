@@ -1,6 +1,5 @@
 package org.zerock.b01.service;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.zerock.b01.domain.Member;
 import org.zerock.b01.dto.MemberJoinDTO;
@@ -10,7 +9,7 @@ public interface MemberService {
     static class midExistException extends Exception {
     }
 
-    String join(MemberJoinDTO memberJoinDTO, HttpSession session)throws midExistException;
+    void join(MemberJoinDTO memberJoinDTO)throws midExistException;
     void edit(MemberDTO memberDTO);
     /*boolean checkPassword(String plainPassword, PasswordEncoder passwordEncoder);*/
 

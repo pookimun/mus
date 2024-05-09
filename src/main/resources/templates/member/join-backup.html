@@ -249,7 +249,7 @@
             background: #FFF;
             padding: 20px;
             width: auto;
-            max-width: 500px;
+            max-width: 1100px;
             margin: 20px auto;
         }
     </style>
@@ -268,22 +268,29 @@
 
                 <span class="required">
 
-                <label><span>ID</span>
-                    <input name="mid" type="text" required>
-                </label>
+                <div class="id_section" style="width: 20%; float: left;">
+                    <label><span>ID</span>
+                    <input name="mid" id="id" type="text">
+                    </label>
+                </div>
 
-                <label><span>@</span>
-                <input name="m_email" type="text" value="" required>
-                </label>
+                <div style="width: 30px; float: left;">
+                    <label><input type="text" value="@" readonly><label>
+                </div>
 
+                <div class="id_section" style="width: 30%; float: left;">
+                    <label>
+                    <input name="m_email" id="email" type="text">
+                    </label>
+                </div>
                     <!--<button class="btn authentication_btn" type="button">메일 인증</button>-->
 
                 <label><span>비밀번호</span>
-                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text" required>
+                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
 
                 <label><span>비밀번호 확인</span>
-                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text" required>
+                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
                     </span>
 
@@ -312,7 +319,7 @@
 
                 <h3>약관 동의</h3>
                 <label class="info5_1">
-                    <input class="all_consent" type="checkbox">
+                    <input id="Allagreement"onChange="toggleAllAgree()" type="checkbox">
                     <span>전체동의</span>
                 </label><br>
 
@@ -673,7 +680,7 @@
                     <p>회사는 관련법령이 정하는 바에 따라서 회원 등록정보를 포함한 회원의 개인정보를 보호하기 위하여 노력합니다. 회원의 개인정보보호에 관해서는 관련법령 및 회사가 정하는 "개인정보 취급방침"에 정한 바에 의하며, 회원이 상시 확인할 수 있도록 itc 서비스 내에서 공지하고 있습니다.</p>
                 </div>
                 <label>
-                    <input class="terms checkBtn1" type="checkbox">
+                    <input id="Serviceagreement" onChange="checkIndividualAgreements()" class="terms" type="checkbox">
                     <span>일룸회원 이용약관 (필수)</span>
                     <a class="terms open-popup-link" href="#test-popup-1">약관보기</a>
                 </label>
@@ -708,7 +715,7 @@
                     </p>
                 </div>
                 <label>
-                    <input class="checkBtn2" name="terms" type="checkbox" value="1">
+                    <input id="Privacyagreement" onChange="checkIndividualAgreements()" class="terms" type="checkbox">
                     <span>개인정보 수집 및 이용 (필수)</span>
                     <a class="terms open-popup-link" href="#test-popup-2">약관보기</a>
                 </label>
@@ -744,7 +751,7 @@
                         itc 정보수정 페이지에서 개별서비스의 마케팅 수신동의를 변경(동의/철회)할 수 있으며, 동의일로부터 회원 탈퇴 혹은 마케팅 수신 동의 해제 시까지 광고성 정보 전달을 위하여 보유ㆍ이용 됩니다.</p>
                 </div>
                 <label>
-                    <input name="m_optional_terms" type="checkbox" value="1">
+                    <input name="m_optional_terms" class="terms" type="checkbox">
                     <span>마케팅 수신동의 (선택)</span>
                     <a class="terms open-popup-link" href="#test-popup-3">약관보기</a>
                 </label>
@@ -753,43 +760,15 @@
             </form>
 
             <div class="button-wrap">
-                <button className="agreebtn" onClick="checkAgreements()">동의하고 가입하기</button>
+                <button className="agreebtn" onClick="checkAgreements()">회원 가입</button>
             </div>
 
         </div>
     </section>
 
-
-    <div className="container">
-
-        <div className="agree-container">
-
-            <div className="agree-column">
-                <div className="checkbox-container">
-                    <input id="Allagreement" onChange="toggleAllAgree()" type="checkbox">
-                    <label htmlFor="Allagreement">이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</label>
-                </div>
-
-                <div className="checkbox-container">
-                    <input id="Serviceagreement" onChange="checkIndividualAgreements()" type="checkbox">
-                    <label htmlFor="Serviceagreement">위의 약관에 동의합니다. (필수)</label>
-                </div>
-
-                <div className="checkbox-container">
-
-                    <input id="Privacyagreement" onChange="checkIndividualAgreements()" type="checkbox">
-                    <label htmlFor="Privacyagreement">위의 약관에 동의합니다. (필수)</label>
-
-                </div>
-                <button className="agreebtn" onClick="checkAgreements()">동의하고 가입하기</button>
-            </div>
-            <!--   container column         -->
-        </div>
-    </div>
-
     <script>
         function goToFirstNotAgreed() {
-            var individualAgreeCheckboxes = document.querySelectorAll("input[type='checkbox']:not(#allAgree)");
+            var individualAgreeCheckboxes = document.querySelectorAll("input[class='terms']:not(#allAgree)");
 
             for (var i = 0; i < individualAgreeCheckboxes.length; i++) {
                 if (!individualAgreeCheckboxes[i].checked) {
@@ -802,7 +781,7 @@
         function toggleAllAgree() {
             var allAgreeCheckbox = document.getElementById("Allagreement");
             var individualAgreeCheckboxes = document.querySelectorAll(
-                "input[type='checkbox']:not(#Allagreement)"
+                "input[class='terms']:not(#Allagreement)"
             );
 
             for (var i = 0; i < individualAgreeCheckboxes.length; i++) {
@@ -814,7 +793,7 @@
         function checkIndividualAgreements() {
             var allAgreeCheckbox = document.getElementById("Allagreement");
             var individualAgreeCheckboxes = document.querySelectorAll(
-                "input[type='checkbox']:not(#Allagreement)"
+                "input[class='terms']:not(#Allagreement)"
             );
 
             for (var i = 0; i < individualAgreeCheckboxes.length; i++) {
@@ -829,29 +808,87 @@
             allAgreeCheckbox.checked = true;
         }
 
-        // "동의 여부 확인" 버튼을 클릭했을 때, 개별 동의 항목들의 체크 여부를 확인하는 함수
+        // "동의 여부 확인" 버튼을 클릭했을 때, 항목들의 체크, 입력 여부를 확인하는 함수
         function checkAgreements() {
-            var allAgreeCheckbox = document.getElementById("Allagreement");
-            var agree1Checkbox = document.getElementById("Serviceagreement");
-            var agree2Checkbox = document.getElementById("Privacyagreement");
+            var idInput = document.getElementById("id");
+            var emailInput = document.getElementById("email");
 
-            var isAllAgreed = allAgreeCheckbox.checked;
-            var isAgree1 = agree1Checkbox.checked;
-            var isAgree2 = agree2Checkbox.checked;
-
-            console.log("모두 동의: " + isAllAgreed);
-            console.log("개별 동의 항목 1: " + isAgree1);
-            console.log("개별 동의 항목 2: " + isAgree2);
-            if (isAllAgreed == true && isAgree1 == true && isAgree2 == true) {
-                document.getElementById("registerForm").submit();
+            if (idInput.value.trim() === "" || emailInput.value.trim() === "") {
+                alert("올바른 이메일 주소를 입력해 주세요.");
+                idInput.focus();
             } else {
-                alert("필수 항목에 동의해야 합니다!");
-                goToFirstNotAgreed();
+                var allAgreeCheckbox = document.getElementById("Allagreement");
+                var agree1Checkbox = document.getElementById("Serviceagreement");
+                var agree2Checkbox = document.getElementById("Privacyagreement");
+
+                var isAllAgreed = allAgreeCheckbox.checked;
+                var isAgree1 = agree1Checkbox.checked;
+                var isAgree2 = agree2Checkbox.checked;
+
+                console.log("모두 동의: " + isAllAgreed);
+                console.log("개별 동의 항목 1: " + isAgree1);
+                console.log("개별 동의 항목 2: " + isAgree2);
+
+                if (isAgree1 == true && isAgree2 == true) {
+                    document.getElementById("registerForm").submit();
+                } else {
+                    alert("필수 항목에 동의해야 합니다!");
+                    goToFirstNotAgreed();
+                }
             }
         }
+
+        // 비밀번호 확인 함수
+        /*        function checkPasswordMatch() {
+                    var passwordInput = document.getElementById("pw");
+                    var confirmPasswordInput = document.getElementById("pw_confirm");
+
+                    var password = passwordInput.value.trim(); // 비밀번호 입력 필드의 값
+                    var confirmPassword = confirmPasswordInput.value.trim(); // 비밀번호 확인 입력 필드의 값
+
+                    // 비밀번호와 비밀번호 확인 값이 일치하는지 확인
+                    if (password === confirmPassword) {
+                        // 일치할 경우
+                        return true; // 폼 제출을 허용하기 위해 true 반환
+                    } else {
+                        // 일치하지 않을 경우
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return false; // 폼 제출을 막기 위해 false 반환
+                    }
+                }*/
     </script>
 
     <script>
+        $('#memberPhoneCheck').click(function(e){
+            e.preventDefault();
+
+            var to = $('input[name="memberPhone"]').val();
+            $.ajax({
+                url : "/send-one",
+                type : "POST",
+                data : "to=" + to,
+                dataType : "json",
+                success : function(data) {
+                    const checkNum = data;
+                    alert('checkNum:'+ checkNum);
+
+                    //인증하기 버튼 클릭 이벤트
+                    $('#certifyCheck').click(function(){
+                        const userNum = $('input[name="memberPhoneCertify"]').val();
+                        if(checkNum == userNum){
+                            alert('인증 성공하였습니다.');
+                        }else {
+                            alert('인증 실패하였습니다. 다시 입력해주세요.');
+                        }
+                    });
+
+                },
+                error : function() {
+                    alert("에러")
+                }
+            });
+        });
+
         $('.open-popup-link').magnificPopup({
             type:'inline',
             midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
@@ -867,4 +904,3 @@
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
 </script>
-

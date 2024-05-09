@@ -50,13 +50,11 @@ public class MailSendService {
         makeRandomNumber();
         String setFrom = "it-clothes@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력
         toMail = "nanabad@naver.com";
-        String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목
+        String title = "[itc] 인증 번호는 " + authNumber + "입니다."; // 이메일 제목
         String content =
-                "나의 APP을 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
+                "itc에 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
                         "<br><br>" +
-                        "인증 번호는 " + authNumber + "입니다." +
-                        "<br>" +
-                        "인증번호를 제대로 입력해주세요"; //이메일 내용 삽입
+                        "입력창에 [" + authNumber + "]를 입력해 주세요.";
         mailSend(setFrom, toMail, title, content);
         return Integer.toString(authNumber);
     }
