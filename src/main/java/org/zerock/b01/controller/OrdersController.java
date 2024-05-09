@@ -36,7 +36,7 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/orders") // 주문서
-    public void orders(Principal principal, Model model) { // , Long[] cnos
+    public void orders(Principal principal, Model model, @Param("cno") Long cno) { // , Long[] cnos
         log.info("orders 컨트롤러 실행 ... ");
 //        for(Long cno : cnos){
 //            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 List<CartAllDTO>로 저장하고 orders 페이지에서 출력한당

@@ -2,6 +2,8 @@ package org.zerock.b01.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,12 +15,13 @@ public class CartAllDTO {
     private Long cno;
     private String member;
     //private int c_count;
-    private String c_size;
-    private String c_color;
-    private int paymentSuccess;
-    private Long cdid;
-    private ItemDTO itemDTO;
-    private int count;
+    private List<String> sizes;
+    private List<String> colors;
+    private List<Integer> paymentSuccesss;
+    private List<Long> cdids;
+    // 하나의 cart에 여러개의 cartDetail
+    private List<ItemDTO> itemDTOS;
+    private List<Integer> counts;
 
 
 }

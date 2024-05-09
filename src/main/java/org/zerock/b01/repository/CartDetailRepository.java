@@ -26,7 +26,8 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
     생성자 파라미터 순서는 DTO 클래스 명시 순으로 넣을 것 */
     List<CartDTO> findCartDetailDtoList(Long cartId);
 
-    CartDetail findByCart(Cart cart);
+    List<CartDetail> findByCart(Cart cart);
+    // 성은추가!!
 
 
 
