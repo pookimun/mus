@@ -36,11 +36,11 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public Long register(ItemDTO itemDTO) {
-
+        log.info("===========================================" + itemDTO);
         Item item = dtoToEntity(itemDTO);
-
+        log.info(item);
         Long ino = itemRepository.save(item).getIno();
-
+        log.info(ino);
         return ino;
     }
 
@@ -60,13 +60,18 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemDTO readOne(Long ino) {
+        log.info(ino);
 
         //board_image까지 조인 처리되는 findByWithImages()를 이용
         Optional<Item> result = itemRepository.findByIdWithImages(ino);
+        log.info("===========================================" + result);
 
         Item item = result.orElseThrow();
 
+        log.info(item);
+
         ItemDTO itemDTO = entityToDTO(item);
+        log.info(itemDTO);
 
         return itemDTO;
     }

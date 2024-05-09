@@ -46,7 +46,6 @@ public class ItemController {
     @PostMapping("/register")
     public String registerPost(@Valid ItemDTO itemDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
-
         log.info("아이템 POST register.......");
 
         if(bindingResult.hasErrors()) { // 오류발생시 addFlashAttribute로 1회용 에러 메시지를 담고 전달한다.
