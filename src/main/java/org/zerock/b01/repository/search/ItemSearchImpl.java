@@ -81,6 +81,24 @@ public class ItemSearchImpl extends QuerydslRepositorySupport implements ItemSea
 
         JPQLQuery<Item> itemJPQLQuery = from(item);
 
+        if ((types != null && types.length > 0) && keyword != null) { //검색 조건과 키워드가 있다면
+
+            BooleanBuilder booleanBuilder = new BooleanBuilder(); // (
+
+            for (String type : types) {
+
+                switch (type) {
+                    case "n":
+                        booleanBuilder.or(item.i_name.contains(keyword));
+                        break;
+                    case "c":
+                        booleanBuilder.or(item.i_color.contains(keyword));
+                        break;
+                }
+            }//end for
+            itemJPQLQuery.where(booleanBuilder);
+        }//end if
+
         itemJPQLQuery.groupBy(item);
 
         getQuerydsl().applyPagination(pageable, itemJPQLQuery);
@@ -116,7 +134,6 @@ public class ItemSearchImpl extends QuerydslRepositorySupport implements ItemSea
         }).collect(Collectors.toList());
 
         long totalCount = itemJPQLQuery.fetchCount();
-
 
         return new PageImpl<>(dtoList, pageable, totalCount);
     }

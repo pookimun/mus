@@ -36,7 +36,6 @@ public class ItemDTO {
 
     private List<String> fileNames; //첨부 파일 이름들
 
-
     private ItemSellStatus itemSellStatus;
 
 
