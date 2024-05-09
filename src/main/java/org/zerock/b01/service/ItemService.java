@@ -27,6 +27,7 @@ public interface ItemService {
                 .i_color(itemDTO.getI_color())
                 .i_size(itemDTO.getI_size())
                 .i_price(itemDTO.getI_price())
+                .i_stock(itemDTO.getI_stock())
                 .build();
 
         if(itemDTO.getFileNames() != null){
@@ -46,6 +47,7 @@ public interface ItemService {
                 .i_color(item.getI_color())
                 .i_size(item.getI_size())
                 .i_price(item.getI_price())
+                .i_stock(item.getI_stock())
                 .build();
 
         List<String> fileNames =

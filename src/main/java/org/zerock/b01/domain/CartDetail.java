@@ -24,6 +24,13 @@ public class CartDetail extends BaseEntity{
 
     private int count;  // 물품 카운트용
 
+    private String size;      // 물품 사이즈
+
+    private String color;     // 색상
+
+    private int paymentSuccess; // 결제여부
+    // orders로 넘어가서 결제에 성공한 장바구니 항목은 1로 수정한다. // 성은추가
+
     public static CartDetail createCartDetail(Cart cart, Item item, int count) {
         CartDetail CartDetail = new CartDetail();
         CartDetail.setCart(cart);
@@ -40,6 +47,12 @@ public class CartDetail extends BaseEntity{
     public void updateCount(int count){
         this.count = count;
     }   // 개수 수정용
+
+    public void paymentSuccess(){
+        // 성은추가
+        // 결제성공 시 장바구니의 결제여부 값을 1로 변경한다.
+        this.paymentSuccess = 1;
+    }
 
 
 }
