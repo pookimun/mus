@@ -180,7 +180,6 @@
             defaultAddressCheck().then(result => {
                 // 해당 회원의 기본배송지가 존재하는지 확인
                 if (result.defAddress !== null) { // 존재한다면
-                    alert("기본배송지 존재");
                     if (confirm("기본배송지가 이미 존재합니다. \n작성중인 배송지를 기본 배송지로 설정하시겠습니까?")) {
                         // 기존의 기본배송지의 a_bacie 값을 0으로 update
                         defaultAddressfalse(result.defAddress.a_no);

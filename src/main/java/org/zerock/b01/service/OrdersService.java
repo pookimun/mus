@@ -40,7 +40,9 @@ public interface OrdersService {
                 .a_detail(ordersListDTO.getAddressDTO().getA_detail())
                 .a_basic(ordersListDTO.getAddressDTO().getA_basic())
                 .a_request(ordersListDTO.getAddressDTO().getA_request())
+                .a_customRequest(ordersListDTO.getAddressDTO().getA_customRequest())
                 .member(ordersListDTO.getAddressDTO().getMember())
+                .a_use(ordersListDTO.getAddressDTO().getA_use())
                 .build();
 
         Orders orders = Orders.builder()
@@ -57,6 +59,7 @@ public interface OrdersService {
                 .cardCompany(ordersListDTO.getCardCompany())
                 .installment(ordersListDTO.getInstallment())
                 //.ordersDetailSet() 밑에서
+                .paymentSuccess(ordersListDTO.getPaymentSuccess())
                 .build();
         if(ordersListDTO.getOrdersDetailDTOList() != null) {
             orders.addDetail(ordersListDTO.getOrdersDetailDTOList());
@@ -80,16 +83,20 @@ public interface OrdersService {
                         .a_detail(orders.getAddress().getA_detail())
                         .a_basic(orders.getAddress().getA_basic())
                         .a_request(orders.getAddress().getA_request())
+                        .a_customRequest(orders.getAddress().getA_customRequest())
                         .member(orders.getAddress().getMember())
+                        .a_use(orders.getAddress().getA_use())
                         .build()) // entityToDTO 처리
                 .o_date(orders.getO_date())
                 .o_state(orders.getO_state())
                 .totalPrice(orders.getTotalPrice())
                 .pointFirstUse(orders.getPointFirstUse())
+                .pointUse(orders.getPointUse())
                 .paymentMethod(orders.getPaymentMethod())
                 .cardCompany(orders.getCardCompany())
                 .installment(orders.getInstallment())
                 //.ordersDetailDTOList() 밑에서
+                .paymentSuccess(orders.getPaymentSuccess())
                 .build();
 
         List<OrdersDetailDTO> ordersDetailDTOS =

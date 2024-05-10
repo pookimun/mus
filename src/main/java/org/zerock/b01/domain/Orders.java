@@ -84,12 +84,7 @@ public class Orders {
 
     @PrePersist // 엔티티가 데이터베이스에 저장되기 전에 실행
     public void insertO_ordersno() {
-        System.out.println("insertO_orderno() 실행 ~!~!~!~!~!~!~!~!~!~!");
-        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
-        String randomNumber = String.format("%06d", new Random().nextInt(1000000)); // 여섯자리 랜덤숫자 생성
-        // 오늘 날짜와 랜덤 숫자를 조합하여 o_orderno 설정
-        System.out.println(randomNumber);
-        this.o_ordersno = todayDate + randomNumber; // 12자리
+        this.o_ordersno = o_ordersnoCreate();
     }
 
     public void addDetail(List<OrdersDetailDTO> ordersDetailDTOS){
@@ -117,6 +112,18 @@ public class Orders {
 
     public void paymentSuccess(){
         this.paymentSuccess = 1;
+    } // 결제성공 메서드
+    public void newO_ordersno() {
+        this.o_ordersno = o_ordersnoCreate();
+    }
+
+    public String o_ordersnoCreate(){ // 주문번호 생성 메서드
+        System.out.println("newO_ordersno() 실행 ~!~!~!~!~!~!~!~!~!~!");
+        String todayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String randomNumber = String.format("%06d", new Random().nextInt(1000000)); // 여섯자리 랜덤숫자 생성
+        // 오늘 날짜와 랜덤 숫자를 조합하여 o_orderno 설정
+        System.out.println(randomNumber);
+        return todayDate + randomNumber; // 12자리
     }
 
 

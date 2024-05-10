@@ -17,7 +17,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
     // 페이징 기능
     // order_detail도 같이 가져온다.
 
-    public OrdersSearchImpl(){
+    public OrdersSearchImpl() {
         super(Orders.class);
     } // QuerydslRepositorySupport 생성자 필요
 
@@ -26,7 +26,6 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         // 상품명, 브랜드명으로 검색 기능 구현 완료
         // 페이징 구현 완료
         // order_detail도 같이 가져오기 구현완료
-        // 멤버 연결 필요 !
 
         // Q도메인 객체 가져옴
         QOrders orders = QOrders.orders;
@@ -38,12 +37,13 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         ordersJPQLQuery.leftJoin(ordersDetail).on(ordersDetail.orders.eq(orders)); //left join
         ordersJPQLQuery.leftJoin(item).on(item.eq(ordersDetail.item)); //left join
 
-        if( keyword != null ){ // 상품명으로 검색
+        if (keyword != null) { // 상품명으로 검색
             BooleanBuilder booleanBuilder = new BooleanBuilder(); // ()
             booleanBuilder.or(ordersDetail.item.i_name.contains(keyword));
             ordersJPQLQuery.where(booleanBuilder);
         }
         ordersJPQLQuery.where(orders.member.eq(member));
+        ordersJPQLQuery.where(orders.paymentSuccess.eq(1));
         ordersJPQLQuery.groupBy(orders);
 
         getQuerydsl().applyPagination(pageable, ordersJPQLQuery); //paging
@@ -65,6 +65,13 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .o_date(orders1.getO_date())
                     .o_state(orders1.getO_state())
                     //.orderDetailDTOList() 밑에서
+                    .totalPrice(orders1.getTotalPrice())
+                    .pointFirstUse(orders1.getPointFirstUse())
+                    .pointUse(orders1.getPointUse())
+                    .paymentMethod(orders1.getPaymentMethod())
+                    .cardCompany(orders1.getCardCompany())
+                    .installment(orders1.getInstallment())
+                    .paymentSuccess(orders1.getPaymentSuccess())
                     .build();
             // order1.address를 AddressDTO 처리
             AddressDTO addressDTO = AddressDTO.builder()
@@ -77,7 +84,9 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .a_detail(orders1.getAddress().getA_detail())
                     .a_basic(orders1.getAddress().getA_basic())
                     .a_request(orders1.getAddress().getA_request())
+                    .a_customRequest(orders1.getAddress().getA_customRequest())
                     .member(orders1.getAddress().getMember())
+                    .a_use(orders1.getAddress().getA_use())
                     .build();
             dto.setAddressDTO(addressDTO);
 
@@ -85,11 +94,20 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
             List<OrdersDetailDTO> detailDTOS = orders1.getOrdersDetailSet().stream().sorted()
                     .map(detail -> OrdersDetailDTO.builder()
                             .od_no(detail.getOd_no())
+                            .orders(detail.getOrders().getOno())
                             .itemDTO(ItemDTO.builder()
                                     .ino(detail.getItem().getIno())
                                     .i_name(detail.getItem().getI_name())
                                     .i_price(detail.getItem().getI_price())
+                                    .i_title_img(detail.getItem().getI_title_img())
+                                    .i_info_img(detail.getItem().getI_info_img())
+                                    .i_color(detail.getItem().getI_color())
+                                    .i_size(detail.getItem().getI_size())
                                     .i_stock(detail.getItem().getI_stock())
+                                    .fileNames(detail.getItem().getItemImageSet().stream()
+                                            .map(ItemImage::getFileName) // ItemImage의 fileName을 가져와서
+                                            .collect(Collectors.toList())) // List로 저장
+                                    .itemSellStatus(detail.getItem().getItemSellStatus())
                                     .build())
                             .od_count(detail.getOd_count())
                             .od_size(detail.getOd_size())
@@ -98,20 +116,12 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                             .build())
                     .collect(Collectors.toList());
             dto.setOrdersDetailDTOList(detailDTOS);
-
             return dto;
         }).collect(Collectors.toList());
-        // OrdersListDTO(o_no=100,
-        // o_ordersno=240428377304,
-        // addressDTO=AddressDTO(a_no=28, a_recipient=member28, a_nickName=님 배송지, a_phone=01012345678, a_zipCode=12345, a_address=경기도 수원시 팔달로, a_detail=28호, a_basic=1, a_request=부재 시 문 앞에 놓아주세요., memberJoinDTO=null),
-        // o_date=2024-04-28T16:57:20.490275,
-        // o_state=주문접수,
-        // ordersDetailDTOList=
-        // [OrdersDetailDTO(od_no=100, itemDTO=ItemDTO(i_no=31, i_name=상품 ... 31, i_price=10031, i_title_img=대표이미지.jpg, i_info_img=설명이미지.jpg, i_color=white, i_size=95, i_stock=1), od_count=1, od_size=95, od_color=white, od_price=10031),
-        // OrdersDetailDTO(od_no=200, itemDTO=ItemDTO(i_no=13, i_name=상품 ... 13, i_price=10013, i_title_img=대표이미지.jpg, i_info_img=설명이미지.jpg, i_color=white, i_size=95, i_stock=1), od_count=1, od_size=95, od_color=white, od_price=10013)])
-        long totalCount = ordersJPQLQuery.fetchCount();
 
+        long totalCount = ordersJPQLQuery.fetchCount();
         return new PageImpl<>(dtoList, pageable, totalCount);
+        // Page<OrdersListDTO>
     }
 
 }
