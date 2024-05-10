@@ -166,21 +166,20 @@
         .required label {
             width: 100%;
             display: inline-block;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             color: #000;
             display: inline-block;
         }
 
         .required input {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             color: #000;
             width: 100%;
             height: 60px;
             line-height: 40px;
-            display: block;
+            display: inline-block;
             letter-spacing: -0.6px;
             border-bottom: 1px solid #d6d6d6;
-            color: #d6d6d6;
             margin-bottom: 50px;
         }
 
@@ -284,25 +283,17 @@
 
             <span class="required">
 
-                <div class="id_section" style="width: 20%; float: left;">
-                    <label><span>ID</span>
-                    <input id="id" name="mid" readonly th:value="${dto.mid}" type="text">
+                <div class="id_section" style="width: 20%;">
+                    <label><span>아이디</span>
+                    <input id="id" name="mid" readonly th:value="${dto.mid}" type="text" style="float: left;">
                     </label>
                 </div>
 
-                <div style="width: 30px; float: left;">
-                    <label><input readonly type="text" value="@"><label>
-                </div>
-
-                <div class="id_section" style="width: 30%; float: left;">
-                    <label>
-                    <input id="email" name="m_email" readonly th:value="${dto.m_email}" type="text">
-                    </label>
-                </div>
-
+                <div class="id_section" style="width: 20%;">
                 <label><span>적립금</span>
-                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}">
+                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}" style="float: left;">
                 </label>
+                </div>
 
                 <a class="open-popup-link update-pw-tab" href="#test-popup-1">비밀번호 수정</a>
 

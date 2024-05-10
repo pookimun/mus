@@ -3,15 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>MS</title>
+    <title>itc | 비밀번호 찾기</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
         @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
 
-        /*
-        font-family: 'Noto Sans KR', sans-serif;    -산세리프
-        font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';     -스포아
-        */
         * {
             margin: 0;
             padding: 0;
@@ -79,21 +75,6 @@
             color: #555;
         }
 
-        button {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            padding: 10px 30px;
-            border: 1px solid #ccc;
-            background: white;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: crimson;
-            color: white;
-            cursor: pointer;
-        }
-
         ul li {
             list-style: none;
         }
@@ -118,21 +99,21 @@
             opacity: .7;
         }
 
-        .pw_find {
+        .id_find {
             clear: both;
             width: 600px;
+            padding: 11% 0 9% 0;
             margin: 0 auto;
         }
 
         .container {
-            width: 100%;
-            padding: 0 10%;
+            width: 65%;
             margin: 0 auto;
             position: relative;
         }
 
         .container section {
-            margin: 4rem 0 7rem;
+            padding: 4rem 0 8rem 0;
             display: flex;
             justify-content: space-between;
         }
@@ -142,14 +123,37 @@
             color: #000;
         }
 
+        .nav {
+            padding-top: 30px;
+            font-size: 1.5rem;
+            font-weight: 500;
+            position: absolute;
+            top: 20%;
+            right: 10%;
+        }
+
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+            border: none;
+            border-bottom-color: transparent;
+            color: #c80a1e;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .inp_text {
+            padding-bottom: 50px;
+            width: 50%;
+        }
+
         .inp_text .inp_comm {
-            width: 100%;
+            width: 23.125rem;
             height: 60px;
             line-height: 40px;
             display: block;
             letter-spacing: -0.6px;
             border-bottom: 1px solid #d6d6d6;
-            margin-bottom: 50px;
         }
 
         input::placeholder {
@@ -159,27 +163,28 @@
 
         #home label, input, #menu1 label, input {
             display: block;
-            font-size: 1.1rem;
             color: #000;
         }
 
-        .user_mailSubmit {
-            margin-left: 40px;
-            width: 150px;
-            height: 40px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #000;
-            border: 1px solid #000;
-            background: none;
-            transition: .5s;
+        /*인증번호 전송버튼*/
+        #home> :nth-child(2), #menu1> :nth-child(2) {
+            position: relative;
+        }
+
+        .btn {
             cursor: pointer;
-            top: -5px;
+            width: 200px;
+            padding: 10px 0;
+            border: 1px solid #000;
+            border-radius: 0;
+            color: #000;
+            background: white;
+            margin-left: 10px;
         }
 
-        .user_mailSubmit:hover {
-            color: #fff;
-            background: #000;
+        .btn:hover {
+            background: black;
+            color: white;
         }
 
         #home div, #menu1 div {
@@ -191,10 +196,10 @@
         }
 
         #home .bt, #menu1 .bt {
-            padding: 10px 100px;
+            padding: 5px 100px;
             border: 1px solid #000;
             color: #000;
-            font-size: 1.1rem;
+            font-size: 2rem;
             text-transform: uppercase;
             transition: .5s;
         }
@@ -220,8 +225,20 @@
             font-size: 1.3rem;
         }
 
-        .naver {
-            width: 250px;
+        #certifyCheck {
+            cursor: pointer;
+            width: 200px;
+            padding: 10px 0;
+            border: 1px solid #000;
+            border-radius: 0;
+            color: #000;
+            background: white;
+            display: block;
+        }
+
+        #certifyCheck:hover {
+            background: black;
+            color: white;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -238,24 +255,27 @@
                 <div class="tab-pane fade in active" id="home">
 
                     <form action="/member/forgot/mailSend" id="forgotForm" method="post">
-                    <label class="inp inp_text" for="user_mail">
-                        <span class="inp_tit eng" style="float: left;">이메일</span>
-                        <input class="user_mailSubmit" id="sendSertify" style="float: right;" type="submit"
-                               value="인증번호 전송">
+                        <label class="inp inp_text" for="user_mail">
+                            <span class="inp_tit eng" style="float: left;">이메일</span>
+                            <input class="btn" id="sendSertify" style="float: right;" type="submit"
+                                   value="인증번호 전송">
 
-                        <input class="inp_comm required" id="user_mail" name="m_email" onkeyup="enterkey(event,'frm1', '');"
-                               placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
-                    </label>
-
-                    <label class="inp inp_text" for="user_code">
-                        <span class="inp_tit eng">인증번호</span> <input class="inp_comm required" id="user_code" name="m_code"
-                                                                     placeholder=" 인증번호 6자리 숫자 입력"
-                                                                     title="user_code" type="text">
-                    </label>
-                    <div>
-                        <a href="#" id="certifyCheck">확인</a>
-                    </div>
+                            <input class="inp_comm required" id="user_mail" name="m_email" placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
+                        </label>
                     </form>
+
+                    <form action="/member/forgot/mailAuthCheck" method="post">
+                        <label class="inp inp_text" for="user_code">
+                            <span class="inp_tit eng">인증번호</span>
+                            <input class="btn" id="checkSertify" style="float: right;" type="submit"
+                                   value="인증번호 확인">
+                            <input class="inp_comm required" id="user_code" name="m_code" placeholder=" 인증번호 6자리 숫자 입력" title="user_code" type="text">
+                        </label>
+                    </form>
+
+<!--                        <div>
+                            <a href="#" id="certifyCheck">확인</a>
+                        </div>-->
 
                 </div>
             </div>
@@ -266,7 +286,7 @@
         document.getElementById('sendSertify').addEventListener('click', function () {
             // 입력된 이메일 주소 가져오기
             var userEmail = document.getElementById('user_mail').value;
-            debugger;
+
             // 이메일 주소가 비어 있는지 확인
             if (userEmail.trim() === '') {
                 alert('이메일을 입력해주세요.');
@@ -277,11 +297,8 @@
             var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(userEmail)) {
                 alert('올바른 이메일 주소를 입력해주세요.');
-                debugger;
                 return;
             }
-
-            debugger;
 
             // AJAX를 이용하여 서버에 이메일 주소 전송 및 인증 코드 요청
             var formData = {
@@ -301,10 +318,48 @@
                 contentType: 'application/x-www-form-urlencoded',
                 headers: headers,
                 success: function (data) {
-                   console.log('새 비밀번호가 이메일로 전송되었습니다. 테스트 계정은 비밀번호가 변경되지 않습니다.');
-/*                    setTimeout(function() {
-                        window.location.href = '/member/login'; // 로그인 페이지로 이동
-                    }, 1000); // 1초 후 이동*/
+                    console.log('새 비밀번호가 이메일로 전송되었습니다. 테스트 계정은 비밀번호가 변경되지 않습니다.');
+                },
+                error: function (xhr) {
+                    console.log('ajax 오류 발생');
+                }
+            });
+            debugger;
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        document.getElementById('checkSertify').addEventListener('click', function () {
+
+            // AJAX를 이용하여 서버에 이메일 주소 전송 및 인증 코드 요청
+            var formData = {
+                인증번호: userEmail,
+            };
+
+            var headers = {}; // headers 변수를 정의합니다.
+            headers[$('meta[name=csrf-header-name]').attr('content')] = $('meta[name=csrf-token]').attr('content');
+
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: '/member/forgot/mailSend',
+                dataType : 'json',
+                data : JSON.stringify(params),
+                async : false,
+                contentType: 'application/x-www-form-urlencoded',
+                headers: headers,
+                success: function (data) {
+                    console.log('새 비밀번호가 이메일로 전송되었습니다. 테스트 계정은 비밀번호가 변경되지 않습니다.');
                 },
                 error: function (xhr) {
                     console.log('ajax 오류 발생');
@@ -315,33 +370,3 @@
     </script>
 
 </div>
-<script src="script.js">
-/*    $(document).ready(function () {
-        $('#login').click(function () {
-            var email = $('#email').val();
-            var password = $('#password').val();
-            var formData = {
-                email: email,
-                password: password
-            };
-
-            if (!email) {
-                $('#message_email').text('이메일을 입력해주세요');
-                return;
-            } else {
-                $('#message_email').text('');
-            }
-        });
-
-
-        $('form#loginBtn').on('keypress', function (e) {
-            if (e.which === 13) { // Enter 키를 감지
-                e.preventDefault(); // 기본 이벤트 (폼 제출)를 중단
-                $('#login').trigger('click'); // 로그인 버튼 클릭 이벤트를 트리거
-            }
-        });
-
-    });*/
-</script>
-
-</html>
