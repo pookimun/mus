@@ -219,6 +219,6 @@ public class BoardController {
                 log.error(e.getMessage());
             }
 
-        }//end for
+        }//end forㄱ
     }
 }

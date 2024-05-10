@@ -4,7 +4,10 @@ package org.zerock.b01.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +18,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.b01.dto.*;
 import org.zerock.b01.service.ItemService;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.util.List;
+
 @Controller
 @RequestMapping({"/","/admin"})
 @Log4j2
 @RequiredArgsConstructor
 public class ItemController {
+
+    private String uploadPath;
 
     private final ItemService itemService;
     @GetMapping("/list")
@@ -46,7 +55,6 @@ public class ItemController {
     @PostMapping("/register")
     public String registerPost(@Valid ItemDTO itemDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
-
         log.info("아이템 POST register.......");
 
         if(bindingResult.hasErrors()) { // 오류발생시 addFlashAttribute로 1회용 에러 메시지를 담고 전달한다.
@@ -67,7 +75,7 @@ public class ItemController {
     public void read(@Param("ino") Long ino, ItemPageRequestDTO itemPageRequestDTO, Model model){
 
         ItemDTO itemDTO = itemService.readOne(ino);
-        log.info(itemDTO);
+        log.info("여기는 컨트롤러"+itemDTO);
 
 
         model.addAttribute("itemDTO", itemDTO);
@@ -79,7 +87,7 @@ public class ItemController {
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
 
-        log.info("보드 modify post......." + itemDTO);
+        log.info("아이템 modify post......." + itemDTO);
 
         if(bindingResult.hasErrors()) {
             log.info("has errors.......");
@@ -102,13 +110,36 @@ public class ItemController {
         return "redirect:/admin/read";
     }
 
+//
+//    @PostMapping("/remove")
+//    public String remove(Long ino, RedirectAttributes redirectAttributes) {
+//
+//        log.info("remove post.. " + ino);
+//
+//        itemService.remove(ino);
+//
+//        redirectAttributes.addFlashAttribute("result", "removed");
+//
+//        return "redirect:/admin/list";
+//
+//    }
+
+
 
     @PostMapping("/remove")
-    public String remove(Long ino, RedirectAttributes redirectAttributes) {
+    public String remove(ItemDTO itemDTO, RedirectAttributes redirectAttributes) {
 
-        log.info("remove post.. " + ino);
+        Long ino  = itemDTO.getIno();
+        log.info("remove post 지우기 " + ino);
 
         itemService.remove(ino);
+
+        //게시물이 삭제되었다면 첨부 파일 삭제
+        log.info(itemDTO.getFileNames());
+        List<String> fileNames = itemDTO.getFileNames();
+        if(fileNames != null && fileNames.size() > 0){
+            removeFiles(fileNames);
+        }
 
         redirectAttributes.addFlashAttribute("result", "removed");
 
@@ -117,7 +148,33 @@ public class ItemController {
     }
 
 
+    public void removeFiles(List<String> files){
 
+        for (String fileName:files) {
+
+            Resource resource = new FileSystemResource(uploadPath + File.separator + fileName);
+            String resourceName = resource.getFilename();
+
+
+            try {
+                String contentType = Files.probeContentType(resource.getFile().toPath());
+                resource.getFile().delete();
+
+                //섬네일이 존재한다면
+                if (contentType.startsWith("image")) {
+                    File thumbnailFile = new File(uploadPath + File.separator + "s_" + fileName);
+                    thumbnailFile.delete();
+                }
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+
+        }//end for
+    }
 }
+
+
+
 
 

@@ -1,99 +1,154 @@
-
 <!DOCTYPE html>
-<html lang="ko">
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 등록 폼</title>
-    <!-- 부트스트랩 CDN 추가 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .img-thumbnail {
-            max-width: 150px;
-            max-height: 150px;
-        }
-        .form-control {
-            border-radius: 0;
-            border-color: #ccc;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-        .btn-primary {
-            background-color: #333;
-            border-color: #333;
-        }
-        .btn-primary:hover {
-            background-color: #555;
-            border-color: #555;
-        }
+        /*.img-thumbnail {*/
+        /*  max-width: 150px;*/
+        /*  max-height: 150px;*/
+        /*}*/
+        /*.form-control {*/
+        /*  border-radius: 0;*/
+        /*  border-color: #ccc;*/
+        /*}*/
+        /*.form-label {*/
+        /*  font-weight: bold;*/
+        /*}*/
+        /*.btn-primary {*/
+        /*  background-color: #333;*/
+        /*  border-color: #333;*/
+        /*}*/
+        /*.btn-primary:hover {*/
+        /*  background-color: #555;*/
+        /*  border-color: #555;*/
+        /*}*/
     </style>
 </head>
-<body>
-<div class="container">
-    <h2 class="mt-5 mb-4">상품 등록 폼</h2>
-    <form th:action="@{/admin/register}" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="itemName" class="form-label">상품명</label>
-            <input type="text" class="form-control" id="itemName" name="i_name" required>
-        </div>
-        <div class="mb-3">
-            <label for="itemPrice" class="form-label">상품 가격</label>
-            <div class="input-group">
-                <span class="input-group-text">₩</span>
-                <input type="number" class="form-control" id="itemPrice" name="i_price" required>
+
+<div layout:fragment="content">
+    <div>
+        <h2>상품 등록 폼</h2>
+        <form id="formTAG" action="/admin/register" method="post">
+            <div>
+                <label for="itemName">상품명</label>
+                <input id="itemName" name="i_name" type="text" required>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="fileUpload" class="form-label">이미지 업로드</label>
-            <input type="file" class="form-control" id="fileUpload" name="files" multiple onchange="previewImages(event)">
-        </div>
-        <!--    <div class="mb-3">-->
-        <!--      <label for="itemInfoImage" class="form-label">설명 이미지</label>-->
-        <!--      <input type="file" class="form-control" id="itemInfoImage" name="i_info_img" required>-->
-        <!--    </div>-->
-        <!--    <div class="mb-3">-->
-        <!--      <label for="itemColor" class="form-label">색상</label>-->
-        <!--      <input type="text" class="form-control" id="itemColor" name="i_color">-->
-        <!--    </div>-->
-        <div class="mb-3">
-            <label for="itemSize" class="form-label">사이즈</label>
-            <input type="text" class="form-control" id="itemSize" name="i_size">
-        </div>
-        <div class="mb-3">
-            <label for="itemStock" class="form-label">재고</label>
-            <input type="number" class="form-control" id="itemStock" name="i_stock" required>
-        </div>
+            <div>
+                <label for="itemPrice">상품 가격</label>
+                <div>
+                    <span>₩</span>
+                    <input id="itemPrice" type="number" name="i_price" required>
+                </div>
+            </div>
+            <div id="uploadFileNamesDIV"> <!--업로드를 위한 파일 이름을 담기 위한 DIV 생성-->
+                <div>
+                    <label for="itemTitleImage">대표 이미지</label>
+                    <input type="file" id="itemTitleImage" name="files"
+                           onchange="previewImage(event, 'titlePreview')" required>
+                    <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
+                    이 함수에는 두 개의 인수가 전달됩니다.
+                    첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
+                     또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
 
-        <div id="imagePreview" class="row mb-3"></div>
-        <button type="submit" class="btn btn-primary">등록</button>
-    </form>
-</div>
+                    <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
+                </div>
+                <div>
+                    <label for="itemInfoImage">설명 이미지</label>
+                    <input type="file" id="itemInfoImage" name="files"
+                           onchange="previewImage(event, 'infoPreview')" required multiple>
+                    <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
+                </div>
 
-<!-- 부트스트랩 자바스크립트 및 기타 라이브러리 CDN 추가 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/upload.js"></script>
+            </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
+            <div>
+                <label for="itemColor">색상</label>
+                <input id="itemColor" name="i_color" type="text">
+            </div>
+            <div>
+                <label for="itemSize">사이즈</label>
+                <input id="itemSize" name="i_size" type="text">
+            </div>
+            <div>
+                <label for="itemStock">재고</label>
+                <input id="itemStock" name="i_stock" type="number" required>
+            </div>
+            <div id="imagePreview"></div>
+            <button class="submitBtn" type="submit">등록</button>
+        </form>
+    </div>
 
-<script>
-    function previewImages(event) {
-        const previewContainer = document.getElementById('imagePreview');
-        previewContainer.innerHTML = '';
-        const files = event.target.files;
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--웹 애플리케이션에서 서버로 데이터를 보내거나 서버에서 데이터를 가져올 때 사용됩니다.-->
+    <script src="/js/upload.js"></script> <!--업로드를 위한 속성-->
+    <script th:src="@{/js/reply.js}"></script>
+    <script>
+        function previewImage(event, previewId) { <!--previewImage-->
+            debugger
+            const previewContainer = document.getElementById(previewId);
+            previewContainer.innerHTML = ''; <!--previewContainer의 내용을 담을 객체 생성-->
+            const files = event.target.files;
+            <!--변수의 값은 이벤트 객체(event)의 target 속성에서 files 속성을 가져온 것입니다.-->
 
-        if (files) {
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = reader.result;
-                    imgElement.classList.add('img-thumbnail', 'm-1');
-                    previewContainer.appendChild(imgElement);
+            const formObj = new FormData();
+
+            for (let i = 0; i < files.length; i++) {
+                formObj.append("files", files[i]);
+            }
+
+            uploadToServer(formObj).then(result => {
+                console.log(result)
+                //      {
+                //     "uuid": "11ddcb6c-4fff-45d5-a495-04513459164c",
+                //         "fileName": "스크린샷 2024-04-22 104724.png",
+                //         "img": true,
+                //         "link": "s_11ddcb6c-4fff-45d5-a495-04513459164c_스크린샷 2024-04-22 104724.png"
+                // }
+                if (result != null) {
+                    for (let i = 0; i < result.length; i++) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = "/view/" + result[i].link;
+                        imgElement.setAttribute('data-a', result[i].uuid + "_" + result[i].fileName);
+                        // http://localhost:8008/admin/097bb816-d592-43d2-bdab-d82417b2f07d_%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-04-23%20165539.png
+                        previewContainer.appendChild(imgElement);
+                    }
                 }
-                reader.readAsDataURL(file);
-            });
+            }).catch(e => {
+                console.log("에러")
+            })
+
+
         }
-    }
-</script>
-</body>
-</html>
+
+        const titlePreview = document.querySelector("#titlePreview")
+        // const : script 부터 /script 여기까지 사용할 수 있는 변수 타입
+        // let : { 부터 } 까지 사용할 수 있는 변수 타입
+        const infoPreview = document.querySelector("#infoPreview")
+        const uploadFileNamesDIV = document.querySelector("#uploadFileNamesDIV")
+        const formTAG = document.querySelector("#formTAG")
+
+        document.querySelector(".submitBtn").addEventListener("click", function (e) {
+            debugger
+            e.preventDefault()
+
+            let uploadFiles = []; // 배열로 초기화
+            uploadFiles.push(titlePreview.querySelector("img")); // 이미지 요소를 배열에 추가
+            const infoImgs = infoPreview.querySelectorAll("img"); // 여러 이미지 요소 가져오기
+            infoImgs.forEach(img => uploadFiles.push(img)); // 이미지 요소를 배열에 추가
+            let str = ''
+
+            for (let i = 0; i < uploadFiles.length; i++) {
+                const uploadFile = uploadFiles[i]
+                const imgLink = uploadFile.getAttribute("data-a")
+                console.log("img 태그의 src 속성 ....... : " + imgLink)
+                str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+            } // str = str + `<input type='hidden' name='fileNames' value="${imgLink}">`
+            uploadFileNamesDIV.innerHTML += str;
+            formTAG.submit();
+        });
+    </script>
+</div>
