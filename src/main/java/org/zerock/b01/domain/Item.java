@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.zerock.b01.constant.ItemSellStatus;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,15 +13,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "item")
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter @Setter
 @ToString
-@EntityListeners(value = {AuditingEntityListener.class})
-public class Item {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item extends BaseEntity{
 
     @Id
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ino; //상품  (pk)
 
@@ -32,16 +32,15 @@ public class Item {
     @Column(length = 100, nullable = false) // not null
     private int i_price; //상품 가격
 
+    private String i_color;
+
+    private String i_size;
+
     // not null
     private String i_title_img; //대표이미지
 
     // not null
     private String i_info_img; //설명이미지
-
-
-    private String i_color; //색상
-
-    private String i_size; //사이즈
 
     // not null
     private int i_stock; //재고보유여부
@@ -84,5 +83,10 @@ public class Item {
         this.i_price = i_price;
         this.i_color = i_color;
         this.i_size = i_size;
+
     }
+
+
+
+
 }
