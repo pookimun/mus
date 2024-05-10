@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class EmailCheckDTO {
     @Email
-    @NotEmpty(message = "이메일을 입력해 주세요")
+    @NotEmpty(message = "이메일을 입력해 주세요 쩨바류~")
     private String m_email;
 
-    @NotEmpty(message = "인증 번호를 입력해 주세요")
+    @NotEmpty(message = "인증 번호를 입력해 주세요 쩨바류~")
     private String authNum;
 }

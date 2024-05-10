@@ -31,7 +31,6 @@ public class MailSendService {
         }
     }
 
-    //임의의 6자리 양수를 반환합니다.
     public void makeRandomNumber() {
         Random r = new Random();
         String randomNumber = "";
@@ -44,10 +43,9 @@ public class MailSendService {
 
     //mail을 어디서 보내는지, 어디로 보내는지 , 인증 번호를 html 형식으로 어떻게 보내는지 작성합니다.
     public String joinEmail(String toMail) {
-        log.info("@============" + toMail);
 
         makeRandomNumber();
-        log.info("@============서비스 메일 시도");
+        log.info("joinEmail");
         String setFrom = "it-clothes@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력
         toMail = toMail;
         String title = "[itc] 인증 번호는 " + authNumber + "입니다."; // 이메일 제목
@@ -56,10 +54,10 @@ public class MailSendService {
                         "<br><br>" +
                         "입력창에 [" + authNumber + "]를 입력해 주세요.";
         mailSend(setFrom, toMail, title, content);
+
         return Integer.toString(authNumber);
     }
 
-    //이메일을 전송합니다.
     public void mailSend(String setFrom, String toMail, String title, String content) {
         MimeMessage message = mailSender.createMimeMessage();//JavaMailSender 객체를 사용하여 MimeMessage 객체를 생성
         try {
@@ -75,7 +73,6 @@ public class MailSendService {
             e.printStackTrace();//e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
         }
         redisUtil.setDataExpire(Integer.toString(authNumber),toMail,60*5L);
-
     }
 
 }

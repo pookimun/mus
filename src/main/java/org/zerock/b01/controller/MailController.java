@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.zerock.b01.dto.EmailCheckDTO;
-import org.zerock.b01.dto.EmailRequestDTO;
 import org.zerock.b01.service.MailSendService;
 
 @Log4j2
@@ -19,20 +19,18 @@ public class MailController {
     private final MailSendService mailService;
 
     @PostMapping("/mailSend")
-    public ResponseEntity<String> mailSend(@RequestParam String m_email) {
-        log.info("@============메일 보내기 시도");
+    public ModelAndView mailSend(@RequestParam String m_email) {
         try {
             mailService.joinEmail(m_email);
-            return ResponseEntity.ok("이메일 전송 성공");
+            return new ModelAndView("redirect:/member/forgot");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("이메일 전송 중 오류가 발생하였습니다.");
+            return new ModelAndView("redirect:/member/forgot");
         }
     }
 
     @PostMapping("/mailAuthCheck")
-    public String AuthCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
+    public String AuthCheck(@RequestParam @Valid EmailCheckDTO emailCheckDTO) {
         Boolean Checked = mailService.CheckAuthNum(emailCheckDTO.getM_email(), emailCheckDTO.getAuthNum());
         if (Checked) {
             return "ok";

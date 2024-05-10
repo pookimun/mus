@@ -7,13 +7,16 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!--login_page-->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             border: 0px solid;
+        }
+
+        .top-menu-bar .menu-1 {
+            margin-left: 250px;
         }
 
         body {
@@ -223,6 +226,7 @@
         #home ul li a {
             padding: 0 10px;
             color: #222;
+            font-size: 0.9rem;
         }
 
         .eye {
@@ -302,8 +306,8 @@
 
                 <div>
                     <ul>
-                        <li><a href="/member/join">회원가입</a>|</li>
-                        <li><a href="/member/forgot">비밀번호 찾기</a>|</li>
+                        <li><a href="/member/join" style="font-size: 13px;">회원가입</a>|</li>
+                        <li><a href="/member/forgot" style="font-size: 13px;">비밀번호 찾기</a>|</li>
                         <li><a href="/oauth2/authorization/kakao"><img th:src="@{/img/core-img/kakao-login.png}" style="width: 11.25rem;"></a></li>
                     </ul>
                     <!--<a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>-->
