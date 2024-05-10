@@ -161,41 +161,35 @@
                     <th scope="col">주문금액</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="i : ${indexs}">
                 <tr>
                     <td>
                         <div>
                             <div> <!--alt 이미지가 출력되지 않을 때-->
-                                <img alt="꼼파뇨 DTP 해피 데이 반팔티 화이트"
-                                     src="//image.msscdn.net/images/goods_img/20240312/3943019/3943019_17108267959953_62.jpg">
-                                <input class="ino" type="hidden" value="3">
+                                <img th:src="|/view/s_${cartAllDTO.itemDTOS[__${i}__].fileNames[0]}|">
+                                <input class="cdid" type="hidden" th:value="${cartAllDTO.cdids[__${i}__]}">
                             </div>
                             <div>
-                                <div>
-                                    <strong>
-                                        <span>[꼼파뇨]</span>
-                                    </strong>
-                                    <span>
-                                <a href="/app/goods/3943019/0">DTP 해피 데이 반팔티 화이트</a>
-                            </span>
+                                <div> <!--상품명-->
+                                    <span><a href="#" th:text="${cartAllDTO.itemDTOS[__${i}__].i_name}"></a></span>
                                 </div>
-                                <div>
-                                    색상 : <span id="color">color</span>
+                                <div> <!--옵션 두개-->
+                                    옵션[색상] : <span id="color" th:text="${cartAllDTO.colors[__${i}__]}"></span>
                                 </div>
                                 <div style="display: inline;">
-                                    사이즈 : <span id="size">size</span>
+                                    옵션[사이즈] : <span id="size" th:text="${cartAllDTO.sizes[__${i}__]}"></span> <!--__인라인 표현식-->
                                 </div>
                             </div>
                         </div>
                     </td>
-                    <td><strong id="count">1</strong>개</td>
-                    <td>358 원</td>
-                    <td>
-                        <del>50,000 원</del>
-                        <strong>32,500 원</strong>
+                    <td><strong class="selectCartCount" th:text="${cartAllDTO.counts[__${i}__]}"></strong>개</td>
+                    <td><span class="selectCartFirstPoint" th:text="${cartAllDTO.itemDTOS[__${i}__].i_price * cartAllDTO.counts[__${i}__] * 0.005}"></span> 원 <!-- 주문금액의 0.5% 적립-->
+                        <br><span style="color: #0a58ca">&nbsp;0.5%</span></td>
+                    <td> <!--주문금액 : 단가 * 수량-->
+                        <strong><span class="selectCartOrdersPrice" th:text="${cartAllDTO.itemDTOS[__${i}__].i_price * cartAllDTO.counts[__${i}__]}"></span> 원</strong>
                     </td>
                 </tr>
-                </tbody>
+                </tbody> <!--th each 끝-->
             </table>
 
             <div style="display: flex;">
@@ -203,22 +197,21 @@
                     <table>
                         <tr>
                             <td>상품 금액</td>
-                            <td><strong>227,000 원</strong></td>
+                            <td><strong id="totalPrice"></strong>원</td>
                         </tr>
                         <tr>
                             <td>적립금 선할인</td>
                             <td>
-                                <input id="pointFirstUse" type="checkbox" value="1743">
-                                <strong>1,743 원</strong>
-                                <strong>적립</strong>
-                                <span>(적립금 선할인 가능 금액은 1,743원입니다.)</span>
+                                <input id="pointFirstUse" type="checkbox">
+                                <strong class="FirstPoint"></strong>원 적립
+                                <span>(체크 시 상품 적립금만큼 선할인 됩니다.)</span>
                             </td>
                         </tr>
                         <tr>
                             <td>적립금 사용</td>
                             <td id="pointUse">
                                 5,000원 이상 보유 시 사용 가능합니다. (총 보유 적립금 <strong
-                                    th:value="${memberPoint}">[[${memberPoint}]]</strong>원)
+                                    th:value="${memberPoint}" th:text="${memberPoint}"></strong>원)
                             </td>
                         </tr>
                         <tr>
@@ -232,25 +225,20 @@
                         <tr>
                             <td>할인 합계</td>
                             <td>
-                                - <strong>71,670</strong> 원
-                                <span>32</span>
-                                <span>%</span>
+                                - <strong id="salesTotal"></strong> 원 <!--적립금 선할인 + 적립금 사용-->
                             </td>
                         </tr>
                         <tr>
                             <td>최종 결제 금액</td>
-                            <td><strong>153,587</strong> 원</td>
+                            <td><strong id="paymentPrice"></strong> 원</td> <!--상품금액 - 할인합계-->
                         </tr>
                         <tr>
                             <td>총 적립금</td>
-                            <td><span>0</span> 원</td>
+                            <td><span id="point"></span> 원</td> <!--적립금 선할인 선택 시 0원, 선택 안할 시 상품 적립금들 합계-->
                         </tr>
                         <tr>
                             <td colspan="2">
-                                · 적립금 사용 시 총 상품 금액의 7% 이내로 제한됩니다. 일부 상품은 적립금 사용이 불가합니다. <a
-                                    href="/app/cs/faq/005/005000">[적립금
-                                관련 FAQ]</a>
-                                <br>. 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.
+                                . 적립금 선할인 선택 시 예상 적립금만큼의 결제금액이 차감됩니다.
                             </td>
                         </tr>
                     </table>
@@ -470,6 +458,7 @@
                         alert('사용 포인트가 회원님이 보유하신 포인트보다 많습니다.')
                         $(this).val('')
                     }
+
                 });
 
                 // URL에서 result 매개변수 값을 가져오는 함수
@@ -645,6 +634,50 @@
                         window.open(result.next_redirect_pc_url, '_self');
                     })
                 })
+
+                debugger
+                const selectCartFirstPointBOX = $(".selectCartFirstPoint"); // 상품들의 적립금 금액 요소들
+                let selectCartFirstPointTOTAL = 0; // 상품들의 적립금 금액 합계
+                selectCartFirstPointBOX.each(function () {
+                    selectCartFirstPointTOTAL += parseInt($(this).text());
+                });
+
+                const selectCartOrdersPriceBOX = $(".selectCartOrdersPrice"); // 상품들의 주문금액 요소들
+                let selectCartOrdersPriceTOTAL = 0; // 상품들의 주문금액 합계
+                selectCartOrdersPriceBOX.each(function () {
+                    selectCartOrdersPriceTOTAL += parseInt($(this).text());
+                });
+
+                // 상품 금액 출력
+                let totalPrice = $("#totalPrice"); // 출력할 요소 가져오기
+                totalPrice.text(selectCartOrdersPriceTOTAL);
+
+                // 적립금 선할인 가능액 출력 + 체크박스 input 태그의 value 속성도 지정해줘야함
+                let pointFirstUse = $("#pointFirstUse"); // 체크박스 요소 가져오기
+                let FirstPoint = $(".FirstPoint"); // 출력할 요소 가져오기
+                pointFirstUse.val(selectCartFirstPointTOTAL);
+                FirstPoint.text(selectCartFirstPointTOTAL);
+
+                // 적립금 사용 출력 적립금 사용 input 태그의 value 값
+                const PointUse = parseInt($("#pointUseInput").val());
+
+                // 할인 합계 = 적립금 선할인 금액(체크시) + 적립금 사용 금액(PointUse)
+                let salesTotal = selectCartFirstPointTOTAL + PointUse; // 정수로 변환하여 계산
+                $("#salesTotal").text(salesTotal); // 소수점 없이 출력
+
+                // 최종 결제 금액 = 상품 주문 금액 - 할인 합계
+                let paymentPrice = selectCartOrdersPriceTOTAL - salesTotal; // 정수로 변환하여 계산
+                $("#paymentPrice").text(paymentPrice); // 소수점 없이 출력
+
+                // 총 적립금
+                // 적립금 선할인 체크박스 체크 시  0원
+                // 체크 하지 않을 시 적립금 합계 출력
+                let totalSavePoint = $("#point"); // 출력할 요소
+                if (pointFirstUse.prop('checked')) { // 체크 시
+                    totalSavePoint.text("0");
+                } else {
+                    totalSavePoint.text(selectCartFirstPointTOTAL);
+                }
 
 
             });
