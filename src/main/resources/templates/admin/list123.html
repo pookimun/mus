@@ -47,9 +47,11 @@
                 <div class="input-group-prepend">
                     <select class="form-select" name="type">
                         <option value="">---</option>
-                        <option value="n" th:selected="${itemPageRequestDTO.type =='n'}">상품명</option>
-                        <option value="c" th:selected="${itemPageRequestDTO.type =='c'}">컬러</option>
-
+                        <option value="n" th:selected="${itemPageRequestDTO.type =='n'}">제목</option>
+                        <option value="c" th:selected="${itemPageRequestDTO.type =='c'}">내용</option>
+                        <option value="s" th:selected="${itemPageRequestDTO.type =='s'}">작성자</option>
+                        <option value="nc" th:selected="${itemPageRequestDTO.type =='nc'}">제목 내용</option>
+                        <option value="ncs" th:selected="${itemPageRequestDTO.type =='ncs'}">제목 내용 작성자</option>
                     </select>
                 </div>
                 <input type="text" class="form-control" name="keyword" th:value="${itemPageRequestDTO.keyword}">
