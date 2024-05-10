@@ -24,6 +24,10 @@ public class ItemDTO {
 
     private int i_stock; //재고보유여부
 
+    private String i_color;
+
+    private String i_size;
+
     private String itemDetail;  // 상품 상세정보
 
     private ItemSellStatus itemSellStatus;

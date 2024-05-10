@@ -12,12 +12,13 @@ public class ItemImg extends BaseEntity{
 
     @Id
     @Column(name = "item_img_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String imgName; // 이미지 파일명
     private String oriImgName; // 원본 이미지 파일명
     private String imgUrl; // 이미지 조회 경로
+
     private String repImgYn; // 대표 이미지 여부
 
     @ManyToOne(fetch = FetchType.LAZY) // Item 엔티티와 다대일 단방향 매핑

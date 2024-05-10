@@ -29,33 +29,45 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
 
-    public Long addCart(CartDetailDTO cartDetailDTO, String mid) {
+    @Transactional
+    public Long addCart(CartDetailDTO cartDetailDTO, String mid){
 
-
+        // 주어진 상품id로 상품 엔티티를 조회
+        // 엔티티를 못 찾게 되면은 EntityNotFoundException 발동됨
         Item item = itemRepository.findById(cartDetailDTO.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
+        System.out.println(item);
+        // 주어진 email로 회원을 조회
+        Member member = memberRepository.findByMid(mid);
+        System.out.println(member);
 
-        Member member = memberRepository.findByMid(mid); // 현재 로그인한 회원 엔티티 조회하여 member로 저장
+        // 회원의 장바구니를 조회
+        Cart cart = cartRepository.findByMember_Mid(member.getMid());
+        System.out.println(cart);
+        /*if(cart == null){
 
-        Cart cart = cartRepository.findByMember_Mid(member.getMid()); // 현재 로그인한 회원의 장바구니 엔티티 조회하여 cart에 저장
-        if(cart == null) { // cart가 비어있다면 -> 아직 장바구니가 생성되지 않음
-            cart = Cart.createCart(member); // 장바구니 엔티티 생성
-            cartRepository.save(cart);
-        }
+        }*/
 
+        cart = Cart.createCart(member);
+        cartRepository.save(cart);
+        System.out.println(cart);
+
+        // 장바구니에 이미 해당 상품이 있는지 확인
         CartDetail savedCartItem = cartDetailRepository.findByCart_CnoAndItem_Ino(cart.getCno(), item.getIno());
-        // 현재 상품이 장바구니에 존재하는지 조회
+        System.out.println(savedCartItem);
 
-        if(savedCartItem != null) { // savedCartItem이 null이 아니라면 -> 이미 장바구니에 존재하는 상품인 경우
-            savedCartItem.addCount(cartDetailDTO.getCount()); // 장바구니 담을 수량만큼 add해줌
+        // 이미 해당 상품이 장바구니에 있다면 수량 증가
+        if(savedCartItem != null){
+            savedCartItem.addCount(cartDetailDTO.getCount());
             return savedCartItem.getCdid();
+            // 해당 상품이 없다면 새로운 카트를 생성
         } else {
             CartDetail cartDetail = CartDetail.createCartDetail(cart, item, cartDetailDTO.getCount());
-            // CartItem 엔티티 생성
             cartDetailRepository.save(cartDetail);
             return cartDetail.getCdid();
         }
     }
+
 
     @Transactional(readOnly = true)
     public List<CartDTO> getCartList(String mid) {

@@ -26,8 +26,7 @@ public class CartController {
 
 
     @PostMapping(value = "/cart")
-    public @ResponseBody ResponseEntity
-    order(@RequestBody @Valid CartDetailDTO cartDetailDTO, BindingResult bindingResult, Principal principal){
+    public @ResponseBody ResponseEntity order(@RequestBody @Valid CartDetailDTO cartDetailDTO, BindingResult bindingResult, Principal principal){
 
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
@@ -51,6 +50,7 @@ public class CartController {
 
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/cart")
     public String orderHist(Principal principal, Model model) {
