@@ -138,17 +138,17 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ItemPageResponseDTO<ItemListAllDTO> listWithAll(ItemPageRequestDTO itemPageRequestDTO) {
 
-            String[] types = itemPageRequestDTO.getTypes();
-            String keyword = itemPageRequestDTO.getKeyword();
-            Pageable pageable = itemPageRequestDTO.getPageable("ino");
+        String[] types = itemPageRequestDTO.getTypes();
+        String keyword = itemPageRequestDTO.getKeyword();
+        Pageable pageable = itemPageRequestDTO.getPageable("ino");
 
-            Page<ItemListAllDTO> result = itemRepository.searchWithAll(types, keyword, pageable);
+        Page<ItemListAllDTO> result = itemRepository.searchWithAll(types, keyword, pageable);
 
-            return ItemPageResponseDTO.<ItemListAllDTO>withAll()
-                    .itemPageRequestDTO(itemPageRequestDTO)
-                    .dtoList(result.getContent())
-                    .total((int)result.getTotalElements())
-                    .build();
-        }
+        return ItemPageResponseDTO.<ItemListAllDTO>withAll()
+                .itemPageRequestDTO(itemPageRequestDTO)
+                .dtoList(result.getContent())
+                .total((int)result.getTotalElements())
+                .build();
+    }
 
 }

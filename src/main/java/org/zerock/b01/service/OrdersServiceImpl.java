@@ -7,10 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.b01.domain.Address;
-import org.zerock.b01.domain.Board;
-import org.zerock.b01.domain.Orders;
-import org.zerock.b01.domain.OrdersDetail;
+import org.zerock.b01.domain.*;
 import org.zerock.b01.dto.*;
 import org.zerock.b01.repository.*;
 
@@ -31,6 +28,7 @@ public class OrdersServiceImpl implements OrdersService{
     private final OrdersDetailRepository ordersDetailRepository;
     private final ItemRepository itemRepository;
     private final AddressRepository addressRepository;
+    private final CartRepository cartRepository;
 
 
     @Transactional
@@ -41,6 +39,19 @@ public class OrdersServiceImpl implements OrdersService{
         // 부모 엔티티인 Orders 먼저 save 후에
         log.info(orders);
         Orders savedOrders = ordersRepository.save(orders);
+        log.info(savedOrders);
+        // 저장 후 주문번호가 겹치는게 있는지 검증
+        // 주문번호가 같은 객체 찾아온다.(위에서 저장을 한 번 했기 때문에 2이상일 때 겹침을 뜻함)
+        int clash = ordersRepository.ordersnoSelect(savedOrders.getO_ordersno());
+        log.info("겹침여부 : " + clash);
+        while(clash > 1){ // 주문번호가 겹친다면
+            savedOrders.newO_ordersno(); // 새로운 주문번호 받기
+            log.info(savedOrders);
+            savedOrders = ordersRepository.save(savedOrders); // update
+            log.info(savedOrders);
+            clash = ordersRepository.ordersnoSelect(savedOrders.getO_ordersno());
+            log.info("수정 후 겹침여부 : " + clash);
+        }
         for(OrdersDetail ordersDetail : savedOrders.getOrdersDetailSet()){
             ordersDetail.changeOrders(savedOrders);
         }
@@ -66,6 +77,9 @@ public class OrdersServiceImpl implements OrdersService{
         orders.paymentSuccess(); // 결제성공 저장!
         ordersRepository.save(orders); // update
         OrdersListDTO ordersListDTO = entityToDTO(orders);
+        // 장바구니의 결제여부 값을 변경!
+//        Optional<Cart> cart = cartRepository.findById() OrdersDetail에 장바구니 번호 필드를 추가해야할것같음!
+        // 그리고 위에서 받아온 장바구니 번호 Cart의 paymentSuccess 필드 값을 1로 변경해준다 !!
         return ordersListDTO;
     }
 

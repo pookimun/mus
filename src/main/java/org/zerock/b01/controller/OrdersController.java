@@ -35,30 +35,50 @@ public class OrdersController {
     private final MemberService memberService;
 
     @PreAuthorize("permitAll()")
-    @GetMapping( "/orders") // 주문서
-    public void orders(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO, Model model){ // , Long[] cnos
+    @GetMapping("/orders") // 주문서
+    public void orders(Principal principal, Model model, @Param("cno") Long cno) { // , Long[] cnos
         log.info("orders 컨트롤러 실행 ... ");
 //        for(Long cno : cnos){
-//            // 여기 하는중 !!
+//            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 CartAllDTO로 저장하고 orders 페이지에서 출력한당
 //        }
+        // 매개값으로 받은 cdid 값들을 저장 model에 저장 후
+        // readOne 메서드에서 리턴받은 CartAllDTO를 model에 저장한다.
+        // 프론트에서 -> cdid값들(반복)과 CartAllDTO의 cdids(반복)하며 같은 값의 인덱스 번호를 가져와서
+        // CartAllDTO의 나머지 List 형식의 필드들도 위의 인덱스 번호에 해당하는 값들을 출력한다 ..
+        // 스크립트로 해야하나 .. 아니면 그냥 타임리프로 해야하나 .. 고민
         log.info(principal);
         MemberDTO memberDTO = memberService.readMember(principal.getName());
         log.info(memberDTO.getM_point());
         model.addAttribute("memberPoint", memberDTO.getM_point());
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/list")
+    public void ordersList(OrdersPageRequestDTO ordersPageRequestDTO, Principal principal, Model model) {
+        log.info("ordersList 실행");
+        String member = principal.getName();
+        OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+        log.info(ordersPageRequestDTO);
+        log.info(result);
+        model.addAttribute("responseDTO", result);
+    }
+
     // 주문서에는 상품에서 정보가 넘어와서 출력이 되어야 하는데, 아직 어떻게 받을지 모르겠음 !!
 
-//    log.info("orders 실행"); 주문내역 조회에서 사용 !
-//    OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
-//        log.info(ordersPageRequestDTO);
-//        log.info(result);
-//
-//        model.addAttribute("resultList", result);
+    @PreAuthorize("permitAll()")
+    @GetMapping("/detail")
+    public void ordersDetail(@Param("ono") Long ono, OrdersPageRequestDTO ordersPageRequestDTO, Model model){
+        // 주문번호 클릭 시 보이는 상세 조회 페이지
+        log.info("상세조회 컨트롤러 실행 ... ono : " + ono);
+        OrdersListDTO ordersListDTO = ordersService.readOne(ono);
+        log.info(ordersListDTO);
+        model.addAttribute("dto", ordersListDTO);
+    }
+
 
     @PreAuthorize("permitAll()")
     @GetMapping("/address/list") // 배송지 선택
-    public void addressList(Principal principal, Model model){
+    public void addressList(Principal principal, Model model) {
         log.info("addressList 컨트롤러 실행");
         String member = principal.getName();
         log.info(member);
@@ -69,28 +89,30 @@ public class OrdersController {
         model.addAttribute("addressCount", resultCount); // 배송지 개수 제한을 위해 추가
     }
 
+
+
     @PreAuthorize("permitAll()")
     @GetMapping("/address/register") // 신규 배송지 추가
-    public void addressRegister(){
+    public void addressRegister() {
 
     }
 
     @PreAuthorize("permitAll()")
     @PostMapping("/address/register")
-    public String addressRegisterPost(Principal principal, @Valid AddressDTO addressDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String addressRegisterPost(Principal principal, @Valid AddressDTO addressDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         String member = principal.getName();
         log.info("주소 등록 " + member);
         addressDTO.setMember(member);
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/orders/address/register";
         }
         log.info(addressDTO);
 
         Long a_no = addressService.register(addressDTO);
-        if(a_no != null){ // save에 성공했다면
+        if (a_no != null) { // save에 성공했다면
             redirectAttributes.addFlashAttribute("registerResult", "registed");
         } else {
             redirectAttributes.addFlashAttribute("registerResult", "faild");
@@ -103,7 +125,7 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/address/modify")
-    public void addressModify(@Param("ano") Long ano, Model model){ // 배송지 수정
+    public void addressModify(@Param("ano") Long ano, Model model) { // 배송지 수정
         log.info("ano : " + ano);
         AddressDTO addressDTO = addressService.readOne(ano);
         log.info(addressDTO);
@@ -114,22 +136,22 @@ public class OrdersController {
     @PostMapping("/address/modify")
     public String addressModifyPost(@Valid AddressDTO addressDTO,
                                     BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes) {
         log.info("배송지 수정값 : " + addressDTO);
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
-            return "redirect:/orders/address/modify?ano="+addressDTO.getA_no();
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/orders/address/modify?ano=" + addressDTO.getA_no();
         }
         addressService.modify(addressDTO);
         redirectAttributes.addFlashAttribute("modifyResult", "modified");
         redirectAttributes.addFlashAttribute("a_no", addressDTO.getA_no());
-        return "redirect:/orders/address/modify?ano="+addressDTO.getA_no();
+        return "redirect:/orders/address/modify?ano=" + addressDTO.getA_no();
     }
 
     @PreAuthorize("permitAll()")
     @PostMapping("/address/remove")
-    public String addressRemove(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
+    public String addressRemove(AddressDTO addressDTO, RedirectAttributes redirectAttributes) {
         Long a_no = addressDTO.getA_no();
         log.info("삭제할 배송지번호, 멤버, 배송지별칭 : " + addressDTO);
         addressService.remove(a_no);
@@ -139,7 +161,7 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/address/read")
-    public String addressRead(AddressDTO addressDTO, RedirectAttributes redirectAttributes){
+    public String addressRead(AddressDTO addressDTO, RedirectAttributes redirectAttributes) {
         log.info(addressDTO);
         Long a_no = addressDTO.getA_no();
         AddressDTO readAddressDTO = addressService.readOne(a_no);
@@ -150,8 +172,22 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/success")
-    public void ordersSuccess(){
+    public void ordersSuccess() {
 
     }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/cancel")
+    public void ordersCancel() {
+        log.info("ordersCancel");
+    }
+
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/fail")
+    public void ordersFail() {
+        log.info("ordersFail");
+    }
+
 
 }

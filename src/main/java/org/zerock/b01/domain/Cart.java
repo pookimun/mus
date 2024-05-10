@@ -1,9 +1,11 @@
 package org.zerock.b01.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.Date;
 import java.util.Optional;
@@ -25,17 +27,20 @@ public class Cart extends BaseEntity{
     private Member member;      // 멤버랑 엮음 fk
 
 
-    private int c_count;        // 장바구니에 담은 수
+    //private int c_count;        // 장바구니에 담은 수
 
-    private String c_size;      // 물품 사이즈
 
-    private String c_color;     // 색상
 
-    public static Cart createCart(Member member) {      // cart 객체 생성용
+
+
+    public static Cart createCart(Member member) { // cart 객체 생성용
         Cart cart = new Cart();
         cart.setMember(member);
         return cart;
     }
+
+
+
 
 
 

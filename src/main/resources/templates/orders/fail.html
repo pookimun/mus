@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Amado - Furniture Ecommerce Template | 주문 </title>
+
+
+</head>
+
+<div layout:fragment="content">
+    <h1>결제실패</h1>
+    <h2>예기치 못한 이유로 결제에 실패했습니다.</h2>
+    <h2>다시 시도해 주세요.</h2>
+    <div>
+        <button>장바구니이동</button> <!--장바구니로 이동하기-->
+        <button id="ordersListViewBtn">주문내역조회</button> <!--주문내역 조회 페이지 연결예정-->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            debugger
+            $("#ordersListViewBtn").on("click", function () {
+                window.location.href = "/orders/list";
+            })
+        });
+    </script>
+</div>
