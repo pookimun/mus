@@ -2,11 +2,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>무신사 | 회원가입</title>
+    <title>itc | 회원가입</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
-    <script  src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="  crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w=="
+            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
         @import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
@@ -267,18 +269,14 @@
             <form action="/member/join" id="registerForm" method="post">
 
                 <span class="required">
+                <input id="id" name="mid" type="hidden">
 
                     <label><span>이메일</span>
-                    <input name="mid" id="id" type="hidden">
+                    <input id="email" name="m_email" onchange="splitEmail(this)" required type="email">
                     </label>
-
-                    <label>
-                    <input name="m_email" id="email" type="text" onchange="splitEmail(this)">
-                    </label>
-                    <!--<button class="btn authentication_btn" type="button">메일 인증</button>-->
 
                 <label><span>비밀번호</span>
-                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
+                    <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" required type="password">
                 </label>
 
                 <label><span>비밀번호 확인</span>
@@ -311,7 +309,7 @@
 
                 <h3>약관 동의</h3>
                 <label class="info5_1">
-                    <input id="Allagreement"onChange="toggleAllAgree()" type="checkbox">
+                    <input id="Allagreement" onChange="toggleAllAgree()" type="checkbox">
                     <span>전체동의</span>
                 </label><br>
 
@@ -672,13 +670,13 @@
                     <p>회사는 관련법령이 정하는 바에 따라서 회원 등록정보를 포함한 회원의 개인정보를 보호하기 위하여 노력합니다. 회원의 개인정보보호에 관해서는 관련법령 및 회사가 정하는 "개인정보 취급방침"에 정한 바에 의하며, 회원이 상시 확인할 수 있도록 itc 서비스 내에서 공지하고 있습니다.</p>
                 </div>
                 <label>
-                    <input id="Serviceagreement" onChange="checkIndividualAgreements()" class="terms" type="checkbox">
+                    <input class="terms" id="Serviceagreement" onChange="checkIndividualAgreements()" type="checkbox" required>
                     <span>일룸회원 이용약관 (필수)</span>
                     <a class="terms open-popup-link" href="#test-popup-1">약관보기</a>
                 </label>
 
                     <!--정보 수집 이용 약관 숨기기-->
-                <div id="test-popup-2" class="white-popup mfp-hide">
+                <div class="white-popup mfp-hide" id="test-popup-2">
                     <h2>개인정보처리방침</h2>
                     <p>
                         (1) 개인정보 수집목적 및 이용목적
@@ -707,13 +705,13 @@
                     </p>
                 </div>
                 <label>
-                    <input id="Privacyagreement" onChange="checkIndividualAgreements()" class="terms" type="checkbox">
+                    <input class="terms" id="Privacyagreement" onChange="checkIndividualAgreements()" type="checkbox" required>
                     <span>개인정보 수집 및 이용 (필수)</span>
                     <a class="terms open-popup-link" href="#test-popup-2">약관보기</a>
                 </label>
 
                     <!--개인정보 약관 숨기기-->
-                <div id="test-popup-3" class="white-popup mfp-hide">
+                <div class="white-popup mfp-hide" id="test-popup-3">
                     <h3>마케팅 정보 수신 동의</h3>
 
                     <p>it-clothes 주식회사 (이하 'itc')는 개인정보보호법 및 정보통신망이용촉진 및 정보보호 등에 관한 법률 등 관계법령에 따라 광고성 정보를 전송하기 위해 이용자의 사전 수신 동의를 받고 있습니다. 본 내용은 LG전자 회원 서비스가 적용되는 개별서비스의 마케팅 수신동의를 포함하고 있으며, 마케팅 정보 수신 동의 시개별서비스의 마케팅 수신에 일괄 동의한 것으로 처리됩니다.</p>
@@ -743,29 +741,34 @@
                         itc 정보수정 페이지에서 개별서비스의 마케팅 수신동의를 변경(동의/철회)할 수 있으며, 동의일로부터 회원 탈퇴 혹은 마케팅 수신 동의 해제 시까지 광고성 정보 전달을 위하여 보유ㆍ이용 됩니다.</p>
                 </div>
                 <label>
-                    <input name="m_optional_terms" class="terms" type="checkbox">
+                    <input class="terms" name="m_optional_terms" type="checkbox">
                     <span>마케팅 수신동의 (선택)</span>
                     <a class="terms open-popup-link" href="#test-popup-3">약관보기</a>
                 </label>
             </span>
 
-            </form>
+                <div class="button-wrap">
+                    <button className="joinBtn">회원 가입</button>
+                </div>
 
-            <div class="button-wrap">
-                <button className="agreebtn" onClick="checkAgreements()">회원 가입</button>
-            </div>
+            </form>
 
         </div>
     </section>
 
     <script>
+        $('.open-popup-link').magnificPopup({
+            type: 'inline',
+            midClick: true
+        });
+
         function goToFirstNotAgreed() {
             var individualAgreeCheckboxes = document.querySelectorAll("input[class='terms']:not(#allAgree)");
 
             for (var i = 0; i < individualAgreeCheckboxes.length; i++) {
                 if (!individualAgreeCheckboxes[i].checked) {
                     individualAgreeCheckboxes[i].focus(); // 약관 동의를 하지 않은 첫 번째 체크박스로 포커스 이동
-                    break; // 첫 번째 약관 동의 항목을 찾았으므로 반복문 중단
+                    break;
                 }
             }
         }
@@ -792,77 +795,24 @@
                 if (!individualAgreeCheckboxes[i].checked) {
                     // 하나라도 개별 동의 항목 체크박스가 체크 해제되었을 때 "모두 동의" 체크박스도 체크 해제
                     allAgreeCheckbox.checked = false;
-                    return; // 함수 종료
+                    return;
                 }
             }
-
             // 모든 개별 동의 항목 체크박스가 선택되었을 때 "모두 동의" 체크박스도 체크
             allAgreeCheckbox.checked = true;
         }
 
-        // "동의 여부 확인" 버튼을 클릭했을 때, 항목들의 체크, 입력 여부를 확인하는 함수
-        function checkAgreements() {
+        const joinBtn = document.querySelector('#joinBtn');
+        joinBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
             var idInput = document.getElementById("id");
             var emailInput = document.getElementById("email");
 
             if (idInput.value.trim() === "" || emailInput.value.trim() === "") {
                 alert("올바른 이메일 주소를 입력해 주세요.");
                 idInput.focus();
-            } else {
-                var allAgreeCheckbox = document.getElementById("Allagreement");
-                var agree1Checkbox = document.getElementById("Serviceagreement");
-                var agree2Checkbox = document.getElementById("Privacyagreement");
-
-                var isAllAgreed = allAgreeCheckbox.checked;
-                var isAgree1 = agree1Checkbox.checked;
-                var isAgree2 = agree2Checkbox.checked;
-
-                console.log("모두 동의: " + isAllAgreed);
-                console.log("개별 동의 항목 1: " + isAgree1);
-                console.log("개별 동의 항목 2: " + isAgree2);
-
-                if (isAgree1 == true && isAgree2 == true) {
-                    document.getElementById("registerForm").submit();
-                } else {
-                    alert("필수 항목에 동의해야 합니다!");
-                    goToFirstNotAgreed();
-                }
             }
-        }
-
-        $('#memberPhoneCheck').click(function(e){
-            e.preventDefault();
-
-            var to = $('input[name="memberPhone"]').val();
-            $.ajax({
-                url : "/send-one",
-                type : "POST",
-                data : "to=" + to,
-                dataType : "json",
-                success : function(data) {
-                    const checkNum = data;
-                    alert('checkNum:'+ checkNum);
-
-                    //인증하기 버튼 클릭 이벤트
-                    $('#certifyCheck').click(function(){
-                        const userNum = $('input[name="memberPhoneCertify"]').val();
-                        if(checkNum == userNum){
-                            alert('인증 성공하였습니다.');
-                        }else {
-                            alert('인증 실패하였습니다. 다시 입력해주세요.');
-                        }
-                    });
-
-                },
-                error : function() {
-                    alert("에러")
-                }
-            });
-        });
-
-        $('.open-popup-link').magnificPopup({
-            type:'inline',
-            midClick: true
         });
 
         function splitEmail(emailInput) {
@@ -878,9 +828,19 @@
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
+    const registerErrors = [[${errors}]];
+    console.log(registerErrors);
+    let errorMsg = '';
+    if (registerErrors) {
+        for (let i = 0; i < registerErrors.length; i++) {
+            errorMsg += `${registerErrors[i].field}은(는) ${registerErrors[i].code} \n`;
+        }
+        alert(errorMsg);
+    }
+
     const error = [[${error}]]
 
-    if(error && error === 'mid'){
+    if (error && error === 'mid') {
         alert("동일한 MID를 가진 계정이 존재합니다.")
     }
 </script>

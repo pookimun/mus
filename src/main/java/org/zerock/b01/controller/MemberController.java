@@ -4,12 +4,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,17 +31,27 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
+    @PreAuthorize("permitAll()")
     @GetMapping("/join")
     public void joinGET(){
 
         log.info("join get...");
 
     }
+
+    @PreAuthorize("permitAll()")
     @PostMapping("/join")
-    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
 
         log.info("join post...");
         log.info(memberJoinDTO);
+
+        if(bindingResult.hasErrors()) {
+            log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            return "redirect:/member/join";
+        }
 
         try {
             memberService.join(memberJoinDTO);
@@ -53,6 +65,8 @@ public class MemberController {
 
         return "redirect:/member/login"; //회원 가입 후 로그인
     }
+
+    @PreAuthorize("permitAll()")
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
         log.info("login get..............");
@@ -101,6 +115,7 @@ public class MemberController {
         return "redirect:/member/edit";
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/forgot")
     public void forgotGet() {
     }

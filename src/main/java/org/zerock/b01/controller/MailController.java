@@ -2,17 +2,16 @@ package org.zerock.b01.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zerock.b01.dto.EmailCheckDTO;
 import org.zerock.b01.dto.EmailRequestDTO;
 import org.zerock.b01.service.MailSendService;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member/forgot")
@@ -20,9 +19,10 @@ public class MailController {
     private final MailSendService mailService;
 
     @PostMapping("/mailSend")
-    public ResponseEntity<String> mailSend(@RequestBody @Validated EmailRequestDTO emailDTO) {
+    public ResponseEntity<String> mailSend(@RequestParam String m_email) {
+        log.info("@============메일 보내기 시도");
         try {
-            mailService.joinEmail(emailDTO.getM_email());
+            mailService.joinEmail(m_email);
             return ResponseEntity.ok("이메일 전송 성공");
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class MailController {
         }
     }
 
-    @PostMapping("/mailauthCheck")
+    @PostMapping("/mailAuthCheck")
     public String AuthCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
         Boolean Checked = mailService.CheckAuthNum(emailCheckDTO.getM_email(), emailCheckDTO.getAuthNum());
         if (Checked) {

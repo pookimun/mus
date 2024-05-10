@@ -1,5 +1,6 @@
 package org.zerock.b01.service;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,6 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
+@Log4j2
 public class MailSendService {
     @Autowired
     private JavaMailSender mailSender;
@@ -17,9 +19,6 @@ public class MailSendService {
     private RedisUtil redisUtil;
     private int authNumber;
 
-
-
-    //추가 되었다.
     public boolean CheckAuthNum(String email,String authNum){
         if(redisUtil.getData(authNum)==null){
             return false;
@@ -32,7 +31,6 @@ public class MailSendService {
         }
     }
 
-
     //임의의 6자리 양수를 반환합니다.
     public void makeRandomNumber() {
         Random r = new Random();
@@ -44,12 +42,14 @@ public class MailSendService {
         authNumber = Integer.parseInt(randomNumber);
     }
 
-
     //mail을 어디서 보내는지, 어디로 보내는지 , 인증 번호를 html 형식으로 어떻게 보내는지 작성합니다.
     public String joinEmail(String toMail) {
+        log.info("@============" + toMail);
+
         makeRandomNumber();
+        log.info("@============서비스 메일 시도");
         String setFrom = "it-clothes@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력
-        toMail = "nanabad@naver.com";
+        toMail = toMail;
         String title = "[itc] 인증 번호는 " + authNumber + "입니다."; // 이메일 제목
         String content =
                 "itc에 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
