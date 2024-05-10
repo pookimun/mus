@@ -74,10 +74,6 @@ public class Item {
 
     }
 
-    @Lob // Large Object -> CLOB, BLOB 타입으로 매핑 가능
-    @Column(nullable = false)
-    private String itemDetail; // 상품 상세 설명
-
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 

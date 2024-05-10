@@ -26,8 +26,9 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
     생성자 파라미터 순서는 DTO 클래스 명시 순으로 넣을 것 */
     List<CartDTO> findCartDetailDtoList(Long cartId);
 
-    List<CartDetail> findByCart(Cart cart);
-    // 성은추가!!
+    @Query("select cd from CartDetail cd where cd.cart = :cart and cd.paymentSuccess = 0")
+    List<CartDetail> findByCartWherePaymentSuccess(Cart cart);
+    // 성은추가!! 한 장바구니의 세부 항목들 중 결제되지 않은 항목만을 리턴함
 
 
 
