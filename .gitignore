@@ -40,3 +40,4 @@ out/
 /gradle/wrapper/gradle-wrapper.jar
 /gradle/wrapper/gradle-wrapper.properties
 /src/main/java/org/zerock/b01/service/KakaoPayServiceImpl.java
+/src/main/resources/mailAuth.properties
