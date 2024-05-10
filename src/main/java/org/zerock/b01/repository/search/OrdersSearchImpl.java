@@ -107,7 +107,6 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                                     .fileNames(detail.getItem().getItemImageSet().stream()
                                             .map(ItemImage::getFileName) // ItemImage의 fileName을 가져와서
                                             .collect(Collectors.toList())) // List로 저장
-                                    .itemDetail(detail.getItem().getItemDetail())
                                     .itemSellStatus(detail.getItem().getItemSellStatus())
                                     .build())
                             .od_count(detail.getOd_count())

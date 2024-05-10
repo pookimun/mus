@@ -18,6 +18,7 @@ import org.zerock.b01.repository.CartRepository;
 import org.zerock.b01.repository.ItemRepository;
 import org.zerock.b01.repository.MemberRepository;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -115,30 +116,26 @@ public class CartService {
     // List로 선언된 필드들의 index값이 같은 값들이 하나의 상품이니까,
     // 넘겨받은 장바구니 상품별 정보(CartDetail)의 번호로 List<Long> cdids의 인덱스 번호를 찾고,
     // sizes, colors, paymentSuccesss, itemDTOS, counts이 필드들의 [윗줄에서 찾은 인덱스번호] 번째 값을 가져와 프론트에서 출력한다..
-    public CartAllDTO readOne(String cno) {
+    public CartAllDTO readOne(String mid) { // Principal principal
         // 여기에선 cno가 아닌 member로 장바구니와 장바구니 상품별 정보를 가져와 CartAllDTO로 리턴하게 수정하기
-        System.out.println("service에서 받은 cno : " + cno);
-        Optional<Cart> result = cartRepository.findById(cno);
-        Cart cart = result.orElseThrow();
-        List<CartDetail> cartDetails = cartDetailRepository.findByCart(cart);
-
+        //String mid = principal.getName();
+        System.out.println("mid : " + mid);
+        Cart cart = cartRepository.findByMember_Mid(mid);
+        // 회원의 장바구니 가져옴
+        List<CartDetail> cartDetails = cartDetailRepository.findByCartWherePaymentSuccess(cart);
+        // 회원의 장바구니 상세 항목들을 가져옴(결제되지 않은)
         List<String> sizes = new ArrayList<>();
         List<String> colors = new ArrayList<>();
         List<Integer> paymentSuccesss = new ArrayList<>();
         List<Long> cdids = new ArrayList<>();
         List<ItemDTO> itemDTOS = new ArrayList<>();
         List<Integer> counts = new ArrayList<>();
-
+        // 상세 항목 정보들을 list 타입으로 저장
         cartDetails.forEach(cartDetail -> {
             sizes.add(cartDetail.getSize());
-
             colors.add(cartDetail.getColor());
-
             paymentSuccesss.add(cartDetail.getPaymentSuccess());
-
             cdids.add(cartDetail.getCdid());
-
-            // itemDetail(상세설명) 항목 값 존재하는데도 null로 출력됨 문제해결하기
             ItemDTO itemDTO = itemService.readOne(cartDetail.getItem().getIno());
             itemDTOS.add(itemDTO);
 
