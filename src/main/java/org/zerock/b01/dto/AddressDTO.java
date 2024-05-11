@@ -47,7 +47,4 @@ public class AddressDTO {
 
     private int a_use; // 배송지 사용 여부
 
-    //private int basicYesOrNo;
-    // register.html에서 기본배송지로 배송지를 등록하려고 할 때 여기로 1을 전송(엔티티까지 갈 필요는 없는 필드)
-
 }
