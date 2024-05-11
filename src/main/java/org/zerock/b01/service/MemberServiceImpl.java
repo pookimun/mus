@@ -81,26 +81,26 @@ public class MemberServiceImpl implements MemberService {
 /*        String mid = MemberDTO.getMid();
 
         Member member = modelMapper.map(memberDTO, Member.class); //엔티티 관리하는 모델 매퍼
-        member.changePassword(passwordEncoder.encode(memberDTO.getM_pw()));
+        member.checkPassword(passwordEncoder.encode(memberDTO.getM_pw()));
 
         log.info("=======================");
         log.info(member);
 
         memberRepository.save(member);*/
 
-            Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
+        Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
 
-            Member member = result.orElseThrow();
+        Member member = result.orElseThrow();
 
-            // 변경할 정보를 엔티티에 반영
-            //member.setM_email(memberDTO.getM_email());
+        // 변경할 정보를 엔티티에 반영
+        //member.setM_email(memberDTO.getM_email());
 
-            // 비밀번호를 변경하려는 경우에만 변경
-            if (memberDTO.getM_pw() != null && !memberDTO.getM_pw().isEmpty()) {
-                member.changePassword(passwordEncoder.encode(memberDTO.getM_pw()));
-            }
+        // 비밀번호를 변경하려는 경우에만 변경
+        if (memberDTO.getM_pw() != null && !memberDTO.getM_pw().isEmpty()) {
+            member.changePassword(passwordEncoder.encode(memberDTO.getM_pw()));
+        }
 
-            // 변경된 회원 정보 저장
-            memberRepository.save(member);
+        // 변경된 회원 정보 저장
+        memberRepository.save(member);
     }
 }

@@ -4,12 +4,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,17 +32,26 @@ import java.util.Random;
 public class MemberController {
     private final MemberService memberService;
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/join")
     public void joinGET(){
 
         log.info("join get...");
 
     }
+
+    @PreAuthorize("permitAll()")
     @PostMapping("/join")
-    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
 
         log.info("join post...");
         log.info(memberJoinDTO);
+
+        if(bindingResult.hasErrors()) {
+            log.info("@Vaild 에러 !! " + bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors() );
+            return "redirect:/member/join";
+        }
 
         try {
             memberService.join(memberJoinDTO);
@@ -55,6 +66,7 @@ public class MemberController {
         return "redirect:/member/login"; //회원 가입 후 로그인
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/login")
     public void loginGET(String error, String logout) {
         log.info("login get..............");
@@ -65,13 +77,11 @@ public class MemberController {
             log.info("user logout..........");
         }
     }
-
     @GetMapping(value = "/login/error")
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/login";
     }
-
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response,
@@ -92,7 +102,6 @@ public class MemberController {
         model.addAttribute("dto", memberDTO);
     }
 
-/*
     @PostMapping("/edit")
     public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
 
@@ -103,10 +112,10 @@ public class MemberController {
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/member/edit"; //회원 가입 후 로그인
+        return "redirect:/member/edit";
     }
-*/
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/forgot")
     public void forgotGet() {
     }

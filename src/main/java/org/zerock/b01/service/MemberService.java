@@ -6,8 +6,7 @@ import org.zerock.b01.dto.MemberJoinDTO;
 import org.zerock.b01.dto.MemberDTO;
 
 public interface MemberService {
-    static class midExistException extends Exception {
-    }
+    static class midExistException extends Exception {}
 
     void join(MemberJoinDTO memberJoinDTO)throws midExistException;
     void edit(MemberDTO memberDTO);

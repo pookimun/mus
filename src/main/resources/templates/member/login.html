@@ -7,7 +7,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!--login_page-->
     <style>
         * {
             margin: 0;
@@ -16,8 +15,8 @@
             border: 0px solid;
         }
 
-        img {
-            width: 100px;
+        .top-menu-bar .menu-1 {
+            margin-left: 250px;
         }
 
         body {
@@ -77,7 +76,7 @@
 
         button {
             width: 200px;
-            padding: 10px 0;
+            padding: 20px 0;
             border: 1px solid #000;
             border-radius: 0;
             font-size: 1.5rem;
@@ -108,60 +107,6 @@
             border-radius: 50%;
         }
 
-        /***************************start******************************/
-        header {
-            width: 100%;
-            background: #3f3f3f;
-        }
-
-        #ltbar {
-            background: #3f3f3f;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            display: block;
-            transition: top 0.8s;
-            line-height: 5rem;
-            z-index: 99;
-        }
-
-        .ltbar {
-            min-width: 1200px;
-            padding: 0 50px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .logo {
-            margin-bottom: -15px;
-            filter: brightness(100);
-        }
-
-        .ltbar ul {
-            margin-top: 15px;
-        }
-
-        .ltbar ul li {
-            display: inline;
-            color: #d3d3d3;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .ltbar ul li a {
-            padding: 0 10px;
-            color: #d3d3d3;
-            font-size: 1.5rem;
-            font-weight: 500;
-            line-height: 2rem;
-            text-transform: uppercase;
-        }
-
-        .ltbar ul li a:hover {
-            color: #a4493d;
-        }
-
         .search {
             width: 25px;
             margin-bottom: 0px;
@@ -172,7 +117,6 @@
         .login_page {
             clear: both;
             width: 600px;
-            padding: 11% 0 9% 0;
             margin: 0 auto;
         }
 
@@ -180,7 +124,6 @@
             width: 100%;
             padding: 0 10%;
             margin: 0 auto;
-            border: 2px solid #00000033;
             position: relative;
         }
 
@@ -275,20 +218,15 @@
             color: #fff;
         }
 
-        #home ul {
-            padding: 50px 0;
-        }
-
         #home ul li {
             display: inline;
             color: #222;
-            font-size: 1.3rem;
         }
 
         #home ul li a {
             padding: 0 10px;
             color: #222;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
         }
 
         .eye {
@@ -314,103 +252,6 @@
 
         #menu1> :nth-child(3){
             margin-bottom: 50px;
-        }
-
-        footer {
-            clear: both;
-            padding: 5rem 0 0 0;
-            background: #d9d2cd;
-        }
-
-        .ft1 {
-            width: 1200px;
-            margin: 0 auto;
-            padding: 0 0 2rem 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .ft1 ul li {
-            margin: 15px auto;
-            color: #444;
-            font-size: 1.3rem;
-        }
-
-        .ft1> :nth-child(1)> :nth-child(3) {
-            margin-top: 20px;
-        }
-
-        .ft1> :nth-child(1)> :nth-child(3) li {
-            display: inline;
-            margin-right: 20px;
-            font-size: 1.5rem;
-        }
-
-        .ft1> :nth-child(1)> :nth-child(3) li a {
-            color: #222;
-            font-weight: 500;
-            text-decoration: underline;
-            font-size: 1.5rem;
-        }
-
-        .ft1> :nth-child(1)> :nth-child(3) li a:hover {
-            font-weight: 600;
-        }
-
-        .ft1> :nth-child(2) {
-            text-transform: uppercase;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .ft1> :nth-child(2) ul {
-            margin-left: 40px;
-        }
-
-        .ft1> :nth-child(2) ul li {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .ft1> :nth-child(2) a {
-            color: #555;
-            font-size: 1.3rem;
-            font-weight: 400;
-        }
-
-        .ft2 {
-            clear: both;
-            min-width: 1200px;
-            margin: 0 auto;
-            color: #faf9f9;
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            background: #ddd;
-        }
-
-        .ft2 section{
-            width: 1200px;
-            color: #333;
-            padding: 20px 0;
-            margin: 0 auto;
-        }
-
-        .ft2 ul> :nth-child(1) {
-            padding-top: 5px;
-        }
-
-        .ft2 img {
-            width: 25px;
-            filter: brightness(10%);
-        }
-
-        .ft2 ul {
-            width: 200px;
-            margin: 0 auto;
-            margin-left: 41%;
-            display: flex;
-            justify-content: space-between;
         }
     </style>
 </head>
@@ -463,17 +304,13 @@
                         </div>
                     </form>
 
-                <!--카카오가 숨어있어요-->
-                <a href="/oauth2/authorization/kakao">KAKAO</a>
-
                 <div>
                     <ul>
-                        <li><a href="/member/join">회원가입</a></li>
-                        <li>|<a href="#">아이디 찾기</a>|</li>
-                        <li><a href="/member/forgot">비밀번호 찾기</a></li>
+                        <li><a href="/member/join" style="font-size: 13px;">회원가입</a>|</li>
+                        <li><a href="/member/forgot" style="font-size: 13px;">비밀번호 찾기</a>|</li>
+                        <li><a href="/oauth2/authorization/kakao"><img th:src="@{/img/core-img/kakao-login.png}" style="width: 11.25rem;"></a></li>
                     </ul>
-                    <a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>
-
+                    <!--<a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>-->
                 </div>
 
             </div> <!--#home-->
@@ -492,14 +329,3 @@
 </article>
 
 </div>
-<!--<script type="text/javascript">
-    &lt;!&ndash;비번 눈감아&ndash;&gt;
-    function myFunction() {
-        var x = document.getElementById("pw");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-</script>-->

@@ -18,4 +18,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long>, OrdersSea
     @Query("select o from Orders o where o.ono = :ono")
     Optional<Orders> findByIdWithOrdersDetails(Long ono);
 
+    @Query("select count(o) from Orders o where o.o_ordersno = :o_ordersno")
+    // 주문번호가 겹치는지 판단하기 위한 쿼리
+    int ordersnoSelect(String o_ordersno);
+
 }
