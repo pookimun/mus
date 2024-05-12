@@ -44,6 +44,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         }
         ordersJPQLQuery.where(orders.member.eq(member));
         ordersJPQLQuery.where(orders.paymentSuccess.eq(1));
+
         ordersJPQLQuery.groupBy(orders);
 
         getQuerydsl().applyPagination(pageable, ordersJPQLQuery); //paging
