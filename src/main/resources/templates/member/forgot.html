@@ -255,21 +255,21 @@
                 <div class="tab-pane fade in active" id="home">
 
                     <form action="/member/forgot/mailSend" id="forgotForm" method="post">
-                        <label class="inp inp_text" for="user_mail">
+                        <label class="inp inp_text">
                             <span class="inp_tit eng" style="float: left;">이메일</span>
                             <input class="btn" id="sendSertify" style="float: right;" type="submit"
                                    value="인증번호 전송">
 
-                            <input class="inp_comm required" id="user_mail" name="m_email" placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
+                            <input class="inp_comm required" id="email" name="m_email" placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
                         </label>
                     </form>
 
                     <form action="/member/forgot/mailAuthCheck" method="post">
-                        <label class="inp inp_text" for="user_code">
+                        <label class="inp inp_text">
                             <span class="inp_tit eng">인증번호</span>
                             <input class="btn" id="checkSertify" style="float: right;" type="submit"
                                    value="인증번호 확인">
-                            <input class="inp_comm required" id="user_code" name="m_code" placeholder=" 인증번호 6자리 숫자 입력" title="user_code" type="text">
+                            <input class="inp_comm required" id="code" name="authNum" placeholder=" 인증번호 6자리 숫자 입력" title="user_code" type="text">
                         </label>
                     </form>
 
@@ -285,7 +285,7 @@
     <script>
         document.getElementById('sendSertify').addEventListener('click', function () {
             // 입력된 이메일 주소 가져오기
-            var userEmail = document.getElementById('user_mail').value;
+            var userEmail = document.getElementById('email').value;
 
             // 이메일 주소가 비어 있는지 확인
             if (userEmail.trim() === '') {
@@ -327,24 +327,20 @@
             debugger;
         });
 
-
-
-
-
         document.getElementById('checkSertify').addEventListener('click', function () {
-
-            // AJAX를 이용하여 서버에 이메일 주소 전송 및 인증 코드 요청
-            var formData = {
-                인증번호: userEmail,
-            };
 
             var headers = {}; // headers 변수를 정의합니다.
             headers[$('meta[name=csrf-header-name]').attr('content')] = $('meta[name=csrf-token]').attr('content');
 
+            var userCode = document.getElementById('code').value;
+
+            var formData = {
+                authNum: userCode,
+            };
             debugger;
             $.ajax({
                 type: 'POST',
-                url: '/member/forgot/mailSend',
+                url: '/member/forgot/mailAuthCheck',
                 dataType : 'json',
                 data : JSON.stringify(params),
                 async : false,
@@ -360,5 +356,4 @@
             debugger;
         });
     </script>
-
 </div>
