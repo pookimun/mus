@@ -1,5 +1,6 @@
 package org.zerock.b01.service;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,15 +20,13 @@ public class MailSendService {
     private RedisUtil redisUtil;
     private int authNumber;
 
-    public boolean CheckAuthNum(String email,String authNum){
+    @Transactional
+    public boolean CheckAuthNum(String authNum){
+
         if(redisUtil.getData(authNum)==null){
             return false;
-        }
-        else if(redisUtil.getData(authNum).equals(email)){
+        } else{
             return true;
-        }
-        else{
-            return false;
         }
     }
 
