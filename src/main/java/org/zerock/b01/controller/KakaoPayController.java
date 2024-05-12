@@ -59,7 +59,7 @@ public class KakaoPayController {
         for (int i = 0; i < inos.length; i++) {
             OrdersDetailDTO ordersDetailDTO = OrdersDetailDTO.builder()
                     //.orders(ono)
-                    .itemDTO(itemService.readOne(inos[i]))
+                    .itemListAllDTO(itemService.selectItemListAllDTO(inos[i]))
                     .od_count(ordersDTO.getCounts()[i])
                     .od_size(ordersDTO.getSizes()[i])
                     .od_color(ordersDTO.getColors()[i])

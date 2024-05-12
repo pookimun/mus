@@ -34,7 +34,7 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/orders") // 주문서
-    // localhost/orders/orders?cdids=1&cdids=52&cdids=102
+    // localhost/orders/orders?cdids=1&cdids=52&cdids=102 장바구니 연결 전 테스트 방식
     public void orders(Principal principal, Model model, @RequestParam("cdids") Long[] cdids) { // , Long[] cnos
         log.info("매개값 cdids : " + Arrays.toString(cdids)); // []을 출력하려면 Arrays.toString() 사용해야함
         log.info("orders 컨트롤러 실행 ... ");
@@ -175,8 +175,12 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/success")
-    public void ordersSuccess() {
-
+    public void ordersSuccess(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO) {
+        String member = principal.getName();
+        OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+        log.info(ordersPageRequestDTO);
+        log.info(result);
+        // OrdersDetail에 결제한 장바구니 세부항목 정보 번호를 저장하도록 해야겠음
     }
 
     @PreAuthorize("permitAll()")
