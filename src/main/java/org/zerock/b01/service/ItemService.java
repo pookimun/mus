@@ -18,6 +18,9 @@ public interface ItemService {
     //게시글의 이미지 처리
     ItemPageResponseDTO<ItemListAllDTO> listWithAll(ItemPageRequestDTO itemPageRequestDTO);
 
+    // 주문목록 list에서 상품 이미지 하나를 출력할 수 있도록 함
+    ItemListAllDTO selectItemListAllDTO(Long ino);
+
 
     // 성은 : item 테이블의 itemDetail 필드는 뺀건지 ! 뺀게 아니라면 아래 두 메서드에 추가해야함
     default Item dtoToEntity(ItemDTO itemDTO){

@@ -19,12 +19,13 @@ public class ItemListAllDTO {
 
     private String i_name;
 
+    private int i_price; // 성은추가
+
     private String i_color; //i_price 에서 변경
 
-    private LocalDateTime regDate;
+    private String i_size; // 성은추가
 
-    private Long replyCount;
-
+    private int i_stock; //재고보유여부
 
     private List<ItemImageDTO> itemImages;
 

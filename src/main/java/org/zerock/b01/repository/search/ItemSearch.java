@@ -6,6 +6,8 @@ import org.zerock.b01.domain.Item;
 import org.zerock.b01.dto.BoardListAllDTO;
 import org.zerock.b01.dto.ItemListAllDTO;
 
+import java.util.List;
+
 public interface ItemSearch {
     Page<Item> search1(Pageable pageable);
     Page<Item> searchAll(String[] types,String keyword,Pageable pageable);
@@ -13,5 +15,7 @@ public interface ItemSearch {
     Page<ItemListAllDTO> searchWithAll(String[] types,
                                                  String keyword,
                                                  Pageable pageable);
+
+//    List<ItemListAllDTO> selectItemListAllDTO(Long ino);
 
 }

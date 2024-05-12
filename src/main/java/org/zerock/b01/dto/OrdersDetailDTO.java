@@ -19,7 +19,7 @@ public class OrdersDetailDTO {
     private Long orders;
 
     // 선택한 상품
-    private ItemDTO itemDTO;
+    private ItemListAllDTO itemListAllDTO;
 
     // 선택한 상품의 구매 수량
     private int od_count;
