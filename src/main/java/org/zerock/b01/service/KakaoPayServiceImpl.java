@@ -48,8 +48,8 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         parameters.add("vat_amount", "0"); // 부과세
         parameters.add("tax_free_amount", "0"); // 상품 비과세 금액
         parameters.add("approval_url", "http://localhost/payment/success/" + ordersListDTO.getOno()); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost/payment/cancel/"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost/payment/fail/"); // 실패 시 redirect url
+        parameters.add("cancel_url", "http://localhost/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://localhost/payment/fail"); // 실패 시 redirect url
 
         log.info(parameters);
 
