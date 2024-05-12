@@ -25,7 +25,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
     public Page<OrdersListDTO> searchWithAll(String member, String keyword, Pageable pageable) {
         // 상품명, 브랜드명으로 검색 기능 구현 완료
         // 페이징 구현 완료
-        // order_detail도 같이 가져오기 구현완료
+        // order_detail도 같이 가져오기 구현완료 ㅜㅜ
 
         // Q도메인 객체 가져옴
         QOrders orders = QOrders.orders;
