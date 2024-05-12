@@ -44,7 +44,7 @@ public class MailController {
             return new ModelAndView("redirect:/member/changePw");
         } else {
             redirectAttributes.addFlashAttribute("인증 번호 불일치");
-            return new ModelAndView("redirect:/member/forgot");
+            return new ModelAndView("redirect:/member/changePw");
         }
     }
 }
