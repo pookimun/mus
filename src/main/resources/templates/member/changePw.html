@@ -284,14 +284,14 @@
             <span class="required">
 
                 <div class="id_section" style="width: 20%;">
-                    <label><span>아이디</span>
-                    <input id="id" name="mid" readonly th:value="${dto.mid}" type="text" style="float: left;">
+                    <label><span>인증이 완료되었습니다.</span>
+                    <!--<input id="id" name="mid" readonly th:value="${dto.mid}" type="text" style="float: left;">-->
                     </label>
                 </div>
 
                 <div class="id_section" style="width: 20%;">
-                <label><span>적립금</span>
-                    <input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}" style="float: left;">
+                <label><span>안전한 사용을 위해 비밀번호를 변경해 주세요.</span>
+                    <!--<input placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" readonly th:value="${dto.m_point}" style="float: left;">-->
                 </label>
                 </div>
 
@@ -303,7 +303,7 @@
                     <form action="/member/edit" id="editForm" method="post">
 
                         <div style="margin-top: 30px;">
-                    <input name="mid" readonly th:value="${dto.mid}" type="hidden">
+                    <!--<input name="mid" readonly th:value="${dto.mid}" type="hidden">-->
                 <label><span>새 비밀번호</span>
                     <input name="m_pw" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
                 </label>
@@ -322,7 +322,7 @@
                     <script>
                     function checkAgreements() {
                         //if {
-                        console.log("야호")
+                        console.log("비밀번호 수정")
                         document.getElementById("editForm").submit();
                         //}
                     }
