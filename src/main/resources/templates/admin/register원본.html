@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -70,7 +69,7 @@
                 <label for="itemColor">색상</label>
                 <input id="itemColor" name="i_color" type="text">
             </div>
-            <div>
+            <div>iSize
                 <label for="itemSize">사이즈</label>
                 <input id="itemSize" name="i_size" type="text">
             </div>
@@ -87,7 +86,7 @@
     <!--웹 애플리케이션에서 서버로 데이터를 보내거나 서버에서 데이터를 가져올 때 사용됩니다.-->
     <script src="/js/upload.js"></script> <!--업로드를 위한 속성-->
     <script th:src="@{/js/reply.js}"></script>
-    <script th:inline="javascript">
+    <script>
         function previewImage(event, previewId) { <!--previewImage-->
             debugger
             const previewContainer = document.getElementById(previewId);
