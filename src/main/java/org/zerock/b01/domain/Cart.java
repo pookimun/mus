@@ -27,7 +27,7 @@ public class Cart extends BaseEntity{
     private Member member;      // 멤버랑 엮음 fk
 
 
-    //private int c_count;        // 장바구니에 담은 수
+    //private int c_count;        // 장바구니에 담은 수ㅇㅇ
 
 
 
