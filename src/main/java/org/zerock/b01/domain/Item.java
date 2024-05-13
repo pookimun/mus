@@ -21,7 +21,7 @@ import java.util.Set;
 public class Item extends BaseEntity{
 
     @Id
-    @Column(name = "item_id")
+//    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ino; //상품  (pk)
 
