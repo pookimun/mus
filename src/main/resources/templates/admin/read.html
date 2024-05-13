@@ -54,8 +54,21 @@
     <br><br><br>
     <input type="hidden" id="itemDTO" th:value="${itemDTO.ino}">
 
+
+
+
     <div class="d-flex">
         <div class="repImgDiv">
+
+
+            <div class="col">
+                <div class="card" th:if="${itemDTO.fileNames != null && itemDTO.fileNames.size() > 0}">
+                    <img class="text-center"
+                         th:each="filename: ${itemDTO.fileNames}"
+                         th:src="|/view/${filename}|">
+                </div>
+            </div>
+
             <img th:src="${itemDTO.fileNames[0]}" class = "rounded repImg" th:alt="${itemDTO.i_name}">
         </div>
         <div class="wd50">

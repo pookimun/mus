@@ -750,26 +750,26 @@
 
     <div class="header-top line">
 
-        <div class="header-brand unit">
-        </div>
+            <div class="header-brand unit">
+            </div>
 
-        <div class="header-mymenu unit-right">
-            <ul class="line">
-                <li class="unit">
+            <div class="header-mymenu unit-right">
+                <ul class="line">
+                    <li class="unit">
                     <span class="join-login" sec:authorize="isAnonymous()">
                         <a class="join" th:href="@{/member/join}">회원가입</a>
                         /
                         <a class="login" th:href="@{/member/login}">로그인</a>
                     </span>
-                    <a href="/member/logout" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
-                </li>
-                <li class="unit">
-                    <a id="myPageLink" sec:authorize="isAuthenticated()"
-                       th:href="@{/member/edit}"><span>마이 페이지</span></a>
-                </li>
-                <li class="unit"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
-            </ul>
-        </div>
+                        <a href="/member/logout" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
+                    </li>
+                    <li class="unit">
+                        <a id="myPageLink" sec:authorize="isAuthenticated()"
+                           th:href="@{/member/edit}"><span>마이 페이지</span></a>
+                    </li>
+                    <li class="unit"><a class="cart-ico" href="#"><i class="ns-cart"></i></a></li>
+                </ul>
+            </div>
 
     </div>
 
