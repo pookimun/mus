@@ -16,5 +16,5 @@ public class ItemImageDTO {
 
     private String fileName;
 
-    private int ord;
+    private int ord; // 0 : 대표
 }
