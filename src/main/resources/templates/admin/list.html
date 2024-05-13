@@ -72,10 +72,10 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Bno</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Writer</th>
-                            <th scope="col">RegDate</th>
+                            <th scope="col">상품번호</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">색상</th>
+                            <th scope="col">재고</th>
                         </tr>
                         </thead>
                         <tbody th:with="link = ${itemPageRequestDTO.getLink()}">
@@ -158,14 +158,6 @@
 
     }, false)
 
-    //show modal
-    const result = [[${result}]]
-
-    const modal = new bootstrap.Modal(document.querySelector(".modal"))
-
-    if (result) {
-        modal.show()
-    }
 </script>
 
 </body>

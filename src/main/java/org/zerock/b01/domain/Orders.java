@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.zerock.b01.dto.ItemListAllDTO;
 import org.zerock.b01.dto.OrdersDetailDTO;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
@@ -90,11 +92,14 @@ public class Orders {
     public void addDetail(List<OrdersDetailDTO> ordersDetailDTOS){
         // ordersDetailDTO의 ItemDTO를 Item entity로 변환
         ordersDetailDTOS.forEach(ordersDetailDTO -> {
-        Item item = Item.builder()
-                .ino(ordersDetailDTO.getItemDTO().getIno())
-                .i_name(ordersDetailDTO.getItemDTO().getI_name())
-                .i_price(ordersDetailDTO.getItemDTO().getI_price())
-                .i_stock(ordersDetailDTO.getItemDTO().getI_stock())
+            Item item = Item.builder()
+                .ino(ordersDetailDTO.getItemListAllDTO().getIno())
+                .i_name(ordersDetailDTO.getItemListAllDTO().getI_name())
+                .i_price(ordersDetailDTO.getItemListAllDTO().getI_price())
+                .i_color(ordersDetailDTO.getItemListAllDTO().getI_color())
+                .i_size(ordersDetailDTO.getItemListAllDTO().getI_size())
+                .i_stock(ordersDetailDTO.getItemListAllDTO().getI_stock())
+                // .fileNames 보류
                 .build();
 
         OrdersDetail ordersDetail = OrdersDetail.builder()

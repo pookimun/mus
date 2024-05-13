@@ -114,8 +114,11 @@ public class ItemSearchImpl extends QuerydslRepositorySupport implements ItemSea
             ItemListAllDTO dto = ItemListAllDTO.builder()
                     .ino(itemEntity.getIno())
                     .i_name(itemEntity.getI_name())
+                    .i_price(itemEntity.getI_price())
                     .i_color(itemEntity.getI_color())
-
+                    .i_size(itemEntity.getI_size())
+                    .i_stock(itemEntity.getI_stock())
+                    // .itemImages() 밑에서
                     .build();
 
             // ItemImage를 ItemImageDTO로 처리하는 부분
@@ -137,4 +140,47 @@ public class ItemSearchImpl extends QuerydslRepositorySupport implements ItemSea
 
         return new PageImpl<>(dtoList, pageable, totalCount);
     }
+
+//    @Override
+//    public List<ItemListAllDTO> selectItemListAllDTO(Long ino) {
+//        QItem qItem = QItem.item;
+//
+//        JPQLQuery<Item> itemJPQLQuery = from(qItem);
+//
+//        if (ino != null) {
+//            itemJPQLQuery.where(qItem.ino.eq(ino));
+//        }
+//
+//        itemJPQLQuery.groupBy(qItem);
+//
+//        JPQLQuery<Item> tupleJPQLQuery = itemJPQLQuery.select(qItem);
+//
+//        List<Item> items = tupleJPQLQuery.fetch();
+//
+//        items.forEach(item ->
+//        ItemListAllDTO dto = ItemListAllDTO.builder()
+//                .ino(item.ino)
+//                .i_name(item.getI_name())
+//                .i_price(item.getI_price())
+//                .i_color(item.getI_color())
+//                .i_size(item.getI_size())
+//                .i_stock(item.getI_stock())
+//                // .itemImages() 밑에서
+//                .build();
+//
+//        // ItemImage를 ItemImageDTO로 처리하는 부분
+//        List<ItemImageDTO> imageDTOs = item.getItemImageSet().stream().sorted()
+//                .map(itemImage -> ItemImageDTO.builder()
+//                        .uuid(itemImage.getUuid())
+//                        .fileName(itemImage.getFileName())
+//                        .ord(itemImage.getOrd())
+//                        .build()
+//                ).collect(Collectors.toList());
+//
+//
+//        dto.setItemImages(imageDTOs);
+//
+//        return dto;
+//
+//    }
 }
