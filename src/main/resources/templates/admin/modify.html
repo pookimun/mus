@@ -1,81 +1,145 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout/basic.html}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>아이템 수정</title>
-</head>
-<div layout:fragment="content">
-    <div>
-            <h2>아이템 수정</h2>
 
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="col">
+            <h2>아이템 수정</h2>
+        </div>
+    </div>
 
     <!-- 수정 폼 -->
-    <form id="FormTag" action="@{/admin/modify}" method="post">
-              <input type="hidden" th:value="${itemDTO.ino}" name="ino" >
-        <div>
-            <label for="itemName">상품명</label>
-            <input id="itemName" name="i_name" type="text"  required>
+    <form id="modForm" action="/admin/modify" method="post">
+        <input type="hidden" name="ino" th:value="${itemDTO.ino}"><!-- 여기에 실제 아이템의 ID를 넣어야 함 -->
+        <div class="mb-3">
+            <label for="iName" class="form-label">상품명</label>
+            <input type="text" class="form-control" id="iName" name="i_name" th:value="${itemDTO.i_name}">
         </div>
-        <div>
-            <label for="itemPrice">상품 가격</label>
-            <div>
-                <span>₩</span>
-                <input id="itemPrice" type="number" name="i_price" required>
-            </div>
+        <div class="mb-3">
+            <label for="iPrice" class="form-label">상품 가격</label>
+            <input type="number" class="form-control" id="iPrice" name="i_price" th:value="${itemDTO.i_price}">
         </div>
 
-        <div id="uploadFileNamesDIV"> <!--업로드를 위한 파일 이름을 담기 위한 DIV 생성-->
+        <div id="uploadFileNamesDIV"> <!--업로드된 파일 섬네일 보기-->
+
+
+            <div>
+                <th:block th:each="fileName:${itemDTO.fileNames}">
+                    <div th:class="card" th:with="arr=${fileName.split('_')}">
+                        <div>
+                            [[${arr[1]}]]
+                            <button th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X</button>
+                        </div>
+                        <div>
+                            <img th:src="|/view/s_${fileName}|" th:data-src="${fileName}">
+                        </div>
+                    </div><!-- card -->
+                </th:block>
+            </div>
+
+            <div class="uploadFile">
+                <button type="button" class="uploadFileBtn">ADD Files</button>
+            </div>
+
+            <div class="upload">
+                <button type="button" class="uploadBtn">Upload</button>
+
+            </div>
+
             <div>
                 <label for="itemTitleImage">대표 이미지</label>
                 <input type="file" id="itemTitleImage" name="files"
-                       onchange="previewImage(event, 'titlePreview')" required>
+                       onchange="previewImage(event, 'titlePreview')">
+                <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
+                이 함수에는 두 개의 인수가 전달됩니다.
+                첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
+                 또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
+
                 <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
             </div>
             <div>
                 <label for="itemInfoImage">설명 이미지</label>
                 <input type="file" id="itemInfoImage" name="files"
-                       onchange="previewImage(event, 'infoPreview')" required multiple>
+                       onchange="previewImage(event, 'infoPreview')" multiple>
                 <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
             </div>
 
         </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
-
-        <div>
-            <label for="itemColor">색상</label>
-            <input id="itemColor" name="i_color" type="text">
+        <div class="mb-3">
+            <label for="iColor" class="form-label">색상</label>
+            <input type="text" class="form-control" id="iColor" name="i_color" th:value="${itemDTO.i_color}">
+        </div>
+        <div class="mb-3">
+            <label for="iSize" class="form-label">사이즈</label>
+            <input type="text" class="form-control" id="iSize" name="i_size" th:value="${itemDTO.i_size}">
         </div>
 
-        <div>
-            <label for="itemSize">사이즈</label>
-            <input id="itemSize" name="i_size" type="text">
+        <div class="mb-3">
+            <label for="itemStock" class="form-label">재고</label>
+            <input type="text" class="form-control" id="itemStock" name="i_stock" th:value="${itemDTO.i_size}">
         </div>
-
-        <div>
-            <label for="itemStock">재고</label>
-            <input id="itemStock" name="i_stock" type="number" required>
-        </div>
-        <div id="imagePreview"></div>
-
-        <button type="submit">수정</button>
-        <button type="button" class="listBtn"> 리스트 </button>
+        <!--<button type="button" class="btn btn-secondary modBtn">Modify</button>-->
+        <button type="button" class="modBtn">Modify</button>
+        <button type="button" class="listBtn"> 리스트</button>
         <button type="button" class="removeBtn"> 삭제</button>
+        <!--<button type="delete" class="btn btn-primary">삭제</button>-->
     </form>
-    </div>
+
 </div>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!--웹 애플리케이션에서 서버로 데이터를 보내거나 서버에서 데이터를 가져올 때 사용됩니다.-->
 <script src="/js/upload.js"></script> <!--업로드를 위한 속성-->
-<script th:src="@{/js/reply.js}"></script><!--프론트 깨짐 체크용-->
+<script th:src="@{/js/reply.js}"></script>
 
-<script>
-    function previewImage(event, previewId){ <!--previewImage-->
+<script th:inline="javascript">
+
+    const errors = [[${errors}]]
+    console.log(errors) // 가져온 오류를 콘솔에 출력합니다.
+
+    let errorMsg = ''
+
+    // 만약 오류가 있다면 오류 메시지를 생성하여 출력합니다.
+    if (errors) {
+        for (let i = 0; i < errors.length; i++) {
+            errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+        }
+        // 현재 페이지의 URL을 변경하지 않고 오류 메시지를 알립니다.
+        history.replaceState({}, null, null)
+        alert(errorMsg) // 생성된 오류 메시지를 경고창으로 표시합니다.
+    }
+
+    const link = [[${itemPageRequestDTO.getLink()}]]
+    const modForm = document.querySelector("#modForm")
+
+    document.querySelector(".modBtn").addEventListener("click", function (e) {
+        debugger
+        e.preventDefault()
+        e.stopPropagation()
+
+        modForm.action = `/admin/modify?${link}`
+
+        // //첨부파일 추가
+        // appendFileData()
+        //
+        // //삭제대상 파일들의 삭제
+        // callRemoveFiles()
+
+        modForm.method = 'post'
+        modForm.submit()
+
+
+    }, false)
+
+
+    function previewImage(event, previewId) { <!--previewImage-->
         debugger
         const previewContainer = document.getElementById(previewId);
         previewContainer.innerHTML = ''; <!--previewContainer의 내용을 담을 객체 생성-->
@@ -113,45 +177,85 @@
     }
 
 
+    const titlePreview = document.querySelector("#titlePreview")
+    // const : script 부터 /script 여기까지 사용할 수 있는 변수 타입
+    // let : { 부터 } 까지 사용할 수 있는 변수 타입
+    const infoPreview = document.querySelector("#infoPreview")
+    const uploadFileNamesDIV = document.querySelector("#uploadFileNamesDIV")
 
 
-    const formObj = document.querySelector('#FormTag'); <!--전체 수정 폼 div 변수명 생성-->
-    debugger;
+    // document.querySelector(".modBtn").addEventListener("click", function (e) {
+    //     debugger
+    //     e.preventDefault()
+    //
+    //     let uploadFiles = []; // 배열로 초기화
+    //     uploadFiles.push(titlePreview.querySelector("img")); // 이미지 요소를 배열에 추가
+    //     const infoImgs = infoPreview.querySelectorAll("img"); // 여러 이미지 요소 가져오기
+    //     infoImgs.forEach(img => uploadFiles.push(img)); // 이미지 요소를 배열에 추가
+    //     let str = ''
+    //
+    //     for (let i = 0; i < uploadFiles.length; i++) {
+    //         const uploadFile = uploadFiles[i]
+    //         const imgLink = uploadFile.getAttribute("data-a")
+    //         console.log("img 태그의 src 속성 ....... : " + imgLink)
+    //         str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+    //     } // str = str + `<input type='hidden' name='fileNames' value="${imgLink}">`
+    //     uploadFileNamesDIV.innerHTML += str;
+    //     // formObj.submit();
+    //     modForm.submit();
+    // });
 
-    // itemDTO.i_name의 값을 가져와 placeholder로 설정 // 근데 구현 안됌
-    var itemNamePlaceholder = "<%= itemDTO.getI_name() %>";
-    document.getElementById("itemName").placeholder = itemNamePlaceholder;
-    console.log(itemNamePlaceholder)
 
+    document.querySelector(".removeBtn").addEventListener("click", function (e) {
+        //e.preventDefault()
+        //e.stopPropagation()
+        //debugger;
 
-
-
-
-    <!--상품 삭제 -->
-    document.querySelector(".removeBtn").addEventListener("click", function(e){
-        e.preventDefault()
-        e.stopPropagation()
-        debugger;
-
-        formObj.action = `/admin/remove`
-        formObj.method ='post'
-        formObj.submit()
+        //화면에 보이는 파일들을 form태그에 추가
+        appendFileData()
+        //화면에서 안보이도록 처리된 파일들을 form태그에 추가
+        appendNotShownData()
+        // formObj.action = `/admin/remove`
+        // formObj.method ='post'
+        // formObj.submit()
+        modForm.action = `/admin/remove`
+        modForm.method = 'post'
+        modForm.submit()
     }, false)
 
-    document.querySelector(".listBtn").addEventListener("click", function(e){
-        e.preventDefault()
-        e.stopPropagation()
+
+    document.querySelector(".listBtn").addEventListener("click", function (e) {
+        // e.preventDefault()
+        // e.stopPropagation()
         debugger;
 
-        formObj.reset()
-        self.location =`/admin/list?${formObj.querySelector('[name="ino"]').value}`
+        modForm.reset()
+        self.location = `/admin/list?${modForm.querySelector('[name="ino"]').value}`
 
     }, false)
 
 
+    //최종적으로 삭제될 파일들의 목록
+    const removeFileList = []
 
+    function removeFile(uuid, fileName, obj) {
+        debugger
+        if (!confirm("파일을 삭제하시겠습니까?")) {
+            return
+        }
 
+        console.log(uuid)
+        console.log(fileName)
+
+        console.log(obj)
+
+        removeFileList.push({uuid, fileName})
+
+        const targetDiv = obj.closest(".card")
+        targetDiv.remove()
+    }
 
 
 </script>
-
+</body>
+</html>

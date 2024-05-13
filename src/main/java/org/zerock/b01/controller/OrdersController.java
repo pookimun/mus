@@ -9,19 +9,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.b01.domain.Address;
 import org.zerock.b01.dto.*;
-import org.zerock.b01.service.AddressService;
-import org.zerock.b01.service.BoardService;
-import org.zerock.b01.service.MemberService;
-import org.zerock.b01.service.OrdersService;
+import org.zerock.b01.service.*;
 
+import java.lang.reflect.Array;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -33,23 +30,29 @@ public class OrdersController {
     private final OrdersService ordersService;
     private final AddressService addressService;
     private final MemberService memberService;
+    private final CartService cartService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/orders") // 주문서
-    public void orders(Principal principal, Model model, @Param("cno") Long cno) { // , Long[] cnos
+    // localhost/orders/orders?cdids=1&cdids=52&cdids=102 장바구니 연결 전 테스트 방식
+    public void orders(Principal principal, Model model, @RequestParam("cdids") Long[] cdids) { // , Long[] cnos
+        log.info("매개값 cdids : " + Arrays.toString(cdids)); // []을 출력하려면 Arrays.toString() 사용해야함
         log.info("orders 컨트롤러 실행 ... ");
-//        for(Long cno : cnos){
-//            // 여기 하는중 !! => 받은 장바구니 번호를 반복하며 CartAllDTO로 저장하고 orders 페이지에서 출력한당
-//        }
-        // 매개값으로 받은 cdid 값들을 저장 model에 저장 후
-        // readOne 메서드에서 리턴받은 CartAllDTO를 model에 저장한다.
-        // 프론트에서 -> cdid값들(반복)과 CartAllDTO의 cdids(반복)하며 같은 값의 인덱스 번호를 가져와서
-        // CartAllDTO의 나머지 List 형식의 필드들도 위의 인덱스 번호에 해당하는 값들을 출력한다 ..
-        // 스크립트로 해야하나 .. 아니면 그냥 타임리프로 해야하나 .. 고민 고민하지마 걸 갸갹
+        String mid = principal.getName();
         log.info(principal);
-        MemberDTO memberDTO = memberService.readMember(principal.getName());
+        MemberDTO memberDTO = memberService.readMember(mid);
         log.info(memberDTO.getM_point());
-        model.addAttribute("memberPoint", memberDTO.getM_point());
+        model.addAttribute("memberPoint", memberDTO.getM_point()); // 포인트 저장
+        CartAllDTO cartAllDTO = cartService.readOne(mid);
+        log.info("mid로 가져온 결제하지 않은 장바구니 상품 항목 : " + cartAllDTO);
+        model.addAttribute("cartAllDTO", cartAllDTO); // 장바구니 정보 저장
+        // 매개값으로 받은 장바구니 항목들의 인덱스 번호를 찾는다.
+        List<Integer> indexs = new ArrayList<>();
+        for(Long cdid : cdids){
+            indexs.add(cartAllDTO.getCdids().indexOf(cdid));
+        }
+        log.info("선택 구매 할 장바구니 번호들" + indexs);
+        model.addAttribute("indexs", indexs); // 인덱스 번호들 저장
     }
 
     @PreAuthorize("permitAll()")
@@ -172,8 +175,12 @@ public class OrdersController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/success")
-    public void ordersSuccess() {
-
+    public void ordersSuccess(Principal principal, OrdersPageRequestDTO ordersPageRequestDTO) {
+        String member = principal.getName();
+        OrdersPageResponseDTO<OrdersListDTO> result = ordersService.listWithAll(member, ordersPageRequestDTO);
+        log.info(ordersPageRequestDTO);
+        log.info(result);
+        // OrdersDetail에 결제한 장바구니 세부항목 정보 번호를 저장하도록 해야겠음
     }
 
     @PreAuthorize("permitAll()")
@@ -188,6 +195,10 @@ public class OrdersController {
     public void ordersFail() {
         log.info("ordersFail");
     }
+
+
+
+
 
 
 }

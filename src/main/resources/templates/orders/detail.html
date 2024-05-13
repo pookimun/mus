@@ -20,7 +20,9 @@
             text-align: center;
         }
 
-
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
@@ -30,41 +32,42 @@
             <h1 style="margin-bottom: 5%">주문 상세 내역</h1>
             <div>
                 <span>주문번호&nbsp;<strong>[[${dto.o_ordersno}]]</strong></span>&nbsp;&nbsp;
-                <span>주문일자&nbsp;<strong th:text="${#temporals.format(dto.o_date, 'yyyy/MM/dd HH:mm:ss')}"></strong></span>
+                <span>주문일자&nbsp;<strong
+                        th:text="${#temporals.format(dto.o_date, 'yyyy/MM/dd HH:mm:ss')}"></strong></span>
             </div>
         </div>
         <div style="margin-bottom: 5%">
-            <th:block th:each="details:${dto.ordersDetailDTOList}">
-                <h2 style="margin-left: 5%">상품 정보</h2>
-                <table>
-                    <colgroup>
-                        <col style="width:40%">
-                        <col style="width:20%">
-                        <col style="width:10%">
-                        <col style="width:20%">
-                        <col style="width:10%">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>상품정보</th>
-                        <th>주문금액(수량)</th>
-                        <th>적립금 선할인</th>
-                        <th>배송비</th>
-                        <th>주문 상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <h2 style="margin-left: 5%">상품 정보</h2>
 
+            <table>
+
+                <colgroup>
+                    <col style="width:40%">
+                    <col style="width:20%">
+                    <col style="width:10%">
+                    <col style="width:20%">
+                    <col style="width:10%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>상품정보</th>
+                    <th>주문금액(수량)</th>
+                    <th>적립금 선할인</th>
+                    <th>배송비</th>
+                    <th>주문 상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="details:${dto.ordersDetailDTOList}">
                     <tr>
                         <td> <!--상품정보-->
                             <div>
-
-                                <a href="/app/goods/2414779/0">
-                                    <img alt="pearl t-shirt(white)"
-                                         src="//image.msscdn.net/images/goods_img/20220314/2414779/2414779_17057648656692_100.jpg">
-                                </a>
+                                <th:block th:each="itemImage:${details.itemListAllDTO.itemImages}">
+                                    <img th:if="${itemImage.ord == 0}"
+                                         th:src="|/view/s_${itemImage.uuid + '_' + itemImage.fileName}|">
+                                </th:block>
                                 <ul>
-                                    <li><a href="/app/goods/2414779/0"><strong>[[${details.itemDTO.i_name}]]</strong></a></li>
+                                    <li><a href="#"><strong>[[${details.itemListAllDTO.i_name}]]</strong></a></li>
                                     <li>
                                         색상 : [[${details.od_color}]]
                                     </li>
@@ -79,7 +82,7 @@
                             <span>([[${details.od_count}]]개)</span>
                         </td> <!--주문금액(수량)-->
                         <td> <!--적립금 선할인-->
-                            -365원(구현중)
+                            -[[${details.od_price * details.od_count * 0.005}]]원
                         </td> <!--적립금 선할인-->
                         <td> <!--배송비-->
                             무료배송
@@ -88,9 +91,9 @@
                             [[${dto.o_state}]]
                         </td> <!--주문상태-->
                     </tr>
-                    </tbody>
-                </table>
-            </th:block>
+                </th:block>
+                </tbody>
+            </table>
         </div>
         <div>
             <div style="margin-bottom: 5%">
@@ -111,7 +114,9 @@
                     </tr>
                     <tr>
                         <th>배송지 주소</th>
-                        <td>([[${dto.addressDTO.a_zipCode}]]) &nbsp; [[${dto.addressDTO.a_address + "  " + dto.addressDTO.a_detail}]]</td>
+                        <td>([[${dto.addressDTO.a_zipCode}]]) &nbsp; [[${dto.addressDTO.a_address + " " +
+                            dto.addressDTO.a_detail}]]
+                        </td>
                     </tr>
                     <tr>
                         <th>배송 메시지</th>
@@ -133,26 +138,25 @@
                     <tbody>
                     <tr>
                         <th>상품 합계</th>
-                        <td><span>[[${dto.totalPrice + dto.pointFirstUse + dto.pointUse}]]</span>원</td> <!--[[${totalAmount}]]-->
+                        <td><span>[[${dto.totalPrice + dto.pointFirstUse + dto.pointUse}]]</span>원</td>
+                        <!--[[${totalAmount}]]-->
                     </tr>
                     <tr>
                         <th>배송비 합계</th>
                         <td><p>배송비 무료</p></td>
                     </tr>
-                    <tr>
+                    <tr id="totalSalesClick">
                         <th><strong>할인 합계<br>(내역보기 click)</strong></th>
                         <td>
                             <p>
                                 <strong>-<span>[[${dto.pointFirstUse + dto.pointUse}]]</span>원</strong>
                             </p>
-                            <div style="display: none"> <!--할인합계내역-->
+                            <div id="hiddentoggle" class="hidden"> <!--할인합계내역-->
                                 <div>
-                                    <p>적립금 선할인</p>
-                                    <p>-803원(구현중)</p>
+                                    <p>적립금 선할인 -[[${dto.pointFirstUse}]]원</p>
                                 </div>
                                 <div>
-                                    <p>적립금 사용</p>
-                                    <p>-[[${dto.pointUse}]]</p>
+                                    <p>적립금 사용 -[[${dto.pointUse}]]원</p>
                                 </div>
                             </div> <!--할인합계내역-->
                         </td>
@@ -170,10 +174,20 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            debugger
+            $('#totalSalesClick').click(function() {
+                debugger
+                $('#hiddentoggle').toggleClass('hidden');
+                // 클릭 시 마다 실행되며 클릭 시 hidden 클래스가 이미 걸려있으면 삭제하고,
+                // hidden 클래스가 걸려있지 않으면 건다.
+            });
+        });
+    </script>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:inline="javascript">
 
-</script>
-</div>
