@@ -31,7 +31,7 @@ public class OrdersDetailDTO {
     private String od_color;
 
     // 주문 당시의 상품 가격
-    // 주문내역을 조회할 때 현재가격이 아니라 주문 당시의 가격을 표시해야 하기 때문에 가격 필드를 따로 생성
+    // 주문내역을 조회할 때 현재가격이 아니라 주문 당시의 가격을 표시해야 하기 때문에 가격 필드를 따로 생성생성
     private int od_price;
 
 }
