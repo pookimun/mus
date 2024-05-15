@@ -680,6 +680,10 @@
                     $('.color').each(function () {
                         colors.push($(this).text());
                     });
+                    let cdids = []; // 장바구니 번호들
+                    $('.cdid').each(function () {
+                        cdids.push($(this).val());
+                    });
 
                     console.log("ano : " + ano);
                     console.log("price : " + price);
@@ -690,6 +694,7 @@
                     console.log("counts : " + counts);
                     console.log("sizes: " + sizes);
                     console.log("colors : " + colors);
+                    console.log("cdids : " + cdids);
 
                     let ordersObj = {
                         ano: ano,
@@ -701,7 +706,8 @@
                         inos: inos,
                         counts: counts,
                         sizes: sizes,
-                        colors: colors
+                        colors: colors,
+                        cdids: cdids
                     }
                     console.log(ordersObj);
 
