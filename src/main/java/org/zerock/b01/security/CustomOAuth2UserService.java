@@ -72,6 +72,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .m_pw(passwordEncoder.encode("1111"))
                     .m_email(email)
                     .m_social(true)
+                    .m_point(50000)
                     .build();
             member.addRole(MemberRole.USER);
             memberRepository.save(member);

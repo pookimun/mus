@@ -21,7 +21,8 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
 
         log.info("----------------------------------------------------------");
         log.info("CustomLoginSuccessHandler onAuthenticationSuccess ..........");
@@ -40,8 +41,6 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
 
             log.info("Redirect to Member Modify ");
             response.sendRedirect("/board/index");
-
-
             return;
         } else {
             response.sendRedirect("/board/list");

@@ -272,7 +272,8 @@
                 <input id="id" name="mid" type="hidden">
 
                     <label><span>이메일</span>
-                    <input id="email" name="m_email" onchange="splitEmail(this)" required type="email">
+                        <span style="color: #bb2d3b; font-size: 0.9rem;">도메인 주소(@ 이하)를 제외하고 아이디가 생성됩니다.</span>
+                    <input id="email" name="m_email" onchange="splitEmail(this)" placeholder="이메일 주소를 입력하세요" required type="email">
                     </label>
 
                 <label><span>비밀번호</span>
@@ -280,7 +281,7 @@
                 </label>
 
                 <label><span>비밀번호 확인</span>
-                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="text">
+                    <input name="pw_confirm" placeholder="8~15자 이내의 영문, 숫자 및 특수문자 조합" type="password">
                 </label>
                     </span>
 
@@ -671,7 +672,7 @@
                 </div>
                 <label>
                     <input class="terms" id="Serviceagreement" onChange="checkIndividualAgreements()" type="checkbox" required>
-                    <span>일룸회원 이용약관 (필수)</span>
+                    <span>회원 이용약관 (필수)</span>
                     <a class="terms open-popup-link" href="#test-popup-1">약관보기</a>
                 </label>
 
