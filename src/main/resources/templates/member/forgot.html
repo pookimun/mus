@@ -132,7 +132,7 @@
             right: 10%;
         }
 
-        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
             border: none;
             border-bottom-color: transparent;
             color: #c80a1e;
@@ -167,7 +167,7 @@
         }
 
         /*인증번호 전송버튼*/
-        #home> :nth-child(2), #menu1> :nth-child(2) {
+        #home > :nth-child(2), #menu1 > :nth-child(2) {
             position: relative;
         }
 
@@ -245,37 +245,39 @@
 </head>
 
 <div layout:fragment="content">
-    <article class="pw_find">
-        <div class="container">
+    <article className="pw_find">
+        <div className="container">
             <section>
                 <h1>PW 찾기</h1>
             </section>
 
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="home">
+            <div className="tab-content">
+                <div className="tab-pane fade in active" id="home">
 
                     <form action="/member/forgot/mailSend" id="forgotForm" method="post">
-                        <label class="inp inp_text" for="user_mail">
-                            <span class="inp_tit eng" style="float: left;">이메일</span>
-                            <input class="btn" id="sendSertify" style="float: right;" type="submit"
+                        <label className="inp inp_text" htmlFor="user_mail">
+                            <span className="inp_tit eng" style="float: left;">이메일</span>
+                            <input className="btn" id="sendSertify" style="float: right;" type="submit"
                                    value="인증번호 전송">
 
-                            <input class="inp_comm required" id="user_mail" name="m_email" placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
+                            <input className="inp_comm required" id="user_mail" name="m_email"
+                                   placeholder="가입하신 이메일 주소를 입력하세요" title="user_mail" type="email">
                         </label>
                     </form>
 
                     <form action="/member/forgot/mailAuthCheck" method="post">
-                        <label class="inp inp_text" for="user_code">
-                            <span class="inp_tit eng">인증번호</span>
-                            <input class="btn" id="checkSertify" style="float: right;" type="submit"
+                        <label className="inp inp_text" htmlFor="user_code">
+                            <span className="inp_tit eng">인증번호</span>
+                            <input className="btn" id="checkSertify" style="float: right;" type="submit"
                                    value="인증번호 확인">
-                            <input class="inp_comm required" id="user_code" name="m_code" placeholder=" 인증번호 6자리 숫자 입력" title="user_code" type="text">
+                            <input className="inp_comm required" id="user_code" name="authNum"
+                                   placeholder=" 인증번호 6자리 숫자 입력" title="user_code" type="text">
                         </label>
                     </form>
 
-<!--                        <div>
-                            <a href="#" id="certifyCheck">확인</a>
-                        </div>-->
+                    <!--                        <div>
+                                                <a href="#" id="certifyCheck">확인</a>
+                                            </div>-->
 
                 </div>
             </div>
@@ -312,9 +314,9 @@
             $.ajax({
                 type: 'POST',
                 url: '/member/forgot/mailSend',
-                dataType : 'json',
-                data : JSON.stringify(params),
-                async : false,
+                dataType: 'json',
+                data: JSON.stringify(params),
+                async: false,
                 contentType: 'application/x-www-form-urlencoded',
                 headers: headers,
                 success: function (data) {
@@ -328,36 +330,32 @@
         });
 
 
-
-
-
         document.getElementById('checkSertify').addEventListener('click', function () {
+            // 입력된 인증번호와 이메일 주소 가져오기
+            var authNum = document.getElementById('user_code').value;
+            var userEmail = document.getElementById('user_mail').value;
 
-            // AJAX를 이용하여 서버에 이메일 주소 전송 및 인증 코드 요청
+            // AJAX를 이용하여 서버에 인증번호 확인 요청
             var formData = {
-                인증번호: userEmail,
+                m_email: userEmail,
+                authNum: authNum
             };
 
             var headers = {}; // headers 변수를 정의합니다.
             headers[$('meta[name=csrf-header-name]').attr('content')] = $('meta[name=csrf-token]').attr('content');
 
-            debugger;
             $.ajax({
                 type: 'POST',
-                url: '/member/forgot/mailSend',
-                dataType : 'json',
-                data : JSON.stringify(params),
-                async : false,
-                contentType: 'application/x-www-form-urlencoded',
+                url: '/member/forgot/mailAuthCheck',
+                data: formData,
                 headers: headers,
                 success: function (data) {
-                    console.log('새 비밀번호가 이메일로 전송되었습니다. 테스트 계정은 비밀번호가 변경되지 않습니다.');
+                    console.log('인증번호 확인 완료');
                 },
                 error: function (xhr) {
                     console.log('ajax 오류 발생');
                 }
             });
-            debugger;
         });
     </script>
 

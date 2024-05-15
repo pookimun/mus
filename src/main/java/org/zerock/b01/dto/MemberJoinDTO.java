@@ -21,7 +21,7 @@ public class MemberJoinDTO {
     private boolean m_social;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER; // 기본값으로 MEMBER 설정
+    private Role role = Role.USER;
 
     private String m_join_path; //가입 경로
     private boolean m_optional_terms; //선택 약관 동의

@@ -32,9 +32,9 @@ public interface MemberRepository extends JpaRepository<Member, String> { //JPAR
     @Query("select m from Member m where m.mid = :mid")
     Member findByMidOnly(String mid);
 
-    /*@Modifying //DB 수정
+    @Modifying //DB 수정
     @Transactional //성공 => 커밋, 예외 => 롤백
     @Query("update Member m set m.m_pw = :m_pw where m.mid = :mid ")
     //비밀번호 (등록)변경
-    void updatePassword(@Param("m_pw") String newPassword, @Param("mid") String mid);*/
+    void updatePassword(@Param("m_pw") String newPassword, @Param("mid") String mid);
 }
