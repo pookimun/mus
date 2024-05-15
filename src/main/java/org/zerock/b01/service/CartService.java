@@ -156,5 +156,13 @@ public class CartService {
         return cartAllDTO;
     }
 
+    // CartDetail id 필드 값을 받아서 해당 객체를 찾은 다음,
+    // paymentSuccess 필드 값을 1로 수정하는 메서드
+    public void cdidPaymentSuccess(Long cdid){
+        Optional<CartDetail> result = cartDetailRepository.findById(cdid);
+        CartDetail cartDetail = result.orElseThrow();
+        cartDetail.paymentSuccess(); // 결제성공으로 변경하는 메서드
+    }
+
 
 }
