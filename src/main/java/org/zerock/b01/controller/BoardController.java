@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping({"/","/board"})
 @Log4j2
 @RequiredArgsConstructor
 public class BoardController {
@@ -59,10 +58,6 @@ public class BoardController {
 //
 //        model.addAttribute("responseDTO", responseDTO);
 //    }
-
-    @GetMapping({"/", "/index"})
-    public void index() {
-    }
 
     @GetMapping( "/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){

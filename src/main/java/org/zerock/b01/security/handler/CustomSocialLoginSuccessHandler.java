@@ -29,6 +29,7 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
         log.info(authentication.getPrincipal());
 
         MemberSecurityDTO memberSecurityDTO = (MemberSecurityDTO) authentication.getPrincipal();
+        // 현재 사용자의 인증 정보 Principal을 MemberSecurityDTO로 전달, Spring Security에서는 UserDetails를 상속(타입)한 객체가 Principal로 사용
 
         String encodedPw = memberSecurityDTO.getM_pw();
 
@@ -39,7 +40,7 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
         )) {
             log.info("Should Change Password");
 
-            log.info("Redirect to Member Modify ");
+            log.info("Redirect to Member Modify");
             response.sendRedirect("/board/index");
             return;
         } else {
