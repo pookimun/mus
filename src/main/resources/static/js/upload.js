@@ -1,5 +1,5 @@
 async function uploadToServer (formObj) {
-
+debugger
     console.log("upload to server......")
     console.log(formObj)
 
@@ -19,6 +19,13 @@ async function removeFileToServer(uuid, fileName){
 
     const response = await axios.delete(`/remove/${uuid}_${fileName}`)
 
+    return response.data
+
+}
+
+async function downloadFile(fileName){
+    debugger
+    const response = await axios.get(`/download/${fileName}`)
     return response.data
 
 }
