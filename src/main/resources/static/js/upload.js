@@ -1,5 +1,5 @@
 async function uploadToServer (formObj) {
-
+debugger
     console.log("upload to server......")
     console.log(formObj)
 
