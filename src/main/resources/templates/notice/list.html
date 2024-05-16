@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<head>
+    <title>공지사항</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 70%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        input[type="hidden"],
+        select,
+        input[type="text"],
+        .searchBtn,
+        .clearBtn {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        .searchBtn,
+        .clearBtn {
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .paginationContainer {
+            text-align: center;
+        }
+
+        .pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination li {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .pagination li a {
+            padding: 5px 10px;
+            border: 1px solid #333;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .pagination li a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination li.active a {
+            background-color: #000000;
+            color: #fff;
+        }
+
+    </style>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1>공지사항</h1>
+        <form action="/notice/list" method="get">
+            <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
+            <select name="type">
+                <option value="">---</option>
+                <option value="t" th:selected="${pageRequestDTO.type =='t'}">제목</option>
+                <option value="c" th:selected="${pageRequestDTO.type =='c'}">내용</option>
+                <option value="w" th:selected="${pageRequestDTO.type =='w'}">작성자</option>
+                <option value="tc" th:selected="${pageRequestDTO.type =='tc'}">제목 내용</option>
+                <option value="tcw" th:selected="${pageRequestDTO.type =='tcw'}">제목 내용 작성자</option>
+            </select>
+            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}">
+            <button class="searchBtn" type="submit">Search</button>
+            <button class="clearBtn" type="button">Clear</button>
+        </form>
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10%">번호</th>
+                <th scope="col" style="width: 50%">제목</th>
+                <th scope="col" style="width: 20%">작성자</th>
+                <th scope="col" style="width: 20%">작성일</th>
+            </tr>
+            </thead>
+            <tbody th:with="link = ${pageRequestDTO.getLink()}">
+            <tr th:each="dto:${responseDTO.dtoList}">
+                <td>[[${dto.nno}]]</td>
+                <td>
+                    <a th:href="|@{/notice/read(nno =${dto.nno})}&${link}|"> [[${dto.n_title}]]
+                    <span th:if="${dto.noticeImages != null && dto.noticeImages.size() > 0}">
+                        <i class="fa-solid fa-paperclip" style="color: #000000;"></i>
+                    </span>
+                    </a>
+                </td>
+                <td>[[${dto.n_writer}]]</td>
+                <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="paginationContainer"> <!--페이징-->
+            <ul class="pagination">
+                <li class="page-item" th:if="${responseDTO.prev}">
+                    <a class="page-link" th:data-num="${responseDTO.start -1}">이전</a>
+                </li>
+                <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                    <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+                        <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                    </li>
+                </th:block>
+                <li class="page-item" th:if="${responseDTO.next}">
+                    <a class="page-link" th:data-num="${responseDTO.end + 1}">다음</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+<script layout:fragment="script" th:inline="javascript">
+
+    document.querySelector(".pagination").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const target = e.target
+
+        if(target.tagName !== 'A') {
+            return
+        }
+
+        const num = target.getAttribute("data-num")
+
+        const formObj = document.querySelector("form")
+
+        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+        formObj.submit();
+
+    },false)
+
+    document.querySelector(".clearBtn").addEventListener("click", function (e){
+        e.preventDefault()
+        e.stopPropagation()
+
+        self.location ='/notice/list'
+
+    },false)
+
+
+
+</script>
