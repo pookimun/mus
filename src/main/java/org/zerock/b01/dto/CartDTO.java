@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CartDTO {
 
-    private Long cartItemId; // 장바구니 상품 아이디
+    private Long cartItemId; // 장바구니 상품 아이디..
     private String itemNm; // 상품명
     private int price; // 상품 금액
     private int count; // 수량
