@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final CartService cartService;
+    private final CartService cartService; // ㅇ
 
     private final BoardService boardService;
 
