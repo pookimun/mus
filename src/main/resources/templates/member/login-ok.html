@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!--layout:decorate="~{layout/basic.html}"-->
+
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+
+
+<!--<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Login</title>
+    &lt;!&ndash; Favicon&ndash;&gt;
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+    &lt;!&ndash; Core theme CSS (includes Bootstrap)&ndash;&gt;
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body class="align-middle" >-->
+
+<div layout:fragment="content">
+
+    <div class="container-fluid d-flex justify-content-center" style="height: 100vh">
+
+        <div class="card align-self-center">
+            <div class="card-header">
+                LOGIN Page
+            </div>
+
+            <div class="card-body">
+                <th:block th:if="${param.logout != null}">
+                    <h1>Logout........</h1>
+                </th:block>
+
+                <form action="/member/login" id="registerForm" method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">아이디</span>
+                        <input class="form-control" name="username" placeholder="USER ID" type="text">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">패스워드</span>
+                        <input class="form-control" name="password" placeholder="PASSWORD" type="text">
+                    </div>
+                    <div class="input-group mb-3 ">
+                        <input class="form-check-input" name="remember-me" type="checkbox">
+                        <label class="form-check-label">
+                            자동 로그인
+                        </label>
+                    </div>
+                    <div class="my-4">
+                        <div class="float-end">
+                            <button class="btn btn-primary submitBtn" type="submit">LOGIN</button>
+                        </div>
+                    </div>
+                </form>
+                <a href="/oauth2/authorization/kakao">KAKAO</a>
+            </div><!--end card body-->
+        </div><!--end card-->
+    </div>
+
+</div>
