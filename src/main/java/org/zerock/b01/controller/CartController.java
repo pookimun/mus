@@ -103,19 +103,19 @@ public class CartController {
     public void index() {
     }
 
-    @GetMapping( "/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
-
-        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
-
-        PageResponseDTO<BoardListAllDTO> responseDTO =
-                boardService.listWithAll(pageRequestDTO);
-
-        log.info(responseDTO);
-
-        model.addAttribute("responseDTO", responseDTO);
-
-    }
+//    @GetMapping( "/list") 일단 주석
+//    public void list(PageRequestDTO pageRequestDTO, Model model){
+//
+//        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+//
+//        PageResponseDTO<BoardListAllDTO> responseDTO =
+//                boardService.listWithAll(pageRequestDTO);
+//
+//        log.info(responseDTO);
+//
+//        model.addAttribute("responseDTO", responseDTO);
+//
+//    }
 
 //    @PostMapping("/orders")
 //    @ResponseBody
