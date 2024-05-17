@@ -123,6 +123,7 @@ public interface OrdersService {
                         .od_size(ordersDetail.getOd_size())
                         .od_color(ordersDetail.getOd_color())
                         .od_price(ordersDetail.getOd_price())
+                        .cdid(ordersDetail.getCdid())
                         .build()).collect(Collectors.toList());
 
         ordersListDTO.setOrdersDetailDTOList(ordersDetailDTOS);

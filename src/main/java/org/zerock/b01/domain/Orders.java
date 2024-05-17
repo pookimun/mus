@@ -110,6 +110,7 @@ public class Orders {
                 .od_size(ordersDetailDTO.getOd_size())
                 .od_color(ordersDetailDTO.getOd_color())
                 .od_price(ordersDetailDTO.getOd_price())
+                .cdid(ordersDetailDTO.getCdid())
                 .build();
         ordersDetailSet.add(ordersDetail); // Set<OrdersDetail>에 추가
         });

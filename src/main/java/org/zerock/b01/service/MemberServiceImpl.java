@@ -103,4 +103,13 @@ public class MemberServiceImpl implements MemberService {
         // 변경된 회원 정보 저장
         memberRepository.save(member);
     }
+
+    // 성은추가
+    // 멤버의 포인트를 업뎃한다.
+    public void changePoint(String mid, int point){
+        Optional<Member> result = memberRepository.findByMid(mid);
+        Member member = result.orElseThrow();
+        member.changePoint(point);
+        memberRepository.save(member);
+    }
 }
