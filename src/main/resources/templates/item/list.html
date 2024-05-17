@@ -1,0 +1,324 @@
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Title  -->
+    <title>Amado - Furniture Ecommerce Template | 상품 목록</title>
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+
+</head>
+
+<div layout:fragment="content">
+
+    <!-- Search Wrapper Area Start -->
+    <div class="search-wrapper section-padding-100">
+        <div class="search-close">
+            <i aria-hidden="true" class="fa fa-close"></i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="search-content">
+                        <form action="#" method="get">
+                            <input id="search" name="search" placeholder="Type your keyword..." type="search">
+                            <button type="submit"><img alt="" th:src="@{/img/core-img/search.png}"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search Wrapper Area End -->
+
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+
+        <!-- Mobile Nav (max width 767px)-->
+        <div class="mobile-nav">
+            <!-- Navbar Brand -->
+            <div class="amado-navbar-brand">
+                <a href="index.html"><img alt="" th:src="@{/img/core-img/logo1.png}"></a>
+            </div>
+            <!-- Navbar Toggler -->
+            <div class="amado-navbar-toggler">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="shop_sidebar_area">
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget catagory mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Catagories</h6>
+
+                <!--  Catagories  -->
+                <div class="catagories-menu">
+                    <ul>
+                        <li class="active"><a href="#">Chairs</a></li>
+                        <li><a href="#">Beds</a></li>
+                        <li><a href="#">Accesories</a></li>
+                        <li><a href="#">Furniture</a></li>
+                        <li><a href="#">Home Deco</a></li>
+                        <li><a href="#">Dressings</a></li>
+                        <li><a href="#">Tables</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget brands mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Brands</h6>
+
+                <div class="widget-desc">
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="amado" type="checkbox" value="">
+                        <label class="form-check-label" for="amado">Amado</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="ikea" type="checkbox" value="">
+                        <label class="form-check-label" for="ikea">Ikea</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="furniture" type="checkbox" value="">
+                        <label class="form-check-label" for="furniture">Furniture Inc</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="factory" type="checkbox" value="">
+                        <label class="form-check-label" for="factory">The factory</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="artdeco" type="checkbox" value="">
+                        <label class="form-check-label" for="artdeco">Artdeco</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget color mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Color</h6>
+
+                <div class="widget-desc">
+                    <ul class="d-flex">
+                        <li><a class="color1" href="#"></a></li>
+                        <li><a class="color2" href="#"></a></li>
+                        <li><a class="color3" href="#"></a></li>
+                        <li><a class="color4" href="#"></a></li>
+                        <li><a class="color5" href="#"></a></li>
+                        <li><a class="color6" href="#"></a></li>
+                        <li><a class="color7" href="#"></a></li>
+                        <li><a class="color8" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget price mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Price</h6>
+
+                <div class="widget-desc">
+                    <div class="slider-range">
+                        <div class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-label-result="" data-max="1000" data-min="10" data-unit="$" data-value-max="1000" data-value-min="10">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                        <div class="range-price">$10 - $1000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 검색 필드 -->
+            <div class="row mt-3">
+                <form action="/admin/list" class="col" method="get">
+                    <input name="size" th:value="${itemPageRequestDTO.size}" type="hidden">
+                    <div class="input-group">
+
+                        <div class="input-group-prepend">
+                            <select class="form-select" name="type">
+                                <option value="">---</option>
+                                <option th:selected="${itemPageRequestDTO.type =='n'}" value="n">상품명</option>
+                                <option th:selected="${itemPageRequestDTO.type =='c'}" value="c">컬러</option>
+                            </select>
+                        </div>
+
+                        <input class="form-control" name="keyword" th:value="${itemPageRequestDTO.keyword}" type="text">
+
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
+                            <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="amado_product_area section-padding-100">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-topbar d-xl-flex align-items-end justify-content-between">
+                            <!-- Total Products -->
+                            <div class="total-products">
+                                <p>Showing 1-8 0f 25</p>
+                                <div class="view d-flex">
+                                    <a href="#"><i aria-hidden="true" class="fa fa-th-large"></i></a>
+                                    <a href="#"><i aria-hidden="true" class="fa fa-bars"></i></a>
+                                </div>
+                            </div>
+                            <!-- Sorting -->
+                            <div class="product-sorting d-flex">
+                                <div class="sort-by-date d-flex align-items-center mr-15">
+                                    <p>Sort by</p>
+                                    <form action="#" method="get">
+                                        <select id="sortBydate" name="select">
+                                            <option value="value">Date</option>
+                                            <option value="value">Newest</option>
+                                            <option value="value">Popular</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="view-product d-flex align-items-center">
+                                    <p>View</p>
+                                    <form action="#" method="get">
+                                        <select id="viewProduct" name="select">
+                                            <option value="value">12</option>
+                                            <option value="value">24</option>
+                                            <option value="value">48</option>
+                                            <option value="value">96</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <!-- Single Product Area -->
+
+                    <th:block th:with="link = ${itemPageRequestDTO.getLink()}">
+                        <th:block th:each="dto:${itemDTO.dtoList}">
+
+                            <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+
+                                <div class="single-product-wrapper">
+
+                                    <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|">
+                                        <div class="product-img" th:if="${dto.itemImages != null && dto.itemImages.size() > 0}">
+                                            <img height="400" th:src="|/view/${dto.itemImages[0].uuid}_${dto.itemImages[0].fileName}|">
+                                            <!--<img class="hover-img" th:src="@{/img/product-img/product2.jpg}" alt="">-->
+                                        </div>
+                                    </a>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description d-flex align-items-center">
+
+                                        <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|">
+                                            <div class="product-meta-data">
+                                                <div class="line"></div>
+                                                <p class="product-price">[[${dto.i_price}]]원</p>
+                                                <a href="product-details.html">
+                                                    <h6>[[${dto.i_name}]]</h6>
+                                                </a>
+                                            </div>
+                                        </a>
+                                        <!-- Ratings & Cart -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
+
+                </div>
+
+                <!--css 적용된 페이징-->
+                <div class="float-end row">
+                    <div class="col-12">
+
+                        <nav aria-label="navigation">
+                    <ul class="pagination justify-content-end mt-50">
+                        <li class="page-item active" th:if="${itemDTO.prev}">
+                            <a class="page-link" th:data-num="${itemDTO.start -1}">Previous</a>
+                        </li>
+                        <th:block th:each="i: ${#numbers.sequence(itemDTO.start, itemDTO.end)}">
+                            <li th:class="${itemDTO.page == i}?'page-item active':'page-item'">
+                                <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:if="${itemDTO.next}">
+                            <a class="page-link" th:data-num="${itemDTO.end + 1}">Next</a>
+                        </li>
+                    </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script th:inline="javascript">
+    document.querySelector(".pagination").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const target = e.target
+
+        if (target.tagName !== 'A') {
+            return
+        }
+
+        const num = target.getAttribute("data-num")
+
+        const formObj = document.querySelector("form")
+
+        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+        formObj.submit();
+
+    }, false)
+
+    document.querySelector(".clearBtn").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        self.location = '/admin/list'
+
+    }, false)
+</script>

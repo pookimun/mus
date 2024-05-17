@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/","/admin"})
+@RequestMapping({"/item","/admin"})
 @Log4j2
 @RequiredArgsConstructor
 public class ItemController {
