@@ -57,4 +57,8 @@ public class Member extends BaseEntity{
     }
 
     public void changeSocial(boolean m_social){this.m_social = m_social;}
+
+    public void changePoint(int point){
+        this.m_point += point;
+    }
 }

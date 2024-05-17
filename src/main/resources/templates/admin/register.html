@@ -28,59 +28,112 @@
         /*  background-color: #555;*/
         /*  border-color: #555;*/
         /*}*/
+        /* 폼 컨테이너 스타일 */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* 폼 제목 스타일 */
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 입력 필드 스타일 */
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        /* 파일 선택 시 미리보기 스타일 */
+        #titlePreview,
+        #infoPreview {
+            margin-top: 10px;
+        }
+
+        /* 버튼 스타일 */
+        .submitBtn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #000000;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .submitBtn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
 <div layout:fragment="content">
-    <div>
-        <h2>상품 등록 폼</h2>
-        <form id="formTAG" action="/admin/register" method="post">
-            <div>
-                <label for="itemName">상품명</label>
-                <input id="itemName" name="i_name" type="text" required>
-            </div>
-            <div>
-                <label for="itemPrice">상품 가격</label>
+    <div style="text-align: center;">
+        <div class="form-container">
+        <div>
+            <h2>상품 등록 폼</h2>
+            <form id="formTAG" action="/admin/register" method="post">
                 <div>
-                    <span>₩</span>
-                    <input id="itemPrice" type="number" name="i_price" required>
+                    <label for="itemName">상품명</label>
+                    <input id="itemName" name="i_name" type="text" required>
                 </div>
-            </div>
-            <div id="uploadFileNamesDIV"> <!--업로드를 위한 파일 이름을 담기 위한 DIV 생성-->
                 <div>
-                    <label for="itemTitleImage">대표 이미지</label>
-                    <input type="file" id="itemTitleImage" name="files"
-                           onchange="previewImage(event, 'titlePreview')" required>
-                    <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
-                    이 함수에는 두 개의 인수가 전달됩니다.
-                    첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
-                     또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
+                    <label for="itemPrice">상품 가격</label>
+                    <div>
+                        <span>₩</span>
+                        <input id="itemPrice" type="number" name="i_price" required>
+                    </div>
+                </div>
+                <div id="uploadFileNamesDIV"> <!--업로드를 위한 파일 이름을 담기 위한 DIV 생성-->
+                    <div>
+                        <label for="itemTitleImage">대표 이미지</label>
+                        <input type="file" id="itemTitleImage" name="files"
+                               onchange="previewImage(event, 'titlePreview')" required>
+                        <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
+                        이 함수에는 두 개의 인수가 전달됩니다.
+                        첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
+                         또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
 
-                    <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
+                        <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
+                    </div>
+                    <div>
+                        <label for="itemInfoImage">설명 이미지</label>
+                        <input type="file" id="itemInfoImage" name="files"
+                               onchange="previewImage(event, 'infoPreview')" required multiple>
+                        <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
+                    </div>
+
+                </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
+                <div>
+                    <label for="itemColor">색상</label>
+                    <input id="itemColor" name="i_color" type="text">
                 </div>
                 <div>
-                    <label for="itemInfoImage">설명 이미지</label>
-                    <input type="file" id="itemInfoImage" name="files"
-                           onchange="previewImage(event, 'infoPreview')" required multiple>
-                    <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
+                    <label for="itemSize">사이즈</label>
+                    <input id="itemSize" name="i_size" type="text">
                 </div>
-
-            </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
-            <div>
-                <label for="itemColor">색상</label>
-                <input id="itemColor" name="i_color" type="text">
-            </div>
-            <div>
-                <label for="itemSize">사이즈</label>
-                <input id="itemSize" name="i_size" type="text">
-            </div>
-            <div>
-                <label for="itemStock">재고</label>
-                <input id="itemStock" name="i_stock" type="number" required>
-            </div>
-            <div id="imagePreview"></div>
-            <button class="submitBtn" type="submit">등록</button>
-        </form>
+                <div>
+                    <label for="itemStock">재고</label>
+                    <input id="itemStock" name="i_stock" type="number" required>
+                </div>
+                <div id="imagePreview"></div>
+                <button class="submitBtn" type="submit">등록</button>
+            </form>
+        </div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -52,6 +52,9 @@ public class OrdersDTO {
     // 상품들의 색상
     private String[] colors;
 
+    // 구매를 원하는 장바구니 디테일 번호들
+    private Long[] cdids;
+
 
 }
 

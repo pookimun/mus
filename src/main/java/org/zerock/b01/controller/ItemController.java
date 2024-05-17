@@ -64,7 +64,6 @@ public class ItemController {
         }
 
         log.info(itemDTO);
-
         Long ino  = itemService.register(itemDTO);
 
         redirectAttributes.addFlashAttribute("result", ino);
@@ -77,7 +76,14 @@ public class ItemController {
         ItemDTO itemDTO = itemService.readOne(ino);
         log.info("여기는 컨트롤러"+itemDTO);
 
-
+        List<String> fileNames = itemDTO.getFileNames();
+        model.addAttribute("titleIMG", fileNames.get(0));
+        log.info(fileNames.get(0));
+        if (fileNames.size() > 1) { // 상세이미지가 있다면
+            List<String> infoIMG = fileNames.subList(1, fileNames.size());
+            model.addAttribute("infoIMG", infoIMG);
+            log.info(infoIMG);
+        }
         model.addAttribute("itemDTO", itemDTO);
 
     }

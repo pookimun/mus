@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>공지사항 작성</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .item {
+            margin-bottom: 15px;
+        }
+
+        .item span {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .file-item {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .file-item a {
+            color: #000;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .file-item a:hover {
+            text-decoration: underline;
+        }
+
+        textarea, input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <div class="container">
+        <h1>공지사항 작성</h1>
+        <div>
+            <form action="/notice/register" method="post">
+                <div class="item">
+                    <span>제목</span>
+                    <input name="n_title" placeholder="Title" type="text">
+                </div>
+
+                <div class="item">
+                    <span>내용</span>
+                    <textarea name="n_content" rows="5"></textarea>
+                </div>
+
+                <div  class="item" th:with="username=${#authentication.principal.username}">
+                    <span>작성자</span>
+                    <input name="n_writer" placeholder="writer" readonly th:value="${username}">
+                </div>
+
+                <div class="item">
+                    <span>첨부파일</span>
+                    <div class="uploadResult" style="flex-wrap: wrap;">
+                        <!--첨부파일 미리보기 img-->
+                    </div>
+                    <div class="uploadHidden">
+                        <input multiple name="files" type="file">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div>
+                        <button class="submitBtn" type="submit">작성하기</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div><!--end card body-->
+    </div><!--end card-->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/upload.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script th:inline="javascript">
+        // const auth = [[${#authentication.principal}]]
+
+        const errors = [[${errors}]]
+        console.log(errors)
+        let errorMsg = ''
+        if (errors) {
+            for (let i = 0; i < errors.length; i++) {
+                errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+            }
+            alert(errorMsg)
+        }
+
+        const fileInput = document.querySelector("input[name='files']")
+        fileInput.addEventListener("change", function (e) {
+            debugger
+            const formObj = new FormData();
+            console.log(fileInput.files)
+            const files = fileInput.files
+            for (let i = 0; i < files.length; i++) {
+                formObj.append("files", files[i]);
+            }
+
+            uploadToServer(formObj).then(result => {
+                console.log(result)
+                for (const uploadResult of result) {
+                    showUploadFile(uploadResult)
+                }
+            }).catch(e => {
+            })
+
+        }, false)
+
+        const uploadResult = document.querySelector(".uploadResult")
+
+        function showUploadFile({uuid, fileName, link}) {
+            const fileExtension = fileName.split('.').pop().toLowerCase(); // 확장자
+            const imageExtensions = ['jpg', 'jpeg', 'png', 'gif']; // 이미지 확장자들
+            let str = '';
+            // 파일이 이미지인 경우에만 추가
+            if (fileName && imageExtensions.includes(fileExtension)) {
+                // 파일이름이 존재하고 && 이미지 확장자들에 현재 파일 확장자가 존재한다면(이미지라면)
+                str = `<div class="fileDIV">
+                        <div>
+                            ${fileName}
+                            <button onclick="javascript:removeFile('${uuid}', '${fileName}', this)" >X</button>
+                        </div>
+                        <div>
+                             <img src="/view/${link}" data-file="${uuid + "_" + fileName}" >
+                        </div>
+                    </div>`
+                uploadResult.innerHTML += str
+            } else {
+                str = `<div class="fileDIV">
+                        <div>
+                            ${fileName}
+                            <button onclick="javascript:removeFile('${uuid}', '${fileName}', this)" >X</button>
+                        </div>
+                        <div>
+                            <img th:src="@{/img/file-img/fileIMG.jpg}" data-file="${uuid + '_' + fileName}">
+                        </div>
+                    </div>`
+                uploadResult.innerHTML += str
+            }
+
+        }
+
+        function removeFile(uuid, fileName, obj) {
+            console.log(uuid)
+            console.log(fileName)
+            console.log(obj)
+
+            const targetDiv = obj.closest(".fileDIV")
+
+            removeFileToServer(uuid, fileName).then(data => {
+                targetDiv.remove()
+            })
+        }
+
+        document.querySelector(".submitBtn").addEventListener("click", function (e) {
+            debugger
+            e.preventDefault()
+            e.stopPropagation()
+
+            const target = document.querySelector(".uploadHidden")
+            const uploadFiles = uploadResult.querySelectorAll("img")
+            let str = ''
+            for (let i = 0; i < uploadFiles.length; i++) {
+                const uploadFile = uploadFiles[i]
+                const imgLink = uploadFile.getAttribute("data-file")
+                str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+            }
+
+            target.innerHTML = str;
+            const formObj = document.querySelector("form");
+            formObj.submit();
+            formObj.reset();
+        }, false)
+
+
+    </script>
+</div><!-- layout fragment end -->
+
+

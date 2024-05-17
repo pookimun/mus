@@ -14,6 +14,9 @@ public interface MemberService {
 
     MemberDTO readMember(String mid);
 
+    // 성은추가
+    void changePoint(String mid, int point);
+
     default Member dtoToEntity(MemberDTO memberDTO) {
         Member member = Member.builder()
                 .mid(memberDTO.getMid())
