@@ -8,7 +8,7 @@
 <!--<link th:href="@{/css/styles.css}" rel="stylesheet" />-->
 
 <head>
-  <title>Board Register</title>
+  <title>글 등록</title>
 </head>
 
 <div layout:fragment="content">
@@ -16,28 +16,28 @@
     <div class="col">
       <div class="card">
         <div class="card-header">
-          Board Register
+          글 등록
         </div>
         <div class="card-body">
           <form action="/board/register" method="post">
             <div class="input-group mb-3">
-              <span class="input-group-text">Title</span>
+              <span class="input-group-text">제목</span>
               <input type="text" name="title" class="form-control" placeholder="Title">
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text">Content</span>
+              <span class="input-group-text">내용</span>
               <textarea class="form-control col-sm-5" rows="5" name="content"></textarea>
             </div>
 
             <div class="input-group mb-3" th:with="username=${#authentication.principal.username}">
-              <span class="input-group-text">Writer</span>
+              <span class="input-group-text">작성자</span>
               <input type="text" name="writer" class="form-control" placeholder="Writer" th:value="${#authentication.principal.username}" readonly>
 
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text">Images</span>
+              <span class="input-group-text">이미지</span>
               <div class="float-end uploadHidden">
                 <button type="button" class="btn btn-primary uploadFileBtn">ADD Files</button>
               </div>
@@ -45,8 +45,8 @@
 
             <div class="my-4">
               <div class="float-end">
-                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary submitBtn">등록</button>
+                <button type="reset" class="btn btn-secondary">초기화</button>
               </div>
             </div>
 
@@ -72,7 +72,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Upload File</h5>
+          <h5 class="modal-title">업로드 파일</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -5,14 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
-import org.zerock.b01.domain.Cart;
-import org.zerock.b01.domain.CartDetail;
-import org.zerock.b01.domain.Item;
-import org.zerock.b01.domain.Member;
-import org.zerock.b01.dto.CartAllDTO;
-import org.zerock.b01.dto.CartDTO;
-import org.zerock.b01.dto.CartDetailDTO;
-import org.zerock.b01.dto.ItemDTO;
+import org.zerock.b01.domain.*;
+import org.zerock.b01.dto.*;
 import org.zerock.b01.repository.CartDetailRepository;
 import org.zerock.b01.repository.CartRepository;
 import org.zerock.b01.repository.ItemRepository;
@@ -65,9 +59,8 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<CartDTO> getCartList(String mid) {
-
+        System.out.println("service : getCartList 실행 ... " + mid);
         List<CartDTO> cartDTOList = new ArrayList<>();
-
         Member member = memberRepository.findByMidOnly(mid);
         Cart cart = cartRepository.findByMember_Mid(member.getMid());
         // 현재 로그인한 회원의 장바구니 엔티티 조회
@@ -75,7 +68,22 @@ public class CartService {
             return cartDTOList; // 비어있는 리스트 반환
         }
 
-        cartDTOList = cartDetailRepository.findCartDetailDtoList(cart.getCno());
+        List<CartDetail> cartDetails = cartDetailRepository.findByCartWherePaymentSuccess(cart);
+        for(CartDetail cartDetail : cartDetails){
+            Optional<ItemImage> result = cartDetail.getItem().getItemImageSet().stream()
+                    .filter(itemImage -> itemImage.getOrd() == 0)
+                    .findFirst();
+            ItemImage itemImage = result.orElseThrow();
+            CartDTO cartDTO = CartDTO.builder()
+                    .cartItemId(cartDetail.getCdid())
+                    .itemNm(cartDetail.getItem().getI_name())
+                    .price(cartDetail.getItem().getI_price())
+                    .count(cartDetail.getCount())
+                    .fileName(itemImage.getFileName()) // 0번째가 대표이미지
+                    .uuid(itemImage.getUuid())
+                    .build();
+            cartDTOList.add(cartDTO);
+        }
         return cartDTOList;
         // 장바구니에 담긴 상품 정보 조회하여 리턴
     }
@@ -144,25 +152,45 @@ public class CartService {
         });
 
         CartAllDTO cartAllDTO = CartAllDTO.builder()
-                    .cno(cart.getCno())
-                    .member(cart.getMember().getMid())
-                    .sizes(sizes)
-                    .colors(colors)
-                    .paymentSuccesss(paymentSuccesss)
-                    .cdids(cdids)
-                    .itemDTOS(itemDTOS)
-                    .counts(counts)
-                    .build();
+                .cno(cart.getCno())
+                .member(cart.getMember().getMid())
+                .sizes(sizes)
+                .colors(colors)
+                .paymentSuccesss(paymentSuccesss)
+                .cdids(cdids)
+                .itemDTOS(itemDTOS)
+                .counts(counts)
+                .build();
         return cartAllDTO;
     }
 
-    // CartDetail id 필드 값을 받아서 해당 객체를 찾은 다음,
-    // paymentSuccess 필드 값을 1로 수정하는 메서드
-    public void cdidPaymentSuccess(Long cdid){
-        Optional<CartDetail> result = cartDetailRepository.findById(cdid);
-        CartDetail cartDetail = result.orElseThrow();
-        cartDetail.paymentSuccess(); // 결제성공으로 변경하는 메서드
-    }
+//    @Transactional
+//    public Long orderCartItem(List<CartOrderDTO> cartOrderDtoList, String mid, Long cdid) {
+//        // 주문 ID를 생성
+//        Long orderId = createNewOrder(mid, cdid);
+//
+//        // 각 항목에 대한 처리
+//        for (CartOrderDTO cartOrder : cartOrderDtoList) {
+//            CartItem cartItem = cartRepository.findById(cartOrder.getCartItemId())
+//                    .orElseThrow(() -> new IllegalStateException("Invalid cart item ID"));
+//
+//            if (cartItem.getQuantity() < 1) {
+//                throw new IllegalStateException("Out of stock for item ID: " + cartItem.getId());
+//            }
+//
+//            // 재고 감소
+//            cartItem.decreaseQuantity(1);
+//            cartRepository.save(cartItem);
+//
+//            // 주문 항목 저장 로직 (생략)
+//            saveOrderDetails(orderId, cartItem);
+//        }
+//
+//        return orderId;
+//    }
+//
+//    private Long createNewOrder(String mid, Long cdid) {
+//    }
 
 
 }
