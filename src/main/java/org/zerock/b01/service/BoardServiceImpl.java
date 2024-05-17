@@ -7,12 +7,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.b01.domain.Board;
+import org.zerock.b01.domain.BoardImage;
 import org.zerock.b01.dto.*;
+import org.zerock.b01.repository.BoardImageRepository;
 import org.zerock.b01.repository.BoardRepository;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -26,37 +34,58 @@ public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
 
-//    @Override
-//    public Long register(BoardDTO boardDTO) {
-//
-//        Board board = modelMapper.map(boardDTO, Board.class);
-//
-//        Long bno = boardRepository.save(board).getBno();
-//
-//        return bno;
-//    }
+    private final BoardImageRepository boardImageRepository;
+
 
     @Override
     public Long register(BoardDTO boardDTO) {
 
         Board board = dtoToEntity(boardDTO);
-
         Long bno = boardRepository.save(board).getBno();
+
+        if (boardDTO.getFiles() != null && !boardDTO.getFiles().isEmpty()) {
+            for (int i = 0; i < boardDTO.getFiles().size(); i++) {
+                MultipartFile file = boardDTO.getFiles().get(i);
+                if (!file.isEmpty()) {
+                    saveFile(bno, file, i);
+                }
+            }
+        }
+
 
         return bno;
     }
 
-//    @Override
-//    public BoardDTO readOne(Long bno) {
-//
-//        Optional<Board> result = boardRepository.findById(bno);
-//
-//        Board board = result.orElseThrow();
-//
-//        BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
-//
-//        return boardDTO;
-//    }
+    private void saveFile(Long bno, MultipartFile file, int i) {
+        try {
+            String uploadDir = "uploads/" + bno;
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            String uuid = UUID.randomUUID().toString();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            Path filePath = uploadPath.resolve(fileName);
+
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // 파일 정보를 데이터베이스에 저장
+            BoardImage boardImage = BoardImage.builder()
+                    .uuid(uuid)
+                    .fileName(file.getOriginalFilename())
+                    .board(boardRepository.findById(bno).orElseThrow())
+                    .build();
+
+            boardImageRepository.save(boardImage);
+        } catch (Exception e) {
+            throw new RuntimeException("파일 저장 중 오류 발생: " + e.getMessage());
+        }
+    }
+
+
+
 
     @Override
     public BoardDTO readOne(Long bno) {
@@ -101,17 +130,7 @@ public class BoardServiceImpl implements BoardService{
 
     }
 
-//    @Override
-//    public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
-//
-//        String[] types = pageRequestDTO.getTypes();
-//        String keyword = pageRequestDTO.getKeyword();
-//        Pageable pageable = pageRequestDTO.getPageable("bno");
-//
-//        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
-//
-//        return null;
-//    }
+
 
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {

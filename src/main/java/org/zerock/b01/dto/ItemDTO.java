@@ -24,9 +24,7 @@ public class ItemDTO {
 
     private String i_title_img; //대표이미지
 
-
     private String i_info_img; //설명이미지
-
 
     private String i_color; //색상
 

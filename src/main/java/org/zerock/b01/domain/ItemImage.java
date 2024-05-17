@@ -27,7 +27,7 @@ public class ItemImage implements Comparable<ItemImage> {
 
     private String fileName;
 
-    private int ord;
+    private int ord;    // 순서용 정수
 
     @ManyToOne
     private Item item;
