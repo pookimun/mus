@@ -11,7 +11,7 @@
     <style>
         /* Header style */
         .card-header {
-            background-color: #343a40; /* Dark gray */
+            background-color: #000000; /* Dark gray */
             color: white; /* White text */
         }
 
@@ -34,6 +34,46 @@
         .btn-outline-secondary:active {
             background-color: black; /* Black background on active */
             border-color: black; /* Black border on active */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+        }
+
+        .card-body {
+            position: relative;
+        }
+
+        .register-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .register-button:hover {
+            background-color: #0056b3;
+        }
+
+
         }
     </style>
 </head>
@@ -65,16 +105,19 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Admin List
+                    관리자 상품 리스트
+                    <button class="register-button">Register</button>
                 </div>
+
                 <div class="card-body">
-                    <h5 class="card-title">Admin List</h5>
+                    <h5 class="card-title">관리자 상품 리스트</h5>
+
                     <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">상품번호</th>
                             <th scope="col">상품명</th>
-                            <th scope="col">색상</th>
+                            <th scope="col">가격</th>
                             <th scope="col">재고</th>
                         </tr>
                         </thead>
@@ -87,6 +130,8 @@
                                     <img style="width:100px" th:each="iteImage: ${dto.itemImages}" th:src="|/view/s_${iteImage.uuid}_${iteImage.fileName}|">
                                 </div>
                             </td>
+                            <td>[[${dto.i_price}]]</td>
+                            <td>[[${dto.i_stock}]]</td>
                         </tr>
                         </tbody>
                     </table>
@@ -157,6 +202,16 @@
         self.location = '/admin/list'
 
     }, false)
+
+
+    document.querySelector(".register-button").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        self.location = '/admin/register'
+
+    }, false)
+
 
 </script>
 

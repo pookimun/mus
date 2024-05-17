@@ -378,346 +378,352 @@
     </div>
 
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
-        <script th:src="@{/js/address.js}"></script>
-        <script th:src="@{/js/pay.js}"></script>
-        <script th:inline="javascript">
-            // 페이지 로드 시 첫번째 라디오 버튼의 클릭 이벤트를 발생시키는 함수
-            function triggerFirstRadioButtonClick() {
-                let radio = $('#addressDiv_DivAddress_Div input[type="radio"]').first();
-                if (radio.length > 0) {
-                    radio.click(); // 첫 번째 라디오 버튼 클릭 이벤트 수동으로 발생시킨다.
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
+    <script th:src="@{/js/address.js}"></script>
+    <script th:src="@{/js/pay.js}"></script>
+    <script th:inline="javascript">
+        // 페이지 로드 시 첫번째 라디오 버튼의 클릭 이벤트를 발생시키는 함수
+        function triggerFirstRadioButtonClick() {
+            let radio = $('#addressDiv_DivAddress_Div input[type="radio"]').first();
+            if (radio.length > 0) {
+                radio.click(); // 첫 번째 라디오 버튼 클릭 이벤트 수동으로 발생시킨다.
+            }
+        }
+
+        function addressModifyBtnClick() {
+            window.open('/orders/address/list', '배송지 선택', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
+            // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
+        }
+
+        function getResultFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const resultParam = urlParams.get('result');
+            // json으로 변경하지 않으면 object:object로 출력됨
+            // url에는 인코딩되어 전달된다.
+            // result 파라미터로 전달된 값이 있으면 디코딩된 데이터 리턴, 없으면 null 리턴
+            return resultParam ? JSON.parse(decodeURIComponent(resultParam)) : null;
+        }
+
+        function getPaymentMethodCheckedRadioButton() {
+            // 라디오 버튼들을 가져옴(결제수단 선택)
+            let radios = document.getElementsByName('paymentMethod');
+
+            // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(결제수단)을 가져온다.
+            // toss, kakaopay, payco, pg
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    // 선택된 라디오 버튼의 값(결제수단)를 리턴
+                    return radios[i].value;
                 }
             }
+            return null;
+        }
 
-            function addressModifyBtnClick() {
-                window.open('/orders/address/list', '배송지 선택', 'width=600,height=700,left=350,top=' + (screen.height - 1000) / 2);
-                // 새 창으로 신규 배송지 추가 창을 띄운다.(top - 값이 높아질수록 위로)
-            }
+        function getAddressCheckedRadioButton() {
+            // 라디오 버튼들을 가져옴(배송지 선택)
+            let radios = document.getElementsByName('option');
 
-            function getResultFromUrl() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const resultParam = urlParams.get('result');
-                // json으로 변경하지 않으면 object:object로 출력됨
-                // url에는 인코딩되어 전달된다.
-                // result 파라미터로 전달된 값이 있으면 디코딩된 데이터 리턴, 없으면 null 리턴
-                return resultParam ? JSON.parse(decodeURIComponent(resultParam)) : null;
-            }
-
-            function getPaymentMethodCheckedRadioButton() {
-                // 라디오 버튼들을 가져옴(결제수단 선택)
-                let radios = document.getElementsByName('paymentMethod');
-
-                // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(결제수단)을 가져온다.
-                // toss, kakaopay, payco, pg
-                for (var i = 0; i < radios.length; i++) {
-                    if (radios[i].checked) {
-                        // 선택된 라디오 버튼의 값(결제수단)를 리턴
-                        return radios[i].value;
-                    }
+            // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(ano)을 가져온다.
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    // 선택된 라디오 버튼의 값(ano)를 리턴
+                    return radios[i].value;
                 }
-                return null;
             }
+            return null;
+        }
 
-            function getAddressCheckedRadioButton() {
-                // 라디오 버튼들을 가져옴(배송지 선택)
-                let radios = document.getElementsByName('option');
+        $(document).ready(function () {
+            // point가 5000원 이상일때부터 포인트 사용 가능
+            debugger
 
-                // 라디오 버튼들을 돌면서 선택된 라디오 버튼 값(ano)을 가져온다.
-                for (var i = 0; i < radios.length; i++) {
-                    if (radios[i].checked) {
-                        // 선택된 라디오 버튼의 값(ano)를 리턴
-                        return radios[i].value;
-                    }
-                }
-                return null;
-            }
 
-            $(document).ready(function () {
-                // point가 5000원 이상일때부터 포인트 사용 가능
+            // URL에서 result 매개변수 값을 가져오는 함수
+            // list.html에서 파라미터에 result로 배송지 선택값을 보낸다.
+            debugger
+            const addressDiv = document.querySelector('.addressDiv') // 배송정보 div
+            // restController로 회원의 배송지목록을 불러온다.
+            addressList().then(result => {
                 debugger
+                let array = Math.min(3, result.addressDTOS.length); //둘중에 작은값 반환(최대 3번)
+                for (let i = 0; i < array; i++) {
+                    let address = result.addressDTOS[i];
 
-
-                // URL에서 result 매개변수 값을 가져오는 함수
-                // list.html에서 파라미터에 result로 배송지 선택값을 보낸다.
-                debugger
-                const addressDiv = document.querySelector('.addressDiv') // 배송정보 div
-                // restController로 회원의 배송지목록을 불러온다.
-                addressList().then(result => {
-                    debugger
-                    let array = Math.min(3, result.addressDTOS.length); //둘중에 작은값 반환(최대 3번)
-                    for (let i = 0; i < array; i++) {
-                        let address = result.addressDTOS[i];
-
-                        // 선택 버튼 생성
-                        let radioButton = $('<input>', {
-                            type: 'radio',
-                            id: 'address' + (i + 1),
-                            name: 'option',
-                            value: address.a_no // 배송지번호
-                        });
-                        // 라벨 생성
-                        let label = $('<label>', {
-                            for: 'address' + (i + 1),
-                            text: address.a_nickName // 배송지별칭
-                        });
-
-                        // 라디오 버튼과 라벨을 부모 요소인 div 태그에 추가
-                        $('#addressDiv_DivAddress_Div').append(radioButton, label);
-                    }
-                    // 배송지 선택 라디오 버튼을 모두 출력 후 배송지 변경 버튼 생성
-                    let addressUpdateBtn = $('<button>', {
-                        type: 'button',
-                        text: '배송지 변경',
-                        click: function () {
-                            addressModifyBtnClick(); // 배송지 목록 창을 띄운다.
-                        }
+                    // 선택 버튼 생성
+                    let radioButton = $('<input>', {
+                        type: 'radio',
+                        id: 'address' + (i + 1),
+                        name: 'option',
+                        value: address.a_no // 배송지번호
                     });
-                    $('#addressDiv_DivAddress_Div').append(addressUpdateBtn);
+                    // 라벨 생성
+                    let label = $('<label>', {
+                        for: 'address' + (i + 1),
+                        text: address.a_nickName // 배송지별칭
+                    });
 
-                    // 라디오 버튼 클릭 이벤트 설정
-                    let radio = $('#addressDiv_DivAddress_Div input[type="radio"]');
-                    radio.on('click', function () {
-                        debugger
-                        let ano = $(this).val(); // 클릭한(this)배송지번호
-                        readOneAddress(ano).then(addressDTO => {
-                            printAddress(addressDTO);
-                        })
-                    })
-
-                    // 배송지리스트에서 result 객체 가져와 출력하기
-                    let address = getResultFromUrl();
-                    debugger
-                    console.log(address); // 가져온 결과 출력
-                    if (address !== null) { // 선택된 값이 있으면
-                        let selectedInput = $('#address1'); // 첫번째 배송지의 input 태그
-                        let selectedLabel = $('label[for="address1"]'); // 첫번째 배송지의 label 태그
-                        selectedInput.val(address.a_no);
-                        selectedLabel.text(address.a_nickName);
+                    // 라디오 버튼과 라벨을 부모 요소인 div 태그에 추가
+                    $('#addressDiv_DivAddress_Div').append(radioButton, label);
+                }
+                // 배송지 선택 라디오 버튼을 모두 출력 후 배송지 변경 버튼 생성
+                let addressUpdateBtn = $('<button>', {
+                    type: 'button',
+                    text: '배송지 변경',
+                    click: function () {
+                        addressModifyBtnClick(); // 배송지 목록 창을 띄운다.
                     }
+                });
+                $('#addressDiv_DivAddress_Div').append(addressUpdateBtn);
 
-                    // 페이지 로드 시 첫 번째 라디오 버튼을 강제로 클릭하여 배송지 정보를 띄울 수 있도록 함
-                    // 위의 클릭 이벤트를 설정한 뒤에 클릭해야 실행된다 ..
-                    triggerFirstRadioButtonClick();
-
-                }).catch(e => {
-                    alert("addressList Exception...");
+                // 라디오 버튼 클릭 이벤트 설정
+                let radio = $('#addressDiv_DivAddress_Div input[type="radio"]');
+                radio.on('click', function () {
+                    debugger
+                    let ano = $(this).val(); // 클릭한(this)배송지번호
+                    readOneAddress(ano).then(addressDTO => {
+                        printAddress(addressDTO);
+                    })
                 })
 
-                // 라디오 버튼을 클릭하여 선택한 배송지의 정보를 출력
-                function printAddress(address) {
-                    addressDiv.querySelector("#addressNamePhone").textContent = `${address.a_recipient}, ${address.a_phone}`;
-                    addressDiv.querySelector("#address").textContent = `(${address.a_zipCode}) ${address.a_address} ${address.a_detail}`;
-
-                    const selectElement = addressDiv.querySelector("#options");
-
-                    // 각 option 요소를 확인하고, 값을 비교하여 기본 선택값 설정
-                    for (let i = 0; i < selectElement.options.length; i++) {
-                        const option = selectElement.options[i];
-                        if (option.value === address.a_request) {
-                            option.selected = true;
-                            if (i == 6) { // '직접 입력' 일 때 실행
-                                $('#customInput').show();
-                                $('#customRequest').prop('disabled', false);
-                                // 필드 활성화
-                                $("#customRequest").attr("required", true);
-                                // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
-                                $("#customRequest").val(address.a_customRequest);
-                                // 기본배송지의 customRequest 값을 넣어준다
-                            } else { // '직접 입력'이 아니면
-                                $('#customInput').hide();
-                                $('#customRequest').val(''); // 값을 지운다.
-                                $('#customRequest').prop('disabled', true);
-                                // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                $('#options').change(function () {
-                    debugger;
-                    // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
-                    if ($(this).val() === '직접 입력') {
-                        $('#customInput').show();
-                        $('#customRequest').prop('disabled', false);
-                        // 필드 활성화
-                        $("#customRequest").attr("required", true);
-                        // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
-                    } else {
-                        $('#customInput').hide();
-                        $('#customRequest').prop('disabled', true);
-                        // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
-                    }
-                });
-
-                const point = [[${memberPoint}]];
-                let pointUseTD = $('#pointUse') // td
-                if (point >= 5000) {
-                    pointUseTD.text(`(총 보유 적립금 ${point}원)`);
-                    let pointUseInput = $('<input>', {
-                        type: 'text',
-                        id: 'pointUseInput',
-                        name: 'o_pointUse',
-                        placeholder: '사용할 포인트 입력'
-                    });
-                    // pointUseInput.placeholder = '사용할 포인트를 입력해주세요.';
-                    pointUseTD.append(pointUseInput);
-                }
-
+                // 배송지리스트에서 result 객체 가져와 출력하기
+                let address = getResultFromUrl();
                 debugger
-                const selectCartFirstPointBOX = $(".selectCartFirstPoint"); // 상품들의 적립금 금액 요소들
-                let selectCartFirstPointTOTAL = 0; // 상품들의 적립금 금액 합계
-                selectCartFirstPointBOX.each(function () {
-                    selectCartFirstPointTOTAL += parseInt($(this).text());
+                console.log(address); // 가져온 결과 출력
+                if (address !== null) { // 선택된 값이 있으면
+                    let selectedInput = $('#address1'); // 첫번째 배송지의 input 태그
+                    let selectedLabel = $('label[for="address1"]'); // 첫번째 배송지의 label 태그
+                    selectedInput.val(address.a_no);
+                    selectedLabel.text(address.a_nickName);
+                }
+
+                // 페이지 로드 시 첫 번째 라디오 버튼을 강제로 클릭하여 배송지 정보를 띄울 수 있도록 함
+                // 위의 클릭 이벤트를 설정한 뒤에 클릭해야 실행된다 ..
+                triggerFirstRadioButtonClick();
+
+            }).catch(e => {
+                alert("addressList Exception...");
+            })
+
+            // 라디오 버튼을 클릭하여 선택한 배송지의 정보를 출력
+            function printAddress(address) {
+                addressDiv.querySelector("#addressNamePhone").textContent = `${address.a_recipient}, ${address.a_phone}`;
+                addressDiv.querySelector("#address").textContent = `(${address.a_zipCode}) ${address.a_address} ${address.a_detail}`;
+
+                const selectElement = addressDiv.querySelector("#options");
+
+                // 각 option 요소를 확인하고, 값을 비교하여 기본 선택값 설정
+                for (let i = 0; i < selectElement.options.length; i++) {
+                    const option = selectElement.options[i];
+                    if (option.value === address.a_request) {
+                        option.selected = true;
+                        if (i == 6) { // '직접 입력' 일 때 실행
+                            $('#customInput').show();
+                            $('#customRequest').prop('disabled', false);
+                            // 필드 활성화
+                            $("#customRequest").attr("required", true);
+                            // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
+                            $("#customRequest").val(address.a_customRequest);
+                            // 기본배송지의 customRequest 값을 넣어준다
+                        } else { // '직접 입력'이 아니면
+                            $('#customInput').hide();
+                            $('#customRequest').val(''); // 값을 지운다.
+                            $('#customRequest').prop('disabled', true);
+                            // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
+                        }
+                        break;
+                    }
+                }
+            }
+
+            $('#options').change(function () {
+                debugger;
+                // 직접 입력 옵션 선택 시 input 태그를 가지고 있는 div를 표시
+                if ($(this).val() === '직접 입력') {
+                    $('#customInput').show();
+                    $('#customRequest').prop('disabled', false);
+                    // 필드 활성화
+                    $("#customRequest").attr("required", true);
+                    // 직접 입력 옵션 선택 시 보여주는 input 태그에 필수 입력 속성을 부여한다.
+                } else {
+                    $('#customInput').hide();
+                    $('#customRequest').prop('disabled', true);
+                    // 필드 비활성화(직접 입력 외 다른 값을 선택하면 custonRequest에는 null이 들어감
+                }
+            });
+
+            const point = [[${memberPoint}]];
+            let pointUseTD = $('#pointUse') // td
+            if (point >= 5000) {
+                pointUseTD.text(`(총 보유 적립금 ${point}원)`);
+                let pointUseInput = $('<input>', {
+                    type: 'text',
+                    id: 'pointUseInput',
+                    name: 'o_pointUse',
+                    placeholder: '사용할 포인트 입력'
                 });
+                // pointUseInput.placeholder = '사용할 포인트를 입력해주세요.';
+                pointUseTD.append(pointUseInput);
+            }
 
-                const selectCartOrdersPriceBOX = $(".selectCartOrdersPrice"); // 상품들의 주문금액 요소들
-                let selectCartOrdersPriceTOTAL = 0; // 상품들의 주문금액 합계
-                selectCartOrdersPriceBOX.each(function () {
-                    selectCartOrdersPriceTOTAL += parseInt($(this).text());
-                });
+            debugger
+            const selectCartFirstPointBOX = $(".selectCartFirstPoint"); // 상품들의 적립금 금액 요소들
+            let selectCartFirstPointTOTAL = 0; // 상품들의 적립금 금액 합계
+            selectCartFirstPointBOX.each(function () {
+                selectCartFirstPointTOTAL += parseInt($(this).text());
+            });
 
-                // 상품 금액 출력
-                let totalPrice = $("#totalPrice"); // 출력할 요소 가져오기
-                totalPrice.text(selectCartOrdersPriceTOTAL);
+            const selectCartOrdersPriceBOX = $(".selectCartOrdersPrice"); // 상품들의 주문금액 요소들
+            let selectCartOrdersPriceTOTAL = 0; // 상품들의 주문금액 합계
+            selectCartOrdersPriceBOX.each(function () {
+                selectCartOrdersPriceTOTAL += parseInt($(this).text());
+            });
 
-                // 적립금 선할인 가능액 출력 + 체크박스 input 태그의 value 속성도 지정해줘야함
-                let pointFirstUse = $("#pointFirstUse"); // 체크박스 요소 가져오기
-                let FirstPoint = $(".FirstPoint"); // 출력할 요소 가져오기
-                pointFirstUse.val(selectCartFirstPointTOTAL);
-                FirstPoint.text(selectCartFirstPointTOTAL);
+            // 상품 금액 출력
+            let totalPrice = $("#totalPrice"); // 출력할 요소 가져오기
+            totalPrice.text(selectCartOrdersPriceTOTAL);
 
-                let PointUse = 0; // 적립금 사용금액 value 저장 변수
-                let pointFirstUseValue = 0; // 적립금 선할인 체크박스 value 저장 변수
-                let totalPoint = selectCartFirstPointTOTAL; // 총 적립금 예정액
-                // 처음에는 적립금 선할인 체크박스가 선택되어 있지 않은 상황이므로 적립금 예정액을 출력한다.
-                let totalSavePoint = $("#point"); // 총 적립금 출력할 요소
-                let btn_pay_amt = $("#btn_pay_amt"); // 결제하기 버튼
+            // 적립금 선할인 가능액 출력 + 체크박스 input 태그의 value 속성도 지정해줘야함
+            let pointFirstUse = $("#pointFirstUse"); // 체크박스 요소 가져오기
+            let FirstPoint = $(".FirstPoint"); // 출력할 요소 가져오기
+            pointFirstUse.val(selectCartFirstPointTOTAL);
+            FirstPoint.text(selectCartFirstPointTOTAL);
 
+            let PointUse = 0; // 적립금 사용금액 value 저장 변수
+            let pointFirstUseValue = 0; // 적립금 선할인 체크박스 value 저장 변수
+            let totalPoint = selectCartFirstPointTOTAL; // 총 적립금 예정액
+            // 처음에는 적립금 선할인 체크박스가 선택되어 있지 않은 상황이므로 적립금 예정액을 출력한다.
+            let totalSavePoint = $("#point"); // 총 적립금 출력할 요소
+            let btn_pay_amt = $("#btn_pay_amt"); // 결제하기 버튼
+
+            calculatorPrint(selectCartOrdersPriceTOTAL, pointFirstUseValue, PointUse, totalPoint);
+            // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액
+
+            // 포인트 사용 input 태그의 입력을 감지한다.
+            $('#pointUseInput').on('input', function () {
+                debugger
+                // 숫자만 입력할 수 있도록 한다.(숫자 외 다른 글자 입력 시 지워짐)
+                let inputValue = $(this).val().replace(/[^0-9]/g, '');
+                $(this).val(inputValue);
+                if ($(this).val() > point) {
+                    alert('사용 포인트가 회원님이 보유하신 포인트보다 많습니다.')
+                    $(this).val('')
+                }
+                PointUse = $(this).val(); // 포인트 사용 값이 변화될 때마다 저장
                 calculatorPrint(selectCartOrdersPriceTOTAL, pointFirstUseValue, PointUse, totalPoint);
                 // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액
-
-                // 포인트 사용 input 태그의 입력을 감지한다.
-                $('#pointUseInput').on('input', function () {
-                    debugger
-                    // 숫자만 입력할 수 있도록 한다.(숫자 외 다른 글자 입력 시 지워짐)
-                    let inputValue = $(this).val().replace(/[^0-9]/g, '');
-                    $(this).val(inputValue);
-                    if ($(this).val() > point) {
-                        alert('사용 포인트가 회원님이 보유하신 포인트보다 많습니다.')
-                        $(this).val('')
-                    }
-                    PointUse = $(this).val(); // 포인트 사용 값이 변화될 때마다 저장
-                    calculatorPrint(selectCartOrdersPriceTOTAL, pointFirstUseValue, PointUse, totalPoint);
-                    // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액
-                });
-
-                pointFirstUse.change(function (){ // 적립금 선할인 체크박스가 변화할 때 마다
-                    debugger
-                    if (this.checked) { // 체크되어 있다면
-                        pointFirstUseValue = this.value; // 선할인금액에 적립금 예정액
-                        totalPoint = 0; // 총 적립금은 없음
-                    } else { // 체크되어 있지 않다면
-                        pointFirstUseValue = 0; // 선할인금액 0
-                        totalPoint = this.value; // 총 적립금에 적립금 예정액
-                    }
-                    calculatorPrint(selectCartOrdersPriceTOTAL, pointFirstUseValue, PointUse, totalPoint);
-                    // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액
-                });
-
-                function calculatorPrint(totalPrice, pointFirstUse, pointUse, totalPoint){
-                    // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액을 매개값으로 받아
-                    // 할인합계, 최종결제금액, 총 적립금을 계산하고 출력해주는 함수
-                    debugger
-                    if(pointUse === ""){ // 포인트 사용 input의 값을 지우면 ""로 값을 받아오는 예외처리
-                        pointUse = 0;
-                    }
-                    // 할인 합계 = 적립금 선할인 금액(체크 안할 시 0) + 적립금 사용 금액(PointUse)
-                    let salesTotal = parseInt(pointFirstUse) + parseInt(pointUse);
-                    $("#salesTotal").text(salesTotal);
-
-                    // 최종 결제 금액 = 상품 주문 금액 - 할인 합계
-                    let paymentPrice = totalPrice - salesTotal;
-                    $("#paymentPrice").text(paymentPrice);
-
-                    // 총 적립금
-                    // 적립금 선할인 체크박스 체크 시  0원
-                    // 체크 하지 않을 시 적립금 합계 출력
-                    totalSavePoint.text(totalPoint);
-
-                    // 결제하기 버튼에 출력
-                    btn_pay_amt.text(paymentPrice);
-                }
-
-                $('#btn_pay').on('click', function () {
-                    // 카카오페이 선택 후 결제하기 버튼 클릭 시
-                    debugger
-                    let ano = getAddressCheckedRadioButton(); // 배송지 변호
-                    let o_state = '주문접수'
-                    let price = $('#btn_pay_amt').text(); // 총 결제금액
-                    let pointFirstUseCheckBox = $('#pointFirstUse'); // 적립금 선할인 체크박스
-                    let pointFirstUse = 0;
-                    if (pointFirstUseCheckBox.prop('checked')) { // 적립금 선할인을 체크했다면
-                        pointFirstUse = pointFirstUseCheckBox.val(); // 적립금 선할인 값 저장
-                    }
-                    let pointUse = $('#pointUseInput').val(); // 적립금 사용금액
-                    let paymentMethod = getPaymentMethodCheckedRadioButton(); // 결제수단
-                    let inos = []; // 선택한 상품의 번호들
-                    $('.ino').each(function () {
-                        inos.push($(this).val());
-                    });
-                    let counts = []; // 상품 구매 수량들
-                    $('.selectCartCount').each(function () {
-                        counts.push($(this).text());
-                    });
-                    let sizes = []; // 상품 사이즈들
-                    $('.size').each(function () {
-                        sizes.push($(this).text());
-                    });
-                    let colors = []; // 상품 색상들
-                    $('.color').each(function () {
-                        colors.push($(this).text());
-                    });
-
-                    console.log("ano : " + ano);
-                    console.log("price : " + price);
-                    console.log("pointFirstUse : " + pointFirstUse);
-                    console.log("pointUse : " + pointUse);
-                    console.log("paymentMethod : " + paymentMethod);
-                    console.log("inos : " + inos);
-                    console.log("counts : " + counts);
-                    console.log("sizes: " + sizes);
-                    console.log("colors : " + colors);
-
-                    let ordersObj = {
-                        ano: ano,
-                        o_state: o_state,
-                        totalPrice: price,
-                        pointFirstUse: pointFirstUse,
-                        pointUse: pointUse,
-                        paymentMethod: paymentMethod,
-                        inos: inos,
-                        counts: counts,
-                        sizes: sizes,
-                        colors: colors
-                    }
-                    console.log(ordersObj);
-
-                    kakaoPayReady(ordersObj).then(result => {
-                        debugger
-                        // '_self' : 현재 창에서 오픈
-                        window.open(result.next_redirect_pc_url, '_self');
-                    })
-                })
-
-
-
-
             });
-        </script>
-    </div>
+
+            pointFirstUse.change(function (){ // 적립금 선할인 체크박스가 변화할 때 마다
+                debugger
+                if (this.checked) { // 체크되어 있다면
+                    pointFirstUseValue = this.value; // 선할인금액에 적립금 예정액
+                    totalPoint = 0; // 총 적립금은 없음
+                } else { // 체크되어 있지 않다면
+                    pointFirstUseValue = 0; // 선할인금액 0
+                    totalPoint = this.value; // 총 적립금에 적립금 예정액
+                }
+                calculatorPrint(selectCartOrdersPriceTOTAL, pointFirstUseValue, PointUse, totalPoint);
+                // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액
+            });
+
+            function calculatorPrint(totalPrice, pointFirstUse, pointUse, totalPoint){
+                // 상품 금액, 적립금 선할인 여부에 따른 금액, 포인트 사용 금액, 적립금 예정액을 매개값으로 받아
+                // 할인합계, 최종결제금액, 총 적립금을 계산하고 출력해주는 함수
+                debugger
+                if(pointUse === ""){ // 포인트 사용 input의 값을 지우면 ""로 값을 받아오는 예외처리
+                    pointUse = 0;
+                }
+                // 할인 합계 = 적립금 선할인 금액(체크 안할 시 0) + 적립금 사용 금액(PointUse)
+                let salesTotal = parseInt(pointFirstUse) + parseInt(pointUse);
+                $("#salesTotal").text(salesTotal);
+
+                // 최종 결제 금액 = 상품 주문 금액 - 할인 합계
+                let paymentPrice = totalPrice - salesTotal;
+                $("#paymentPrice").text(paymentPrice);
+
+                // 총 적립금
+                // 적립금 선할인 체크박스 체크 시  0원
+                // 체크 하지 않을 시 적립금 합계 출력
+                totalSavePoint.text(totalPoint);
+
+                // 결제하기 버튼에 출력
+                btn_pay_amt.text(paymentPrice);
+            }
+
+            $('#btn_pay').on('click', function () {
+                // 카카오페이 선택 후 결제하기 버튼 클릭 시
+                debugger
+                let ano = getAddressCheckedRadioButton(); // 배송지 변호
+                let o_state = '주문접수'
+                let price = $('#btn_pay_amt').text(); // 총 결제금액
+                let pointFirstUseCheckBox = $('#pointFirstUse'); // 적립금 선할인 체크박스
+                let pointFirstUse = 0;
+                if (pointFirstUseCheckBox.prop('checked')) { // 적립금 선할인을 체크했다면
+                    pointFirstUse = pointFirstUseCheckBox.val(); // 적립금 선할인 값 저장
+                }
+                let pointUse = $('#pointUseInput').val(); // 적립금 사용금액
+                let paymentMethod = getPaymentMethodCheckedRadioButton(); // 결제수단
+                let inos = []; // 선택한 상품의 번호들
+                $('.ino').each(function () {
+                    inos.push($(this).val());
+                });
+                let counts = []; // 상품 구매 수량들
+                $('.selectCartCount').each(function () {
+                    counts.push($(this).text());
+                });
+                let sizes = []; // 상품 사이즈들
+                $('.size').each(function () {
+                    sizes.push($(this).text());
+                });
+                let colors = []; // 상품 색상들
+                $('.color').each(function () {
+                    colors.push($(this).text());
+                });
+                let cdids = []; // 장바구니 번호들
+                $('.cdid').each(function () {
+                    cdids.push($(this).val());
+                });
+
+                console.log("ano : " + ano);
+                console.log("price : " + price);
+                console.log("pointFirstUse : " + pointFirstUse);
+                console.log("pointUse : " + pointUse);
+                console.log("paymentMethod : " + paymentMethod);
+                console.log("inos : " + inos);
+                console.log("counts : " + counts);
+                console.log("sizes: " + sizes);
+                console.log("colors : " + colors);
+                console.log("cdids : " + cdids);
+
+                let ordersObj = {
+                    ano: ano,
+                    o_state: o_state,
+                    totalPrice: price,
+                    pointFirstUse: pointFirstUse,
+                    pointUse: pointUse,
+                    paymentMethod: paymentMethod,
+                    inos: inos,
+                    counts: counts,
+                    sizes: sizes,
+                    colors: colors,
+                    cdids: cdids
+                }
+                console.log(ordersObj);
+
+                kakaoPayReady(ordersObj).then(result => {
+                    debugger
+                    // '_self' : 현재 창에서 오픈
+                    window.open(result.next_redirect_pc_url, '_self');
+                })
+            })
+
+
+
+
+        });
+    </script>
+</div>
 </div>
 </html>
 <!--layout:fragment="script" 삭제 후 content 안으로 옮김-->
