@@ -19,8 +19,14 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
             "join ItemImage im on im.item.ino = i.ino " +
             "where cd.cart.cno = :cartId " +
             "group by i.ino " +
+            //"HAVING im.ord = 0 " +
             "order by cd.regDate desc")
     List<CartDTO> findCartDetailDtoList(Long cartId);
+
+    /* new com.ogu.ogoods.dto.CartDetailDto
+    DTO를 직접 조회하기 위해서 new를 통해 생성자를 통해 객체 반환
+    JPQL에서는 패키지와 함께 클래스명을 작성해줘야 함
+    생성자 파라미터 순서는 DTO 클래스 명시 순으로 넣을 것 */
 
     @Query("select cd from CartDetail cd where cd.cart = :cart and cd.paymentSuccess = 0")
     List<CartDetail> findByCartWherePaymentSuccess(Cart cart);
