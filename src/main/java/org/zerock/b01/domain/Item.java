@@ -78,6 +78,7 @@ public class Item extends BaseEntity{
         this.i_color = i_color;
         this.i_size = i_size;
 
+
     }
 
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<head>
+    <title>공지사항</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .item {
+            margin-bottom: 15px;
+        }
+
+        .item span {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .file-item {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .file-item a {
+            color: #000;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .file-item a:hover {
+            text-decoration: underline;
+        }
+
+        textarea, input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1>공지사항 상세보기</h1>
+        <div class="item">
+            <span>번호</span>
+            <input type="text" th:value="${dto.nno}" readonly>
+        </div>
+        <div class="item">
+            <span>제목</span>
+            <input type="text" th:value="${dto.n_title}" readonly>
+        </div>
+        <div class="item">
+            <span>내용</span>
+            <textarea rows="5" readonly>[[${dto.n_content}]]</textarea>
+        </div>
+        <div class="item">
+            <span>작성자</span>
+            <input type="text" th:value="${dto.n_writer}" readonly>
+        </div>
+        <div class="item">
+            <span>작성일</span>
+            <input type="text" th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+        </div>
+        <div class="item">
+            <span>수정일</span>
+            <input type="text" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+        </div>
+        <div class="item">
+            <a th:href="|@{/notice/list}?${link}|" class="link">
+                <button type="button">목록으로</button>
+            </a>
+            <a th:if="${user != null && user.username == dto.n_writer}" href="#" class="link">
+                <!-- 수정 기능은 구현 중이므로 비활성화 상태로 유지합니다 -->
+                <button type="button" disabled>수정하기</button>
+            </a>
+        </div>
+        <div class="item">
+            <span>첨부파일</span>
+            <div th:if="${dto.fileNames != null && dto.fileNames.size() > 0}">
+                <div th:each="fileName: ${dto.fileNames}" class="file-item">
+                    <span th:text="${fileName}"></span>
+                    <a th:href="|/download/${fileName}|">다운로드</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
+    <script th:inline="javascript">
+
+    </script>
+</div><!-- layout fragment end -->
+
+

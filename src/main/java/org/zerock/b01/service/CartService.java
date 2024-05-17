@@ -152,15 +152,15 @@ public class CartService {
         });
 
         CartAllDTO cartAllDTO = CartAllDTO.builder()
-                    .cno(cart.getCno())
-                    .member(cart.getMember().getMid())
-                    .sizes(sizes)
-                    .colors(colors)
-                    .paymentSuccesss(paymentSuccesss)
-                    .cdids(cdids)
-                    .itemDTOS(itemDTOS)
-                    .counts(counts)
-                    .build();
+                .cno(cart.getCno())
+                .member(cart.getMember().getMid())
+                .sizes(sizes)
+                .colors(colors)
+                .paymentSuccesss(paymentSuccesss)
+                .cdids(cdids)
+                .itemDTOS(itemDTOS)
+                .counts(counts)
+                .build();
         return cartAllDTO;
     }
 
