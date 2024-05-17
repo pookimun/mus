@@ -82,7 +82,8 @@
                             <span>([[${details.od_count}]]개)</span>
                         </td> <!--주문금액(수량)-->
                         <td> <!--적립금 선할인-->
-                            -[[${details.od_price * details.od_count * 0.005}]]원
+                            <span th:if="${dto.pointFirstUse != 0}">-[[${details.od_price * details.od_count * 0.005}]]원 선할인</span>
+                            <span th:if="${dto.pointFirstUse == 0}">+[[${details.od_price * details.od_count * 0.005}]]원 적립됨</span>
                         </td> <!--적립금 선할인-->
                         <td> <!--배송비-->
                             무료배송

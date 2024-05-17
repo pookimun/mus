@@ -37,12 +37,6 @@ public class Item extends BaseEntity{
     private String i_size;
 
     // not null
-    private String i_title_img; //대표이미지
-
-    // not null
-    private String i_info_img; //설명이미지
-
-    // not null
     private int i_stock; //재고보유여부
 
 

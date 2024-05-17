@@ -3,6 +3,7 @@ package org.zerock.b01.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,19 +11,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.b01.dto.CartDTO;
-import org.zerock.b01.dto.CartDetailDTO;
+import org.zerock.b01.dto.*;
+import org.zerock.b01.service.BoardService;
 import org.zerock.b01.service.CartService;
 
 import java.security.Principal;
 import java.util.List;
 
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class CartController {
 
     private final CartService cartService;
+
+    private final BoardService boardService;
 
 
     @PostMapping(value = "/cart")
@@ -54,10 +58,15 @@ public class CartController {
 
     @GetMapping(value = "/cart")
     public String orderHist(Principal principal, Model model) {
+        System.out.println("================================================================================");
+        System.out.println(principal.getName());
         List<CartDTO> cartDetailList = cartService.getCartList(principal.getName());
-        model.addAttribute("cartitems", cartDetailList);
-        return "cart/cartList";
+        System.out.println("cartDetailList : " + cartDetailList);
+        cartDetailList.forEach(cartItem -> System.out.println(cartItem.toString())); // 장바구니 아이템 로깅
+        model.addAttribute("cartItems", cartDetailList);
+        return "cart/cartlist";
     }
+
 
     @PatchMapping(value = "/cartItem/{cartItemId}")
     public @ResponseBody ResponseEntity updateCartItem(@PathVariable("cartItemId") Long cartItemId, int count, Principal principal) {
@@ -88,6 +97,48 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
         // 메세지와 함께 요청 성공 HTTP 응답 상태 코드 리턴
     }
+
+
+    @GetMapping({"/", "/index"})
+    public void index() {
+    }
+
+    @GetMapping( "/list")
+    public void list(PageRequestDTO pageRequestDTO, Model model){
+
+        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+
+        PageResponseDTO<BoardListAllDTO> responseDTO =
+                boardService.listWithAll(pageRequestDTO);
+
+        log.info(responseDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
+
+    }
+
+//    @PostMapping("/orders")
+//    @ResponseBody
+//    public ResponseEntity<?> orderCartItem(@RequestBody CartOrderDTO cartOrderDto, Principal principal) {
+//        List<CartOrderDTO> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
+//        Long cdid = cartOrderDto.getCdid();  // cdid 값 가져오기
+//
+//        if (cartOrderDtoList == null || cartOrderDtoList.isEmpty()) {
+//            return new ResponseEntity<>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
+//        }
+//
+//        for (CartOrderDTO cartOrder : cartOrderDtoList) {
+//            if (!cartService.validateCartItem(cartOrder.getCartItemId(), principal.getName())) {
+//                return new ResponseEntity<>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//            }
+//        }
+//
+//        Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName(), cdid);
+//        return new ResponseEntity<>(orderId, HttpStatus.OK);
+//    }
+
+
+
 
 
 

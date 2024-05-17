@@ -5,4 +5,3 @@ async function cartReady(cartObj){
     console.log(response)
     return response.data
 }
-

@@ -1,5 +1,5 @@
 async function uploadToServer (formObj) {
-
+debugger
     console.log("upload to server......")
     console.log(formObj)
 
@@ -22,3 +22,4 @@ async function removeFileToServer(uuid, fileName){
     return response.data
 
 }
+

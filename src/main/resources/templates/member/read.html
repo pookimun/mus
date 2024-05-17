@@ -1,0 +1,48 @@
+<html layout:decorate="~{layouts/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>무신사 | 회원가입</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+    <script  src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<div layout:fragment="content">
+
+    <li class="cell"><a href="/member/edit"><span>회원 정보 수정</span></a></li>
+
+    <script>
+        // 비밀번호 확인 함수
+        /*        function checkPasswordMatch() {
+                    var passwordInput = document.getElementById("pw");
+                    var confirmPasswordInput = document.getElementById("pw_confirm");
+
+                    var password = passwordInput.value.trim(); // 비밀번호 입력 필드의 값
+                    var confirmPassword = confirmPasswordInput.value.trim(); // 비밀번호 확인 입력 필드의 값
+
+                    // 비밀번호와 비밀번호 확인 값이 일치하는지 확인
+                    if (password === confirmPassword) {
+                        // 일치할 경우
+                        return true; // 폼 제출을 허용하기 위해 true 반환
+                    } else {
+                        // 일치하지 않을 경우
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return false; // 폼 제출을 막기 위해 false 반환
+                    }
+                }*/
+    </script>
+
+<!--    <script>
+        $('.open-popup-link').magnificPopup({
+            type:'inline',
+            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        });
+    </script>-->
+
+</div>
+
+<script layout:fragment="script" th:inline="javascript">
+</script>
+

@@ -38,6 +38,9 @@ public class OrdersDetail implements Comparable<OrdersDetail> {
     private int od_price; // 주문 당시의 상품 가격
     // 주문내역을 조회할 때 현재가격이 아니라 주문 당시의 가격을 표시해야 하기 때문에 가격 필드를 따로 생성
 
+    @Column(nullable = false) // not null
+    private Long cdid; // 주문을 원하는 장바구니 번호들
+
     @Override
     public int compareTo(OrdersDetail other) {
         // OrderDetail 간의 순서를 정한다. od_no를 기준으로 순서를 정했다.

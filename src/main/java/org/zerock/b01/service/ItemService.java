@@ -13,6 +13,7 @@ public interface ItemService {
     void modify(ItemDTO itemDTO);
     void remove(Long ino);
 
+    /**/
     ItemPageResponseDTO<ItemDTO> list(ItemPageRequestDTO itemPageRequestDTO);
 
     //게시글의 이미지 처리

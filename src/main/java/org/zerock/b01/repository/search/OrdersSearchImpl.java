@@ -100,8 +100,6 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                                     .ino(detail.getItem().getIno())
                                     .i_name(detail.getItem().getI_name())
                                     .i_price(detail.getItem().getI_price())
-                                    .i_color(detail.getItem().getI_title_img())
-                                    .i_size(detail.getItem().getI_info_img())
                                     .i_stock(detail.getItem().getI_stock())
                                     .itemImages(detail.getItem().getItemImageSet().stream()
                                             .map(itemImage -> ItemImageDTO.builder()

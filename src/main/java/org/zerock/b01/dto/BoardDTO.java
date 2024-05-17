@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,4 +36,6 @@ public class BoardDTO {
 
     //첨부파일의 이름들
     private List<String> fileNames;
+
+    private List<MultipartFile> files;
 }

@@ -34,4 +34,7 @@ public class OrdersDetailDTO {
     // 주문내역을 조회할 때 현재가격이 아니라 주문 당시의 가격을 표시해야 하기 때문에 가격 필드를 따로 생성생성
     private int od_price;
 
+    // 구매를 원하는 장바구니 번호
+    private Long cdid;
+
 }
