@@ -1,0 +1,428 @@
+<html layout:decorate="~{layout/basic.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .responsive-wrapper {
+            width: 95%;
+            max-width: 1900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .magazine-layout {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-row-gap: 2rem;
+        }
+
+        .magazine-column {
+            padding: 0 1.5rem;
+            grid-column: span 5;
+        }
+        @media (min-width: 1200px) {
+            .magazine-column {
+                grid-column: span 1;
+                border-right: 1px solid #CCC;
+            }
+            .magazine-column:last-child {
+                border-right: none;
+            }
+        }
+        @media (min-width: 1200px) {
+            .magazine-column:nth-child(2) {
+                grid-column: span 2;
+            }
+        }
+
+        .article + .article {
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #ccc;
+        }
+
+        .article-img + * {
+            margin-top: 1rem;
+        }
+
+        .article-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .article-title {
+            font-weight: 900;
+            line-height: 1.25;
+            color: #000;
+        }
+
+        .article-title--large + * {
+            margin-top: 1.5rem;
+        }
+        .article-title--medium {
+            font-size: 1.5rem;
+        }
+        .article-title--medium + * {
+            margin-top: 0.75rem;
+        }
+
+        .article-title--small + * {
+            margin-top: 0.75rem;
+        }
+
+        .article-link {
+            color: inherit;
+        }
+
+        .article-excerpt,
+        .article-creditation {
+            font-size: 1.125rem;
+            line-height: 1.4;
+        }
+        .article-excerpt p + p,
+        .article-creditation p + p {
+            margin-top: 1.5rem;
+        }
+        .article-author-img + .article-author-info {
+            margin-left: 0.5rem;
+        }
+
+        .article-author-info dl {
+            margin-top: 0.25em;
+        }
+        .article-author-info dt {
+            font-weight: 600;
+        }
+        .article-author-info dd {
+            font-size: 0.875em;
+        }
+
+        .center-img {
+            margin: 0;
+        }
+
+        .podcast-play-button svg {
+            max-width: 1rem;
+            max-height: 1rem;
+            fill: #FFF;
+        }
+
+        :focus {
+            outline: 0;
+        }
+
+        /*inner banner*/
+
+        h1, h2, h3, h4, h5, h6 { font-weight: 400; }
+        h1 {
+            text-align: center;
+            margin: .5rem 0 1rem;
+        }
+
+        ._grid {
+            text-align: justify !important;
+            text-justify: distribute-all-lines;
+            font-size: 0 !important;
+            text-rendering: optimizespeed;
+        }
+        ._grid:after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+        }
+        ._column {
+            display: inline-block;
+            vertical-align: top;
+            font-size: medium;
+            text-align: left;
+            text-rendering: optimizeLegibility;
+        }
+        ._btn {
+            display: inline-block;
+            background-color: #bdc3c7;
+            border: none;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .main-banner {
+            margin: 0 auto;
+        }
+
+        .main-banner-list-item {
+            border-top: 1px solid #bdc3c7;
+            height: 6rem;
+            overflow: hidden;
+        }
+
+        .main-banner-list-item > ._column {
+            height: 80%;
+        }
+
+        .product-image {
+            width: 20%;
+            background: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7") no-repeat center / cover transparent;
+        }
+
+        .product-info {
+            width: 60%;
+            padding: 1rem;
+        }
+        .product-name {
+            font-weight: bold;
+            font-size: 11px;
+            letter-spacing: -.025em;
+            margin: 0 0 .5rem;
+        }
+
+        .product-modifiers {
+            width: 20%;
+            text-align: center;
+            padding-top: 25px;
+            border-left: 1px solid #bdc3c7;
+        }
+        .product-subtract {
+            width: 40%;
+            background-color: transparent;
+            color: #686868;
+        }
+        .product-modifiers:hover .product-remove {
+            visibility: visible;
+        }
+
+        .cart-totals ._column {
+            width: 19.984013%;
+            padding: .5rem;
+            line-height: 1.2;
+        }
+        .cart-totals ._column:not(:last-of-type) {
+            border-right: 1px solid #bdc3c7;
+        }
+        .cart-totals ._column:first-of-type {
+            padding-left: 0;
+        }
+
+        .cart-totals ._column:hover .cart-totals-value,
+        .cart-totals ._column:hover .cart-totals-key {
+            color: #333;
+        }
+
+        ._column.checkout {
+            text-align: right;
+            padding: 0;
+            margin-top: 1.5em;
+            vertical-align: middle;
+        }
+        .checkout-btn:before {
+            margin-right: .5em;
+        }
+        .cart-totals * {
+            transition: all .2s ease;
+        }
+
+        .product-desc {
+            font-size: 11px;
+        }
+    </style>
+    <title>itc | 메인 페이지</title>
+</head>
+
+<div layout:fragment="content">
+    <main class="responsive-wrapper">
+        <div class="magazine-layout">
+            <div class="magazine-column">
+
+                <article class="article">
+                    <img th:src="@{/img/core-img/ouro.jpg}">
+                    <h2 class="article-title article-title--medium">
+                        <a class="article-link" href="#">머리부터 발끝까지</a>
+                    </h2>
+                    <div class="article-excerpt">
+                        <p>캐주얼한 분위기로 하루의 스타일을 완성해봐요. 아우로, 아코크, 노앤뮤트를 단독 혜택으로 준비했어요. 사은품 이벤트까지 놓치지 말고 확인 해보세요.</p>
+                    </div>
+                    <div class="main-banner">
+                        <ul class="ui-list main-banner-list">
+
+                            <li class="_grid main-banner-list-item">
+
+                                <div class="_column product-image" style="background-image: url(//img.29cm.co.kr/item/202404/11eef5495f6b9e4d88b1bfa9edce7303.jpg?width=150);">
+                                </div>
+
+                                <div class="_column product-info">
+                                    <h4 class="product-name">아우로</h4>
+                                    <p class="product-desc" style="margin: 0;">
+                                        COTTON BACKPACK [ LILAC ]
+                                    </p>
+                                </div>
+                                <div class="_column product-modifiers" data-product-price="12.35">
+                                    <button class="_btn _column product-subtract">
+                                        <img th:src="@{/img/core-img/heart.png}">
+                                    </button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <img th:src="@{/img/core-img/atelier.jpg}">
+                    <h2 class="article-title article-title--medium">
+                        <a class="article-link" href="#">내리쬐는 햇살과 맑은 하늘</a>
+                    </h2>
+                    <div class="article-excerpt">
+                        <p>반원 아틀리에의 여름 컬렉션은 얇은 시스루 소재와 청량한 분위기의 그래픽이 포인트예요. 인플루언서 현주와 함께 하는 반원 아틀리에의 단독 할인 혜택은 오늘이 마지막이에요.</p>
+                    </div>
+
+                    <div class="main-banner">
+                        <ul class="ui-list main-banner-list">
+
+                            <li class="_grid main-banner-list-item">
+
+                                <div class="_column product-image" style="background-image: url(//img.29cm.co.kr/item/202405/11ef0ce6577dd3f9bb14f5aadbb5f338.jpg?width=150);">
+                                </div>
+
+                                <div class="_column product-info">
+                                    <h4 class="product-name">반원 아틀리에</h4>
+                                    <p class="product-desc" style="margin: 0;">
+                                        A3481 스트라이프 피케 티셔츠_Sky blue/Navy
+                                    </p>
+                                </div>
+                                <div class="_column product-modifiers" data-product-price="12.35">
+                                    <button class="_btn _column product-subtract">
+                                        <img th:src="@{/img/core-img/heart.png}">
+                                    </button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </article>
+
+            </div>
+            <div class="magazine-column">
+
+                <article class="article" style="margin: 0; padding: 0;">
+                    <figure class="article-img center-img">
+                        <img th:src="@{/img/core-img/unaffected.jpg}">
+                    </figure>
+                    <div class="article-creditation">
+                    </div>
+                </article>
+
+                <article class="article" style="margin: 0; padding: 0;">
+                    <figure class="article-img center-img">
+                        <img th:src="@{/img/core-img/yiyae.jpg}">
+                    </figure>
+                </article>
+
+            </div>
+            <div class="magazine-column">
+
+                <article class="article">
+                    <img th:src="@{/img/core-img/abroad.jpg}">
+                    <h2 class="article-title article-title--medium">
+                        <a class="article-link" href="#">해외 브랜드 런웨이</a>
+                    </h2>
+                    <div class="article-excerpt">
+                        <p>지금 가장 인기 있는 상품을 최대 20% 쿠폰 혜택으로 만나보세요.</p>
+                    </div>
+                    <div class="main-banner">
+                        <ul class="ui-list main-banner-list">
+
+                            <li class="_grid main-banner-list-item">
+
+                                <div class="_column product-image" style="background-image: url(//img.29cm.co.kr/item/202402/11eed6cf9627a9e082f29112d43b3262.jpg?width=150);">
+                                </div>
+
+                                <div class="_column product-info">
+                                    <h4 class="product-name">오어슬로우</h4>
+                                    <p class="product-desc" style="margin: 0;">
+                                        (M) 105 STANDARD SELVEDGE DENIM (ONE WASH)
+                                    </p>
+                                </div>
+                                <div class="_column product-modifiers" data-product-price="12.35">
+                                    <button class="_btn _column product-subtract">
+                                        <img th:src="@{/img/core-img/heart.png}">
+                                    </button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+
+                    <img th:src="@{/img/core-img/treasure.jpg}">
+                    <h2 class="article-title article-title--medium">
+                        <a class="article-link" href="#">모험가의 추천</a>
+                    </h2>
+
+                    <div class="main-banner">
+                        <ul class="ui-list main-banner-list">
+                            <li class="_grid main-banner-list-item">
+                                <div class="_column product-image" style="background-image: url(//img.29cm.co.kr/item/202405/11ef10fec8a13444892b1b1ff5c17d33.jpg?width=150);">
+                                </div>
+                                <div class="_column product-info">
+                                    <h4 class="product-name">
+                                        락피쉬웨더웨어
+                                    </h4>
+                                    <p class="product-desc" style="margin: 0;">
+                                        [x GOYOWEAR] TRAIL RAINBOOTS - 2color
+                                    </p>
+                                </div>
+                                <div class="_column product-modifiers" data-product-price="12.35">
+                                    <button class="_btn _column product-subtract">
+                                        <img th:src="@{/img/core-img/heart.png}">
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="main-banner">
+                        <ul class="ui-list main-banner-list" id="main-banner-list">
+                            <li class="_grid main-banner-list-item">
+                                <div class="_column product-image" style="background-image: url(//img.29cm.co.kr/item/202405/11ef10fe820751ee892b1d72989b57c0.jpg?width=150);">
+                                </div>
+                                <div class="_column product-info">
+                                    <h4 class="product-name">
+                                        락피쉬웨더웨어
+                                    </h4>
+                                    <p class="product-desc" style="margin: 0;">
+                                        [x GOYOWEAR] NYLON UTILITY SHIRTS JACKET - 2color
+                                    </p>
+                                </div>
+                                <div class="_column product-modifiers" data-product-price="12.35">
+                                    <button class="_btn _column product-subtract">
+                                        <img th:src="@{/img/core-img/heart.png}">
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+</div>

@@ -90,6 +90,7 @@ public class MemberController {
         return "redirect:/member/login";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit")
     public void editGet(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String username = userDetails.getUsername(); // 현재 인증된 사용자의 아이디를 가져옴
@@ -101,6 +102,7 @@ public class MemberController {
         model.addAttribute("mid", username);
         model.addAttribute("dto", memberDTO);
     }
+
 
     @PostMapping("/edit")
     public String editPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {

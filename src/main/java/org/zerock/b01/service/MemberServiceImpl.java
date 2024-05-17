@@ -78,16 +78,6 @@ public class MemberServiceImpl implements MemberService {
 
     public void edit(MemberDTO memberDTO) {
 
-/*        String mid = MemberDTO.getMid();
-
-        Member member = modelMapper.map(memberDTO, Member.class); //엔티티 관리하는 모델 매퍼
-        member.checkPassword(passwordEncoder.encode(memberDTO.getM_pw()));
-
-        log.info("=======================");
-        log.info(member);
-
-        memberRepository.save(member);*/
-
         Optional<Member> result = memberRepository.findByMid(memberDTO.getMid());
 
         Member member = result.orElseThrow();

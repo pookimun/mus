@@ -13,7 +13,6 @@ public class CustomServletConfig implements WebMvcConfigurer {
     @Override // security에서 static폴더 제외 처리
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        //설정 시 404에러 안 뜸!
         registry.addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/img/**")

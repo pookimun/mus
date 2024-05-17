@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping({"/","/board","/cart"})
 @Log4j2
 @RequiredArgsConstructor
 public class BoardController {
@@ -36,10 +35,29 @@ public class BoardController {
 
     private final BoardService boardService;
 
+//    @GetMapping("/list")
+//    public void list(PageRequestDTO pageRequestDTO, Model model){
+//
+//        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+//
+//        log.info(responseDTO);
+//
+//        model.addAttribute("responseDTO", responseDTO);
+//
+//    }
 
-    @GetMapping({"/", "/index"})
-    public void index() {
-    }
+//    @GetMapping("/list")
+//    public void list(PageRequestDTO pageRequestDTO, Model model){
+//
+//        //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+//
+//        PageResponseDTO<BoardListReplyCountDTO> responseDTO =
+//                boardService.listWithReplyCount(pageRequestDTO);
+//
+//        log.info(responseDTO);
+//
+//        model.addAttribute("responseDTO", responseDTO);
+//    }
 
     @GetMapping( "/list")
     public void list(PageRequestDTO pageRequestDTO, Model model){
@@ -52,12 +70,9 @@ public class BoardController {
         log.info(responseDTO);
 
         model.addAttribute("responseDTO", responseDTO);
-
     }
 
-
-
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("has('USER')")
     @GetMapping("/register")
     public void registerGET(){
 
@@ -83,6 +98,17 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+
+//    @GetMapping("/read")
+//    public void read(Long bno, PageRequestDTO pageRequestDTO, Model model){
+//
+//        BoardDTO boardDTO = boardService.readOne(bno);
+//
+//        log.info(boardDTO);
+//
+//        model.addAttribute("dto", boardDTO);
+//
+//    }
 
 
     @PreAuthorize("isAuthenticated()")
@@ -128,6 +154,19 @@ public class BoardController {
         return "redirect:/board/read";
     }
 
+
+//    @PostMapping("/remove")
+//    public String remove(Long bno, RedirectAttributes redirectAttributes) {
+//
+//        log.info("remove post.. " + bno);
+//
+//        boardService.remove(bno);
+//
+//        redirectAttributes.addFlashAttribute("result", "removed");
+//
+//        return "redirect:/board/list";
+//
+//    }
 
 
     @PreAuthorize("principal.username == #boardDTO.writer")
