@@ -40,6 +40,7 @@ public class CartRestController {
         Long cdid;
         Map<String, String> resultMap = new HashMap<>();
 
+// @Valid CartDetailDTO cartDetailDTO가 not null인데 null 이면 에러처리해주는 코드
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();

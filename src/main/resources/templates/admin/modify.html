@@ -3,96 +3,169 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+
+
     <meta charset="UTF-8">
     <title>아이템 수정</title>
+    <style>
+    .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    }
 
+    /* 폼 제목 스타일 */
+    .form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+    /* 입력 필드 스타일 */
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    }
+
+    /* 파일 선택 시 미리보기 스타일 */
+    #titlePreview,
+    #infoPreview {
+    margin-top: 10px;
+    }
+
+    /* 버튼 스타일 */
+    .submitBtn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000000;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    }
+
+    .submitBtn:hover {
+    background-color: #0056b3;
+    }
+    </style>
 </head>
 <body>
-<div>
-    <div class="row">
-        <div class="col">
-            <h2>아이템 수정</h2>
+
+
+<div layout:fragment="content">
+    <div style="text-align: center;">
+        <div class="form-container">
+            <div layout:fragment="content">
+                <div style="text-align: center;">
+                    <div class="form-container">
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <h2>상품 수정</h2>
+                                </div>
+                            </div>
+
+                            <!-- 수정 폼 -->
+                            <form id="modForm" action="/admin/modify" method="post">
+                                <input type="hidden" name="ino" th:value="${itemDTO.ino}"><!-- 여기에 실제 아이템의 ID를 넣어야 함 -->
+                                <div class="mb-3">
+                                    <label for="iName" class="form-label">상품명</label>
+                                    <input type="text" class="form-control" id="iName" name="i_name"
+                                           th:value="${itemDTO.i_name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="iPrice" class="form-label">상품 가격</label>
+                                    <input type="number" class="form-control" id="iPrice" name="i_price"
+                                           th:value="${itemDTO.i_price}">
+                                </div>
+
+
+                                <div class="titleIMGdiv">
+                                    <div th:class="card" th:with="arr=${titleIMG.split('_')}">
+                                        <div>
+                                            [[${arr[1]}]]
+                                            <button th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <img th:src="|/view/s_${titleIMG}|" th:data-src="${titleIMG}">
+                                        </div>
+                                    </div><!-- card -->
+                                </div>
+                                <div class="infoIMGdiv">
+                                    <th:block th:each="info : ${infoIMG}">
+                                        <div th:class="card" th:with="arr=${info.split('_')}">
+                                            <div>
+                                                [[${arr[1]}]]
+                                                <button th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <img th:src="|/view/s_${info}|" th:data-src="${info}">
+                                            </div>
+                                        </div><!-- card -->
+                                    </th:block>
+                                </div>
+
+
+                                <div>
+                                    <label for="itemTitleImage">대표 이미지</label>
+                                    <input type="file" id="itemTitleImage" name="files"
+                                           onchange="previewImage(event, 'titlePreview')">
+                                    <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
+                                    이 함수에는 두 개의 인수가 전달됩니다.
+                                    첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
+                                     또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
+
+                                    <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
+                                </div>
+                                <div>
+                                    <label for="itemInfoImage">설명 이미지</label>
+                                    <input type="file" id="itemInfoImage" name="files"
+                                           onchange="previewImage(event, 'infoPreview')" multiple>
+                                    <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="iColor" class="form-label">색상</label>
+                                    <input type="text" class="form-control" id="iColor" name="i_color"
+                                           th:value="${itemDTO.i_color}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="iSize" class="form-label">사이즈</label>
+                                    <input type="text" class="form-control" id="iSize" name="i_size"
+                                           th:value="${itemDTO.i_size}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="itemStock" class="form-label">재고</label>
+                                    <input type="text" class="form-control" id="itemStock" name="i_stock"
+                                           th:value="${itemDTO.i_stock}">
+                                </div>
+                                <!--<button type="button" class="btn btn-secondary modBtn">Modify</button>-->
+                                <button type="button" class="modBtn">Modify</button>
+                                <button type="button" class="listBtn"> 리스트</button>
+                                <button type="button" class="removeBtn"> 삭제</button>
+                                <!--<button type="delete" class="btn btn-primary">삭제</button>-->
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- 수정 폼 -->
-    <form id="modForm" action="/admin/modify" method="post">
-        <input type="hidden" name="ino" th:value="${itemDTO.ino}"><!-- 여기에 실제 아이템의 ID를 넣어야 함 -->
-        <div class="mb-3">
-            <label for="iName" class="form-label">상품명</label>
-            <input type="text" class="form-control" id="iName" name="i_name" th:value="${itemDTO.i_name}">
-        </div>
-        <div class="mb-3">
-            <label for="iPrice" class="form-label">상품 가격</label>
-            <input type="number" class="form-control" id="iPrice" name="i_price" th:value="${itemDTO.i_price}">
-        </div>
-
-        <div id="uploadFileNamesDIV"> <!--업로드된 파일 섬네일 보기-->
-
-
-            <div>
-                <th:block th:each="fileName:${itemDTO.fileNames}">
-                    <div th:class="card" th:with="arr=${fileName.split('_')}">
-                        <div>
-                            [[${arr[1]}]]
-                            <button th:onclick="removeFile([[${arr[0]}]], [[${arr[1]}]], this)">X</button>
-                        </div>
-                        <div>
-                            <img th:src="|/view/s_${fileName}|" th:data-src="${fileName}">
-                        </div>
-                    </div><!-- card -->
-                </th:block>
-            </div>
-
-            <div class="uploadFile">
-                <button type="button" class="uploadFileBtn">ADD Files</button>
-            </div>
-
-            <div class="upload">
-                <button type="button" class="uploadBtn">Upload</button>
-
-            </div>
-
-            <div>
-                <label for="itemTitleImage">대표 이미지</label>
-                <input type="file" id="itemTitleImage" name="files"
-                       onchange="previewImage(event, 'titlePreview')">
-                <!--이벤트가 발생했을 때 호출되는 함수는 previewImage()이며,
-                이 함수에는 두 개의 인수가 전달됩니다.
-                첫 번째 인수는 이벤트 객체(event)이고, 두 번째 인수는 'titlePreview'라는 문자열입니다.
-                 또한 required 속성이 추가되어 있어 해당 input 요소는 반드시 값을 가져야 합니다.-->
-
-                <div id="titlePreview"><!--파일 선택 시 미리보기 tag가 여기 있다는 뜻--></div>
-            </div>
-            <div>
-                <label for="itemInfoImage">설명 이미지</label>
-                <input type="file" id="itemInfoImage" name="files"
-                       onchange="previewImage(event, 'infoPreview')" multiple>
-                <div id="infoPreview"><!--파일 선택 시 미리보기--></div>
-            </div>
-
-        </div> <!--업로드를 위한 파일 이름을 담기 위한 DIV-->
-        <div class="mb-3">
-            <label for="iColor" class="form-label">색상</label>
-            <input type="text" class="form-control" id="iColor" name="i_color" th:value="${itemDTO.i_color}">
-        </div>
-        <div class="mb-3">
-            <label for="iSize" class="form-label">사이즈</label>
-            <input type="text" class="form-control" id="iSize" name="i_size" th:value="${itemDTO.i_size}">
-        </div>
-
-        <div class="mb-3">
-            <label for="itemStock" class="form-label">재고</label>
-            <input type="text" class="form-control" id="itemStock" name="i_stock" th:value="${itemDTO.i_size}">
-        </div>
-        <!--<button type="button" class="btn btn-secondary modBtn">Modify</button>-->
-        <button type="button" class="modBtn">Modify</button>
-        <button type="button" class="listBtn"> 리스트</button>
-        <button type="button" class="removeBtn"> 삭제</button>
-        <!--<button type="delete" class="btn btn-primary">삭제</button>-->
-    </form>
-
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!--웹 애플리케이션에서 서버로 데이터를 보내거나 서버에서 데이터를 가져올 때 사용됩니다.-->
@@ -116,21 +189,53 @@
         alert(errorMsg) // 생성된 오류 메시지를 경고창으로 표시합니다.
     }
 
+
+    const titlePreview = document.querySelector("#titlePreview")
+    // const : script 부터 /script 여기까지 사용할 수 있는 변수 타입
+    // let : { 부터 } 까지 사용할 수 있는 변수 타입
+    const infoPreview = document.querySelector("#infoPreview")
+
+
     const link = [[${itemPageRequestDTO.getLink()}]]
     const modForm = document.querySelector("#modForm")
+    const titleIMGdiv = document.querySelector(".titleIMGdiv") // 이미 올라가있던 파일들(대표)
+    const infoIMGdiv = document.querySelector(".infoIMGdiv") // 이미 올라가있던 파일들(상세)
 
     document.querySelector(".modBtn").addEventListener("click", function (e) {
         debugger
         e.preventDefault()
         e.stopPropagation()
+        debugger;
 
         modForm.action = `/admin/modify?${link}`
 
+        let uploadFiles = []; // 배열로 초기화
+        uploadFiles.push(titlePreview.querySelector("img")); // 이미지 요소를 배열에 추가
+        uploadFiles.push(titleIMGdiv.querySelector("img")); // 이미지 요소를 배열에 추가
+
+        let infoImgs = Array.from(infoPreview.querySelectorAll("img")); // NodeList를 배열로 변환
+        infoImgs = infoImgs.concat(Array.from(infoIMGdiv.querySelectorAll("img"))); // 이미 선택된 이미지와 새로운 이미지들을 결합
+        infoImgs.forEach(img => uploadFiles.push(img)); // 이미지 요소를 배열에 추가
+
+        console.log("img 태그 ....... : " + uploadFiles)
+
+        let str = ''
+
+        for (let i = 0; i < uploadFiles.length; i++) {
+            const uploadFile = uploadFiles[i]
+            if (uploadFile != null) {
+                const imgLink = uploadFile.getAttribute("data-src")
+                console.log("img 태그의 src 속성 ....... : " + imgLink)
+                str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+            }
+        } // str = str + `<input type='hidden' name='fileNames' value="${imgLink}">`
+        modForm.innerHTML += str;
+
         // //첨부파일 추가
-        // appendFileData()
+        //appendFileData()
         //
-        // //삭제대상 파일들의 삭제
-        // callRemoveFiles()
+        //삭제대상 파일들의 삭제
+        callRemoveFiles()
 
         modForm.method = 'post'
         modForm.submit()
@@ -138,6 +243,24 @@
 
     }, false)
 
+    function callRemoveFiles() {
+
+        removeFileList.forEach(({uuid, fileName}) => {
+            removeFileToServer({uuid, fileName})
+        })
+    }
+
+
+    document.querySelector("#itemTitleImage").addEventListener("click", function (e) {
+        // 예외처리(대표이미지를 하나만 넣기 위해서)
+        debugger;
+        let titleDIVimg = titleIMGdiv.querySelectorAll("img");
+        console.log(titleDIVimg.length);
+        if (titleDIVimg.length === 1) {
+            alert("이미 대표이미지가 존재합니다. \n 삭제 후 추가해주세요.");
+            e.preventDefault();
+        }
+    }, false)
 
     function previewImage(event, previewId) { <!--previewImage-->
         debugger
@@ -164,7 +287,7 @@
                 for (let i = 0; i < result.length; i++) {
                     const imgElement = document.createElement('img');
                     imgElement.src = "/view/" + result[i].link;
-                    imgElement.setAttribute('data-a', result[i].uuid + "_" + result[i].fileName);
+                    imgElement.setAttribute('data-src', result[i].uuid + "_" + result[i].fileName);
                     // http://localhost:8008/admin/097bb816-d592-43d2-bdab-d82417b2f07d_%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-04-23%20165539.png
                     previewContainer.appendChild(imgElement);
                 }
@@ -175,13 +298,6 @@
 
 
     }
-
-
-    const titlePreview = document.querySelector("#titlePreview")
-    // const : script 부터 /script 여기까지 사용할 수 있는 변수 타입
-    // let : { 부터 } 까지 사용할 수 있는 변수 타입
-    const infoPreview = document.querySelector("#infoPreview")
-    const uploadFileNamesDIV = document.querySelector("#uploadFileNamesDIV")
 
 
     // document.querySelector(".modBtn").addEventListener("click", function (e) {
@@ -210,11 +326,14 @@
         //e.preventDefault()
         //e.stopPropagation()
         //debugger;
+        if (!confirm("상품을 삭제하시겠습니까?")) {
+            return
+        }
 
         //화면에 보이는 파일들을 form태그에 추가
-        appendFileData()
+        //appendFileData()
         //화면에서 안보이도록 처리된 파일들을 form태그에 추가
-        appendNotShownData()
+        // appendNotShownData()
         // formObj.action = `/admin/remove`
         // formObj.method ='post'
         // formObj.submit()

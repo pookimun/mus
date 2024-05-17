@@ -59,8 +59,9 @@
         .tab-wid2 {
             width: 88%;
         }
+
     </style>
-    </head>
+</head>
 
 <div layout:fragment="content">
 
@@ -91,17 +92,18 @@
 
                 <div class="text-right">
                     <div class="h4 text-danger text-left">
+
                         <input type="hidden" th:value="${itemDTO.i_price}" id="i_price" name="i_price">
                         <span th:text="${itemDTO.i_price} + '원'"></span>
                     </div>
                     <div class="h4 text-danger text-left">
                         <input type="hidden" th:value="${itemDTO.i_price}">
                         <input id="i_size" name="i_size" type="hidden" th:value="${itemDTO.i_size}">
-                        <span>[[${itemDTO.i_size}]] 사이즈</span>
+                        <span>사이즈 : [[${itemDTO.i_size}]] </span>
                     </div>
                     <div class="h4 text-danger text-left">
                         <input type="hidden" th:value="${itemDTO.i_color}" id="i_color" name="i_color">
-                        <span th:text="${itemDTO.i_color} + ' 컬러'"></span>
+                        <span th:text="'컬러'+${itemDTO.i_color}"></span>
                     </div>
                     <div class="input-group w-50">
                         <div class="input-group-prepend">
@@ -115,18 +117,16 @@
                     <h5>결제 금액</h5>
                     <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
                 </div>
-
                 <button type="button" class="btn_cart">장바구니</button>
 
 
             </div>
         </div>
 
-        <br><br><br>
         <hr>
         <br><br><br><br><br><br>
         <hr>
-        <br><br><br>
+
 
 
         <div class="jumbotron jumbotron-fluid mgt-30">
@@ -197,20 +197,14 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--axios 사용-->
     <script th:src="@{/js/cart.js}"></script>
     <script>
-
         $('.btn_cart').on('click', function () { //클래스이기때문에 . 사용
             // 장바구니 버튼 클릭 시
             debugger
 
-
             let itemId = $("#itemDTO").val();// 상품 아이디
-
             let count = $("#count").val(); // 상품 수량 # = id이기 때문에
-
             let size = $("#i_size").val();// 상품 사이즈
-
             let color = $("#i_color").val(); // 상품 색상
-
 
             console.log("itemId : " + itemId);
             console.log("count : " + count);
@@ -226,8 +220,12 @@
 
             cartReady(cartObj).then(result => {
                 debugger
-                // '_self' : 현재 창에서 오픈
-                //window.location.href = '/addCart';
+                if(result.cdid !== null){ // = 성공했을 때
+                    alert("장바구니에 담겼습니다.");
+                    window.location.href = '/admin/list';
+                } else {
+                    alert("장바구니에 실패습니다.");
+                }
 
             })
 
