@@ -99,9 +99,9 @@ public class CartController {
     }
 
 
-    @GetMapping({"/", "/index"})
-    public void index() {
-    }
+//    @GetMapping({"/", "/index"})
+//    public void index() {
+//    }
 
 //    @GetMapping( "/list") 일단 주석
 //    public void list(PageRequestDTO pageRequestDTO, Model model){
