@@ -46,7 +46,7 @@ public class CustomSecurityConfig {
         http.formLogin(form -> {
             form.loginPage("/member/login") //커스텀 로그인 페이지
                     .successHandler((request, response, authentication) -> {
-                        response.sendRedirect("/board/index"); // 성공
+                        response.sendRedirect("/"); // 성공
                     })
                     .failureUrl("/member/login/error"); // 실패
         });

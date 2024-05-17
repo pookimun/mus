@@ -3,7 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>itc | 로그인</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,10 +14,6 @@
             padding: 0;
             box-sizing: border-box;
             border: 0px solid;
-        }
-
-        .top-menu-bar .menu-1 {
-            margin-left: 250px;
         }
 
         body {
@@ -53,8 +50,11 @@
             line-height: 0.7rem;
         }
 
+        a {
+            color: #111111;
+        }
+
         a:link {
-            color: #ddd;
             text-decoration: none;
         }
 
@@ -148,7 +148,7 @@
             right: 10%;
         }
 
-        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
             border: none;
             border-bottom-color: transparent;
             color: #c80a1e;
@@ -169,7 +169,9 @@
             margin-bottom: 20px;
         }
 
-        .inp_text {position: relative;}
+        .inp_text {
+            position: relative;
+        }
 
         input::placeholder {
             color: #d6d6d6;
@@ -232,16 +234,16 @@
         .eye {
             font-size: 2rem;
             position: absolute;
-            bottom:20%;
+            bottom: 20%;
             right: 5%;
             cursor: pointer;
         }
 
-        .eye> :nth-child(1){
+        .eye > :nth-child(1) {
             display: block;
         }
 
-        .eye> :nth-child(2){
+        .eye > :nth-child(2) {
             display: none;
         }
 
@@ -250,8 +252,15 @@
             margin-bottom: 50px;
         }
 
-        #menu1> :nth-child(3){
+        #menu1 > :nth-child(3) {
             margin-bottom: 50px;
+        }
+
+        .error {
+            color: #c80a1e;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: inline-block;
         }
     </style>
 </head>
@@ -272,7 +281,7 @@
 
             <div class="tab-content">
 
-                <div id="home" class="tab-pane fade in active">
+                <div class="tab-pane fade in active" id="home">
 
                     <th:block th:if="${param.logout != null}">
                         <h1>Logout........</h1>
@@ -280,23 +289,28 @@
 
                     <form action="/member/login" id="registerForm" method="post">
 
-                        <label for="id" class="inp inp_text">
+                        <label class="inp inp_text" for="id">
                             <span class="inp_tit eng">ID</span>
-                            <input type="text" id="id" name="username" class="inp_comm required" placeholder="도메인 주소 (@)를 제외한 아이디를 입력하세요.">
+                            <input class="inp_comm required" id="id" name="username"
+                                   placeholder="도메인 주소 (@)를 제외한 아이디를 입력하세요."
+                                   type="text">
                         </label>
 
-                        <label for="pw" class="inp inp_text">
+                        <label class="inp inp_text" for="pw">
                             <span class="inp_tit eng">PASSWORD</span>
-                            <input type="password" id="pw" name="password" class="inp_comm required" placeholder=" 비밀번호를 입력하세요.">
+                            <input class="inp_comm required" id="pw" name="password" placeholder=" 비밀번호를 입력하세요."
+                                   type="password">
                             <span class="eye" onclick="myFunction()">
              			<ion-icon active name="eye-off"></ion-icon>
               			<ion-icon name="eye"></ion-icon>
-            	</span>
+                            </span>
                         </label>
 
-                        <th:block class="error" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></th:block>
-                        <label class="id_save">
+                        <span class="error">
+                        <th:block th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></th:block>
+                        </span>
 
+                        <label class="id_save">
                             <input class="form-check-input" name="remember-me" type="checkbox">
                             <span>아이디 저장</span></label>
                         <div class="button-wrap">
@@ -308,20 +322,33 @@
                         <ul>
                             <li><a href="/member/join" style="font-size: 13px;">회원가입</a>|</li>
                             <li><a href="/member/forgot" style="font-size: 13px;">비밀번호 찾기</a>|</li>
-                            <li><a href="/oauth2/authorization/kakao"><img th:src="@{/img/core-img/kakao-login.png}" style="width: 11.25rem;"></a></li>
+                            <li><a href="/oauth2/authorization/kakao"><img style="width: 11.25rem;"
+                                                                           th:src="@{/img/core-img/kakao-login.png}"></a>
+                            </li>
                         </ul>
                         <!--<a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>-->
                     </div>
 
                 </div> <!--#home-->
-<!---->
-                <div id="menu1" class="tab-pane fade">
-                    <label for="id" class="inp inp_text"> <span class="inp_tit eng">주문번호</span> <input type="text" id="other" name="other" class="inp_comm required" title="other" placeholder=" 주문번호를 입력하세요.">
+                <div class="tab-pane fade" id="menu1">
+                    <label class="inp inp_text" for="id"> <span class="inp_tit eng">주문번호</span> <input
+                            class="inp_comm required"
+                            id="other"
+                            name="other"
+                            placeholder=" 주문번호를 입력하세요."
+                            title="other"
+                            type="text">
                     </label>
-                    <label for="pw" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" class="inp_comm required" title="user_phone" placeholder=" '-'를 제외하여 입력하세요.">
+                    <label class="inp inp_text" for="pw"> <span class="inp_tit eng">핸드폰 번호</span> <input
+                            class="inp_comm required"
+                            id="user_phone"
+                            name="user_phone"
+                            placeholder=" '-'를 제외하여 입력하세요."
+                            title="user_phone"
+                            type="tel">
                     </label>
                     <div>
-                        <a href="#" class="bt">주문조회</a>
+                        <a class="bt" href="#">주문조회</a>
                     </div>
                 </div>
             </div>

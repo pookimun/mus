@@ -72,6 +72,11 @@
             float: left;
         }
 
+        .unit-left {
+            float: left;
+            margin-left: 6.5rem;
+        }
+
         .unit-right {
             float: right;
         }
@@ -105,6 +110,7 @@
 
         .header > .header-top {
             height: 38px;
+            overflow: hidden;
         }
 
         .header > .header-top ul > li > a {
@@ -115,12 +121,10 @@
             color: #8d8d8d;
         }
 
-        .header > .header-top > .header-brand > ul > li {
-            border-right: 1px solid #e5e5e5;
-        }
-
         .header > .header-top > .header-brand > ul > li > a {
             min-width: 50px;
+            color: #8d8d8d;
+            font-size: 12px;
         }
 
         .header > .header-top > .header-mymenu {
@@ -188,12 +192,13 @@
         }
 
         .top-menu-bar > .logo > a > img {
-            width: 80px;
+            width: 70px;
         }
 
         /* 메뉴 */
         .top-menu-bar > .menu-1 {
             display: inline-block;
+            margin-left: 0;
             margin-bottom: 0;
             text-align: center;
         }
@@ -217,7 +222,7 @@
         /* 2차 메뉴 */
         .top-menu-bar > .menu-1 .sub-menu-box > .sub-menu-width {
             max-width: 990px;
-            margin: 0 350px 0 640px;
+            margin: 0 290px 0 640px;
         }
 
         .top-menu-bar > .menu-1 .sub-menu-box {
@@ -281,7 +286,7 @@
         .top-menu-bar > .search-box {
             position: absolute;
             top: 50%;
-            right: 5.5rem;
+            right: 4.2rem;
             transform: translatey(-50%);
         }
 
@@ -713,7 +718,14 @@
 
     <div class="header-top line">
 
-        <div class="header-brand unit">
+        <div class="header-brand unit-left">
+            <ul class="row">
+                <li class="cell"><a href="#"><span>공지사항</span></a></li>
+
+                <li class="cell">
+                    <a sec:authorize="isAuthenticated()" th:href="@{/member/edit}"><span>관리자 모드</span></a>
+                </li>
+            </ul>
         </div>
 
         <div class="header-mymenu unit-right">
@@ -727,7 +739,7 @@
                     <a href="/member/logout" sec:authorize="isAuthenticated()"><span>로그아웃</span></a>
                 </li>
                 <li class="unit">
-                    <a id="myPageLink" sec:authorize="isAuthenticated()"
+                    <a sec:authorize="isAuthenticated()"
                        th:href="@{/member/edit}"><span>마이 페이지</span></a>
                 </li>
                 <li class="unit"><a class="cart-ico" href="/cart"><i class="ns-cart"></i></a></li>
@@ -736,7 +748,7 @@
     </div>
 
     <div class="top-menu-bar line-height-0">
-        <div class="logo"><a th:href="@{/board/index}"><img th:src="@{/img/core-img/logo.png}"></a>
+        <div class="logo"><a th:href="@{/}"><img th:src="@{/img/core-img/logo.png}"></a>
         </div>
         <nav class="menu-1">
             <ul class="line">

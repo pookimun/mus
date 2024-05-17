@@ -41,10 +41,10 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
             log.info("Should Change Password");
 
             log.info("Redirect to Member Modify");
-            response.sendRedirect("/board/index");
+            response.sendRedirect("/");
             return;
         } else {
-            response.sendRedirect("/board/list");
+            response.sendRedirect("/board/list"); //소셜 로그인 암호가 1111이 아닌 경우
         }
     }
 }
