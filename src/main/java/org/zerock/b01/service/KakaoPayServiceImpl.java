@@ -47,9 +47,9 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         parameters.add("total_amount", Integer.toString(ordersListDTO.getTotalPrice())); // 총 금액
         parameters.add("vat_amount", "0"); // 부과세
         parameters.add("tax_free_amount", "0"); // 상품 비과세 금액
-        parameters.add("approval_url", "http://localhost:8008/payment/success/" + ordersListDTO.getOno()); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost:8008/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost:8008/payment/fail"); // 실패 시 redirect url
+        parameters.add("approval_url", "http://mbc-webcloud.iptime.org:8008/payment/success/" + ordersListDTO.getOno()); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://mbc-webcloud.iptime.org:8008/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://mbc-webcloud.iptime.org:8008/payment/fail"); // 실패 시 redirect url
 
         log.info(parameters);
 
