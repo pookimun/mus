@@ -140,24 +140,6 @@ public class UpDownController {
         return resultMap;
     }
 
-    // 파일 다운로드 처리
-    @GetMapping("/download/{fileName}")
-    public void fileDownload(@PathVariable String fileName,
-                             HttpServletResponse response) throws IOException {
-        String decodedFileName = URLDecoder.decode(fileName, "UTF-8");
-        File f = new File(uploadPath,  fileName);
-        // file 다운로드 설정
-        response.setContentType("application/download");
-        response.setContentLength((int)f.length());
-        response.setHeader("Content-disposition", "attachment;filename=\"" + fileName + "\"");
-        // response 객체를 통해서 서버로부터 파일 다운로드
-        OutputStream os = response.getOutputStream();
-        // 파일 입력 객체 생성
-        FileInputStream fis = new FileInputStream(f); // 파일을 찾음
-        FileCopyUtils.copy(fis, os);
-        fis.close();
-        os.close();
-        log.info("다운로드 컨트롤러 끝");
-    }
+
 
 }

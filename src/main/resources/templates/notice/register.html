@@ -5,57 +5,124 @@
 
 <head>
     <title>공지사항 작성</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .item {
+            margin-bottom: 15px;
+        }
+
+        .item span {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .file-item {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .file-item a {
+            color: #000;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .file-item a:hover {
+            text-decoration: underline;
+        }
+
+        textarea, input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+        }
+    </style>
 </head>
 
 <div layout:fragment="content">
-    <div>
+    <div class="container">
+        <h1>공지사항 작성</h1>
         <div>
-            <div>
-                <div>
-                    <h1>공지사항 작성</h1>
+            <form action="/notice/register" method="post">
+                <div class="item">
+                    <span>제목</span>
+                    <input name="n_title" placeholder="Title" type="text">
                 </div>
-                <div>
-                    <form action="/notice/register" method="post">
-                        <div>
-                            <span>Title</span>
-                            <input name="n_title" placeholder="Title" type="text">
-                        </div>
 
-                        <div>
-                            <span>Content</span>
-                            <textarea name="n_content" rows="5"></textarea>
-                        </div>
+                <div class="item">
+                    <span>내용</span>
+                    <textarea name="n_content" rows="5"></textarea>
+                </div>
 
-                        <div th:with="username=${#authentication.principal.username}">
-                            <span>Writer</span>
-                            <input name="n_writer" placeholder="writer" th:value="${username}" readonly>
-                        </div>
+                <div  class="item" th:with="username=${#authentication.principal.username}">
+                    <span>작성자</span>
+                    <input name="n_writer" placeholder="writer" readonly th:value="${username}">
+                </div>
 
-                        <div>
-                            <span>Images</span>
-                            <div class="uploadResult" style="flex-wrap: wrap;">
-                                <!--첨부파일 미리보기 img-->
-                            </div>
-                            <div class="uploadHidden">
-                                <input multiple name="files" type="file">
-                            </div>
-                        </div>
+                <div class="item">
+                    <span>첨부파일</span>
+                    <div class="uploadResult" style="flex-wrap: wrap;">
+                        <!--첨부파일 미리보기 img-->
+                    </div>
+                    <div class="uploadHidden">
+                        <input multiple name="files" type="file">
+                    </div>
+                </div>
 
-                        <div>
-                            <div>
-                                <button class="submitBtn" type="submit">Submit</button>
-                                <button type="reset">Reset</button>
-                            </div>
-                        </div>
+                <div class="item">
+                    <div>
+                        <button class="submitBtn" type="submit">작성하기</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </div>
 
 
-                    </form>
-                </div><!--end card body-->
-
-            </div><!--end card-->
-        </div><!-- end col-->
-    </div><!-- end row-->
+            </form>
+        </div><!--end card body-->
+    </div><!--end card-->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/upload.js"></script>

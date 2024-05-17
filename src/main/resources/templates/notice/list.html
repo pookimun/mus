@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>공지사항</title>
@@ -33,13 +33,19 @@
         select,
         input[type="text"],
         .searchBtn,
-        .clearBtn {
+        .clearBtn,
+        .regBtn {
             margin-bottom: 10px;
             padding: 5px;
         }
 
+        .regBtn {
+            margin-left: 5px;
+        }
+
         .searchBtn,
-        .clearBtn {
+        .clearBtn,
+        .regBtn {
             background-color: #000;
             color: #fff;
             cursor: pointer;
@@ -101,21 +107,23 @@
 
     <div class="container">
         <h1>공지사항</h1>
-        <form action="/notice/list" method="get">
-            <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
-            <select name="type">
-                <option value="">---</option>
-                <option value="t" th:selected="${pageRequestDTO.type =='t'}">제목</option>
-                <option value="c" th:selected="${pageRequestDTO.type =='c'}">내용</option>
-                <option value="w" th:selected="${pageRequestDTO.type =='w'}">작성자</option>
-                <option value="tc" th:selected="${pageRequestDTO.type =='tc'}">제목 내용</option>
-                <option value="tcw" th:selected="${pageRequestDTO.type =='tcw'}">제목 내용 작성자</option>
-            </select>
-            <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}">
-            <button class="searchBtn" type="submit">Search</button>
-            <button class="clearBtn" type="button">Clear</button>
-        </form>
-
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <form action="/notice/list" method="get">
+                <input name="size" th:value="${pageRequestDTO.size}" type="hidden">
+                <select name="type">
+                    <option value="">---</option>
+                    <option th:selected="${pageRequestDTO.type =='t'}" value="t">제목</option>
+                    <option th:selected="${pageRequestDTO.type =='c'}" value="c">내용</option>
+                    <option th:selected="${pageRequestDTO.type =='w'}" value="w">작성자</option>
+                    <option th:selected="${pageRequestDTO.type =='tc'}" value="tc">제목 내용</option>
+                    <option th:selected="${pageRequestDTO.type =='tcw'}" value="tcw">제목 내용 작성자</option>
+                </select>
+                <input name="keyword" th:value="${pageRequestDTO.keyword}" type="text">
+                <button class="searchBtn" type="submit">Search</button>
+                <button class="clearBtn" type="button">Clear</button>
+            </form>
+            <button class="regBtn" onclick="location.href='/notice/register'" type="button">글작성</button>
+        </div>
         <table>
             <thead>
             <tr>
@@ -130,7 +138,7 @@
                 <td>[[${dto.nno}]]</td>
                 <td>
                     <a th:href="|@{/notice/read(nno =${dto.nno})}&${link}|"> [[${dto.n_title}]]
-                    <span th:if="${dto.noticeImages != null && dto.noticeImages.size() > 0}">
+                        <span th:if="${dto.noticeImages != null && dto.noticeImages.size() > 0}">
                         <i class="fa-solid fa-paperclip" style="color: #000000;"></i>
                     </span>
                     </a>
@@ -169,7 +177,7 @@
 
         const target = e.target
 
-        if(target.tagName !== 'A') {
+        if (target.tagName !== 'A') {
             return
         }
 
@@ -181,16 +189,15 @@
 
         formObj.submit();
 
-    },false)
+    }, false)
 
-    document.querySelector(".clearBtn").addEventListener("click", function (e){
+    document.querySelector(".clearBtn").addEventListener("click", function (e) {
         e.preventDefault()
         e.stopPropagation()
 
-        self.location ='/notice/list'
+        self.location = '/notice/list'
 
-    },false)
-
+    }, false)
 
 
 </script>
