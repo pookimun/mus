@@ -720,7 +720,7 @@
 
         <div class="header-brand unit-left">
             <ul class="row">
-                <li class="cell"><a href="#"><span>공지사항</span></a></li>
+                <li class="cell"><a  th:href="@{/notice/list}"><span>공지사항</span></a></li>
 
                 <li class="cell">
                     <a sec:authorize="isAuthenticated()" th:href="@{/member/edit}"><span>관리자 모드</span></a>
@@ -1035,19 +1035,17 @@
 <footer class="pcfooter">
     <div>
         <div>
-            <a href="#">로그인</a>
-            <a href="#">멤버 가입</a>
+            <a th:href="@{/member/login}">로그인</a>
+            <a th:href="@{/member/join}">멤버 가입</a>
         </div>
 
         <div>
             <p>고객센터</p>
             <ul>
                 <li><a href="#">it-cloth@naver.com</a></li>
-                <li><a href="#">주문/결제</a></li>
-                <li><a href="#">배송</a></li>
-                <li><a href="#">주문배송조회</a></li>
+                <li><a href="#">배송 조회</a></li>
                 <li><a href="#">멤버쉽 혜택/서비스</a></li>
-                <li><a href="#">공지사항</a></li>
+                <li><a  th:href="@{/member/join}">공지사항</a></li>
                 <li><a href="#">1:1 채팅 문의</a></li>
                 <li><a href="#">이용약관</a></li>
                 <li><a href="#">개인정보처리방침</a></li>

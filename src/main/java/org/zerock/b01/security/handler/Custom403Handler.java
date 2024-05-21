@@ -13,7 +13,6 @@ import java.io.IOException;
 
 @Log4j2
 public class Custom403Handler implements AccessDeniedHandler {
-
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.info("--------ACCESS DENIED--------------");

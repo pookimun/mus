@@ -31,15 +31,12 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-
     @PreAuthorize("permitAll()")
     @GetMapping("/join")
     public void joinGET(){
 
         log.info("join get...");
-
     }
-
     @PreAuthorize("permitAll()")
     @PostMapping("/join")
     public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
@@ -82,6 +79,7 @@ public class MemberController {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
         return "/member/login";
     }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response,
