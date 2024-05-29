@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Admin List</title>
+
+    <style>
+        .container {
+            margin: 0 auto; /* 페이지 중앙 정렬을 위해 필요한 설정 */
+            text-align: center; /* 내부 요소를 가운데 정렬합니다. */
+        }
+
+        .item {
+            width: calc(25% - 10px); /* 4개의 요소가 동일한 너비를 가지도록 설정합니다. */
+            display: inline-block; /* 요소를 인라인 블록으로 표시합니다. */
+            box-sizing: border-box; /* 내부 패딩과 경계선을 포함한 전체 너비를 설정합니다. */
+            vertical-align: top; /* 요소를 위쪽으로 정렬합니다. */
+        }
+
+        .item:not(:last-child) {
+            margin-right: 10px; /* 마지막 요소를 제외하고 오른쪽 마진을 설정합니다. */
+        }
+        .carousel-inner > .item {
+            height: 350px;
+        }
+        .margin{
+            margin-bottom:30px;
+        }
+        .banner{
+            height: 300px;
+            position: absolute; top:0; left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content"  class="container">
+    <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active item">
+
+                <img class="d-block w-100 banner" src="https://raw.githubusercontent.com/sonheesin/my-images/main/image-landscape-fill-91f44b6a-9971-4bed-be9d-5b57e7b242e4-default_0.jpg" alt="First slide">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <tbody th:with="link = ${itemPageRequestDTO.getLink()}">
+    <th:block th:each="dto:${itemDTO.dtoList}">
+        <tr>
+            <td>
+                <div class="item">
+                    <div class="card">
+                        <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|">
+                            <div th:if="${dto.itemImages != null && dto.itemImages.size() > 0}">
+                                <img height="400" th:src="|/view/s_${dto.itemImages[0].uuid}_${dto.itemImages[0].fileName}|">
+                            </div>
+                            <div class="card-body">
+                                <h4>[[${dto.i_name}]]</h4>
+                                <h3>[[${dto.i_price}]]원</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+
+    <div class="float-end">
+        <ul class="pagination flex-wrap">
+            <li class="page-item" th:if="${itemDTO.prev}">
+                <a class="page-link" th:data-num="${itemDTO.start -1}">Previous</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(itemDTO.start, itemDTO.end)}">
+                <li th:class="${itemDTO.page == i}?'page-item active':'page-item'">
+                    <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                </li>
+            </th:block>
+            <li class="page-item" th:if="${itemDTO.next}">
+                <a class="page-link" th:data-num="${itemDTO.end + 1}">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<div class="row mt-3">
+    <form action="/admin/list" method="get" class="col">
+        <input type="hidden" name="size" th:value="${itemPageRequestDTO.size}">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <select class="form-select" name="type">
+                    <option value="">---</option>
+                    <option value="n" th:selected="${itemPageRequestDTO.type =='n'}">상품명</option>
+                    <option value="c" th:selected="${itemPageRequestDTO.type =='c'}">컬러</option>
+
+                </select>
+            </div>
+            <input type="text" class="form-control" name="keyword" th:value="${itemPageRequestDTO.keyword}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
+                <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script layout:fragment="script" th:inline="javascript">
+    document.querySelector(".pagination").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const target = e.target
+
+        if (target.tagName !== 'A') {
+            return
+        }
+
+        const num = target.getAttribute("data-num")
+
+        const formObj = document.querySelector("form")
+
+        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+
+        formObj.submit();
+
+    }, false)
+
+    document.querySelector(".clearBtn").addEventListener("click", function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        self.location = '/admin/list'
+
+    }, false)
+
+</script>
+
+</body>
+
+</html>

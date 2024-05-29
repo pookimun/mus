@@ -9,419 +9,249 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" th:href="@{/css/core-style.css}">
 
+    <style>
+        [class*="entypo-"]:before { font-family: 'entypo', sans-serif; }
+    body {
+        background-color: #ecf0f1;
+        font: 300 1.25em/1.4 "Lato", sans-serif;
+        color: #686868;
+    }
+    h1, h2, h3, h4, h5, h6 { font-weight: 400; }
+    h1, .sub-heading {
+        text-align: center;
+        margin: .5rem 0 1rem;
+    }
+    .sub-heading {
+        font-size: .75em;
+        font-weight: 300;
+    }
+
+    /**
+     * @section: utilities;
+     * @see: Justify Grid [http://justifygrid.com/]
+     */
+    ._grid {
+        text-align: justify !important;
+        text-justify: distribute-all-lines;
+        font-size: 0 !important;
+        text-rendering: optimizespeed;
+    }
+    ._grid:after {
+        content: "";
+        display: inline-block;
+        width: 100%;
+    }
+    ._column {
+        display: inline-block;
+        vertical-align: top;
+        font-size: medium;
+        text-align: left;
+        text-rendering: optimizeLegibility;
+    }
+    ._btn {
+        display: inline-block;
+        background-color: #bdc3c7;
+        border: none;
+        padding: .5em .75em;
+        text-align: center;
+        font-weight: 300;
+    }
+    ._btn:hover,
+    .cart-totals:hover ._btn {
+        background-color: #3498db;
+        color: #ecf0f1;
+    }
+
+    /**
+     * @section: shopping-cart;
+     */
+    .shopping-cart {
+        width: 80%;
+        max-width: 60rem;
+        margin: 0 auto;
+    }
+    /**
+     * @extends: _grid;
+     */
+    .main-banner-list-item {
+        border: 1px solid #bdc3c7;
+        margin-bottom: 3rem;
+        height: 10rem;
+        overflow: hidden;
+    }
+    .shopping-cart--list-item:hover,
+    .shopping-cart--list-item:hover * {
+        border-color: #3498db;
+    }
+    .shopping-cart--list-item > ._column {
+        height: 100%; /* make vertical lines match */
+    }
+
+    /**
+     * @section: product-image;
+     * @extends: _column;
+     */
+    .product-image {
+        width: 16.663198%;
+        background: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7") no-repeat center / cover transparent;
+    }
+
+    /**
+     * @section: product-info;
+     * @extends: _column;
+     */
+    .product-info {
+        width: 70.832119%;
+        padding: .5rem;
+    }
+    .product-name {
+        font: 300 2.4em/1 "Lato", sans-serif;
+        letter-spacing: -.025em;
+        margin: 0 0 .125em;
+    }
+    .price {
+        line-height: 1;
+        text-align: right;
+    }
+    .product-single-price {
+        margin-top: -1rem;
+        font-size: 2.4em;
+    }
+
+    /**
+     * @section: product-modifiers;
+     * @extends: _column;
+     */
+    .product-modifiers {
+        width: 12.496358%;
+        text-align: right;
+        border-left: 1px solid #bdc3c7;
+    }
+    .product-subtract,
+    .product-plus,
+    .product-qty {
+        width: 33.330557%;
+        background-color: transparent;
+        color: #686868;
+        text-align: center;
+    }
+    .product-qty {
+        padding: .35em .75em;
+    }
+    .product-remove {
+        font-size: .875em;
+        margin-top: 3.35rem;
+        background-color: #e74c3c;
+        color: #ecf0f1;
+        width: 100%;
+        visibility: hidden;
+    }
+    .product-modifiers:hover .product-remove {
+        visibility: visible;
+    }
+    .product-remove:before {
+        margin-right: .5em;
+    }
+    .product-remove:hover {
+        background-color: #c0392b;
+    }
+    .product-total-price {
+        border-top: 1px solid #bdc3c7;
+        color: #95a5a6;
+        font-size: 1.25em;
+        padding: .5rem;
+    }
+    .shopping-cart--list-item:hover .product-total-price {
+        background-color: #3498db;
+        color: #ecf0f1;
+    }
+
+    /**
+     * @section: cart-totals;
+     * @extends: _grid;
+     */
+    .cart-totals {
+        border-top: 1px solid #bdc3c7;
+        margin-bottom: 3rem;
+    }
+    .cart-totals ._column {
+        width: 19.984013%;
+        padding: .5rem;
+        line-height: 1.2;
+    }
+    .cart-totals ._column:not(:last-of-type) {
+        border-right: 1px solid #bdc3c7;
+    }
+    .cart-totals ._column:first-of-type {
+        padding-left: 0;
+    }
+    .cart-totals-key {
+        font-size: 1.125em;
+        color: #bdc3c7;
+    }
+    .cart-totals ._column:hover .cart-totals-value,
+    .cart-totals ._column:hover .cart-totals-key {
+        color: #333;
+    }
+    .cart-totals-value {
+        font-size: 2em;
+    }
+    ._column.checkout {
+        text-align: right;
+        padding: 0;
+        margin-top: 1.5em;
+        vertical-align: middle;
+    }
+    .checkout-btn:before {
+        margin-right: .5em;
+    }
+    ._btn.checkout-btn:hover {
+        background-color: #2980b9;
+    }
+
+    /**
+     * Animations
+     */
+    .product-remove,
+    .cart-totals * {
+        transition: all .2s ease;
+    }
+    .closing {
+        transition: all .5s ease;
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+    </style>
+
 </head>
 
 <div layout:fragment="content">
+    <div class="main">
 
-    <!-- Search Wrapper Area Start -->
-    <div class="search-wrapper section-padding-100">
-        <div class="search-close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img th:src="@{/img/core-img/search.png}" alt=""></button>
-                        </form>
+        <div class="shopping-cart">
+            <ol class="ui-list shopping-cart--list" id="shopping-cart--list">
+
+                <li class="_grid shopping-cart--list-item">
+                    <div class="_column product-image" style="background-image: url(&quot;https://i.dailymail.co.uk/i/pix/2012/09/16/article-2204256-15053801000005DC-304_634x524.jpg&quot;);">
+
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Search Wrapper Area End -->
-
-    <!-- ##### Main Content Wrapper Start ##### -->
-    <div class="main-content-wrapper d-flex clearfix">
-
-        <!-- Mobile Nav (max width 767px)-->
-        <div class="mobile-nav">
-            <!-- Navbar Brand -->
-            <div class="amado-navbar-brand">
-                <a href="index.html"><img th:src="@{/img/core-img/logo1.png}" alt=""></a>
-            </div>
-            <!-- Navbar Toggler -->
-            <div class="amado-navbar-toggler">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-
-        <div class="shop_sidebar_area">
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget catagory mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Catagories</h6>
-
-                <!--  Catagories  -->
-                <div class="catagories-menu">
-                    <ul>
-                        <li class="active"><a href="#">Chairs</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Accesories</a></li>
-                        <li><a href="#">Furniture</a></li>
-                        <li><a href="#">Home Deco</a></li>
-                        <li><a href="#">Dressings</a></li>
-                        <li><a href="#">Tables</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget brands mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Brands</h6>
-
-                <div class="widget-desc">
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="amado">
-                        <label class="form-check-label" for="amado">Amado</label>
+                    <div class="_column product-info">
+                        <h4 class="product-name">Self stirring mug</h4>
+                        <p class="product-desc">Don't get tired!</p>
+                        <div class="price product-single-price">$12.35</div>
                     </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ikea">
-                        <label class="form-check-label" for="ikea">Ikea</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="furniture">
-                        <label class="form-check-label" for="furniture">Furniture Inc</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="factory">
-                        <label class="form-check-label" for="factory">The factory</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="artdeco">
-                        <label class="form-check-label" for="artdeco">Artdeco</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget color mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Color</h6>
-
-                <div class="widget-desc">
-                    <ul class="d-flex">
-                        <li><a href="#" class="color1"></a></li>
-                        <li><a href="#" class="color2"></a></li>
-                        <li><a href="#" class="color3"></a></li>
-                        <li><a href="#" class="color4"></a></li>
-                        <li><a href="#" class="color5"></a></li>
-                        <li><a href="#" class="color6"></a></li>
-                        <li><a href="#" class="color7"></a></li>
-                        <li><a href="#" class="color8"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget price mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Price</h6>
-
-                <div class="widget-desc">
-                    <div class="slider-range">
-                        <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
-                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    <div class="_column product-modifiers" data-product-price="12.35">
+                        <div class="_grid">
+                            <button class="_btn _column product-subtract">−</button>
+                            <div class="_column product-qty">0</div>
+                            <button class="_btn _column product-plus">+</button>
                         </div>
-                        <div class="range-price">$10 - $1000</div>
+                        <button class="_btn entypo-trash product-remove">Remove</button>
+                        <div class="price product-total-price">$0.00</div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </li>
 
-        <div class="amado_product_area section-padding-100">
-            <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="product-topbar d-xl-flex align-items-end justify-content-between">
-                            <!-- Total Products -->
-                            <div class="total-products">
-                                <p>Showing 1-8 0f 25</p>
-                                <div class="view d-flex">
-                                    <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <!-- Sorting -->
-                            <div class="product-sorting d-flex">
-                                <div class="sort-by-date d-flex align-items-center mr-15">
-                                    <p>Sort by</p>
-                                    <form action="#" method="get">
-                                        <select name="select" id="sortBydate">
-                                            <option value="value">Date</option>
-                                            <option value="value">Newest</option>
-                                            <option value="value">Popular</option>
-                                        </select>
-                                    </form>
-                                </div>
-                                <div class="view-product d-flex align-items-center">
-                                    <p>View</p>
-                                    <form action="#" method="get">
-                                        <select name="select" id="viewProduct">
-                                            <option value="value">12</option>
-                                            <option value="value">24</option>
-                                            <option value="value">48</option>
-                                            <option value="value">96</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/여기에넣어.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product2.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/product2.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product3.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/product3.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product4.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/product4.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product5.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/product5.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product6.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img th:src="@{/img/product-img/product6.jpg}" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" th:src="@{/img/product-img/product1.jpg}" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.html">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:src="@{/img/core-img/cart.png}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Pagination -->
-                        <nav aria-label="navigation">
-                            <ul class="pagination justify-content-end mt-50">
-                                <li class="page-item active"><a class="page-link" href="#">01.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">02.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">03.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">04.</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+            </ol>
         </div>
     </div>
-    <!-- ##### Main Content Wrapper End ##### -->
 </div>

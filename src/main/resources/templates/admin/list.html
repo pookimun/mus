@@ -1,135 +1,299 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/basic.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/basic.html}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Header style */
-        .card-header {
-            background-color: #343a40; /* Dark gray */
-            color: white; /* White text */
-        }
+    <!-- Title  -->
+    <title>Amado - Furniture Ecommerce Template | 상품 목록</title>
 
-        /* Button style */
-        .btn-outline-secondary {
-            color: black; /* Black text */
-            border-color: black; /* Black border */
-        }
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
 
-        .btn-outline-secondary:hover {
-            color: white; /* White text on hover */
-            background-color: black; /* Black background on hover */
-            border-color: black; /* Black border on hover */
-        }
-
-        .btn-outline-secondary:focus {
-            box-shadow: none; /* Remove focus shadow */
-        }
-
-        .btn-outline-secondary:active {
-            background-color: black; /* Black background on active */
-            border-color: black; /* Black border on active */
-        }
-    </style>
 </head>
 
-<body>
-<div layout:fragment="content" class="container">
-    <div class="row mt-3">
-        <form action="/admin/list" method="get" class="col">
-            <input type="hidden" name="size" th:value="${itemPageRequestDTO.size}">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <select class="form-select" name="type">
-                        <option value="">---</option>
-                        <option value="n" th:selected="${itemPageRequestDTO.type =='n'}">상품명</option>
-                        <option value="c" th:selected="${itemPageRequestDTO.type =='c'}">컬러</option>
+<div layout:fragment="content">
 
-                    </select>
-                </div>
-                <input type="text" class="form-control" name="keyword" th:value="${itemPageRequestDTO.keyword}">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
-                    <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Admin List
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Admin List</h5>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">상품번호</th>
-                            <th scope="col">상품명</th>
-                            <th scope="col">색상</th>
-                            <th scope="col">재고</th>
-                        </tr>
-                        </thead>
-                        <tbody th:with="link = ${itemPageRequestDTO.getLink()}">
-                        <tr th:each="dto:${itemDTO.dtoList}">
-                            <td>[[${dto.ino}]]</td>
-                            <td>
-                                <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|" class="text-decoration-none"> [[${dto.i_name}]] </a>
-                                <div th:if="${dto.itemImages != null && dto.itemImages.size() > 0}">
-                                    <img style="width:100px" th:each="iteImage: ${dto.itemImages}" th:src="|/view/s_${iteImage.uuid}_${iteImage.fileName}|">
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="float-end">
-                        <ul class="pagination flex-wrap">
-                            <li class="page-item" th:if="${itemDTO.prev}">
-                                <a class="page-link" th:data-num="${itemDTO.start -1}">Previous</a>
-                            </li>
-                            <th:block th:each="i: ${#numbers.sequence(itemDTO.start, itemDTO.end)}">
-                                <li th:class="${itemDTO.page == i}?'page-item active':'page-item'">
-                                    <a class="page-link" th:data-num="${i}">[[${i}]]</a>
-                                </li>
-                            </th:block>
-                            <li class="page-item" th:if="${itemDTO.next}">
-                                <a class="page-link" th:data-num="${itemDTO.end + 1}">Next</a>
-                            </li>
-                        </ul>
+    <!-- Search Wrapper Area Start -->
+    <div class="search-wrapper section-padding-100">
+        <div class="search-close">
+            <i aria-hidden="true" class="fa fa-close"></i>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="search-content">
+                        <form action="#" method="get">
+                            <input id="search" name="search" placeholder="Type your keyword..." type="search">
+                            <button type="submit"><img alt="" th:src="@{/img/core-img/search.png}"></button>
+                        </form>
                     </div>
-                </div><!-- end card-body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-    </div><!-- end row -->
-</div>
-
-<div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Search Wrapper Area End -->
+
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+
+        <!-- Mobile Nav (max width 767px)-->
+        <div class="mobile-nav">
+            <!-- Navbar Brand -->
+            <div class="amado-navbar-brand">
+                <a href="index.html"><img alt="" th:src="@{/img/core-img/logo1.png}"></a>
+            </div>
+            <!-- Navbar Toggler -->
+            <div class="amado-navbar-toggler">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="shop_sidebar_area">
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget catagory mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Catagories</h6>
+
+                <!--  Catagories  -->
+                <div class="catagories-menu">
+                    <ul>
+                        <li class="active"><a href="#">Chairs</a></li>
+                        <li><a href="#">Beds</a></li>
+                        <li><a href="#">Accesories</a></li>
+                        <li><a href="#">Furniture</a></li>
+                        <li><a href="#">Home Deco</a></li>
+                        <li><a href="#">Dressings</a></li>
+                        <li><a href="#">Tables</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget brands mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Brands</h6>
+
+                <div class="widget-desc">
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="amado" type="checkbox" value="">
+                        <label class="form-check-label" for="amado">Amado</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="ikea" type="checkbox" value="">
+                        <label class="form-check-label" for="ikea">Ikea</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="furniture" type="checkbox" value="">
+                        <label class="form-check-label" for="furniture">Furniture Inc</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="factory" type="checkbox" value="">
+                        <label class="form-check-label" for="factory">The factory</label>
+                    </div>
+                    <!-- Single Form Check -->
+                    <div class="form-check">
+                        <input class="form-check-input" id="artdeco" type="checkbox" value="">
+                        <label class="form-check-label" for="artdeco">Artdeco</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget color mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Color</h6>
+
+                <div class="widget-desc">
+                    <ul class="d-flex">
+                        <li><a class="color1" href="#"></a></li>
+                        <li><a class="color2" href="#"></a></li>
+                        <li><a class="color3" href="#"></a></li>
+                        <li><a class="color4" href="#"></a></li>
+                        <li><a class="color5" href="#"></a></li>
+                        <li><a class="color6" href="#"></a></li>
+                        <li><a class="color7" href="#"></a></li>
+                        <li><a class="color8" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget price mb-50">
+                <!-- Widget Title -->
+                <h6 class="widget-title mb-30">Price</h6>
+
+                <div class="widget-desc">
+                    <div class="slider-range">
+                        <div class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-label-result="" data-max="1000" data-min="10" data-unit="$" data-value-max="1000" data-value-min="10">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                        <div class="range-price">$10 - $1000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 검색 필드 -->
+            <div class="row mt-3">
+                <form action="/admin/list" class="col" method="get">
+                    <input name="size" th:value="${itemPageRequestDTO.size}" type="hidden">
+                    <div class="input-group">
+
+                        <div class="input-group-prepend">
+                            <select class="form-select" name="type">
+                                <option value="">---</option>
+                                <option th:selected="${itemPageRequestDTO.type =='n'}" value="n">상품명</option>
+                                <option th:selected="${itemPageRequestDTO.type =='c'}" value="c">컬러</option>
+                            </select>
+                        </div>
+
+                        <input class="form-control" name="keyword" th:value="${itemPageRequestDTO.keyword}" type="text">
+
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
+                            <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="amado_product_area section-padding-100">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-topbar d-xl-flex align-items-end justify-content-between">
+                            <!-- Total Products -->
+                            <div class="total-products">
+                                <p>Showing 1-8 0f 25</p>
+                                <div class="view d-flex">
+                                    <a href="#"><i aria-hidden="true" class="fa fa-th-large"></i></a>
+                                    <a href="#"><i aria-hidden="true" class="fa fa-bars"></i></a>
+                                </div>
+                            </div>
+                            <!-- Sorting -->
+                            <div class="product-sorting d-flex">
+                                <div class="sort-by-date d-flex align-items-center mr-15">
+                                    <p>Sort by</p>
+                                    <form action="#" method="get">
+                                        <select id="sortBydate" name="select">
+                                            <option value="value">Date</option>
+                                            <option value="value">Newest</option>
+                                            <option value="value">Popular</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="view-product d-flex align-items-center">
+                                    <p>View</p>
+                                    <form action="#" method="get">
+                                        <select id="viewProduct" name="select">
+                                            <option value="value">12</option>
+                                            <option value="value">24</option>
+                                            <option value="value">48</option>
+                                            <option value="value">96</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <!-- Single Product Area -->
+
+                    <th:block th:with="link = ${itemPageRequestDTO.getLink()}">
+                        <th:block th:each="dto:${itemDTO.dtoList}">
+
+                            <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+
+                                <div class="single-product-wrapper">
+
+                                    <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|">
+                                        <div class="product-img" th:if="${dto.itemImages != null && dto.itemImages.size() > 0}">
+                                            <img height="400" th:src="|/view/s_${dto.itemImages[0].uuid}_${dto.itemImages[0].fileName}|">
+                                            <!--<img class="hover-img" th:src="@{/img/product-img/product2.jpg}" alt="">-->
+                                        </div>
+                                    </a>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description d-flex align-items-center">
+
+                                        <a th:href="|@{/admin/read(ino =${dto.ino})}&${link}|">
+                                            <div class="product-meta-data">
+                                                <div class="line"></div>
+                                                <p class="product-price">[[${dto.i_price}]]원</p>
+                                                <a href="product-details.html">
+                                                    <h6>[[${dto.i_name}]]</h6>
+                                                </a>
+                                            </div>
+                                        </a>
+                                        <!-- Ratings & Cart -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
+
+                </div>
+
+                <!--css 적용된 페이징-->
+                <div class="float-end row">
+                    <div class="col-12">
+
+                        <nav aria-label="navigation">
+                    <ul class="pagination justify-content-end mt-50">
+                        <li class="page-item active" th:if="${itemDTO.prev}">
+                            <a class="page-link" th:data-num="${itemDTO.start -1}">Previous</a>
+                        </li>
+                        <th:block th:each="i: ${#numbers.sequence(itemDTO.start, itemDTO.end)}">
+                            <li th:class="${itemDTO.page == i}?'page-item active':'page-item'">
+                                <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:if="${itemDTO.next}">
+                            <a class="page-link" th:data-num="${itemDTO.end + 1}">Next</a>
+                        </li>
+                    </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<script layout:fragment="script" th:inline="javascript">
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script th:inline="javascript">
     document.querySelector(".pagination").addEventListener("click", function (e) {
         e.preventDefault()
         e.stopPropagation()
@@ -157,9 +321,4 @@
         self.location = '/admin/list'
 
     }, false)
-
 </script>
-
-</body>
-
-</html>

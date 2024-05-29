@@ -3,10 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Fraunces:ital,wght@0,500;0,600;0,700;1,600&display=swap");
         *,
         *:after,
         *:before {
@@ -14,10 +11,8 @@
         }
 
         body {
-            font-family: "DM Sans", sans-serif;
             font-size: 1rem;
             line-height: 1.5;
-            background-color: #f8f3eb;
             color: #484847;
             padding-bottom: 5rem;
         }
@@ -34,33 +29,10 @@
             margin-right: auto;
         }
 
-        .page-title {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            display: flex;
-            justify-content: center;
-        }
-        .page-title h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #000;
-            text-align: center;
-            position: relative;
-        }
-        .page-title h1:after {
-            content: "";
-            display: block;
-            position: absolute;
-            width: 100%;
-            bottom: -3px;
-            height: 2px;
-            background-color: currentcolor;
-        }
-
         .magazine-layout {
             margin-top: 3rem;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             grid-row-gap: 2rem;
         }
 
@@ -99,7 +71,6 @@
         }
 
         .article-title {
-            font-family: "Fraunces", serif;
             font-weight: 900;
             line-height: 1.25;
             color: #000;
@@ -125,16 +96,6 @@
 
         .article-link {
             color: inherit;
-        }
-
-        .mark {
-            background-color: #fabea1;
-        }
-        .mark--secondary {
-            background-color: #c2dddf;
-        }
-        .mark--tertiary {
-            background-color: #F8E177;
         }
 
         .article-excerpt,
@@ -229,55 +190,22 @@
         }
 
     </style>
-    <title>무신사 | 메인 페이지</title>
+    <title>itc | 메인 페이지</title>
 </head>
 
 <div layout:fragment="content">
     <main class="responsive-wrapper">
-        <div class="page-title">
-            <h1>Latest Updates</h1>
-        </div>
         <div class="magazine-layout">
             <div class="magazine-column">
                 <article class="article">
-                    <h2 class="article-title article-title--large">
-                        <a href="#" class="article-link">The First Signs of <mark class="mark mark--primary">Alcoholic Liver</mark> Damage Are Not in the Liver</a>
-                    </h2>
-                    <div class="article-excerpt">
-                        <p>The combination of my father's death and my personal back ground lit a fire in me to know more</p>
-                        <p>He was admitted to the hospital on June 24, 2016.
-                    </div>
-                    <div class="article-author">
-                        <div class="article-author-img">
-                            <img src="https://assets.codepen.io/285131/author-3.png" />
-                        </div>
-                        <div class="article-author-info">
-                            <dl>
-                                <dt>David Sherof</dt>
-                                <dd>Reporter</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </article>
-                <article class="article">
-                    <h2 class="article-title article-title--medium">
-                        <a href="#" class="article-link">The Founder's Guide to Actually Understanding Users Nowadays</a>
-                    </h2>
-                    <div class="article-creditation">
-                        <p>By Johnathan O'Connell, Andrew Van Dam, Aaron Gregg and Alyssa Fowers</p>
-                    </div>
-                </article>
-            </div>
-            <div class="magazine-column">
-                <article class="article">
                     <figure class="article-img">
-                        <img src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" />
+                        <img th:src="@{/img/core-img/ouro.jpg}">
                     </figure>
                     <h2 class="article-title article-title--medium">
-                        <a href="#" class="article-link">How 7 Lines of Code Turned Into a $36 Billion Empire</a>
+                        <a href="#" class="article-link">머리부터 발끝까지</a>
                     </h2>
                     <div class="article-excerpt">
-                        <p>Yeah, it's safe to say these guys have a great sense of humor, which isn't really suprising for us considering their seemingly absurd solution to online payments. Instead of chasing 1000-hour programming contracts to build clunky payments solutions for each individual client, the Collison...</p>
+                        <p>캐주얼한 분위기로 하루의 스타일을 완성해봐요. 아우로, 아코크, 노앤뮤트를 단독 혜택으로 준비했어요. 사은품 이벤트까지 놓치지 말고 확인 해보세요.</p>
                     </div>
                     <div class="article-author">
                         <div class="article-author-img">
@@ -295,34 +223,25 @@
             <div class="magazine-column">
                 <article class="article">
                     <figure class="article-img">
-                        <img src="https://images.unsplash.com/photo-1512521743077-a42eeaaa963c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+                        <img th:src="@{/img/core-img/unaffected.jpg}">
                     </figure>
-                    <h2 class="article-title article-title--small">
-                        <a href="#" class="article-link">To Become <mark class="mark mark--secondary">Happier</mark>, Ask Yourself These Two Questions Every Night</a>
-                    </h2>
                     <div class="article-creditation">
-                        <p>By Jonathan O'Connell</p>
                     </div>
                 </article>
                 <article class="article">
                     <figure class="article-img">
-                        <img src="https://images.unsplash.com/photo-1569234817121-a2552baf4fd4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" />
+                        <img th:src="@{/img/core-img/yiyae.jpg}">
                     </figure>
-                    <h2 class="article-title article-title--small">
-                        <a href="#" class="article-link">10 Things I Stole From People Smarter Than Me</a>
-                    </h2>
-                    <div class="article-creditation">
-                        <p>By Jonathan O'Connell</p>
-                    </div>
                 </article>
             </div>
             <div class="magazine-column">
                 <article class="article">
                     <h2 class="article-title article-title--medium">
-                        <a href="#" class="article-link">Traveller Visiting Ice Cave With Amazing Eye-Catching Scenes</a>
+                        <img th:src="@{/img/core-img/abroad.jpg}">
+                        <a href="#" class="article-link">해외 브랜드 런웨이</a>
                     </h2>
                     <div class="article-excerpt">
-                        <p>Slack has become indispensible for many businesses operation remotely during the pandemic. Here's what the acquisition could mean for users...</p>
+                        <p>지금 가장 인기 있는 상품을 최대 20% 쿠폰 혜택으로 만나보세요.</p>
                     </div>
                     <div class="article-author">
                         <div class="article-author-img">
@@ -359,7 +278,8 @@
                         <span>Post Reports / Podcast</span>
                     </small>
                     <h2 class="article-title article-title--medium">
-                        <a href="#" class="article-link">Things to Do After 6 P.M Will Enrich <mark class="mark mark--tertiary">Your Life</mark></a>
+                        <img th:src="@{/img/core-img/treasure.jpg}">
+                        <a href="#" class="article-link">모험가의 추천</a>
                     </h2>
                     <div class="article-podcast-player">
                         <button class="podcast-play-button">
@@ -371,7 +291,7 @@
                         <span class="podcast-time">23:45</span>
                     </div>
                     <div class="article-podcast-info">
-                        Apple Podcasts, Google Podcasts, Stitcher
+                        모험가의 물건 Ep.30 유유자적한 물 위의 여정. 락피쉬웨더웨어×고요웨어의 협업 제품을 소개해요. 날씨 상관 없이 신기 좋은 장화와 의류 제품들을 추천합니다. 단독 선발매 기념 10% 할인
                     </div>
                     <div class="article-author">
                         <div class="article-author-img">
