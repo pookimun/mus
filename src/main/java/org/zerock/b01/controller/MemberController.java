@@ -119,4 +119,15 @@ public class MemberController {
     @GetMapping("/forgot")
     public void forgotGet() {
     }
+
+    @GetMapping("/changePw")
+    public void changePwPost(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+
+        log.info("change password...");
+        log.info(memberDTO);
+
+        memberService.edit(memberDTO);
+
+        redirectAttributes.addFlashAttribute("result", "success");
+    }
 }

@@ -258,37 +258,37 @@
 
 <div layout:fragment="content">
 
-<article class="login_page">
+    <article class="login_page">
 
-    <div class="login-container">
-        <section>
-            <h1>Login</h1>
-        </section>
+        <div class="login-container">
+            <section>
+                <h1>Login</h1>
+            </section>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">회원</a></li>
-            <li><a data-toggle="tab" href="#menu1">비회원</a></li>
-        </ul>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">회원</a></li>
+                <li><a data-toggle="tab" href="#menu1">비회원</a></li>
+            </ul>
 
-        <div class="tab-content">
+            <div class="tab-content">
 
-            <div id="home" class="tab-pane fade in active">
+                <div id="home" class="tab-pane fade in active">
 
-                <th:block th:if="${param.logout != null}">
-                    <h1>Logout........</h1>
-                </th:block>
+                    <th:block th:if="${param.logout != null}">
+                        <h1>Logout........</h1>
+                    </th:block>
 
-                <form action="/member/login" id="registerForm" method="post">
+                    <form action="/member/login" id="registerForm" method="post">
 
-                    <label for="id" class="inp inp_text">
-                        <span class="inp_tit eng">ID (e-mail)</span>
-                        <input type="text" id="id" name="username" class="inp_comm required" placeholder=" 아이디를 입력하세요.">
-                    </label>
+                        <label for="id" class="inp inp_text">
+                            <span class="inp_tit eng">ID</span>
+                            <input type="text" id="id" name="username" class="inp_comm required" placeholder="도메인 주소 (@)를 제외한 아이디를 입력하세요.">
+                        </label>
 
-                    <label for="pw" class="inp inp_text">
-                        <span class="inp_tit eng">PASSWORD</span>
-                        <input type="password" id="pw" name="password" class="inp_comm required" placeholder=" 비밀번호를 입력하세요.">
-                        <span class="eye" onclick="myFunction()">
+                        <label for="pw" class="inp inp_text">
+                            <span class="inp_tit eng">PASSWORD</span>
+                            <input type="password" id="pw" name="password" class="inp_comm required" placeholder=" 비밀번호를 입력하세요.">
+                            <span class="eye" onclick="myFunction()">
              			<ion-icon active name="eye-off"></ion-icon>
               			<ion-icon name="eye"></ion-icon>
             	</span>
@@ -298,34 +298,34 @@
                         <label class="id_save">
 
                             <input class="form-check-input" name="remember-me" type="checkbox">
-                            <span>아이디저장</span></label>
+                            <span>아이디 저장</span></label>
                         <div class="button-wrap">
                             <button type="submit">LOGIN</button>
                         </div>
                     </form>
 
-                <div>
-                    <ul>
-                        <li><a href="/member/join" style="font-size: 13px;">회원가입</a>|</li>
-                        <li><a href="/member/forgot" style="font-size: 13px;">비밀번호 찾기</a>|</li>
-                        <li><a href="/oauth2/authorization/kakao"><img th:src="@{/img/core-img/kakao-login.png}" style="width: 11.25rem;"></a></li>
-                    </ul>
-                    <!--<a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>-->
-                </div>
+                    <div>
+                        <ul>
+                            <li><a href="/member/join" style="font-size: 13px;">회원가입</a>|</li>
+                            <li><a href="/member/forgot" style="font-size: 13px;">비밀번호 찾기</a>|</li>
+                            <li><a href="/oauth2/authorization/kakao"><img th:src="@{/img/core-img/kakao-login.png}" style="width: 11.25rem;"></a></li>
+                        </ul>
+                        <!--<a href="javascript:;"><img src="https://www.iloom.com/img/front/account/nearo.png" alt="" class="naver"></a>-->
+                    </div>
 
-            </div> <!--#home-->
-
-            <div id="menu1" class="tab-pane fade">
-                <label for="id" class="inp inp_text"> <span class="inp_tit eng">주문번호</span> <input type="text" id="other" name="other" class="inp_comm required" title="other" placeholder=" 주문번호를 입력하세요.">
-                </label>
-                <label for="pw" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" class="inp_comm required" title="user_phone" placeholder=" '-'를 제외하여 입력하세요.">
-                </label>
-                <div>
-                    <a href="#" class="bt">주문조회</a>
+                </div> <!--#home-->
+<!---->
+                <div id="menu1" class="tab-pane fade">
+                    <label for="id" class="inp inp_text"> <span class="inp_tit eng">주문번호</span> <input type="text" id="other" name="other" class="inp_comm required" title="other" placeholder=" 주문번호를 입력하세요.">
+                    </label>
+                    <label for="pw" class="inp inp_text"> <span class="inp_tit eng">핸드폰 번호</span> <input type="tel" id="user_phone" name="user_phone" class="inp_comm required" title="user_phone" placeholder=" '-'를 제외하여 입력하세요.">
+                    </label>
+                    <div>
+                        <a href="#" class="bt">주문조회</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</article>
+    </article>
 
 </div>

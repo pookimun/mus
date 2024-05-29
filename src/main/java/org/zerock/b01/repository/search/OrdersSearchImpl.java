@@ -25,7 +25,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
     public Page<OrdersListDTO> searchWithAll(String member, String keyword, Pageable pageable) {
         // 상품명, 브랜드명으로 검색 기능 구현 완료
         // 페이징 구현 완료
-        // order_detail도 같이 가져오기 구현완료
+        // order_detail도 같이 가져오기 구현완료 ㅜㅜ
 
         // Q도메인 객체 가져옴
         QOrders orders = QOrders.orders;
@@ -44,6 +44,7 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
         }
         ordersJPQLQuery.where(orders.member.eq(member));
         ordersJPQLQuery.where(orders.paymentSuccess.eq(1));
+
         ordersJPQLQuery.groupBy(orders);
 
         getQuerydsl().applyPagination(pageable, ordersJPQLQuery); //paging
@@ -95,19 +96,20 @@ public class OrdersSearchImpl extends QuerydslRepositorySupport implements Order
                     .map(detail -> OrdersDetailDTO.builder()
                             .od_no(detail.getOd_no())
                             .orders(detail.getOrders().getOno())
-                            .itemDTO(ItemDTO.builder()
+                            .itemListAllDTO(ItemListAllDTO.builder()
                                     .ino(detail.getItem().getIno())
                                     .i_name(detail.getItem().getI_name())
                                     .i_price(detail.getItem().getI_price())
-                                    .i_title_img(detail.getItem().getI_title_img())
-                                    .i_info_img(detail.getItem().getI_info_img())
-                                    .i_color(detail.getItem().getI_color())
-                                    .i_size(detail.getItem().getI_size())
+                                    .i_color(detail.getItem().getI_title_img())
+                                    .i_size(detail.getItem().getI_info_img())
                                     .i_stock(detail.getItem().getI_stock())
-                                    .fileNames(detail.getItem().getItemImageSet().stream()
-                                            .map(ItemImage::getFileName) // ItemImage의 fileName을 가져와서
+                                    .itemImages(detail.getItem().getItemImageSet().stream()
+                                            .map(itemImage -> ItemImageDTO.builder()
+                                                    .uuid(itemImage.getUuid())
+                                                    .fileName(itemImage.getFileName())
+                                                    .ord(itemImage.getOrd())
+                                                    .build()) // ItemImage의 fileName을 가져와서
                                             .collect(Collectors.toList())) // List로 저장
-                                    .itemSellStatus(detail.getItem().getItemSellStatus())
                                     .build())
                             .od_count(detail.getOd_count())
                             .od_size(detail.getOd_size())

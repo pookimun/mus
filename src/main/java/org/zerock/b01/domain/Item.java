@@ -21,7 +21,7 @@ import java.util.Set;
 public class Item extends BaseEntity{
 
     @Id
-    @Column(name = "item_id")
+//    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ino; //상품  (pk)
 
@@ -83,6 +83,7 @@ public class Item extends BaseEntity{
         this.i_price = i_price;
         this.i_color = i_color;
         this.i_size = i_size;
+
 
     }
 

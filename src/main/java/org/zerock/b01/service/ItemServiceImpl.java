@@ -151,4 +151,25 @@ public class ItemServiceImpl implements ItemService{
                 .build();
     }
 
+    @Override // 하나만 읽어오고 ItemListAllDTO로 가져온다.
+    public ItemListAllDTO selectItemListAllDTO(Long ino) {
+        log.info("받은 ino : " + ino);
+        Optional<Item> result = itemRepository.findByIdWithImages(ino);
+        Item item = result.orElseThrow();
+        ItemListAllDTO itemListAllDTO = ItemListAllDTO.builder()
+                .ino(item.getIno())
+                .i_name(item.getI_name())
+                .i_price(item.getI_price())
+                .i_color(item.getI_color())
+                .i_size(item.getI_size())
+                .i_stock(item.getI_stock())
+                .itemImages(item.getItemImageSet().stream().map(itemImage -> ItemImageDTO.builder()
+                        .uuid(itemImage.getUuid())
+                        .fileName(itemImage.getFileName())
+                        .ord(itemImage.getOrd())
+                        .build()).collect(Collectors.toList()))
+                .build();
+        return itemListAllDTO;
+    }
+
 }

@@ -147,17 +147,19 @@
             </thead>
             <tbody th:with="link = ${ordersPageRequestDTO.getLink()}">
             <!--주문번호를 클릭하여 조회 후에도 지정된 페이징 정보값을 넘기기 위함-->
-            <tr th:each="dto:${responseDTO.dtoList}"> <!--responseDTO의 dtoList를 반복(OrdersListDTO)-->
-                <th:block th:each="detailDTO:${dto.ordersDetailDTOList}">
+            <th:block th:each="dto:${responseDTO.dtoList}"> <!--responseDTO의 dtoList를 반복(OrdersListDTO)-->
+                <tr th:each="detailDTO:${dto.ordersDetailDTOList}">
                     <!--dto(OrdersListDTO의 ordersDetailDTOList를 반복-->
                     <td style="text-align: left;">
                         <div style="display: flex;">
-                            <a href="/app/goods/3607756/0" style="margin-right: 10px;">
-                                <img alt="PUSSYCAT KNIT HAT, BLACK"
-                                     src="//image.msscdn.net/images/goods_img/20231006/3607756/3607756_16965581044285_100.jpg">
+                            <a href="#" style="margin-right: 10px;">
+                                <th:block th:each="itemImage:${detailDTO.itemListAllDTO.itemImages}">
+                                    <img th:if="${itemImage.ord == 0}"
+                                         th:src="|/view/s_${itemImage.uuid + '_' + itemImage.fileName}|">
+                                </th:block>
                             </a>
                             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                <li><a href="/app/goods/3607756/0">[[${detailDTO.itemDTO.i_name}]]</a></li>
+                                <li><a href="#">[[${detailDTO.itemListAllDTO.i_name}]]</a></li>
                                 <li>색상 : [[${detailDTO.od_color}]]</li>
                                 <li>사이즈 : [[${detailDTO.od_size}]]</li>
                             </ul>
@@ -171,8 +173,8 @@
                     <td>
                         <div>[[${dto.o_state}]]</div>
                     </td>
-                </th:block>
-            </tr>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>

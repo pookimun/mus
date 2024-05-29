@@ -42,14 +42,14 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         parameters.add("cid", cid);
         parameters.add("partner_order_id", ordersListDTO.getO_ordersno()); // 가맹점 주문 번호
         parameters.add("partner_user_id", ordersListDTO.getMember()); // 가맹점 회원 ID
-        parameters.add("item_name", ordersListDTO.getOrdersDetailDTOList().get(0).getItemDTO().getI_name() + "..."); // 상품명
+        parameters.add("item_name", ordersListDTO.getOrdersDetailDTOList().get(0).getItemListAllDTO().getI_name() + "..."); // 상품명
         parameters.add("quantity", "2"); // 주문 수량
         parameters.add("total_amount", Integer.toString(ordersListDTO.getTotalPrice())); // 총 금액
         parameters.add("vat_amount", "0"); // 부과세
         parameters.add("tax_free_amount", "0"); // 상품 비과세 금액
         parameters.add("approval_url", "http://localhost/payment/success/" + ordersListDTO.getOno()); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost/payment/cancel/"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost/payment/fail/"); // 실패 시 redirect url
+        parameters.add("cancel_url", "http://localhost/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://localhost/payment/fail"); // 실패 시 redirect url
 
         log.info(parameters);
 
