@@ -80,10 +80,11 @@ public class CustomSecurityConfig {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() { // 접근 거부 핸들러 빈 생성
-        return new Custom403Handler(); // 커스텀 접근 거부 핸들러 반환
+        return new Custom403Handler(); // 커스텀 접근 거부 핸들러 반환kk
     }
 
     @Bean
+
     public AuthenticationSuccessHandler authenticationSuccessHandler() { // 인증 성공 핸들러 빈 생성
         return new CustomSocialLoginSuccessHandler(passwordEncoder()); // 커스텀 소셜 로그인 성공 핸들러 반환
     }
